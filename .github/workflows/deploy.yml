@@ -30,8 +30,8 @@ jobs:
       - name: Install dependencies
         working-directory: site
         run: |
-          rm -rf node_modules package-lock.json
-          npm install --legacy-peer-deps --ignore-optional
+          rm -rf node_modules yarn.lock
+          yarn install --ignore-optional
 
       - name: Copy content to site
         run: |
@@ -43,7 +43,7 @@ jobs:
 
       - name: Build Gatsby site
         working-directory: site
-        run: npm run build
+        run: yarn build
         env:
           GATSBY_SWARMIT_API: https://api.swarms.network
 
