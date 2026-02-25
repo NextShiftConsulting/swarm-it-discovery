@@ -1,0 +1,360 @@
+/* =======================================
+  🌐 Global Styles – Tailwind Base Import
+  ======================================= */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =======================================
+  🔧 Base Resets & Enhancements
+  ======================================= */
+@layer base {
+ html {
+  @apply scroll-smooth;
+ }
+
+ body {
+  @apply bg-white text-gray-900 antialiased transition-colors duration-300;
+  @apply dark:bg-gray-900 dark:text-gray-100;
+ }
+
+ /* Focus styles for accessibility */
+ *:focus {
+  @apply outline-none ring-2 ring-blue-500 ring-offset-2;
+  @apply dark:ring-blue-400 dark:ring-offset-gray-900;
+ }
+
+ /* Typography improvements */
+ h1, h2, h3, h4, h5, h6 {
+  @apply font-semibold leading-tight text-gray-900;
+  @apply dark:text-gray-100;
+ }
+
+ h1 { @apply text-3xl lg:text-4xl; }
+ h2 { @apply text-2xl lg:text-3xl; }
+ h3 { @apply text-xl lg:text-2xl; }
+ h4 { @apply text-lg lg:text-xl; }
+ h5 { @apply text-base lg:text-lg; }
+ h6 { @apply text-sm lg:text-base; }
+
+ p {
+  @apply leading-relaxed text-gray-700;
+  @apply dark:text-gray-300;
+ }
+
+ a {
+  @apply text-blue-600 underline hover:text-blue-800 transition-colors;
+  @apply dark:text-blue-400 dark:hover:text-blue-300;
+ }
+
+ img {
+  @apply max-w-full h-auto;
+ }
+
+ button {
+  @apply cursor-pointer transition duration-150 ease-in-out;
+  @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+  @apply dark:focus:ring-blue-400 dark:focus:ring-offset-gray-900;
+ }
+
+ /* Form elements */
+ input, textarea, select {
+  @apply border border-gray-300 rounded-md px-3 py-2 transition-colors;
+  @apply focus:border-blue-500 focus:ring-1 focus:ring-blue-500;
+  @apply dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100;
+  @apply dark:focus:border-blue-400 dark:focus:ring-blue-400;
+ }
+
+ /* Code blocks */
+ code {
+  @apply bg-gray-100 text-gray-800 px-1 py-0.5 rounded text-sm;
+  @apply dark:bg-gray-800 dark:text-gray-200;
+ }
+
+ pre {
+  @apply bg-gray-100 p-4 rounded-lg overflow-x-auto;
+  @apply dark:bg-gray-800;
+ }
+
+ pre code {
+  @apply bg-transparent p-0;
+ }
+
+ /* Selection styling */
+ ::selection {
+  @apply bg-blue-500 text-white;
+ }
+
+ ::-moz-selection {
+  @apply bg-blue-500 text-white;
+ }
+}
+
+/* =======================================
+  📝 Markdown / Content Formatting
+  ======================================= */
+@layer components {
+ /* Custom prose styling without @apply prose to avoid circular dependency */
+ .content-area {
+  @apply max-w-none text-gray-700 leading-relaxed;
+  @apply dark:text-gray-300;
+ }
+
+ .content-area h1,
+ .content-area h2,
+ .content-area h3,
+ .content-area h4,
+ .content-area h5,
+ .content-area h6 {
+  @apply text-gray-900 font-semibold leading-tight mb-4;
+  @apply dark:text-gray-100;
+ }
+
+ .content-area h1 { @apply text-3xl lg:text-4xl; }
+ .content-area h2 { @apply text-2xl lg:text-3xl; }
+ .content-area h3 { @apply text-xl lg:text-2xl; }
+
+ .content-area p {
+  @apply mb-4;
+ }
+
+ .content-area a {
+  @apply text-blue-600 underline hover:text-blue-800 transition-colors;
+  @apply dark:text-blue-400 dark:hover:text-blue-300;
+ }
+
+ .content-area strong {
+  @apply font-bold text-gray-900;
+  @apply dark:text-gray-100;
+ }
+
+ .content-area code {
+  @apply bg-gray-100 text-gray-800 px-1 py-0.5 rounded text-sm;
+  @apply dark:bg-gray-800 dark:text-gray-200;
+ }
+
+ .content-area pre {
+  @apply bg-gray-100 p-4 rounded-lg overflow-x-auto mb-4;
+  @apply dark:bg-gray-800;
+ }
+
+ .content-area blockquote {
+  @apply border-l-4 border-blue-500 pl-4 text-gray-700 italic;
+  @apply dark:border-blue-400 dark:text-gray-300;
+ }
+
+ .content-area ul,
+ .content-area ol {
+  @apply mb-4 ml-6;
+ }
+
+ .content-area li {
+  @apply mb-2;
+ }
+
+ /* =======================================
+   🧪 CMS Preview Pane Styling
+   ======================================= */
+ .cms-preview {
+  @apply p-4 border border-gray-300 rounded-lg bg-gray-50 shadow-sm;
+  @apply dark:border-gray-600 dark:bg-gray-800;
+ }
+
+ /* =======================================
+   🎨 Component Styles
+   ======================================= */
+   
+ /* Button variants */
+ .btn {
+  @apply px-4 py-2 rounded-md font-medium transition-all duration-200;
+  @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+ }
+
+ .btn-primary {
+  @apply bg-blue-600 text-white hover:bg-blue-700;
+  @apply focus:ring-blue-500;
+  @apply dark:bg-blue-500 dark:hover:bg-blue-600;
+ }
+
+ .btn-secondary {
+  @apply bg-gray-200 text-gray-900 hover:bg-gray-300;
+  @apply focus:ring-gray-500;
+  @apply dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600;
+ }
+
+ .btn-outline {
+  @apply border border-gray-300 bg-transparent hover:bg-gray-50;
+  @apply focus:ring-gray-500;
+  @apply dark:border-gray-600 dark:hover:bg-gray-800;
+ }
+
+ /* Card component */
+ .card {
+  @apply bg-white rounded-lg shadow-sm border border-gray-200 p-6;
+  @apply dark:bg-gray-800 dark:border-gray-700;
+ }
+
+ /* Alert/notification styles */
+ .alert {
+  @apply p-4 rounded-md border-l-4;
+ }
+
+ .alert-info {
+  @apply bg-blue-50 border-blue-400 text-blue-800;
+  @apply dark:bg-blue-900/20 dark:text-blue-300;
+ }
+
+ .alert-success {
+  @apply bg-green-50 border-green-400 text-green-800;
+  @apply dark:bg-green-900/20 dark:text-green-300;
+ }
+
+ .alert-warning {
+  @apply bg-yellow-50 border-yellow-400 text-yellow-800;
+  @apply dark:bg-yellow-900/20 dark:text-yellow-300;
+ }
+
+ .alert-error {
+  @apply bg-red-50 border-red-400 text-red-800;
+  @apply dark:bg-red-900/20 dark:text-red-300;
+ }
+
+ /* Loading states */
+ .loading {
+  @apply animate-pulse bg-gray-200;
+  @apply dark:bg-gray-700;
+ }
+
+ /* Skeleton loaders */
+ .skeleton {
+  @apply bg-gray-200 rounded animate-pulse;
+  @apply dark:bg-gray-700;
+ }
+
+ .skeleton-text {
+  @apply h-4 w-full mb-2 skeleton;
+ }
+
+ .skeleton-title {
+  @apply h-6 w-3/4 mb-4 skeleton;
+ }
+}
+
+/* =======================================
+  📦 Utility Classes
+  ======================================= */
+@layer utilities {
+ .container {
+  @apply mx-auto px-4 max-w-7xl;
+ }
+
+ /* Text utilities */
+ .text-balance {
+  text-wrap: balance;
+ }
+
+ /* Scrollbar styling */
+ .scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(156 163 175) transparent;
+ }
+
+ .scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+ }
+
+ .scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+ }
+
+ .scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: rgb(156 163 175);
+  border-radius: 3px;
+ }
+
+ .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(107 114 128);
+ }
+
+ /* Dark mode scrollbar */
+ .dark .scrollbar-thin {
+  scrollbar-color: rgb(75 85 99) transparent;
+ }
+
+ .dark .scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: rgb(75 85 99);
+ }
+
+ .dark .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(107 114 128);
+ }
+
+ /* Hide scrollbar while maintaining functionality */
+ .scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+ }
+
+ .scrollbar-hide::-webkit-scrollbar {
+  display: none;
+ }
+
+ /* Safe area for mobile */
+ .safe-top {
+  padding-top: env(safe-area-inset-top);
+ }
+
+ .safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+ }
+
+ /* Print styles */
+ @media print {
+  .no-print {
+   display: none !important;
+  }
+   
+  .print-only {
+   display: block !important;
+  }
+ }
+}
+
+/* =======================================
+  🔧 Accessibility Improvements
+  ======================================= */
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+ *, *::before, *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+ }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+ .card {
+  @apply border-2 border-gray-900;
+ }
+   
+ .dark .card {
+  @apply border-gray-100;
+ }
+}
+
+/* =======================================
+  🌙 Dark Mode Enhancements
+  ======================================= */
+
+/* Ensure smooth theme transitions */
+.theme-transition * {
+ transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Custom dark mode utilities */
+.dark-mode-image {
+ @apply dark:opacity-80 dark:brightness-90;
+}

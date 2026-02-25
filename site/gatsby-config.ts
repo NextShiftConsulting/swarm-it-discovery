@@ -8,6 +8,7 @@ const config: GatsbyConfig = {
     author: "Next Shift Consulting",
   },
   plugins: [
+    "gatsby-plugin-postcss",
     "gatsby-plugin-image",
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
@@ -21,14 +22,14 @@ const config: GatsbyConfig = {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "reviews",
-        path: `${__dirname}/../content/reviews`,
+        path: `${__dirname}/content/reviews`,
       },
     },
     {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "topics",
-        path: `${__dirname}/../content/topics`,
+        path: `${__dirname}/content/topics`,
       },
     },
   ],
