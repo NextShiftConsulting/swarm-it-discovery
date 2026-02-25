@@ -36,7 +36,7 @@ class PaperSource(ABC):
 class ArxivSource(PaperSource):
     """Fetch papers from arXiv API."""
 
-    BASE_URL = "http://export.arxiv.org/api/query"
+    BASE_URL = "https://export.arxiv.org/api/query"
 
     # Categories relevant to our research
     CATEGORIES = [
