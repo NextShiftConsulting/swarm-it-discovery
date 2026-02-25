@@ -70,6 +70,18 @@ class MDXGenerator:
         slug = slug.strip('-')
         return slug[:60]
 
+    def _sanitize_for_mdx(self, text: str) -> str:
+        """Remove LaTeX commands and escape special chars for MDX."""
+        # Remove LaTeX commands like \textit{...}, \textbf{...}, etc.
+        text = re.sub(r'\\text\w+\{([^}]*)\}', r'\1', text)
+        text = re.sub(r'\\[a-zA-Z]+\{([^}]*)\}', r'\1', text)
+        text = re.sub(r'\\[a-zA-Z]+', '', text)
+        # Remove remaining backslashes that could break MDX
+        text = text.replace('\\', '')
+        # Escape curly braces for JSX
+        text = text.replace('{', '\\{').replace('}', '\\}')
+        return text
+
     def _extract_tags(self, paper: PaperData) -> List[str]:
         """Extract tags from paper."""
         tags = set()
@@ -153,7 +165,7 @@ Further analysis pending manual review."""
             "similarityScore": round(paper.similarity_score, 3),
             "matchedTopics": paper.matched_topics,
             "tags": self._extract_tags(paper),
-            "excerpt": paper.abstract[:200].replace("\n", " ") + "...",
+            "excerpt": self._sanitize_for_mdx(paper.abstract[:200].replace("\n", " ")) + "...",
             # RSCT certification
             "rsct": {
                 "R": paper.rsct_R,
@@ -202,7 +214,7 @@ import {{ PaperAnalysis }} from '@components/PaperAnalysis'
 
 ## Abstract
 
-> {paper.abstract}
+> {self._sanitize_for_mdx(paper.abstract)}
 
 ---
 
