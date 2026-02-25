@@ -241,6 +241,167 @@ class OpenAlexSource(PaperSource):
         return papers
 
 
+class BioRxivSource(PaperSource):
+    """Fetch preprints from bioRxiv/medRxiv."""
+
+    BASE_URL = "https://api.biorxiv.org/details"
+
+    async def fetch_recent(self, days: int = 1, max_results: int = 100, server: str = "biorxiv") -> List[Paper]:
+        """Fetch recent preprints from bioRxiv or medRxiv."""
+        from_date = (datetime.utcnow() - timedelta(days=days)).strftime("%Y-%m-%d")
+        to_date = datetime.utcnow().strftime("%Y-%m-%d")
+
+        async with httpx.AsyncClient() as client:
+            response = await client.get(
+                f"{self.BASE_URL}/{server}/{from_date}/{to_date}/0/{max_results}",
+                timeout=30,
+            )
+
+            if response.status_code != 200:
+                print(f"{server} error: {response.status_code}")
+                return []
+
+        data = response.json()
+        papers = []
+
+        for item in data.get("collection", []):
+            # Filter for AI/ML/computational topics
+            category = item.get("category", "").lower()
+            title_lower = item.get("title", "").lower()
+
+            relevant_terms = ["machine learning", "neural", "deep learning", "ai",
+                            "computational", "algorithm", "model", "prediction"]
+            if not any(t in category or t in title_lower for t in relevant_terms):
+                continue
+
+            papers.append(Paper(
+                id=f"{server}:{item.get('doi', '').split('/')[-1]}",
+                title=item.get("title", ""),
+                abstract=item.get("abstract", ""),
+                authors=item.get("authors", "").split("; ")[:10],
+                source=server,
+                url=f"https://www.{server}.org/content/{item.get('doi')}",
+                pdf_url=f"https://www.{server}.org/content/{item.get('doi')}.full.pdf",
+                published_date=item.get("date", ""),
+                categories=[item.get("category", "")],
+            ))
+
+        return papers
+
+
+class MedRxivSource(BioRxivSource):
+    """Fetch preprints from medRxiv."""
+
+    async def fetch_recent(self, days: int = 1, max_results: int = 100) -> List[Paper]:
+        return await super().fetch_recent(days, max_results, server="medrxiv")
+
+
+class PubMedSource(PaperSource):
+    """Fetch papers from PubMed/NCBI."""
+
+    BASE_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
+
+    async def fetch_recent(self, days: int = 1, max_results: int = 100) -> List[Paper]:
+        """Fetch recent AI/ML papers from PubMed."""
+        # Search for AI/ML papers
+        query = "(machine learning[Title/Abstract] OR artificial intelligence[Title/Abstract] OR deep learning[Title/Abstract] OR neural network[Title/Abstract])"
+
+        async with httpx.AsyncClient() as client:
+            # Step 1: Search for IDs
+            search_response = await client.get(
+                f"{self.BASE_URL}/esearch.fcgi",
+                params={
+                    "db": "pubmed",
+                    "term": query,
+                    "retmax": max_results,
+                    "reldate": days,
+                    "datetype": "edat",
+                    "retmode": "json",
+                },
+                timeout=30,
+            )
+
+            if search_response.status_code != 200:
+                print(f"PubMed search error: {search_response.status_code}")
+                return []
+
+            search_data = search_response.json()
+            ids = search_data.get("esearchresult", {}).get("idlist", [])
+
+            if not ids:
+                return []
+
+            # Step 2: Fetch details
+            fetch_response = await client.get(
+                f"{self.BASE_URL}/efetch.fcgi",
+                params={
+                    "db": "pubmed",
+                    "id": ",".join(ids),
+                    "retmode": "xml",
+                },
+                timeout=30,
+            )
+
+            if fetch_response.status_code != 200:
+                print(f"PubMed fetch error: {fetch_response.status_code}")
+                return []
+
+        # Parse XML
+        import xml.etree.ElementTree as ET
+        root = ET.fromstring(fetch_response.text)
+        papers = []
+
+        for article in root.findall(".//PubmedArticle"):
+            try:
+                medline = article.find(".//MedlineCitation")
+                pmid = medline.find("PMID").text
+                art = medline.find("Article")
+
+                title = art.find("ArticleTitle").text or ""
+
+                abstract_elem = art.find(".//AbstractText")
+                abstract = abstract_elem.text if abstract_elem is not None else ""
+
+                if not abstract:
+                    continue
+
+                authors = []
+                for author in art.findall(".//Author"):
+                    last = author.find("LastName")
+                    first = author.find("ForeName")
+                    if last is not None:
+                        name = last.text
+                        if first is not None:
+                            name = f"{first.text} {name}"
+                        authors.append(name)
+
+                pub_date = ""
+                date_elem = art.find(".//PubDate")
+                if date_elem is not None:
+                    year = date_elem.find("Year")
+                    month = date_elem.find("Month")
+                    if year is not None:
+                        pub_date = year.text
+                        if month is not None:
+                            pub_date = f"{year.text}-{month.text}"
+
+                papers.append(Paper(
+                    id=f"pubmed:{pmid}",
+                    title=title,
+                    abstract=abstract,
+                    authors=authors[:10],
+                    source="pubmed",
+                    url=f"https://pubmed.ncbi.nlm.nih.gov/{pmid}/",
+                    pdf_url=None,  # PubMed doesn't provide direct PDF links
+                    published_date=pub_date,
+                    categories=["Life Sciences"],
+                ))
+            except Exception as e:
+                continue
+
+        return papers
+
+
 async def fetch_all_sources(days: int = 1, max_per_source: int = 50) -> List[Paper]:
     """Fetch papers from all configured sources."""
     import asyncio
@@ -249,6 +410,9 @@ async def fetch_all_sources(days: int = 1, max_per_source: int = 50) -> List[Pap
         ArxivSource(),
         SemanticScholarSource(),
         OpenAlexSource(),
+        BioRxivSource(),
+        MedRxivSource(),
+        PubMedSource(),
     ]
 
     results = await asyncio.gather(
