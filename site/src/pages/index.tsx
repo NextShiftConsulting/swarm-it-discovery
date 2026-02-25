@@ -31,8 +31,8 @@ const IndexPage: React.FC<PageProps<{ allMdx: { nodes: DiscoveryNode[] } }>> = (
 
       <section className="discoveries">
         <div className="section-header">
-          <h2>Latest Discoveries</h2>
-          <span className="discovery-count">{discoveries.length} papers</span>
+          <h2>Latest Reviews</h2>
+          <span className="discovery-count">{discoveries.length} papers reviewed</span>
         </div>
 
         {discoveries.length === 0 ? (

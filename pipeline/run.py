@@ -201,7 +201,7 @@ def main():
     parser.add_argument("--min-score", type=float, default=0.5, help="Min similarity score")
     parser.add_argument("--dry-run", action="store_true", help="Don't generate posts")
     parser.add_argument("--topics-dir", default="content/topics", help="Topics directory")
-    parser.add_argument("--output-dir", default="content/generated-posts", help="Output directory")
+    parser.add_argument("--output-dir", default="content/reviews", help="Output directory")
     args = parser.parse_args()
 
     swarmit_url = os.getenv("SWARMIT_URL", "https://api.swarms.network")

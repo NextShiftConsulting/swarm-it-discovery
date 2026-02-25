@@ -20,8 +20,8 @@ const config: GatsbyConfig = {
     {
       resolve: "gatsby-source-filesystem",
       options: {
-        name: "posts",
-        path: `${__dirname}/../content/generated-posts`,
+        name: "reviews",
+        path: `${__dirname}/../content/reviews`,
       },
     },
     {

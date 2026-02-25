@@ -43,9 +43,9 @@ class BlogPost:
 
 
 class MDXGenerator:
-    """Generate MDX blog posts from papers."""
+    """Generate MDX paper reviews from matched papers."""
 
-    def __init__(self, output_dir: str = "content/generated-posts"):
+    def __init__(self, output_dir: str = "content/reviews"):
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
 

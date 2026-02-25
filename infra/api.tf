@@ -138,22 +138,7 @@ resource "aws_lambda_permission" "api_gateway" {
   source_arn    = "${aws_apigatewayv2_api.swarmit.execution_arn}/*/*"
 }
 
-# Route53 record for api.swarms.network
-resource "aws_route53_record" "api" {
-  zone_id = var.swarms_network_zone_id
-  name    = var.api_domain
-  type    = "A"
-
-  alias {
-    name                   = aws_apigatewayv2_domain_name.api.domain_name_configuration[0].target_domain_name
-    zone_id                = aws_apigatewayv2_domain_name.api.domain_name_configuration[0].hosted_zone_id
-    evaluate_target_health = false
-  }
-}
-
-variable "swarms_network_zone_id" {
-  description = "Route53 hosted zone ID for swarms.network"
-}
+# DNS managed by Cloudflare - see cloudflare.tf
 
 # Outputs
 output "api_endpoint" {

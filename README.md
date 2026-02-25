@@ -27,7 +27,7 @@ swarmit-site/
 │
 ├── content/
 │   ├── topics/            # Your curated topic PDFs/embeddings
-│   └── generated-posts/   # Auto-generated MDX blog posts
+│   └── reviews/           # Auto-generated paper reviews (.mdx)
 │
 └── infra/                 # AWS deployment (Lambda, S3, CloudFront)
 ```

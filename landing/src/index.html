@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swarms Network - Multi-Agent AI Certification</title>
+  <meta name="description" content="RSCT certification for multi-agent AI systems. Ensure safety, detect hallucinations, prevent prompt injection.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="/" class="logo">
+        <span class="logo-icon">&#x2B21;</span>
+        <span>swarms<span class="accent">.network</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#api">API</a>
+        <a href="https://swarmit.nextshiftconsulting.com">Research</a>
+        <a href="https://github.com/nextshift/swarm-it" class="btn-outline">GitHub</a>
+        <a href="https://api.swarms.network/docs" class="btn-primary">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-content">
+      <div class="badge">Patent Pending Technology</div>
+      <h1>Certify Your<br><span class="gradient-text">Multi-Agent AI</span></h1>
+      <p class="hero-subtitle">
+        RSCT (Representation-Solver Compatibility Testing) provides real-time certification
+        for LLM outputs, multi-agent communications, and AI system safety.
+      </p>
+      <div class="hero-cta">
+        <a href="https://api.swarms.network/docs" class="btn-primary btn-lg">View API Docs</a>
+        <a href="#demo" class="btn-outline btn-lg">See Demo</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-value">&lt;10ms</span>
+          <span class="stat-label">Latency</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">99.9%</span>
+          <span class="stat-label">Uptime</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">5-Stage</span>
+          <span class="stat-label">Gate System</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="code-block">
+        <div class="code-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="code-title">certify.py</span>
+        </div>
+        <pre><code><span class="kw">from</span> swarm_it <span class="kw">import</span> SwarmIt
+
+client = SwarmIt(<span class="str">"https://api.swarms.network"</span>)
+
+<span class="comment"># Certify before executing</span>
+cert = client.certify(user_prompt)
+
+<span class="kw">if</span> cert.allowed:
+    response = llm.generate(user_prompt)
+<span class="kw">else</span>:
+    <span class="comment"># Blocked: injection/jailbreak detected</span>
+    log.warning(f<span class="str">"Blocked: {cert.reason}"</span>)</code></pre>
+      </div>
+    </div>
+  </header>
+
+  <section id="features" class="features">
+    <div class="section-header">
+      <h2>Why Swarm Certification?</h2>
+      <p>Protect your AI systems with mathematically-grounded quality gates</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">&#x1F6E1;</div>
+        <h3>Prompt Injection Defense</h3>
+        <p>Detect and block adversarial inputs before they reach your model. Semantic analysis catches paraphrased attacks.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#x1F9E0;</div>
+        <h3>Hallucination Detection</h3>
+        <p>Identify outputs lacking factual grounding. RSCT measures representation-solver compatibility in real-time.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#x1F517;</div>
+        <h3>Multi-Agent Safety</h3>
+        <p>Certify every agent-to-agent message. Swarm-level kappa metrics ensure pipeline integrity.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#x1F4CA;</div>
+        <h3>Quality Gates</h3>
+        <p>5-stage certification: Relevance, Stability, Novelty, Kappa-gate, and final Execute/Block decision.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#x26A1;</div>
+        <h3>Sub-10ms Latency</h3>
+        <p>Lightweight sidecar architecture adds minimal overhead. Deploy alongside your existing infrastructure.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#x1F512;</div>
+        <h3>Audit Trail</h3>
+        <p>Every certification logged with full context. SR 11-7 compliant reporting for regulated industries.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="api" class="api-section">
+    <div class="section-header">
+      <h2>Simple API</h2>
+      <p>One endpoint. Instant certification.</p>
+    </div>
+    <div class="api-demo">
+      <div class="api-request">
+        <h4>Request</h4>
+        <pre><code>POST https://api.swarms.network/api/v1/certify
+Content-Type: application/json
+
+{
+  "content": "Analyze Q4 earnings for tech sector",
+  "policy": "default"
+}</code></pre>
+      </div>
+      <div class="api-response">
+        <h4>Response</h4>
+        <pre><code>{
+  "id": "cert_8x7k2m",
+  "decision": "EXECUTE",
+  "allowed": true,
+  "R": 0.72,
+  "S": 0.15,
+  "N": 0.13,
+  "kappa_gate": 0.81,
+  "gate_reached": 5,
+  "reason": "All gates passed"
+}</code></pre>
+      </div>
+    </div>
+    <div class="api-cta">
+      <a href="https://api.swarms.network/docs" class="btn-primary">Full API Documentation</a>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>Ready to secure your AI?</h2>
+      <p>Start certifying in minutes. No infrastructure changes required.</p>
+      <div class="cta-buttons">
+        <a href="https://api.swarms.network/docs" class="btn-primary btn-lg">Get API Key</a>
+        <a href="mailto:hello@nextshiftconsulting.com" class="btn-outline btn-lg">Contact Sales</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <a href="/" class="logo">
+          <span class="logo-icon">&#x2B21;</span>
+          <span>swarms<span class="accent">.network</span></span>
+        </a>
+        <p>Multi-Agent AI Certification</p>
+        <p class="patent">Patent Pending</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Product</h4>
+          <a href="https://api.swarms.network/docs">API Docs</a>
+          <a href="#features">Features</a>
+          <a href="https://swarmit.nextshiftconsulting.com">Research Discovery</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="https://nextshiftconsulting.com">Next Shift Consulting</a>
+          <a href="https://nextshiftconsulting.com/about">About</a>
+          <a href="https://nextshiftconsulting.com/contact">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="https://github.com/nextshift/swarm-it">GitHub</a>
+          <a href="https://nextshiftconsulting.com/blog">Blog</a>
+          <a href="/patent-notice">Patent Notice</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 Next Shift Consulting. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
