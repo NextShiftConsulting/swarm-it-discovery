@@ -31,6 +31,12 @@ class PaperData:
     similarity_score: float
     matched_topics: List[str]
     categories: List[str] = None
+    # RSCT certification metrics
+    rsct_R: float = None  # Relevance
+    rsct_S: float = None  # Spurious/Support
+    rsct_N: float = None  # Noise
+    rsct_kappa: float = None  # Compatibility score
+    rsct_decision: str = None  # EXECUTE, REPAIR, BLOCK
 
 
 @dataclass
@@ -148,6 +154,14 @@ Further analysis pending manual review."""
             "matchedTopics": paper.matched_topics,
             "tags": self._extract_tags(paper),
             "excerpt": paper.abstract[:200].replace("\n", " ") + "...",
+            # RSCT certification
+            "rsct": {
+                "R": paper.rsct_R,
+                "S": paper.rsct_S,
+                "N": paper.rsct_N,
+                "kappa": paper.rsct_kappa,
+                "decision": paper.rsct_decision,
+            } if paper.rsct_kappa else None,
         }
 
         # Build MDX content

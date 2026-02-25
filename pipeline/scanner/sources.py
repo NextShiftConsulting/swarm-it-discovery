@@ -167,6 +167,80 @@ class SemanticScholarSource(PaperSource):
         return papers
 
 
+class OpenAlexSource(PaperSource):
+    """Fetch papers from OpenAlex API (free, comprehensive)."""
+
+    BASE_URL = "https://api.openalex.org"
+
+    # Concept IDs for AI/ML topics
+    CONCEPTS = [
+        "C154945302",  # Machine Learning
+        "C119857082",  # Artificial Intelligence
+        "C108583219",  # Deep Learning
+        "C50644808",   # Neural Network
+    ]
+
+    async def fetch_recent(self, days: int = 1, max_results: int = 100) -> List[Paper]:
+        """Fetch recent AI/ML papers from OpenAlex."""
+        from_date = (datetime.utcnow() - timedelta(days=days)).strftime("%Y-%m-%d")
+
+        params = {
+            "filter": f"concepts.id:{'|'.join(self.CONCEPTS)},from_publication_date:{from_date}",
+            "sort": "publication_date:desc",
+            "per_page": min(max_results, 200),
+            "select": "id,title,abstract_inverted_index,authorships,primary_location,publication_date,concepts",
+        }
+
+        # Add polite email for better rate limits
+        email = os.getenv("OPENALEX_EMAIL", "research@swarms.network")
+
+        async with httpx.AsyncClient() as client:
+            response = await client.get(
+                f"{self.BASE_URL}/works",
+                params=params,
+                headers={"User-Agent": f"SwarmIt/1.0 (mailto:{email})"},
+                timeout=30,
+            )
+
+            if response.status_code != 200:
+                print(f"OpenAlex error: {response.status_code}")
+                return []
+
+        data = response.json()
+        papers = []
+
+        for item in data.get("results", []):
+            # Reconstruct abstract from inverted index
+            abstract = ""
+            if item.get("abstract_inverted_index"):
+                words = {}
+                for word, positions in item["abstract_inverted_index"].items():
+                    for pos in positions:
+                        words[pos] = word
+                abstract = " ".join(words[i] for i in sorted(words.keys()))
+
+            if not abstract:
+                continue
+
+            # Get primary URL/PDF
+            location = item.get("primary_location") or {}
+            source_info = location.get("source") or {}
+
+            papers.append(Paper(
+                id=f"openalex:{item['id'].split('/')[-1]}",
+                title=item.get("title", ""),
+                abstract=abstract,
+                authors=[a.get("author", {}).get("display_name", "") for a in item.get("authorships", [])[:10]],
+                source="openalex",
+                url=item.get("id", ""),
+                pdf_url=location.get("pdf_url"),
+                published_date=item.get("publication_date", ""),
+                categories=[c.get("display_name", "") for c in item.get("concepts", [])[:5]],
+            ))
+
+        return papers
+
+
 async def fetch_all_sources(days: int = 1, max_per_source: int = 50) -> List[Paper]:
     """Fetch papers from all configured sources."""
     import asyncio
@@ -174,6 +248,7 @@ async def fetch_all_sources(days: int = 1, max_per_source: int = 50) -> List[Pap
     sources = [
         ArxivSource(),
         SemanticScholarSource(),
+        OpenAlexSource(),
     ]
 
     results = await asyncio.gather(
