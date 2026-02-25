@@ -31,7 +31,7 @@ jobs:
         working-directory: site
         run: |
           rm -rf node_modules package-lock.json
-          npm install --legacy-peer-deps --force
+          npm install --legacy-peer-deps --ignore-optional
 
       - name: Copy content to site
         run: |
