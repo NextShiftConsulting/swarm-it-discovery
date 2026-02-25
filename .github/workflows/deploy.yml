@@ -30,7 +30,9 @@ jobs:
 
       - name: Install dependencies
         working-directory: site
-        run: npm ci --legacy-peer-deps --omit=optional || npm install --legacy-peer-deps
+        run: |
+          rm -f package-lock.json
+          npm install --legacy-peer-deps
 
       - name: Build Gatsby site
         working-directory: site
