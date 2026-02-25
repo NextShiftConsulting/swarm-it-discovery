@@ -191,15 +191,9 @@ tags: {frontmatter['tags']}
 excerpt: "{frontmatter['excerpt'].replace('"', '\\"')}"
 ---
 
-import {{ PaperAnalysis }} from '@components/PaperAnalysis'
-
 # {paper.title}
 
-<PaperAnalysis
-  score={{{paper.similarity_score}}}
-  topics={{{paper.matched_topics}}}
-  source="{paper.source}"
-/>
+**Relevance Score:** {paper.similarity_score:.0%} | **Source:** {paper.source} | **Topics:** {', '.join(paper.matched_topics)}
 
 ## Overview
 
