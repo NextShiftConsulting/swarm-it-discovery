@@ -1,0 +1,34 @@
+{
+  "topics": [
+    {
+      "id": "rsct-core",
+      "title": "RSCT Core Theory",
+      "content": "Representation Solver Compatibility Testing RSCT kappa metric neural network decomposition simplex certification verification R S N relevance spurious noise hallucination alignment safety constraint satisfaction multi-agent swarm collective intelligence",
+      "keywords": ["representation", "solver", "compatibility", "kappa", "certification", "verification", "decomposition", "simplex"]
+    },
+    {
+      "id": "ai-safety",
+      "title": "AI Safety and Alignment",
+      "content": "AI safety alignment hallucination detection constraint satisfaction safety verification multi-agent certification trust reliability robustness adversarial attack defense guardrails red teaming evaluation benchmark",
+      "keywords": ["safety", "alignment", "hallucination", "constraint", "verification", "trust", "robustness", "adversarial"]
+    },
+    {
+      "id": "representation-learning",
+      "title": "Representation Learning",
+      "content": "representation learning neural network embeddings feature extraction latent space disentanglement encoder decoder autoencoder variational transformer attention mechanism self-supervised contrastive learning",
+      "keywords": ["representation", "embedding", "latent", "encoder", "transformer", "attention", "contrastive", "self-supervised"]
+    },
+    {
+      "id": "multi-agent",
+      "title": "Multi-Agent Systems",
+      "content": "multi-agent systems swarm intelligence collective behavior coordination cooperation competition game theory mechanism design distributed systems consensus decentralized autonomous agents reinforcement learning",
+      "keywords": ["multi-agent", "swarm", "coordination", "cooperation", "distributed", "consensus", "decentralized", "autonomous"]
+    },
+    {
+      "id": "llm-agents",
+      "title": "LLM Agents and Reasoning",
+      "content": "large language model LLM agent reasoning chain of thought planning tool use function calling retrieval augmented generation RAG prompt engineering instruction following few-shot in-context learning",
+      "keywords": ["llm", "agent", "reasoning", "planning", "tool", "retrieval", "prompt", "instruction"]
+    }
+  ]
+}
