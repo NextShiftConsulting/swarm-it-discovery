@@ -1,17 +1,5 @@
 # Cloudflare DNS Configuration for swarms.network
-
-terraform {
-  required_providers {
-    cloudflare = {
-      source  = "cloudflare/cloudflare"
-      version = "~> 4.0"
-    }
-  }
-}
-
-provider "cloudflare" {
-  api_token = var.cloudflare_api_token
-}
+# Note: Provider configured in main.tf
 
 variable "cloudflare_api_token" {
   description = "Cloudflare API token"
