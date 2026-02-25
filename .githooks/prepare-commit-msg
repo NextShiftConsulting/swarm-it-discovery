@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Strip Claude Code attribution from commit messages
+# INSTALLATION: git config core.hooksPath .githooks
+
+MSG_FILE="$1"
+
+# Remove common Claude attribution lines
+sed -i '' \
+  -e '/🤖/d' \
+  -e '/Generated with.*[Cc]laude/d' \
+  -e '/[Cc]laude.*[Cc]ode/d' \
+  -e '/Co-[Aa]uthored-[Bb]y:.*[Cc]laude/d' \
+  -e '/Co-[Aa]uthored-[Bb]y:.*anthropic/d' \
+  -e '/noreply@anthropic/d' \
+  "$MSG_FILE"

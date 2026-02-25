@@ -15,48 +15,104 @@ dist/
 build/
 *.egg-info/
 
-# Credentials & Secrets - NEVER COMMIT
+# =============================================================================
+# CREDENTIALS & SECRETS - NEVER COMMIT
+# =============================================================================
+
+# Keys directory (P17: Credential Gateway)
+/keys/
+site/keys/
+pipeline/keys/
+**/keys/*.yaml
+**/keys/*.json
+**/keys/*.pem
+
+# Environment files
 .env
 .env.*
 .env.local
 .env.*.local
+.env.production
+.env.development
+
+# Credential files
 *.pem
 *.key
+*.p12
+*.pfx
 *.cert
+id_rsa*
+id_dsa*
+id_ecdsa*
+id_ed25519*
 credentials.json
 secrets.json
+secrets.yaml
+secrets.yml
 *_credentials*
 *_secret*
 serviceAccountKey.json
+service-account*.json
+*-credentials.json
+.htpasswd
+.netrc
+.npmrc
+.pypirc
+*.keystore
+
+# Cloud provider credentials
 .aws/
 .gcp/
+aws_config.yaml
 
 # API Keys
 openai_key.txt
 api_keys.txt
 
-# Terraform
+# =============================================================================
+# TERRAFORM
+# =============================================================================
 .terraform/
 *.tfstate
 *.tfstate.*
 terraform.tfvars
 *.auto.tfvars
 
-# IDE
+# =============================================================================
+# IDE & EDITOR
+# =============================================================================
 .idea/
 .vscode/
 *.swp
 *.swo
+*~
 .DS_Store
 
-# Logs
+# =============================================================================
+# LOGS & CACHE
+# =============================================================================
 *.log
 logs/
+.ruff_cache/
+.mypy_cache/
 
-# Test
+# =============================================================================
+# TEST & COVERAGE
+# =============================================================================
 coverage/
 .nyc_output/
 .pytest_cache/
+htmlcov/
+.coverage
+.coverage.*
 
+# =============================================================================
 # OS
+# =============================================================================
 Thumbs.db
+.DS_Store
+
+# =============================================================================
+# CLAUDE CODE (local settings only)
+# =============================================================================
+.claude/
