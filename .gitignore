@@ -27,6 +27,11 @@ pipeline/keys/
 **/keys/*.json
 **/keys/*.pem
 
+# But allow these from keys/ (no secrets)
+!/keys/README.md
+!/keys/config_manager.py
+!/keys/*.template
+
 # Environment files
 .env
 .env.*

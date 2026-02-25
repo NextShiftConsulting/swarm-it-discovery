@@ -1,0 +1,24 @@
+# AWS Configuration Template
+# Copy to aws_config.yaml and fill in your values
+# DO NOT COMMIT aws_config.yaml!
+
+aws:
+  access_key_id: ""  # Leave empty to use ~/.aws/credentials
+  secret_access_key: ""  # Leave empty to use ~/.aws/credentials
+  region: "us-east-1"
+  profile: "default"
+
+# S3 Configuration
+s3:
+  site_bucket: "swarmit-nextshift-site"
+
+# CloudFront
+cloudfront:
+  distribution_id: ""  # Fill after terraform apply
+
+# OpenAI (for pipeline)
+openai:
+  api_key: ""  # Or set OPENAI_API_KEY env var
+
+# Environment
+environment: "prod"
