@@ -60,8 +60,8 @@ Create `.env` (never commit this):
 # Required for LLM-powered analysis
 OPENAI_API_KEY=sk-...
 
-# Optional: Swarm-It certification
-SWARMIT_URL=http://localhost:8080
+# Swarm-It API (defaults to production)
+SWARMIT_URL=https://api.swarms.network
 
 # Optional: More paper sources
 SEMANTIC_SCHOLAR_API_KEY=...

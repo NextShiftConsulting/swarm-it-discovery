@@ -204,7 +204,7 @@ def main():
     parser.add_argument("--output-dir", default="content/generated-posts", help="Output directory")
     args = parser.parse_args()
 
-    swarmit_url = os.getenv("SWARMIT_URL", "http://localhost:8080")
+    swarmit_url = os.getenv("SWARMIT_URL", "https://api.swarms.network")
 
     pipeline = CertifiedPipeline(
         swarmit_url=swarmit_url,

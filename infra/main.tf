@@ -23,6 +23,11 @@ variable "domain_name" {
   default = "swarmit.nextshiftconsulting.com"
 }
 
+variable "api_domain" {
+  default = "api.swarms.network"
+  description = "Domain for Swarm-It API/certification endpoints"
+}
+
 variable "environment" {
   default = "production"
 }
@@ -144,8 +149,8 @@ resource "aws_lambda_function" "pipeline" {
 }
 
 variable "swarmit_url" {
-  description = "URL of Swarm-It sidecar"
-  default     = "http://swarmit-sidecar:8080"
+  description = "URL of Swarm-It API"
+  default     = "https://api.swarms.network"
 }
 
 resource "aws_iam_role" "lambda_role" {
