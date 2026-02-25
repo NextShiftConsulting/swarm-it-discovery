@@ -1,0 +1,62 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+
+# Build
+.cache/
+public/
+dist/
+build/
+*.egg-info/
+
+# Credentials & Secrets - NEVER COMMIT
+.env
+.env.*
+.env.local
+.env.*.local
+*.pem
+*.key
+*.cert
+credentials.json
+secrets.json
+*_credentials*
+*_secret*
+serviceAccountKey.json
+.aws/
+.gcp/
+
+# API Keys
+openai_key.txt
+api_keys.txt
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+terraform.tfvars
+*.auto.tfvars
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Test
+coverage/
+.nyc_output/
+.pytest_cache/
+
+# OS
+Thumbs.db

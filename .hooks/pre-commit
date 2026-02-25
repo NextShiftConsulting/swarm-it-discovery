@@ -1,0 +1,41 @@
+#!/bin/bash
+# Pre-commit hook: Security checks
+
+set -e
+
+echo "Running security checks..."
+
+# Check for credentials/secrets in staged files
+SECRETS_PATTERN='(api[_-]?key|secret|password|credential|token|auth)["\s]*[:=]["\s]*["\047][^"\047]{8,}'
+
+if git diff --cached --name-only | xargs grep -l -i -E "$SECRETS_PATTERN" 2>/dev/null; then
+    echo "ERROR: Potential secrets detected in staged files!"
+    echo "Please remove credentials before committing."
+    exit 1
+fi
+
+# Check for AWS keys
+if git diff --cached | grep -E 'AKIA[0-9A-Z]{16}' 2>/dev/null; then
+    echo "ERROR: AWS Access Key detected!"
+    exit 1
+fi
+
+# Check for private keys
+if git diff --cached | grep -E '-----BEGIN (RSA |DSA |EC |OPENSSH )?PRIVATE KEY-----' 2>/dev/null; then
+    echo "ERROR: Private key detected!"
+    exit 1
+fi
+
+# Check for .env files
+if git diff --cached --name-only | grep -E '^\.env' 2>/dev/null; then
+    echo "ERROR: .env file staged for commit!"
+    exit 1
+fi
+
+# Check for OpenAI keys
+if git diff --cached | grep -E 'sk-[a-zA-Z0-9]{48}' 2>/dev/null; then
+    echo "ERROR: OpenAI API key detected!"
+    exit 1
+fi
+
+echo "Security checks passed."
