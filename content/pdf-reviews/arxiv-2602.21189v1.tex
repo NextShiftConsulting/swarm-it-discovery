@@ -1,0 +1,66 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+
+\title{RSCT Review: Why Pass@k Optimization Can Degrade Pass@1: Prompt Interference in LLM Post-training}
+\author{Swarm-It Research Discovery\\\small Automated RSCT-Based Analysis}
+\date{February 25, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This document provides an automated review of the paper ``Why Pass@k Optimization Can Degrade Pass@1: Prompt Interference in LLM Post-training'' from an RSCT (Representation-Solver Compatibility Testing) perspective. The paper achieved an RSCT relevance score of 35.6% and topic similarity of 45.8%.
+\end{abstract}
+
+\section{Paper Information}
+\begin{itemize}
+\item \textbf{Title:} Why Pass@k Optimization Can Degrade Pass@1: Prompt Interference in LLM Post-training
+\item \textbf{Authors:} Anas Barakat, Souradip Chakraborty, Khushbu Pahwa, Amrit Singh Bedi
+\item \textbf{Source:} \url{https://arxiv.org/abs/2602.21189v1}
+\item \textbf{RSCT Relevance:} 35.6%
+\item \textbf{Topic Match:} 45.8%
+\item \textbf{Key Concepts:} constraint
+\end{itemize}
+
+\section{Original Abstract}
+Pass@k is a widely used performance metric for verifiable large language model tasks, including mathematical reasoning, code generation, and short-answer reasoning. It defines success if any of \$k\$ independently sampled solutions passes a verifier. This multi-sample inference metric has motivated inference-aware fine-tuning methods that directly optimize pass@\$k\$. However, prior work reports a recurring trade-off: pass@k improves while pass@1 degrades under such methods. This trade-off is practically important because pass@1 often remains a hard operational constraint due to latency and cost budgets, imperfect verifier coverage, and the need for a reliable single-shot fallback. We study the origin of this trade-off and provide a theoretical characterization of when pass@k policy optimization can reduce pass@1 through gradient conflict induced by prompt interference. We show that pass@\$k\$ policy gradients can conflict with pass@1 gradients because pass@\$k\$ optimization implicitly reweights prompts toward low-success prompts; when these prompts are what we term negatively interfering, their upweighting can rotate the pass@k update direction away from the pass@1 direction. We illustrate our theoretical findings with large language model experiments on verifiable mathematical reasoning tasks.
+
+\section{RSCT Analysis}
+**Summary**  
+The paper "Why Pass@k Optimization Can Degrade Pass@1: Prompt Interference in LLM Post-training" delves into the complex dynamics of optimization metrics in large language models (LLMs). The authors investigate the phenomenon where optimizing for Pass@k—defined as the process in which any of $k$ independently sampled solutions successfully pass a verifier—can lead to a degradation in Pass@1 performance, an important operational constraint. This trade-off is scrutinized, revealing that optimizing for Pass@k can inadvertently skew representations towards low-success prompts, and thus introduce gradient conflicts that negatively impact Pass@1 performance. Through theoretical analysis and empirical experimentation, particularly on mathematical reasoning tasks, the paper provides significant insights into the mechanism of prompt interference and its implications for representation quality in LLMs.
+
+**RSCT Analysis**  
+From a Representation-Solver Compatibility Testing (RSCT) perspective, this paper highlights critical aspects of representation quality (R), spurious correlations (S), and noise (N). The representation quality is directly addressed in this work through the examination of how Pass@k optimization can unearth the complexities of representation interplay. By revealing that the optimization process leads to the reinforcement of negatively interfering prompts, the authors note that a representation that might initially seem robust can be adversely affected by training dynamics. In terms of spurious correlations, the theoretical discussion surrounding gradient conflicts provides a fertile ground for exploring how certain prompts, while low-success, can still impact overall model performance. Furthermore, the implications of noise and uncertainty are prevalent, as errors in prompt selection can exacerbate the inherent variability in evaluating Pass@1 outcomes, particularly in real-world applications where actioning a single solution might carry higher stakes.
+
+**Technical Depth**  
+The methodological contributions presented in this paper are significant, offering both theoretical and empirical advancements. The authors advance a theoretical framework that elucidates the conditions under which Pass@k policy optimization leads to performance degradation in Pass@1, spotlighting gradient conflicts instigated by prompt interference. This framework is reinforced through empirical data from LLM experiments that underscore the theoretical claims. Moreover, the study introduces a nuanced understanding of how fine-tuning strategies must balance different performance metrics without succumbing to the pitfalls of prompt interference, which can dilute the effectiveness of the model on core tasks. This quantitative exploration presents implications for developing tuning strategies that consider not only performance on multiple metrics but also the broader ecosystem of prompt interactions.
+
+**Research Implications**  
+The findings from this study carry significant implications for AI safety and multi-agent certification within the RSCT paradigm. Understanding the interaction between representation quality, performance metrics, and model optimization opens avenues for developing robust, certified AI systems that can operate safely under constraints. This has direct relevance to the design of safety mechanisms that prevent interference from negatively reinforcing prompts, thereby maintaining fidelity to operational requirements such as Pass@1. Additionally, this work could inform future RSCT-based approaches that advocate for integrating stability checks during the optimization phases of LLMs, thus mitigating risks associated with spurious correlations and ensuring more reliable model representations in safety-critical applications. As the field progresses, there remains an essential opportunity to further investigate these interdependencies, leading to more robust model deployments that align with ethical and operational frameworks.
+
+
+\subsection*{RSCT Certification Metrics}
+\begin{tabular}{ll}
+\textbf{Relevance (R):} & 0.375 \\
+\textbf{Spurious (S):} & 0.318 \\
+\textbf{Noise (N):} & 0.308 \\
+\textbf{Kappa ($\kappa$):} & 0.549 \\
+\end{tabular}
+
+The kappa score of 0.549 indicates moderate representation-solver compatibility.
+
+
+\section{Relevance to Swarm-It}
+This paper was identified by the Swarm-It research discovery pipeline as potentially relevant to RSCT-based AI certification. The combined score of 39.7% places it in the moderate relevance category for further investigation.
+
+\vspace{1em}
+\hrule
+\vspace{0.5em}
+\small{Generated by Swarm-It Research Discovery | \url{https://swarms.network} | RSCT Certified}
+
+\end{document}

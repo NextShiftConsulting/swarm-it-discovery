@@ -1,0 +1,49 @@
+---
+title: "Why Pass@k Optimization Can Degrade Pass@1: Prompt Interference in LLM Post-training"
+date: "2026-02-25"
+source: "arxiv"
+arxivId: "2602.21189v1"
+paperUrl: "https://arxiv.org/abs/2602.21189v1"
+pdfUrl: "https://arxiv.org/pdf/2602.21189v1.pdf"
+authors: ['Anas Barakat', 'Souradip Chakraborty', 'Khushbu Pahwa', 'Amrit Singh Bedi']
+similarityScore: 0.397
+matchedTopics: ['LLM Agents and Reasoning', 'RSCT Core Theory', 'Representation Learning']
+tags: ['llm', 'cs-lg', 'rsct-core-theory', 'llm-agents-and-reasoning']
+excerpt: "Pass@k is a widely used performance metric for verifiable large language model tasks, including mathematical reasoning, code generation, and short-answer reasoning. It defines success if any of $k$ in..."
+---
+
+import { PaperAnalysis } from '@components/PaperAnalysis'
+
+# Why Pass@k Optimization Can Degrade Pass@1: Prompt Interference in LLM Post-training
+
+<PaperAnalysis
+  score={0.39684222082413423}
+  topics={['LLM Agents and Reasoning', 'RSCT Core Theory', 'Representation Learning']}
+  source="arxiv"
+/>
+
+## Overview
+
+### Understanding the Significance of "Why Pass@k Optimization Can Degrade Pass@1: Prompt Interference in LLM Post-training"
+
+Recent advancements in large language models (LLMs) have opened new avenues for their application in critical tasks such as mathematical reasoning and code generation. The research paper titled "Why Pass@k Optimization Can Degrade Pass@1: Prompt Interference in LLM Post-training" delves into a crucial dilemma that arises when attempting to optimize model performance using different metrics. Specifically, it addresses the common practice of optimizing Pass@k, which allows for multiple attempts at success, at the potential cost of Pass@1, a more stringent measure that only counts a successful single attempt. This paper's findings are vital as they uncover the underlying issues that may hinder real-world model deployment where Pass@1 metrics often serve as operational constraints. Degrading performance under Pass@1 could adversely impact user experiences, especially in interactive and real-time applications where reliability is paramount.
+
+The paper's key technical contributions include a rigorous theoretical analysis of the trade-off between Pass@k and Pass@1 optimizations, focusing on what the authors term "prompt interference." They argue that optimizing for Pass@k can lead to gradient conflicts, where the adjustments made to improve the more lenient Pass@k metric inadvertently detract from the performance associated with the stricter Pass@1 metric. This is largely due to the tendency of Pass@k optimization to emphasize low-success prompts, which can push the model away from directions that would enhance Pass@1 performance. By providing a mathematical characterization of this behavior, along with empirical validation through experiments, the authors shed light on a nuanced yet critical aspect of fine-tuning in LLMs.
+
+The implications of this work extend into discussions around AI safety and the reliability of AI systems in multi-agent contexts. When deploying LLMs in environments that rely on multi-agent interactions, ensuring a baseline level of reliability (as measured by Pass@1) becomes crucial for maintaining trust and efficacy in agent coordination. Additionally, understanding the trade-offs in representation learning is significant, as poorly managed optimization can lead to ineffective agent behaviors, raising safety concerns. Ultimately, this research emphasizes the importance of carefully considering performance metrics in model training, particularly when such models are intended for applications where precision and reliability cannot be compromised.
+
+## Paper Details
+
+- **Authors:** Anas Barakat, Souradip Chakraborty, Khushbu Pahwa, Amrit Singh Bedi
+- **Published:** 2026-02-24
+- **Source:** [arxiv](https://arxiv.org/abs/2602.21189v1)
+- **PDF:** [Download](https://arxiv.org/pdf/2602.21189v1.pdf)
+
+## Abstract
+
+> Pass@k is a widely used performance metric for verifiable large language model tasks, including mathematical reasoning, code generation, and short-answer reasoning. It defines success if any of $k$ independently sampled solutions passes a verifier. This multi-sample inference metric has motivated inference-aware fine-tuning methods that directly optimize pass@$k$. However, prior work reports a recurring trade-off: pass@k improves while pass@1 degrades under such methods. This trade-off is practically important because pass@1 often remains a hard operational constraint due to latency and cost budgets, imperfect verifier coverage, and the need for a reliable single-shot fallback. We study the origin of this trade-off and provide a theoretical characterization of when pass@k policy optimization can reduce pass@1 through gradient conflict induced by prompt interference. We show that pass@$k$ policy gradients can conflict with pass@1 gradients because pass@$k$ optimization implicitly reweights prompts toward low-success prompts; when these prompts are what we term negatively interfering, their upweighting can rotate the pass@k update direction away from the pass@1 direction. We illustrate our theoretical findings with large language model experiments on verifiable mathematical reasoning tasks.
+
+---
+
+*This analysis was automatically generated by the Swarm-It research discovery pipeline.
+Similarity score: 40% match to our research topics.*
