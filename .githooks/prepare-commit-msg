@@ -1,15 +1,36 @@
 #!/usr/bin/env bash
 # Strip Claude Code attribution from commit messages
+# Enforces CLAUDE.md policy: NEVER add Claude attribution
+#
 # INSTALLATION: git config core.hooksPath .githooks
 
 MSG_FILE="$1"
 
-# Remove common Claude attribution lines
-sed -i '' \
-  -e '/🤖/d' \
-  -e '/Generated with.*[Cc]laude/d' \
-  -e '/[Cc]laude.*[Cc]ode/d' \
-  -e '/Co-[Aa]uthored-[Bb]y:.*[Cc]laude/d' \
-  -e '/Co-[Aa]uthored-[Bb]y:.*anthropic/d' \
-  -e '/noreply@anthropic/d' \
-  "$MSG_FILE"
+# Remove common Claude attribution lines (Windows/Git Bash compatible)
+# Use perl for cross-platform compatibility
+perl -i -pe '
+    s/.*🤖.*//g;
+    s/.*Generated with.*[Cc]laude.*//g;
+    s/.*[Cc]laude.*[Cc]ode.*//g;
+    s/.*Co-[Aa]uthored-[Bb]y:.*[Cc]laude.*//g;
+    s/.*Co-[Aa]uthored-[Bb]y:.*anthropic.*//g;
+    s/.*noreply@anthropic.*//g;
+' "$MSG_FILE" 2>/dev/null || {
+    # Fallback to sed if perl not available (less portable)
+    sed -i.bak \
+      -e '/🤖/d' \
+      -e '/Generated with.*[Cc]laude/d' \
+      -e '/[Cc]laude.*[Cc]ode/d' \
+      -e '/Co-[Aa]uthored-[Bb]y:.*[Cc]laude/d' \
+      -e '/Co-[Aa]uthored-[Bb]y:.*anthropic/d' \
+      -e '/noreply@anthropic/d' \
+      "$MSG_FILE" && rm -f "${MSG_FILE}.bak"
+}
+
+# Remove empty lines that might be left behind
+perl -i -ne 'print unless /^\s*$/ and $prev_empty++; $prev_empty = /^\s*$/;' "$MSG_FILE" 2>/dev/null || {
+    # Fallback: just remove trailing empty lines
+    sed -i.bak -e :a -e '/^\s*$/d;N;ba' "$MSG_FILE" && rm -f "${MSG_FILE}.bak"
+}
+
+exit 0

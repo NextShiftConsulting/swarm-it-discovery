@@ -1,6 +1,6 @@
 #!/bin/bash
-# Pre-commit hook to detect secrets and sensitive data
-# Prevents accidental commits of API keys, passwords, tokens, etc.
+# Pre-commit hook to detect secrets, credentials, and AI attribution
+# Prevents accidental commits of sensitive data and enforces CLAUDE.md policy
 #
 # INSTALLATION:
 #   Option 1: git config core.hooksPath .githooks
@@ -8,7 +8,7 @@
 #
 # Copyright (C) 2025 Next Shift Consulting LLC
 
-echo "Running security checks..."
+echo "Running security and policy checks..."
 
 # Files being committed
 FILES=$(git diff --cached --name-only --diff-filter=ACM)
@@ -17,15 +17,19 @@ if [ -z "$FILES" ]; then
     exit 0
 fi
 
-# Patterns to detect secrets (case-insensitive where appropriate)
-PATTERNS=(
+# =============================================================================
+# 1. CREDENTIAL DETECTION PATTERNS
+# =============================================================================
+
+CREDENTIAL_PATTERNS=(
     # AWS
     'AKIA[0-9A-Z]{16}'                          # AWS Access Key ID
     'aws_secret_access_key\s*=\s*["\x27]?[A-Za-z0-9/+=]{40}'  # AWS Secret
 
-    # OpenAI
+    # OpenAI / Anthropic
     'sk-[a-zA-Z0-9]{48}'                        # OpenAI API Key
     'sk-proj-[a-zA-Z0-9]{48}'                   # OpenAI Project Key
+    'sk-ant-[a-zA-Z0-9-]{95,}'                  # Anthropic API Key
 
     # GitHub
     'ghp_[a-zA-Z0-9]{36}'                       # GitHub Personal Access Token
@@ -59,10 +63,33 @@ PATTERNS=(
     'access_token\s*=\s*["\x27][^"\x27]{16,}["\x27]'
 )
 
+# =============================================================================
+# 2. AI ATTRIBUTION DETECTION (CLAUDE.md Policy Enforcement)
+# =============================================================================
+
+AI_ATTRIBUTION_PATTERNS=(
+    'Generated with.*Claude'
+    'Generated with.*claude'
+    'claude\.com/claude-code'
+    'Co-[Aa]uthored-[Bb]y:.*[Cc]laude'
+    'Co-[Aa]uthored-[Bb]y:.*anthropic'
+    'noreply@anthropic\.com'
+    'AI assistance.*Claude'
+    'Claude Code'
+    'claude-code'
+    '🤖.*Claude'
+    'Anthropic.*AI'
+)
+
 # File patterns to skip (binary, generated, etc.)
 SKIP_PATTERNS='\.pyc$|\.pyo$|\.so$|\.dll$|\.exe$|\.bin$|\.png$|\.jpg$|\.jpeg$|\.gif$|\.ico$|\.woff$|\.ttf$|\.eot$|\.pdf$|\.zip$|\.tar$|\.gz$|\.lock$|package-lock\.json$|yarn\.lock$|\.ai$'
 
 FOUND_SECRET=0
+FOUND_AI_ATTRIBUTION=0
+
+# =============================================================================
+# CHECK FILES
+# =============================================================================
 
 for FILE in $FILES; do
     # Skip binary and generated files
@@ -75,23 +102,41 @@ for FILE in $FILES; do
         continue
     fi
 
-    # Check each pattern
-    for PATTERN in "${PATTERNS[@]}"; do
+    # Check credential patterns
+    for PATTERN in "${CREDENTIAL_PATTERNS[@]}"; do
         if grep -qE "$PATTERN" "$FILE" 2>/dev/null; then
-            echo "ERROR: Potential secret found in $FILE"
-            echo "       Pattern: $PATTERN"
+            echo "❌ ERROR: Potential credential found in $FILE"
+            echo "   Pattern: $PATTERN"
             grep -nE "$PATTERN" "$FILE" 2>/dev/null | head -3
             echo ""
             FOUND_SECRET=1
         fi
     done
+
+    # Check AI attribution patterns (except CLAUDE.md itself)
+    if [ "$FILE" != "CLAUDE.md" ]; then
+        for PATTERN in "${AI_ATTRIBUTION_PATTERNS[@]}"; do
+            if grep -qE "$PATTERN" "$FILE" 2>/dev/null; then
+                echo "❌ ERROR: AI attribution found in $FILE"
+                echo "   Pattern: $PATTERN"
+                grep -nE "$PATTERN" "$FILE" 2>/dev/null | head -3
+                echo ""
+                echo "   CLAUDE.md Policy: NEVER add Claude attribution"
+                FOUND_AI_ATTRIBUTION=1
+            fi
+        done
+    fi
 done
 
-# Check for common secret files
+# =============================================================================
+# CHECK SENSITIVE FILES
+# =============================================================================
+
 SECRET_FILES=(
     '.env'
     '.env.local'
     '.env.production'
+    '.env.staging'
     'credentials.json'
     'secrets.json'
     'secrets.yaml'
@@ -111,31 +156,55 @@ for FILE in $FILES; do
     BASENAME=$(basename "$FILE")
     for SECRET_FILE in "${SECRET_FILES[@]}"; do
         if [ "$BASENAME" = "$SECRET_FILE" ]; then
-            echo "ERROR: Attempting to commit sensitive file: $FILE"
+            echo "❌ ERROR: Attempting to commit sensitive file: $FILE"
             FOUND_SECRET=1
         fi
     done
 
-    # Also check if file is in a keys/ directory
+    # Check if file is in a keys/ directory
     if echo "$FILE" | grep -q '/keys/'; then
-        echo "ERROR: Attempting to commit file from keys/ directory: $FILE"
-        FOUND_SECRET=1
+        # Allow exceptions
+        if ! echo "$FILE" | grep -qE '(README\.md|config_manager\.py|\.template)$'; then
+            echo "❌ ERROR: Attempting to commit file from keys/ directory: $FILE"
+            FOUND_SECRET=1
+        fi
     fi
 done
+
+# =============================================================================
+# REPORT RESULTS
+# =============================================================================
 
 if [ $FOUND_SECRET -eq 1 ]; then
     echo ""
     echo "=========================================="
-    echo "COMMIT BLOCKED: Potential secrets detected"
+    echo "❌ COMMIT BLOCKED: Credentials detected"
     echo "=========================================="
     echo ""
     echo "If this is a false positive, you can:"
     echo "  1. Add the file to .gitignore"
-    echo "  2. Use 'git commit --no-verify' to bypass (not recommended)"
-    echo "  3. Remove the sensitive data and try again"
+    echo "  2. Remove the sensitive data and try again"
+    echo "  3. Use 'git commit --no-verify' to bypass (NOT RECOMMENDED)"
     echo ""
     exit 1
 fi
 
-echo "Security checks passed."
+if [ $FOUND_AI_ATTRIBUTION -eq 1 ]; then
+    echo ""
+    echo "=========================================="
+    echo "❌ COMMIT BLOCKED: AI attribution detected"
+    echo "=========================================="
+    echo ""
+    echo "Per CLAUDE.md policy:"
+    echo "  - NEVER add Claude attribution"
+    echo "  - No 'Generated with Claude Code' messages"
+    echo "  - No 'Co-Authored-By: Claude' lines"
+    echo "  - No references to Claude/Anthropic in commits"
+    echo ""
+    echo "Please remove AI attribution and try again."
+    echo ""
+    exit 1
+fi
+
+echo "✅ Security and policy checks passed."
 exit 0
