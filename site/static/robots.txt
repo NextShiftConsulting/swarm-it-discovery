@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /staging/
+Disallow: /private/
+
+Sitemap: https://swarmit.nextshiftconsulting.com/sitemap-index.xml
