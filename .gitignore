@@ -1,19 +1,47 @@
-# Dependencies
+# =============================================================================
+# NODE / NPM / YARN
+# =============================================================================
 node_modules/
 .pnp/
 .pnp.js
-__pycache__/
-*.pyc
-.venv/
-venv/
-env/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
 
-# Build
+# Lock files (specify which to keep based on your package manager)
+# Uncomment the one you DON'T use:
+# package-lock.json  # if using yarn
+# yarn.lock          # if using npm
+
+# =============================================================================
+# GATSBY / NEXT / BUILD OUTPUTS
+# =============================================================================
 .cache/
 public/
 dist/
 build/
+.tsbuildinfo
+src/gatsby-types.d.ts
+.next/
+out/
+.nuxt/
+
+# =============================================================================
+# PYTHON
+# =============================================================================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.venv/
+venv/
+env/
 *.egg-info/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
 
 # =============================================================================
 # CREDENTIALS & SECRETS - NEVER COMMIT
@@ -39,6 +67,8 @@ pipeline/keys/
 .env.*.local
 .env.production
 .env.development
+.env.staging
+.env.test
 
 # Credential files
 *.pem
@@ -65,23 +95,32 @@ service-account*.json
 .pypirc
 *.keystore
 
+# API Keys
+openai_key.txt
+anthropic_key.txt
+api_keys.txt
+
 # Cloud provider credentials
 .aws/
 .gcp/
 aws_config.yaml
 
-# API Keys
-openai_key.txt
-api_keys.txt
+# =============================================================================
+# NETLIFY / VERCEL / DEPLOYMENT
+# =============================================================================
+.netlify/
+.vercel/
+functions-build/
 
 # =============================================================================
-# TERRAFORM
+# TERRAFORM / INFRASTRUCTURE
 # =============================================================================
 .terraform/
 *.tfstate
 *.tfstate.*
 terraform.tfvars
 *.auto.tfvars
+.terraform.lock.hcl
 
 # =============================================================================
 # IDE & EDITOR
@@ -91,15 +130,36 @@ terraform.tfvars
 *.swp
 *.swo
 *~
-.DS_Store
+*.sublime-project
+*.sublime-workspace
+.project
+.classpath
+.settings/
 
 # =============================================================================
-# LOGS & CACHE
+# OS SPECIFIC
+# =============================================================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# =============================================================================
+# LOGS & DEBUGGING
 # =============================================================================
 *.log
 logs/
-.ruff_cache/
-.mypy_cache/
+*.log.*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pids/
+*.pid
+*.seed
 
 # =============================================================================
 # TEST & COVERAGE
@@ -110,12 +170,21 @@ coverage/
 htmlcov/
 .coverage
 .coverage.*
+*.lcov
+.jest/
+__tests__/coverage/
 
 # =============================================================================
-# OS
+# TEMPORARY & WORK IN PROGRESS
 # =============================================================================
-Thumbs.db
-.DS_Store
+wip/
+tmp/
+temp/
+*.tmp
+*.bak
+*.backup
+.temp/
+.cache
 
 # =============================================================================
 # CLAUDE CODE (local settings only)
