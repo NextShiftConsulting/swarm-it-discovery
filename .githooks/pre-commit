@@ -81,8 +81,8 @@ AI_ATTRIBUTION_PATTERNS=(
     'Anthropic.*AI'
 )
 
-# File patterns to skip (binary, generated, etc.)
-SKIP_PATTERNS='\.pyc$|\.pyo$|\.so$|\.dll$|\.exe$|\.bin$|\.png$|\.jpg$|\.jpeg$|\.gif$|\.ico$|\.woff$|\.ttf$|\.eot$|\.pdf$|\.zip$|\.tar$|\.gz$|\.lock$|package-lock\.json$|yarn\.lock$|\.ai$'
+# File patterns to skip (binary, generated, documentation with examples, etc.)
+SKIP_PATTERNS='\.pyc$|\.pyo$|\.so$|\.dll$|\.exe$|\.bin$|\.png$|\.jpg$|\.jpeg$|\.gif$|\.ico$|\.woff$|\.ttf$|\.eot$|\.pdf$|\.zip$|\.tar$|\.gz$|\.lock$|package-lock\.json$|yarn\.lock$|\.ai$|README\.md$|COMPLIANCE\.md$'
 
 FOUND_SECRET=0
 FOUND_AI_ATTRIBUTION=0
@@ -113,8 +113,8 @@ for FILE in $FILES; do
         fi
     done
 
-    # Check AI attribution patterns (except CLAUDE.md itself)
-    if [ "$FILE" != "CLAUDE.md" ]; then
+    # Check AI attribution patterns (except CLAUDE.md and hook files)
+    if [ "$FILE" != "CLAUDE.md" ] && ! echo "$FILE" | grep -qE '\.githooks/|\.hooks/|\.git/hooks/'; then
         for PATTERN in "${AI_ATTRIBUTION_PATTERNS[@]}"; do
             if grep -qE "$PATTERN" "$FILE" 2>/dev/null; then
                 echo "❌ ERROR: AI attribution found in $FILE"
