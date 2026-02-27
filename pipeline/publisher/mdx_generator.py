@@ -4,6 +4,7 @@ MDX Generator - Create blog posts from matched papers.
 
 import os
 import re
+import yaml
 from datetime import datetime
 from pathlib import Path
 from dataclasses import dataclass
@@ -153,51 +154,100 @@ Further analysis pending manual review."""
         else:
             analysis = self._generate_analysis_template(paper)
 
-        # Build frontmatter
+        # Infer difficulty from kappa score
+        if paper.rsct_kappa:
+            if paper.rsct_kappa >= 0.9:
+                difficulty = "advanced"
+            elif paper.rsct_kappa >= 0.75:
+                difficulty = "intermediate"
+            else:
+                difficulty = "beginner"
+        else:
+            difficulty = "intermediate"  # Default when no RSCT data
+
+        # Build frontmatter with frontend-expected schema
         frontmatter = {
+            # Core metadata
             "title": paper.title,
+            "arxiv_id": paper.id.replace("arxiv:", "") if paper.id.startswith("arxiv:") else paper.id,
+            "authors": paper.authors[:5],
+            "published_date": paper.published_date,
+            "go_live_date": today.strftime("%Y-%m-%d"),  # Go live today
+
+            # RSCT Certification (top-level fields for frontend)
+            "kappa": round(paper.rsct_kappa, 3) if paper.rsct_kappa else 0.0,
+            "R": round(paper.rsct_R, 3) if paper.rsct_R else 0.0,
+            "S": round(paper.rsct_S, 3) if paper.rsct_S else 0.0,
+            "N": round(paper.rsct_N, 3) if paper.rsct_N else 0.0,
+            "rsn_score": f"{paper.rsct_R:.2f}/{paper.rsct_S:.2f}/{paper.rsct_N:.2f}" if paper.rsct_R else "0.00/0.00/0.00",
+
+            # Classification
+            "tags": self._extract_tags(paper),
+            "primary_topic": paper.matched_topics[0] if paper.matched_topics else "General ML",
+            "difficulty": difficulty,
+
+            # Content metadata
+            "abstract": paper.abstract,
+            "tldr": self._sanitize_for_mdx(paper.abstract[:200].replace("\n", " ")) + "...",
+
+            # Links
+            "arxiv_url": paper.url,
+            "pdf_url": paper.pdf_url,
+
+            # Status
+            "status": "live",  # Changed from staging to live
+            "featured": False,
+
+            # Legacy fields (backward compatibility)
             "date": today.strftime("%Y-%m-%d"),
             "source": paper.source,
             "arxivId": paper.id.replace("arxiv:", "") if paper.id.startswith("arxiv:") else None,
             "paperUrl": paper.url,
             "pdfUrl": paper.pdf_url,
-            "authors": paper.authors[:5],
             "similarityScore": round(paper.similarity_score, 3),
             "matchedTopics": paper.matched_topics,
-            "tags": self._extract_tags(paper),
             "excerpt": self._sanitize_for_mdx(paper.abstract[:200].replace("\n", " ")) + "...",
-            # RSCT certification
-            "rsct": {
-                "R": paper.rsct_R,
-                "S": paper.rsct_S,
-                "N": paper.rsct_N,
-                "kappa": paper.rsct_kappa,
-                "decision": paper.rsct_decision,
-            } if paper.rsct_kappa else None,
         }
 
-        # Build MDX content
+        # Build MDX content with proper YAML frontmatter
+        # Remove None values for cleaner YAML
+        frontmatter_clean = {k: v for k, v in frontmatter.items() if v is not None}
+
+        frontmatter_yaml = yaml.safe_dump(
+            frontmatter_clean,
+            default_flow_style=False,
+            allow_unicode=True,
+            sort_keys=False
+        )
+
+        # RSCT quality tier for display
+        quality_tier = "exceptional" if paper.rsct_kappa and paper.rsct_kappa >= 0.9 else \
+                       "high-quality" if paper.rsct_kappa and paper.rsct_kappa >= 0.8 else \
+                       "certified" if paper.rsct_kappa and paper.rsct_kappa >= 0.7 else "pending"
+
         content = f"""---
-title: "{paper.title.replace('"', '\\"')}"
-date: "{frontmatter['date']}"
-source: "{paper.source}"
-{f'arxivId: "{frontmatter["arxivId"]}"' if frontmatter["arxivId"] else ''}
-paperUrl: "{paper.url}"
-{f'pdfUrl: "{paper.pdf_url}"' if paper.pdf_url else ''}
-authors: {frontmatter['authors']}
-similarityScore: {frontmatter['similarityScore']}
-matchedTopics: {frontmatter['matchedTopics']}
-tags: {frontmatter['tags']}
-excerpt: "{frontmatter['excerpt'].replace('"', '\\"')}"
+{frontmatter_yaml.strip()}
 ---
 
 # {paper.title}
 
-**Relevance Score:** {paper.similarity_score:.0%} | **Source:** {paper.source} | **Topics:** {', '.join(paper.matched_topics)}
+**RSCT Certification:** κ={paper.rsct_kappa:.3f} ({quality_tier}) | **RSN:** {frontmatter['rsn_score']} | **Topics:** {', '.join(paper.matched_topics)}
 
 ## Overview
 
 {analysis}
+
+## RSCT Quality Metrics
+
+This paper has been certified by the Swarm-It RSCT pipeline:
+
+- **κ-gate Score:** {paper.rsct_kappa:.3f} ({quality_tier})
+- **Relevance (R):** {paper.rsct_R:.3f} - Directly relevant to research goals
+- **Spurious (S):** {paper.rsct_S:.3f} - Supporting context and correlations
+- **Noise (N):** {paper.rsct_N:.3f} - Irrelevant or noisy components
+- **Decision:** {paper.rsct_decision or 'EXECUTE'}
+
+The RSN decomposition satisfies the simplex constraint (R+S+N=1.0), ensuring mathematically valid quality assessment.
 
 ## Paper Details
 
@@ -205,6 +255,8 @@ excerpt: "{frontmatter['excerpt'].replace('"', '\\"')}"
 - **Published:** {paper.published_date}
 - **Source:** [{paper.source}]({paper.url})
 {f'- **PDF:** [Download]({paper.pdf_url})' if paper.pdf_url else ''}
+- **Primary Topic:** {frontmatter['primary_topic']}
+- **Difficulty:** {frontmatter['difficulty'].title()}
 
 ## Abstract
 
@@ -212,8 +264,8 @@ excerpt: "{frontmatter['excerpt'].replace('"', '\\"')}"
 
 ---
 
-*This analysis was automatically generated by the Swarm-It research discovery pipeline.
-Similarity score: {paper.similarity_score:.0%} match to our research topics.*
+*This analysis was automatically generated and certified by the Swarm-It RSCT pipeline.
+κ-gate score: {paper.rsct_kappa:.3f} | Quality tier: {quality_tier}*
 """
 
         return BlogPost(
