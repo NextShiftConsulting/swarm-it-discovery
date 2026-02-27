@@ -95,10 +95,20 @@ service-account*.json
 .pypirc
 *.keystore
 
-# API Keys
+# API Keys and token files
 openai_key.txt
 anthropic_key.txt
 api_keys.txt
+*token*.txt
+*TOKEN*.txt
+*credential*.txt
+*CREDENTIAL*.txt
+*secret*.txt
+*SECRET*.txt
+*.zip  # Often used to store keys
+*_key.json
+*_keys.json
+*_token.json
 
 # Cloud provider credentials
 .aws/
