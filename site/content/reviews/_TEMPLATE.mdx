@@ -1,0 +1,160 @@
+---
+# ============================================
+# MDX Paper Template - RSCT Certified Reviews
+# ============================================
+
+# Core Metadata
+title: "Paper Title Here (Maximum 120 characters recommended)"
+arxiv_id: "2402.12345"
+authors: ["Last, First M.", "Last, First M.", "Last, First M."]
+published_date: "2024-02-15"
+go_live_date: "2026-03-01"
+
+# RSCT Certification (Quality Gates)
+kappa: 0.85                      # κ-gate score (0-1, recommend ≥0.7)
+rsn_score: "0.75/0.82/0.43"      # R/S/N format string
+R: 0.75                          # Relevance (0-1)
+S: 0.82                          # Stability (0-1)
+N: 0.43                          # Novelty (0-1)
+# NOTE: R+S+N must equal 1.0 (simplex constraint)
+
+# Classification
+tags: ["multi-agent", "llm-reasoning", "control-theory"]
+primary_topic: "multi-agent"
+difficulty: "advanced"           # beginner | intermediate | advanced
+
+# Content Metadata
+abstract: |
+  Short abstract summarizing the paper's main contribution.
+  Keep to 2-3 sentences maximum. This appears in preview cards.
+
+tldr: |
+  • Key finding #1: Brief description
+  • Key finding #2: Brief description
+  • Key finding #3: Brief description
+
+# Links
+arxiv_url: "https://arxiv.org/abs/2402.12345"
+pdf_url: "https://arxiv.org/pdf/2402.12345.pdf"
+github_url: "https://github.com/author/repo"  # Optional
+
+# Status
+status: "staging"                # staging | live
+featured: false                  # Show on homepage?
+
+# Auto-calculated fields (do NOT manually set):
+# reading_time: computed by Gatsby
+# word_count: computed by Gatsby
+---
+
+## Summary
+
+Provide a concise summary of the paper's main contributions. What problem does it solve? What approach does it take?
+
+## Key Contributions
+
+1. **First Contribution**: Detailed explanation of the first key contribution
+2. **Second Contribution**: Detailed explanation of the second key contribution
+3. **Third Contribution**: Detailed explanation of the third key contribution
+
+## Methodology
+
+Describe the paper's methodology:
+
+- What techniques are used?
+- How is the approach novel or different?
+- What are the key innovations?
+
+### Architecture
+
+If applicable, describe the system architecture or model architecture.
+
+```python
+# Code examples can be included
+def example_function():
+    pass
+```
+
+## Results
+
+Summarize the experimental results:
+
+- What datasets were used?
+- What metrics were reported?
+- How does it compare to baselines?
+
+| Metric | Baseline | This Paper | Improvement |
+|--------|----------|------------|-------------|
+| Accuracy | 85.2% | 92.1% | +6.9% |
+| F1 Score | 0.83 | 0.91 | +0.08 |
+
+## Implications
+
+What are the implications of this work?
+
+- **For Research**: How does this advance the field?
+- **For Practice**: What are the practical applications?
+- **For RSCT**: How does this relate to RSCT principles?
+
+## Limitations
+
+Acknowledge any limitations:
+
+- Scope of evaluation
+- Assumptions made
+- Areas for future work
+
+## RSCT Analysis
+
+### Relevance (R = 0.75)
+
+Explain why this paper is relevant to RSCT:
+
+- Connection to multi-agent systems
+- Relevance to quality gates / κ-gate scoring
+- Application to simplex constraints (R+S+N=1)
+
+### Stability (S = 0.82)
+
+Discuss the stability and robustness of the approach:
+
+- Reproducibility
+- Generalization
+- Theoretical foundations
+
+### Novelty (N = 0.43)
+
+Assess the novelty:
+
+- What is genuinely new?
+- What builds on existing work?
+- Where are the innovations?
+
+### κ-Gate Score (κ = 0.85)
+
+Overall quality assessment:
+
+- **Exceptional (κ ≥ 0.9)**: Gold tier - landmark paper
+- **High Quality (κ ≥ 0.8)**: Silver tier - this paper qualifies
+- **Certified (κ ≥ 0.7)**: Bronze tier - solid contribution
+- **Pending (κ < 0.7)**: Below certification threshold
+
+## References
+
+List key references if needed:
+
+1. AuthorLast, A., & AuthorLast, B. (2023). Related Work Title. *Conference/Journal*.
+2. Another citation...
+
+## Further Reading
+
+Suggested papers for deeper understanding:
+
+- [Related Paper 1](https://arxiv.org/abs/1234.56789)
+- [Related Paper 2](https://arxiv.org/abs/9876.54321)
+
+---
+
+**Last Updated**: 2026-03-01
+**Review Status**: Staging
+**Next Review**: 2026-04-01
