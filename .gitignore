@@ -1,0 +1,201 @@
+# =============================================================================
+# NODE / NPM / YARN
+# =============================================================================
+node_modules/
+.pnp/
+.pnp.js
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Lock files (specify which to keep based on your package manager)
+# Uncomment the one you DON'T use:
+# package-lock.json  # if using yarn
+# yarn.lock          # if using npm
+
+# =============================================================================
+# GATSBY / NEXT / BUILD OUTPUTS
+# =============================================================================
+.cache/
+public/
+dist/
+build/
+.tsbuildinfo
+src/gatsby-types.d.ts
+.next/
+out/
+.nuxt/
+
+# =============================================================================
+# PYTHON
+# =============================================================================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.venv/
+venv/
+env/
+*.egg-info/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# =============================================================================
+# CREDENTIALS & SECRETS - NEVER COMMIT
+# =============================================================================
+
+# Keys directory (P17: Credential Gateway)
+/keys/
+site/keys/
+pipeline/keys/
+**/keys/*.yaml
+**/keys/*.json
+**/keys/*.pem
+
+# But allow these from keys/ (no secrets)
+!/keys/README.md
+!/keys/config_manager.py
+!/keys/*.template
+
+# Environment files
+.env
+.env.*
+.env.local
+.env.*.local
+.env.production
+.env.development
+.env.staging
+.env.test
+
+# Credential files
+*.pem
+*.key
+*.p12
+*.pfx
+*.cert
+id_rsa*
+id_dsa*
+id_ecdsa*
+id_ed25519*
+credentials.json
+secrets.json
+secrets.yaml
+secrets.yml
+*_credentials*
+*_secret*
+serviceAccountKey.json
+service-account*.json
+*-credentials.json
+.htpasswd
+.netrc
+.npmrc
+.pypirc
+*.keystore
+
+# API Keys
+openai_key.txt
+anthropic_key.txt
+api_keys.txt
+
+# Cloud provider credentials
+.aws/
+.gcp/
+aws_config.yaml
+
+# =============================================================================
+# NETLIFY / VERCEL / DEPLOYMENT
+# =============================================================================
+.netlify/
+.vercel/
+functions-build/
+
+# =============================================================================
+# TERRAFORM / INFRASTRUCTURE
+# =============================================================================
+.terraform/
+*.tfstate
+*.tfstate.*
+terraform.tfvars
+*.auto.tfvars
+.terraform.lock.hcl
+
+# =============================================================================
+# IDE & EDITOR
+# =============================================================================
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+.project
+.classpath
+.settings/
+
+# =============================================================================
+# OS SPECIFIC
+# =============================================================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# =============================================================================
+# LOGS & DEBUGGING
+# =============================================================================
+*.log
+logs/
+*.log.*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pids/
+*.pid
+*.seed
+
+# =============================================================================
+# TEST & COVERAGE
+# =============================================================================
+coverage/
+.nyc_output/
+.pytest_cache/
+htmlcov/
+.coverage
+.coverage.*
+*.lcov
+.jest/
+__tests__/coverage/
+
+# =============================================================================
+# TEMPORARY & WORK IN PROGRESS
+# =============================================================================
+wip/
+tmp/
+temp/
+*.tmp
+*.bak
+*.backup
+.temp/
+.cache
+
+# =============================================================================
+# CLAUDE CODE (local settings only)
+# =============================================================================
+.claude/
+
+# =============================================================================
+# R / R STUDIO
+# =============================================================================
+.Rhistory
+.RData
+.Rproj.user
+.Ruserdata
+*.Rproj

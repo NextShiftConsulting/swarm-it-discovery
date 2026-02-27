@@ -1,0 +1,54 @@
+{
+  "version": "1.0",
+  "description": "Research topics for paper matching - based on RSCT theory",
+  "topics": [
+    {
+      "id": "rsct-core",
+      "title": "Representation-Solver Compatibility",
+      "content": "Intelligence as compatibility between representations and solvers. The kappa metric measures how well a representation supports a solver's ability to find solutions. High kappa indicates strong alignment between data representation and problem-solving capability. This framework unifies understanding of model capabilities, failures, and safety properties.",
+      "keywords": ["representation", "solver", "compatibility", "kappa", "intelligence", "capability"]
+    },
+    {
+      "id": "hallucination-detection",
+      "title": "Hallucination Detection and Prevention",
+      "content": "Methods for detecting and preventing LLM hallucinations. Grounding verification, factual consistency checking, uncertainty quantification. RSCT frames hallucinations as representation-solver misalignment where the model's internal representation lacks sufficient structure for factual recall.",
+      "keywords": ["hallucination", "grounding", "factual", "consistency", "uncertainty", "verification"]
+    },
+    {
+      "id": "multi-agent-safety",
+      "title": "Multi-Agent System Safety",
+      "content": "Safety and coordination in multi-agent AI systems. Agent-to-agent communication certification, swarm-level quality metrics, distributed trust. Ensuring that multi-agent systems maintain safety properties even as individual agents interact and delegate tasks.",
+      "keywords": ["multi-agent", "swarm", "coordination", "safety", "trust", "delegation", "a2a"]
+    },
+    {
+      "id": "prompt-injection",
+      "title": "Prompt Injection Defense",
+      "content": "Defending against prompt injection and jailbreak attacks. Input validation, instruction hierarchy, semantic attack detection. RSCT certification identifies adversarial inputs through anomalous representation patterns that indicate manipulation attempts.",
+      "keywords": ["injection", "jailbreak", "adversarial", "attack", "defense", "security"]
+    },
+    {
+      "id": "neural-symbolic",
+      "title": "Neural-Symbolic Integration",
+      "content": "Combining neural networks with symbolic reasoning. Hybrid architectures that leverage both learned representations and explicit logical structures. Knowledge graphs, neuro-symbolic AI, reasoning chains with verifiable steps.",
+      "keywords": ["neural-symbolic", "reasoning", "symbolic", "logic", "knowledge graph", "hybrid"]
+    },
+    {
+      "id": "model-evaluation",
+      "title": "Model Evaluation and Benchmarking",
+      "content": "Rigorous evaluation of AI model capabilities and limitations. Benchmark design, capability elicitation, failure mode analysis. Moving beyond aggregate metrics to understand when and why models succeed or fail.",
+      "keywords": ["evaluation", "benchmark", "capability", "failure", "analysis", "metrics"]
+    },
+    {
+      "id": "alignment",
+      "title": "AI Alignment and Value Learning",
+      "content": "Ensuring AI systems act in accordance with human values and intentions. Reward modeling, preference learning, value alignment techniques. Understanding how representations encode and preserve human preferences.",
+      "keywords": ["alignment", "values", "reward", "preference", "intent", "corrigibility"]
+    },
+    {
+      "id": "interpretability",
+      "title": "Mechanistic Interpretability",
+      "content": "Understanding how neural networks compute. Feature visualization, circuit analysis, representation engineering. Identifying the internal structures that correspond to model capabilities and behaviors.",
+      "keywords": ["interpretability", "mechanistic", "circuit", "feature", "representation", "explainability"]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+# Paper Sources
+httpx>=0.24.0
+
+# Embeddings (pick one)
+sentence-transformers>=2.2.0  # Local embeddings
+openai>=1.0.0                 # OpenAI embeddings
+
+# PDF extraction (optional, for local topic PDFs)
+pypdf>=3.0.0
+
+# Utilities
+numpy>=1.24.0
+python-dotenv>=1.0.0

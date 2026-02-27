@@ -1,0 +1,43 @@
+---
+title: "Learning from Trials and Errors: Reflective Test-Time Planning for Embodied LLMs"
+date: "2026-02-25"
+source: "arxiv"
+arxivId: "2602.21198v1"
+paperUrl: "https://arxiv.org/abs/2602.21198v1"
+pdfUrl: "https://arxiv.org/pdf/2602.21198v1.pdf"
+authors: ['Yining Hong', 'Huang Huang', 'Manling Li', 'Li Fei-Fei', 'Jiajun Wu']
+similarityScore: 0.395
+matchedTopics: ['LLM Agents and Reasoning', 'RSCT Core Theory', 'AI Safety and Alignment']
+tags: ['cs-lg', 'llm', 'rsct-core-theory', 'learning', 'llm-agents-and-reasoning']
+excerpt: "Embodied LLMs endow robots with high-level task reasoning, but they cannot reflect on what went wrong or why, turning deployment into a sequence of independent trials where mistakes repeat rather than..."
+---
+
+
+# Learning from Trials and Errors: Reflective Test-Time Planning for Embodied LLMs
+
+
+## Overview
+
+## Significance of the Research on Reflective Test-Time Planning for Embodied LLMs
+
+The paper "Learning from Trials and Errors: Reflective Test-Time Planning for Embodied LLMs" addresses a critical limitation of current robotic systems that utilize large language models (LLMs) for high-level task reasoning. While LLMs have been successful in driving a variety of applications, they typically operate in a manner where each interaction is treated independently. This leads to a cycle of repeated errors that do not contribute to the agent's learning, akin to a human continually making the same mistakes without benefitting from past experiences. By introducing Reflective Test-Time Planning, the authors propose a novel methodology that enables robots to learn from their mistakes during task execution rather than after, thus supporting a more nuanced and adaptive form of problem-solving. This shift is significant as it closely mirrors human reflective practices, allowing robots to enhance performance over time and reduce error rates.
+
+The paper dives into two distinct modes of reflection that enhance the decision-making of embodied LLMs: reflection-in-action and reflection-on-action. Reflection-in-action involves real-time evaluations where the agent generates and assesses multiple action candidates based on self-reflection before any action is taken. This allows for immediate adjustments based on recognition of potential pitfalls. On the other hand, reflection-on-action focuses on updating the agent's internal models and action policies after completing tasks, using insights gained from the task's outcomes. The combined application of these reflective strategies has shown promising results, yielding significant improvements on both the Long-Horizon Household benchmark and the MuJoCo Cupboard Fitting benchmark. This unique dual approach not only strengthens the robot's ability to adapt and learn in real-time but also marks a critical advancement in the integration of reflective capabilities within artificial agents.
+
+The implications of this research extend to crucial areas such as AI safety, multi-agent systems, and representation learning. For AI safety, enhanced reflective reasoning in robots reduces the risk of executing harmful actions by promoting an understanding of past mistakes and avoiding them in the future. In multi-agent systems, the ability for agents to reflect on their interactions and decisions can lead to more cooperative and efficient behaviors, ultimately transforming how robots can operate within shared environments. Furthermore, representation learning benefits through the refinement of internal models based on real-world experiences, leading to richer understanding and improved decision-making capabilities. Overall, this research exemplifies a transformative step towards building more intelligent, reflective, and safe autonomous systems that can learn dynamically in varying contexts.
+
+## Paper Details
+
+- **Authors:** Yining Hong, Huang Huang, Manling Li, Li Fei-Fei, Jiajun Wu et al.
+- **Published:** 2026-02-24
+- **Source:** [arxiv](https://arxiv.org/abs/2602.21198v1)
+- **PDF:** [Download](https://arxiv.org/pdf/2602.21198v1.pdf)
+
+## Abstract
+
+> Embodied LLMs endow robots with high-level task reasoning, but they cannot reflect on what went wrong or why, turning deployment into a sequence of independent trials where mistakes repeat rather than accumulate into experience. Drawing upon human reflective practitioners, we introduce Reflective Test-Time Planning, which integrates two modes of reflection: reflection-in-action, where the agent uses test-time scaling to generate and score multiple candidate actions using internal reflections before execution; and reflection-on-action, which uses test-time training to update both its internal reflection model and its action policy based on external reflections after execution. We also include retrospective reflection, allowing the agent to re-evaluate earlier decisions and perform model updates with hindsight for proper long-horizon credit assignment. Experiments on our newly-designed Long-Horizon Household benchmark and MuJoCo Cupboard Fitting benchmark show significant gains over baseline models, with ablative studies validating the complementary roles of reflection-in-action and reflection-on-action. Qualitative analyses, including real-robot trials, highlight behavioral correction through reflection.
+
+---
+
+*This analysis was automatically generated by the Swarm-It research discovery pipeline.
+Similarity score: 40% match to our research topics.*

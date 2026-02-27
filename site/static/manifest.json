@@ -1,0 +1,33 @@
+{
+  "name": "Swarm-It - Automated Research Discovery with RSCT",
+  "short_name": "Swarm-It",
+  "description": "Automated arXiv research paper discovery platform with RSCT quality certification (κ-gate scoring)",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3B82F6",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/img/icons/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/img/icons/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/img/icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["education", "productivity", "research"],
+  "lang": "en-US",
+  "dir": "ltr"
+}
