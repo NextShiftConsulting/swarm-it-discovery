@@ -3,6 +3,43 @@ import path from "path";
 import { validatePaperFrontmatter, getQualityTier } from "./src/utils/validation";
 import { calculateReadingTime } from "./src/utils/readingTime";
 
+// Define GraphQL schema types for custom fields
+export const createSchemaCustomization: GatsbyNode["createSchemaCustomization"] = ({ actions }) => {
+  const { createTypes } = actions;
+
+  createTypes(`
+    type MdxFields {
+      slug: String!
+      qualityTier: String
+      readingTime: Float
+      wordCount: Int
+    }
+
+    type MdxFrontmatter {
+      title: String!
+      arxiv_id: String!
+      authors: [String!]!
+      published_date: Date! @dateformat
+      go_live_date: Date! @dateformat
+      kappa: Float!
+      rsn_score: String!
+      R: Float!
+      S: Float!
+      N: Float!
+      tags: [String!]!
+      primary_topic: String!
+      difficulty: String!
+      abstract: String!
+      tldr: String
+      arxiv_url: String!
+      pdf_url: String
+      github_url: String
+      status: String!
+      featured: Boolean
+    }
+  `);
+};
+
 export const onCreateNode: GatsbyNode["onCreateNode"] = ({
   node,
   actions,
