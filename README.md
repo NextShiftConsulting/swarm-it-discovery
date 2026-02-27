@@ -12,25 +12,47 @@ This system automatically:
 
 ## Architecture
 
+This repo is part of a **3-repo ecosystem**:
+
 ```
-swarmit-site/
+┌─────────────────────────────────────────────────────────────┐
+│ swarm-it-adk         → Agent Development Kit (framework)    │
+│ swarm-it-api         → RSCT API (api.swarms.network)        │
+│ swarm-it-discovery   → THIS REPO (paper discovery site)     │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Dependency chain**: `discovery pipeline → ADK (orchestrate) → API (certify)`
+
+### This Repo Structure
+
+```
+swarm-it-discovery/
 ├── site/                  # Gatsby + TypeScript frontend
 │   └── src/
-│       ├── components/    # React components (matches nextshiftconsulting.com)
-│       ├── pages/         # Site pages
-│       └── styles/        # CSS
+│       ├── components/    # React components
+│       ├── pages/         # Home, Reviews, Topics, About
+│       └── templates/     # MDX review template
 │
-├── pipeline/              # Daily scanner (Python)
-│   ├── scanner/           # Paper fetching (arXiv, S2)
-│   ├── analyzer/          # Similarity matching
-│   └── publisher/         # MDX generation
+├── pipeline/              # Paper discovery pipeline (Python)
+│   ├── scanner/           # Fetch papers (arXiv, bioRxiv, S2)
+│   ├── analyzer/          # Match topics + RSCT scoring
+│   ├── publisher/         # Generate MDX reviews
+│   ├── run.py             # Legacy runner (procedural)
+│   └── run_adk.py         # ADK-orchestrated runner (agents)
 │
 ├── content/
-│   ├── topics/            # Your curated topic PDFs/embeddings
-│   └── reviews/           # Auto-generated paper reviews (.mdx)
+│   ├── topics/            # Research topic definitions (JSON)
+│   └── reviews/           # Auto-generated paper reviews (MDX)
 │
-└── infra/                 # AWS deployment (Lambda, S3, CloudFront)
+├── docs/                  # Documentation
+│   └── ARCHITECTURE.md    # Full 3-repo architecture guide
+│
+└── infra/                 # Prototype Terraform (NOT USED)
+                           # Actual API infra in swarm-it-api repo
 ```
+
+**📖 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for complete multi-repo architecture.**
 
 ## Setup
 
@@ -38,7 +60,7 @@ swarmit-site/
 
 - Node.js 18+
 - Python 3.10+
-- [Swarm-It sidecar](https://github.com/nextshift/swarm-it) (optional, for certification)
+- [Swarm-It ADK](https://github.com/nextshift/swarm-it-adk) (optional, for agent orchestration)
 
 ### Installation
 
@@ -84,6 +106,7 @@ content/topics/multi_agent_systems.txt
 
 ### Run Pipeline
 
+**Option 1: Legacy (Procedural)**
 ```bash
 # Full run
 python pipeline/run.py
@@ -94,6 +117,18 @@ python pipeline/run.py --dry-run
 # Custom options
 python pipeline/run.py --days 7 --min-score 0.7
 ```
+
+**Option 2: ADK-Orchestrated (Recommended if ADK installed)**
+```bash
+# Uses agent orchestration with same underlying functions
+python pipeline/run_adk.py
+
+# Automatically falls back to legacy if ADK not found
+```
+
+**When to use each**:
+- **Legacy**: Simple, predictable, good for debugging
+- **ADK**: Agent coordination, traceable logs, showcases ADK capabilities
 
 ### Develop Site
 

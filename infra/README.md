@@ -1,5 +1,15 @@
 # Infrastructure
 
+⚠️ **IMPORTANT: This directory contains PROTOTYPE code only.**
+
+**Actual production infrastructure is deployed from the `swarm-it-api` repository.**
+
+This `infra/` directory was used for early planning and exploration. It is kept for reference but should **NOT** be deployed. No `terraform.tfstate` exists here, and the actual running infrastructure (ALB + ECS, not API Gateway + Lambda) is managed elsewhere.
+
+---
+
+## Prototype Architecture (Planning Only)
+
 AWS + Cloudflare infrastructure for swarms.network.
 
 ## Architecture
