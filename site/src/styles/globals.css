@@ -5,6 +5,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import theme variables for dark mode */
+@import './theme.css';
+
 /* Import colors-plus.css to ensure CSS variables are available */
 @import './colors-plus.css';
 

@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@mdx-js/react": "^2.3.0",
+    "fuse.js": "^7.1.0",
     "gatsby": "^5.14.0",
     "gatsby-plugin-image": "^3.14.0",
     "gatsby-plugin-mdx": "^5.14.0",
@@ -19,7 +20,8 @@
     "gatsby-source-filesystem": "^5.14.0",
     "gatsby-transformer-sharp": "^5.14.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "reading-time": "^1.5.0"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.7",

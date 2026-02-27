@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "gatsby";
 import { LogoColor } from "./Logo";
+import { ThemeToggle } from "./ui/ThemeToggle";
 
 interface NavLink {
   label: string;
@@ -56,7 +57,7 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <nav className="fixed w-full z-50 bg-white border-b border-gray-200 shadow-sm">
+    <nav className="fixed w-full z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo + Text */}
@@ -115,6 +116,9 @@ export const Header: React.FC = () => {
               </div>
             ))}
 
+            {/* Theme Toggle */}
+            <ThemeToggle />
+
             {/* CTA Button */}
             <a
               href="https://nextshiftconsulting.com/contact"
@@ -143,7 +147,7 @@ export const Header: React.FC = () => {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="lg:hidden py-4 border-t border-gray-200 bg-white max-h-[80vh] overflow-y-auto">
+          <div className="lg:hidden py-4 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 max-h-[80vh] overflow-y-auto">
             <div className="flex flex-col space-y-1">
               {navItems.map((item) => (
                 <div key={item.label}>
@@ -191,6 +195,12 @@ export const Header: React.FC = () => {
                   )}
                 </div>
               ))}
+
+              {/* Theme Toggle for Mobile */}
+              <div className="flex items-center justify-between py-3 px-3">
+                <span className="font-medium text-gray-700 dark:text-gray-300">Theme</span>
+                <ThemeToggle />
+              </div>
 
               <a
                 href="https://nextshiftconsulting.com/contact"
