@@ -33,14 +33,14 @@ from analyzer.rsct_scorer import RSCTScorer, RSCTScore
 from publisher.mdx_generator import MDXGenerator, PaperData
 from publisher.pdf_generator import PDFReviewGenerator
 
-# Swarm-It client
+# Swarm-It ADK client
 try:
-    sys.path.insert(0, os.path.expanduser("~/GitHub/swarm-it/clients/python"))
+    sys.path.insert(0, os.path.expanduser("~/GitHub/swarm-it-adk/clients/python"))
     from swarm_it import SwarmIt
     HAS_SWARMIT = True
 except ImportError:
     HAS_SWARMIT = False
-    print("Warning: swarm_it client not found, running without certification")
+    print("Warning: Swarm-It ADK client not found, running without certification")
 
 
 class CertifiedPipeline:
