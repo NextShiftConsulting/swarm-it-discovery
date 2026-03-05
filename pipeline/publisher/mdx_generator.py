@@ -179,7 +179,7 @@ Further analysis pending manual review."""
             "R": round(paper.rsct_R, 3) if paper.rsct_R else 0.0,
             "S": round(paper.rsct_S, 3) if paper.rsct_S else 0.0,
             "N": round(paper.rsct_N, 3) if paper.rsct_N else 0.0,
-            "rsn_score": f"{paper.rsct_R:.2f}/{paper.rsct_S:.2f}/{paper.rsct_N:.2f}" if paper.rsct_R else "0.00/0.00/0.00",
+            "rsn_score": f"{paper.rsct_R or 0:.2f}/{paper.rsct_S or 0:.2f}/{paper.rsct_N or 0:.2f}",
 
             # Classification
             "tags": self._extract_tags(paper),
@@ -221,9 +221,14 @@ Further analysis pending manual review."""
         )
 
         # RSCT quality tier for display
-        quality_tier = "exceptional" if paper.rsct_kappa and paper.rsct_kappa >= 0.9 else \
-                       "high-quality" if paper.rsct_kappa and paper.rsct_kappa >= 0.8 else \
-                       "certified" if paper.rsct_kappa and paper.rsct_kappa >= 0.7 else "pending"
+        kappa = paper.rsct_kappa or 0.0
+        R = paper.rsct_R or 0.0
+        S = paper.rsct_S or 0.0
+        N = paper.rsct_N or 0.0
+
+        quality_tier = "exceptional" if kappa >= 0.9 else \
+                       "high-quality" if kappa >= 0.8 else \
+                       "certified" if kappa >= 0.7 else "pending"
 
         content = f"""---
 {frontmatter_yaml.strip()}
@@ -231,7 +236,7 @@ Further analysis pending manual review."""
 
 # {paper.title}
 
-**RSCT Certification:** κ={paper.rsct_kappa:.3f} ({quality_tier}) | **RSN:** {frontmatter['rsn_score']} | **Topics:** {', '.join(paper.matched_topics)}
+**RSCT Certification:** κ={kappa:.3f} ({quality_tier}) | **RSN:** {frontmatter['rsn_score']} | **Topics:** {', '.join(paper.matched_topics) if paper.matched_topics else 'General'}
 
 ## Overview
 
@@ -241,18 +246,18 @@ Further analysis pending manual review."""
 
 This paper has been certified by the Swarm-It RSCT pipeline:
 
-- **κ-gate Score:** {paper.rsct_kappa:.3f} ({quality_tier})
-- **Relevance (R):** {paper.rsct_R:.3f} - Directly relevant to research goals
-- **Spurious (S):** {paper.rsct_S:.3f} - Supporting context and correlations
-- **Noise (N):** {paper.rsct_N:.3f} - Irrelevant or noisy components
+- **κ-gate Score:** {kappa:.3f} ({quality_tier})
+- **Relevance (R):** {R:.3f} - Directly relevant to research goals
+- **Spurious (S):** {S:.3f} - Supporting context and correlations
+- **Noise (N):** {N:.3f} - Irrelevant or noisy components
 - **Decision:** {paper.rsct_decision or 'EXECUTE'}
 
 The RSN decomposition satisfies the simplex constraint (R+S+N=1.0), ensuring mathematically valid quality assessment.
 
 ## Paper Details
 
-- **Authors:** {', '.join(paper.authors[:5])}{' et al.' if len(paper.authors) > 5 else ''}
-- **Published:** {paper.published_date}
+- **Authors:** {', '.join(paper.authors[:5]) if paper.authors else 'Unknown'}{' et al.' if paper.authors and len(paper.authors) > 5 else ''}
+- **Published:** {paper.published_date or 'Unknown'}
 - **Source:** [{paper.source}]({paper.url})
 {f'- **PDF:** [Download]({paper.pdf_url})' if paper.pdf_url else ''}
 - **Primary Topic:** {frontmatter['primary_topic']}
@@ -265,7 +270,7 @@ The RSN decomposition satisfies the simplex constraint (R+S+N=1.0), ensuring mat
 ---
 
 *This analysis was automatically generated and certified by the Swarm-It RSCT pipeline.
-κ-gate score: {paper.rsct_kappa:.3f} | Quality tier: {quality_tier}*
+κ-gate score: {kappa:.3f} | Quality tier: {quality_tier}*
 """
 
         return BlogPost(

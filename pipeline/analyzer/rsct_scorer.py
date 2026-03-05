@@ -64,18 +64,31 @@ class RSCTScorer:
             print("Warning: OpenAI not configured, using keyword matching only")
 
     def _load_whitepaper(self, path: str) -> str:
-        """Load and clean whitepaper text."""
+        """Load and clean whitepaper text (supports .tex, .txt, .pdf)."""
         try:
-            with open(path, 'r', encoding='utf-8') as f:
-                text = f.read()
-
-            # Remove LaTeX commands but keep text
             import re
-            text = re.sub(r'\\[a-zA-Z]+\{([^}]*)\}', r'\1', text)
-            text = re.sub(r'\\[a-zA-Z]+', '', text)
-            text = re.sub(r'[{}]', '', text)
-            text = re.sub(r'\s+', ' ', text)
 
+            if path.endswith('.pdf'):
+                # Extract text from PDF
+                try:
+                    from pypdf import PdfReader
+                    reader = PdfReader(path)
+                    text = ""
+                    for page in reader.pages:
+                        text += page.extract_text() + "\n"
+                except ImportError:
+                    print("pypdf not available, cannot read PDF")
+                    return ""
+            else:
+                with open(path, 'r', encoding='utf-8') as f:
+                    text = f.read()
+
+                # Remove LaTeX commands but keep text
+                text = re.sub(r'\\[a-zA-Z]+\{([^}]*)\}', r'\1', text)
+                text = re.sub(r'\\[a-zA-Z]+', '', text)
+                text = re.sub(r'[{}]', '', text)
+
+            text = re.sub(r'\s+', ' ', text)
             return text[:8000]  # Limit for embedding
         except Exception as e:
             print(f"Error loading whitepaper: {e}")

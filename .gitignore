@@ -214,3 +214,4 @@ temp/
 # PROJECT FILES
 # =============================================================================
 CLAUDE.md
+infra/lambda_pipeline.zip

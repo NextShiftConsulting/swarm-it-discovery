@@ -339,5 +339,55 @@ def main():
                 print(f"   Key concepts: {', '.join(paper['key_overlaps'][:5])}")
 
 
+def handler(event, context):
+    """AWS Lambda handler for scheduled execution."""
+    import json
+
+    # Get parameters from event or use defaults
+    days = event.get("days", 1)
+    max_papers = event.get("max_papers", 50)
+    min_score = event.get("min_score", 0.5)
+    min_rsct_score = event.get("min_rsct_score", 0.3)
+    dry_run = event.get("dry_run", False)
+
+    swarmit_url = os.getenv("SWARMIT_URL", "https://api.swarms.network")
+
+    # Lambda can only write to /tmp
+    # Use bundled whitepaper from Zenodo
+    whitepaper_path = os.path.join(os.path.dirname(__file__), "rsct_whitepaper.pdf")
+
+    pipeline = CertifiedPipeline(
+        swarmit_url=swarmit_url,
+        topics_dir="content/topics",
+        output_dir="/tmp/generated-posts",
+        pdf_output_dir="/tmp/pdf-reviews",
+        whitepaper_path=whitepaper_path,
+        min_score=min_score,
+        min_rsct_score=min_rsct_score,
+    )
+
+    results = asyncio.run(pipeline.run(
+        days=days,
+        max_papers=max_papers,
+        dry_run=dry_run,
+        generate_pdfs=False,  # Skip PDFs in Lambda (no LaTeX)
+    ))
+
+    # Log summary
+    print(f"Pipeline complete: {results['papers_fetched']} fetched, "
+          f"{results['papers_matched']} matched, {results['posts_generated']} posts")
+
+    return {
+        "statusCode": 200,
+        "body": json.dumps({
+            "papers_fetched": results["papers_fetched"],
+            "papers_matched": results["papers_matched"],
+            "papers_rsct_ranked": results.get("papers_rsct_ranked", 0),
+            "posts_generated": results["posts_generated"],
+            "top_papers": results.get("top_papers", [])[:5],
+        })
+    }
+
+
 if __name__ == "__main__":
     main()
