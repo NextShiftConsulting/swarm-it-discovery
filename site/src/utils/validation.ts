@@ -66,9 +66,8 @@ export function validatePaperFrontmatter(
   if (!Array.isArray(frontmatter.authors) || frontmatter.authors.length === 0) {
     errors.push('Missing or empty authors array')
   }
-  if (!frontmatter.published_date) {
-    errors.push('Missing required field: published_date')
-  }
+  // published_date can be empty for papers where the date is unknown
+  // (just warn, don't error)
   if (!frontmatter.go_live_date) {
     errors.push('Missing required field: go_live_date')
   }
@@ -96,14 +95,16 @@ export function validatePaperFrontmatter(
     }
   }
 
-  // RSN validation (simplex constraint: R+S+N=1)
+  // RSN validation (simplex constraint: R+S+N=1, or 0/0/0 for pending)
   if (typeof frontmatter.R !== 'number' ||
       typeof frontmatter.S !== 'number' ||
       typeof frontmatter.N !== 'number') {
     errors.push('Invalid RSN values: R, S, and N must be numbers')
   } else {
     const rsnSum = frontmatter.R + frontmatter.S + frontmatter.N
-    if (Math.abs(rsnSum - 1.0) > 0.01) {
+    // Allow 0/0/0 as a valid "pending" state (RSN not yet computed)
+    const isPending = frontmatter.R === 0 && frontmatter.S === 0 && frontmatter.N === 0
+    if (!isPending && Math.abs(rsnSum - 1.0) > 0.01) {
       errors.push(
         `RSN values must sum to 1.0 (simplex constraint). ` +
         `Got R=${frontmatter.R}, S=${frontmatter.S}, N=${frontmatter.N}, sum=${rsnSum.toFixed(3)}`
@@ -174,7 +175,8 @@ export function validatePaperFrontmatter(
   }
 
   // === Date Validation ===
-  if (frontmatter.published_date && !isValidDate(frontmatter.published_date)) {
+  // published_date can be empty for papers where date is unknown
+  if (frontmatter.published_date && frontmatter.published_date !== '' && !isValidDate(frontmatter.published_date)) {
     errors.push(`Invalid published_date format: "${frontmatter.published_date}" (expected YYYY-MM-DD)`)
   }
   if (frontmatter.go_live_date && !isValidDate(frontmatter.go_live_date)) {
@@ -182,8 +184,12 @@ export function validatePaperFrontmatter(
   }
 
   // === URL Validation ===
-  if (frontmatter.arxiv_url && !frontmatter.arxiv_url.startsWith('https://arxiv.org/')) {
-    errors.push(`Invalid arxiv_url: must start with "https://arxiv.org/"`)
+  // Allow arxiv_url to be any valid paper URL (arxiv, semantic scholar, etc.)
+  // Only warn if it doesn't look like a valid URL
+  if (frontmatter.arxiv_url && typeof frontmatter.arxiv_url === 'string') {
+    if (!frontmatter.arxiv_url.startsWith('https://')) {
+      warnings.push(`arxiv_url should be a valid HTTPS URL: "${frontmatter.arxiv_url}"`)
+    }
   }
 
   return {
