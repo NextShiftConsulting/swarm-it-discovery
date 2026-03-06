@@ -1,21 +1,20 @@
 #!/bin/bash
 #
-# Daily Discovery Pipeline Runner
+# Daily Discovery Pipeline Runner (LOCAL/DEV)
 #
-# This script runs the complete daily discovery pipeline:
-# 1. Fetches papers from 6 sources
-# 2. Matches against research topics
-# 3. Runs SWARM source agents
-# 4. Uploads posts to S3
+# This is the LOCAL development version. For production, use AWS Lambda.
 #
 # Usage:
-#   ./scripts/run_daily.sh              # Default: 50 papers, 1 day
-#   ./scripts/run_daily.sh 100          # 100 papers
+#   ./scripts/run_daily.sh              # Dev mode (uploads to reviews-dev/)
+#   ./scripts/run_daily.sh --prod       # Prod mode (uploads to reviews/) - USE WITH CAUTION
+#   ./scripts/run_daily.sh --dry-run    # Preview only (no uploads)
+#   ./scripts/run_daily.sh 100          # 100 papers (dev mode)
 #   ./scripts/run_daily.sh 50 3         # 50 papers, 3 days back
-#   ./scripts/run_daily.sh --dry-run    # Preview only
 #
-# For cron (daily at 6am):
-#   0 6 * * * /path/to/swarm-it-discovery/scripts/run_daily.sh >> /var/log/discovery.log 2>&1
+# Coordination with Lambda:
+#   - Lambda runs daily at 6am UTC → uploads to content/reviews/
+#   - Local runs → uploads to content/reviews-dev/ (default)
+#   - Use --prod flag to upload to production (same as Lambda)
 #
 
 set -e
@@ -24,16 +23,44 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 
 # Defaults
-MAX_PAPERS="${1:-50}"
-DAYS="${2:-1}"
+MAX_PAPERS="50"
+DAYS="1"
 DRY_RUN=""
+MODE="dev"  # dev or prod
+S3_PREFIX="content/reviews-dev"
 
-# Check for dry-run flag
-if [ "$1" = "--dry-run" ]; then
-    DRY_RUN="--dry-run"
-    MAX_PAPERS="${2:-50}"
-    DAYS="${3:-1}"
-fi
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --dry-run)
+            DRY_RUN="--dry-run"
+            shift
+            ;;
+        --prod)
+            MODE="prod"
+            S3_PREFIX="content/reviews"
+            echo "⚠️  PRODUCTION MODE - uploads to same location as Lambda"
+            shift
+            ;;
+        --dev)
+            MODE="dev"
+            S3_PREFIX="content/reviews-dev"
+            shift
+            ;;
+        [0-9]*)
+            if [ -z "$FIRST_NUM" ]; then
+                MAX_PAPERS="$1"
+                FIRST_NUM="set"
+            else
+                DAYS="$1"
+            fi
+            shift
+            ;;
+        *)
+            shift
+            ;;
+    esac
+done
 
 # Load AWS credentials
 if [ -f ~/GitHub/yrsn/keys/set_aws_env.sh ]; then
@@ -52,18 +79,25 @@ fi
 # Configuration
 export S3_BUCKET="${S3_BUCKET:-swarmit-nextshift-site}"
 export SWARMIT_URL="${SWARMIT_URL:-https://api.swarms.network}"
+export S3_PREFIX="$S3_PREFIX"
 
 echo "=============================================="
-echo "  Daily Discovery Pipeline"
+echo "  Daily Discovery Pipeline (LOCAL)"
 echo "  $(date)"
 echo "=============================================="
 echo ""
-echo "Configuration:"
-echo "  Max papers per source: $MAX_PAPERS"
-echo "  Days to look back: $DAYS"
+echo "Mode: $MODE"
+echo "  Max papers: $MAX_PAPERS"
+echo "  Days back: $DAYS"
 echo "  S3 bucket: $S3_BUCKET"
+echo "  S3 prefix: $S3_PREFIX"
 echo "  Dry run: ${DRY_RUN:-no}"
 echo ""
+if [ "$MODE" = "dev" ]; then
+    echo "📝 DEV MODE: Results go to $S3_PREFIX/"
+    echo "   (Lambda production goes to content/reviews/)"
+    echo ""
+fi
 
 cd "$ROOT_DIR"
 
@@ -80,6 +114,7 @@ python3 scripts/daily_discovery.py \
     --topics-dir "$ROOT_DIR/content/topics" \
     --whitepaper "$ROOT_DIR/pipeline/rsct_whitepaper.pdf" \
     --s3-bucket "$S3_BUCKET" \
+    --s3-prefix "$S3_PREFIX" \
     $DRY_RUN
 
 echo ""

@@ -48,6 +48,7 @@ class DailyDiscoveryPipeline:
         output_dir: str = "/tmp/generated-posts",
         whitepaper_path: str = None,
         s3_bucket: str = None,
+        s3_prefix: str = None,
         min_score: float = 0.5,
         min_rsct_score: float = 0.1,
     ):
@@ -55,6 +56,7 @@ class DailyDiscoveryPipeline:
         self.output_dir = output_dir
         self.whitepaper_path = whitepaper_path
         self.s3_bucket = s3_bucket or os.getenv("S3_BUCKET", "swarmit-nextshift-site")
+        self.s3_prefix = s3_prefix or os.getenv("S3_PREFIX", "content/reviews")
         self.min_score = min_score
         self.min_rsct_score = min_rsct_score
 
@@ -237,11 +239,11 @@ class DailyDiscoveryPipeline:
             return uploaded
 
         for file in output_path.glob("*.mdx"):
-            key = f"content/reviews/{file.name}"
+            key = f"{self.s3_prefix}/{file.name}"
             try:
                 s3.upload_file(str(file), self.s3_bucket, key, ExtraArgs={"ContentType": "text/markdown"})
                 uploaded.append(key)
-                print(f"  Uploaded: {key}")
+                print(f"  Uploaded: s3://{self.s3_bucket}/{key}")
             except Exception as e:
                 print(f"  Error uploading {file.name}: {e}")
 
@@ -253,7 +255,12 @@ class DailyDiscoveryPipeline:
 
         s3 = boto3.client("s3")
         today = datetime.utcnow().strftime("%Y-%m-%d")
-        key = f"analytics/daily/{today}.json"
+
+        # Use different analytics path for dev vs prod
+        if "dev" in self.s3_prefix:
+            key = f"analytics/daily-dev/{today}.json"
+        else:
+            key = f"analytics/daily/{today}.json"
 
         try:
             s3.put_object(
@@ -324,6 +331,7 @@ def main():
     parser.add_argument("--topics-dir", default="content/topics", help="Topics directory")
     parser.add_argument("--whitepaper", help="Path to RSCT whitepaper")
     parser.add_argument("--s3-bucket", help="S3 bucket for uploads")
+    parser.add_argument("--s3-prefix", default="content/reviews-dev", help="S3 prefix (dev vs prod)")
     args = parser.parse_args()
 
     pipeline = DailyDiscoveryPipeline(
@@ -331,6 +339,7 @@ def main():
         output_dir="/tmp/generated-posts",
         whitepaper_path=args.whitepaper,
         s3_bucket=args.s3_bucket,
+        s3_prefix=args.s3_prefix,
         min_score=args.min_score,
         min_rsct_score=args.min_rsct_score,
     )

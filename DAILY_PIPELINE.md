@@ -2,20 +2,25 @@
 
 Simple daily paper discovery with source-specific SWARM agents.
 
+## Two Pipelines (Dev vs Prod)
+
+| Pipeline | Location | S3 Path | When |
+|----------|----------|---------|------|
+| **Lambda (PROD)** | AWS | `content/reviews/` | Daily 6am UTC |
+| **Local (DEV)** | Your machine | `content/reviews-dev/` | Manual |
+
+**They don't conflict** - local runs go to `-dev/` by default.
+
 ## Quick Start
 
-### 1. Run Manually (Local)
+### 1. Run Locally (Dev Mode)
 
 ```bash
 cd /Users/rudy/GitHub/swarm-it-discovery
 ./scripts/run_daily.sh
 ```
 
-That's it! The script handles:
-- Loading AWS credentials
-- Setting up OpenAI API key
-- Running all 6 source agents
-- Uploading posts to S3
+Results go to `content/reviews-dev/` (won't touch production).
 
 ### 2. Run with Options
 
@@ -28,6 +33,9 @@ That's it! The script handles:
 
 # Look back 3 days
 ./scripts/run_daily.sh 50 3
+
+# PRODUCTION MODE (same as Lambda) - use carefully!
+./scripts/run_daily.sh --prod
 ```
 
 ### 3. Set Up Daily Cron
