@@ -116,7 +116,7 @@ export const createPages: GatsbyNode["createPages"] = async ({
 }) => {
   const { createPage } = actions;
 
-  // Query for MDX review pages
+  // Query for MDX review pages (only from "reviews" source)
   const result = await graphql<{
     allMdx: {
       nodes: Array<{
@@ -127,7 +127,7 @@ export const createPages: GatsbyNode["createPages"] = async ({
     };
   }>(`
     query {
-      allMdx {
+      allMdx(filter: {fields: {slug: {regex: "/^/reviews//"}}}) {
         nodes {
           id
           fields {
