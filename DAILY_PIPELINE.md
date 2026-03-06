@@ -82,14 +82,42 @@ launchctl list | grep swarmit
    - Posts → `s3://swarmit-nextshift-site/content/reviews/`
    - Reports → `s3://swarmit-nextshift-site/analytics/daily/`
 
+## Full Pipeline (Fetch → Analyze → Website)
+
+To run everything and update the website:
+
+```bash
+# Full pipeline: fetch papers → analyze → S3 → git → website rebuild
+./scripts/full_pipeline.sh
+
+# Dev mode (doesn't update website)
+./scripts/full_pipeline.sh --dev
+
+# Preview only
+./scripts/full_pipeline.sh --dry-run
+```
+
+## Individual Steps
+
+```bash
+# Step 1: Fetch and analyze only (uploads to S3)
+./scripts/run_daily.sh
+
+# Step 2: Sync S3 to git (triggers website rebuild)
+./scripts/sync_s3_to_git.sh
+```
+
 ## Check Results
 
 ```bash
-# List recent posts
+# List recent posts in S3
 aws s3 ls s3://swarmit-nextshift-site/content/reviews/ | tail -10
 
 # View today's analytics
 aws s3 cp s3://swarmit-nextshift-site/analytics/daily/$(date +%Y-%m-%d).json - | python3 -m json.tool
+
+# Check git for synced content
+ls -la content/reviews/
 ```
 
 ## Troubleshooting
