@@ -134,19 +134,24 @@ export function validatePaperFrontmatter(
         `(expected "R/S/N" format, e.g., "0.75/0.82/0.43")`
       )
     } else {
-      // Verify rsn_score matches R/S/N values
-      const [, rStr, sStr, nStr] = match
-      const scoreR = parseFloat(rStr)
-      const scoreS = parseFloat(sStr)
-      const scoreN = parseFloat(nStr)
+      // Verify rsn_score matches R/S/N values (only if R/S/N are valid numbers)
+      const R = frontmatter.R
+      const S = frontmatter.S
+      const N = frontmatter.N
+      if (typeof R === 'number' && typeof S === 'number' && typeof N === 'number') {
+        const [, rStr, sStr, nStr] = match
+        const scoreR = parseFloat(rStr)
+        const scoreS = parseFloat(sStr)
+        const scoreN = parseFloat(nStr)
 
-      if (Math.abs(scoreR - frontmatter.R) > 0.01 ||
-          Math.abs(scoreS - frontmatter.S) > 0.01 ||
-          Math.abs(scoreN - frontmatter.N) > 0.01) {
-        warnings.push(
-          `rsn_score "${frontmatter.rsn_score}" does not match R/S/N values ` +
-          `(${frontmatter.R}/${frontmatter.S}/${frontmatter.N})`
-        )
+        if (Math.abs(scoreR - R) > 0.01 ||
+            Math.abs(scoreS - S) > 0.01 ||
+            Math.abs(scoreN - N) > 0.01) {
+          warnings.push(
+            `rsn_score "${frontmatter.rsn_score}" does not match R/S/N values ` +
+            `(${R}/${S}/${N})`
+          )
+        }
       }
     }
   }
