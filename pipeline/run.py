@@ -59,9 +59,12 @@ try:
 except ImportError:
     pass
 
-# Swarm-It ADK client
+# Swarm-It ADK client - add path before import
+_adk_path = os.path.expanduser("~/GitHub/swarm-it-adk/clients/python")
+if _adk_path not in sys.path:
+    sys.path.insert(0, _adk_path)
+
 try:
-    sys.path.insert(0, os.path.expanduser("~/GitHub/swarm-it-adk/clients/python"))
     from swarm_it import SwarmIt
     HAS_SWARMIT = True
 except ImportError:

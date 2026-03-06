@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """
-Run discovery pipeline with AWS Bedrock credentials.
+Run discovery pipeline with AWS Bedrock + Swarm-It API.
 
-Sets up environment and runs the main pipeline.
+Uses:
+- AWS Bedrock Titan for semantic matching
+- api.swarms.network for RSCT certification
 
 Prerequisites:
-    Set AWS credentials via environment variables or ~/.aws/credentials:
+    Set AWS credentials via environment variables or keys/aws_credentials.sh:
 
     export AWS_ACCESS_KEY_ID=your-key
     export AWS_SECRET_ACCESS_KEY=your-secret
@@ -22,6 +24,11 @@ from pathlib import Path
 # Change to project root
 project_root = Path(__file__).parent.parent
 os.chdir(project_root)
+
+# Add swarm-it-adk client to path for real API access
+adk_client_path = Path.home() / "GitHub" / "swarm-it-adk" / "clients" / "python"
+if adk_client_path.exists():
+    sys.path.insert(0, str(adk_client_path))
 
 # Check for AWS credentials
 if not os.environ.get("AWS_ACCESS_KEY_ID"):
@@ -45,6 +52,10 @@ if not os.environ.get("AWS_ACCESS_KEY_ID"):
 # Set default region if not set
 if not os.environ.get("AWS_DEFAULT_REGION"):
     os.environ["AWS_DEFAULT_REGION"] = "us-east-1"
+
+# Set Swarm-It API URL
+if not os.environ.get("SWARMIT_URL"):
+    os.environ["SWARMIT_URL"] = "https://api.swarms.network"
 
 # Add pipeline to path
 sys.path.insert(0, str(Path(__file__).parent))
