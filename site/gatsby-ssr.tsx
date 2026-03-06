@@ -22,7 +22,7 @@ const ThemeScript = () => {
   } catch (e) {
     d.classList.add('light');
   }
-  setTimeout(function() { d.classList.remove('no-transition'); }, 100);
+  setTimeout(function() { d.classList.remove('no-transition'); }, 500);
 })();
 `;
   return <script dangerouslySetInnerHTML={{ __html: script }} />;

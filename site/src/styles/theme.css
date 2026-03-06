@@ -84,14 +84,27 @@ body {
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Smooth color transitions for theme switching */
-* {
-  transition-property: background-color, border-color, color, fill, stroke;
+/* Smooth color transitions for theme switching - only on key elements */
+/* DO NOT use * selector - causes page to go black during hydration */
+body,
+main,
+header,
+footer,
+nav,
+section,
+article,
+.bg-white,
+.bg-gray-50,
+.bg-gray-100,
+.dark\:bg-gray-800,
+.dark\:bg-gray-900 {
+  transition-property: background-color, border-color, color;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
 
 /* Disable transitions on page load */
+.no-transition,
 .no-transition * {
   transition: none !important;
 }
