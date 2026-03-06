@@ -33,6 +33,32 @@ from analyzer.rsct_scorer import RSCTScorer, RSCTScore
 from publisher.mdx_generator import MDXGenerator, PaperData
 from publisher.pdf_generator import PDFReviewGenerator
 
+# Paper2SwarmAgent integration
+try:
+    from paper2agent import Paper2SwarmAgent, TopicConfig
+    HAS_PAPER2AGENT = True
+except ImportError:
+    HAS_PAPER2AGENT = False
+
+# Bedrock semantic matching (real embeddings)
+HAS_BEDROCK = False
+try:
+    from analyzer.bedrock_matcher import BedrockMatcher, BedrockAnalyzer
+    # Check for AWS credentials (env var or ~/.aws/credentials)
+    if os.environ.get("AWS_ACCESS_KEY_ID"):
+        HAS_BEDROCK = True
+    else:
+        # Try boto3 credential chain
+        try:
+            import boto3
+            session = boto3.Session()
+            creds = session.get_credentials()
+            HAS_BEDROCK = creds is not None
+        except:
+            pass
+except ImportError:
+    pass
+
 # Swarm-It ADK client
 try:
     sys.path.insert(0, os.path.expanduser("~/GitHub/swarm-it-adk/clients/python"))
@@ -64,16 +90,46 @@ class CertifiedPipeline:
         topics_dir: str = "content/topics",
         output_dir: str = "content/generated-posts",
         pdf_output_dir: str = "content/pdf-reviews",
+        agents_output_dir: str = "content/research-agents",
         whitepaper_path: str = None,
         min_score: float = 0.5,
         min_rsct_score: float = 0.3,
     ):
         self.min_score = min_score
         self.min_rsct_score = min_rsct_score
-        self.matcher = SimilarityMatcher(topics_dir=topics_dir, threshold=min_score)
+        self.topics_dir = topics_dir
+
+        # Use Bedrock for real semantic matching if available
+        if HAS_BEDROCK:
+            self.bedrock_matcher = BedrockMatcher(threshold=min_score)
+            self.bedrock_analyzer = BedrockAnalyzer()
+            self.matcher = None  # Will use Bedrock instead
+            print("Bedrock: Enabled (real semantic matching with Titan embeddings)")
+        else:
+            self.bedrock_matcher = None
+            self.bedrock_analyzer = None
+            self.matcher = SimilarityMatcher(topics_dir=topics_dir, threshold=min_score)
+            print("Warning: Bedrock not available, using keyword matching")
+
         self.generator = MDXGenerator(output_dir=output_dir)
         self.rsct_scorer = RSCTScorer(whitepaper_path=whitepaper_path)
         self.pdf_generator = PDFReviewGenerator(output_dir=pdf_output_dir)
+        self.agents_output_dir = agents_output_dir
+
+        # Initialize Paper2SwarmAgent converter
+        if HAS_PAPER2AGENT:
+            topics_json = os.path.join(topics_dir, "topics.json")
+            if os.path.exists(topics_json):
+                self.paper2agent = Paper2SwarmAgent(
+                    topics=TopicConfig.from_json(topics_json),
+                    cleanup=True,
+                )
+                print("Paper2SwarmAgent: Enabled (will convert papers with GitHub repos)")
+            else:
+                self.paper2agent = None
+                print("Paper2SwarmAgent: Disabled (topics.json not found)")
+        else:
+            self.paper2agent = None
 
         # Initialize Swarm-It client
         if HAS_SWARMIT:
@@ -122,9 +178,13 @@ class CertifiedPipeline:
 
         # Load topics
         print("Loading topics...")
-        self.matcher.load_topics()
-        if not self.matcher.topics:
-            print("Warning: No topics loaded, using keyword matching")
+        if self.bedrock_matcher:
+            topics_json = os.path.join(self.topics_dir, "topics.json")
+            self.bedrock_matcher.load_topics(topics_json)
+        elif self.matcher:
+            self.matcher.load_topics()
+            if not self.matcher.topics:
+                print("Warning: No topics loaded, using keyword matching")
 
         # Stage 1: Fetch papers
         print(f"\n[1/3] Fetching papers from last {days} day(s)...")
@@ -143,7 +203,18 @@ class CertifiedPipeline:
         # Stage 2: Match against topics
         print("\n[2/3] Matching papers against topics...")
         paper_dicts = [{"id": p.id, "title": p.title, "abstract": p.abstract} for p in papers]
-        matches = self.matcher.match_papers(paper_dicts)
+
+        if self.bedrock_matcher:
+            print("  Using Bedrock Titan embeddings for semantic matching...")
+            bedrock_matches = self.bedrock_matcher.match_papers(paper_dicts)
+            # Convert to MatchResult-like objects
+            class BedrockMatchResult:
+                def __init__(self, m):
+                    self.similarity_score = m.similarity_score
+                    self.matched_topics = m.matched_topics
+            matches = [BedrockMatchResult(m) for m in bedrock_matches]
+        else:
+            matches = self.matcher.match_papers(paper_dicts)
 
         # Filter by score
         relevant = [(p, m) for p, m in zip(papers, matches) if m.similarity_score >= self.min_score]
@@ -198,6 +269,46 @@ class CertifiedPipeline:
                 "combined_score": r.combined_score,
                 "key_overlaps": r.key_overlaps,
             })
+
+        # Stage 2.75: Paper2SwarmAgent conversion (papers with GitHub repos)
+        results["agents_converted"] = 0
+        if self.paper2agent and not dry_run:
+            papers_with_github = [
+                (p, m, r) for p, m, r in relevant_with_rsct
+                if hasattr(p, 'github_url') and p.github_url
+            ]
+
+            if papers_with_github:
+                print(f"\n[2.75/4] Converting {len(papers_with_github)} papers with GitHub repos to agents...")
+                os.makedirs(self.agents_output_dir, exist_ok=True)
+
+                for paper, match, rsct in papers_with_github[:5]:  # Limit to top 5
+                    try:
+                        result = self.paper2agent.convert(
+                            paper_id=paper.id,
+                            paper_title=paper.title,
+                            github_url=paper.github_url,
+                            paper_url=paper.url,
+                        )
+
+                        if result.success and result.agent:
+                            agent_path = os.path.join(
+                                self.agents_output_dir,
+                                f"{result.agent.id}.json"
+                            )
+                            result.agent.save(agent_path)
+                            results["agents_converted"] += 1
+                            print(f"    ✓ {paper.title[:40]}... → {result.agent.id}")
+                            print(f"      Tools: {len(result.agent.tools)}, Confidence: {result.agent.confidence:.2f}")
+                        else:
+                            print(f"    ✗ {paper.title[:40]}... ({result.error or 'no tools found'})")
+
+                    except Exception as e:
+                        print(f"    ✗ {paper.title[:40]}... (error: {e})")
+
+                print(f"  Converted {results['agents_converted']} papers to agents")
+            else:
+                print("\n[2.75/4] Paper2SwarmAgent: No papers with GitHub URLs found")
 
         # Stage 3: Generate blog posts
         print("\n[3/4] Generating blog posts...")
@@ -282,7 +393,7 @@ class CertifiedPipeline:
                 status = "PDF" if review.pdf_path else "TEX only"
                 print(f"    - {review.title[:50]}... [{status}]")
 
-        print(f"\nPipeline complete: {results['posts_generated']} posts, {results.get('pdfs_generated', 0)} PDFs")
+        print(f"\nPipeline complete: {results['posts_generated']} posts, {results.get('pdfs_generated', 0)} PDFs, {results.get('agents_converted', 0)} agents")
         return results
 
 
@@ -297,6 +408,7 @@ def main():
     parser.add_argument("--topics-dir", default="content/topics", help="Topics directory")
     parser.add_argument("--output-dir", default="content/reviews", help="Output directory")
     parser.add_argument("--pdf-output-dir", default="content/pdf-reviews", help="PDF output directory")
+    parser.add_argument("--agents-output-dir", default="content/research-agents", help="Agents output directory")
     parser.add_argument("--whitepaper", default=None, help="Path to RSCT whitepaper for comparison")
     args = parser.parse_args()
 
@@ -307,6 +419,7 @@ def main():
         topics_dir=args.topics_dir,
         output_dir=args.output_dir,
         pdf_output_dir=args.pdf_output_dir,
+        agents_output_dir=args.agents_output_dir,
         whitepaper_path=args.whitepaper,
         min_score=args.min_score,
         min_rsct_score=args.min_rsct_score,
@@ -326,6 +439,7 @@ def main():
     print(f"Papers fetched:    {results['papers_fetched']}")
     print(f"Papers matched:    {results['papers_matched']}")
     print(f"RSCT ranked:       {results.get('papers_rsct_ranked', 0)}")
+    print(f"Agents converted:  {results.get('agents_converted', 0)}")
     print(f"Posts generated:   {results['posts_generated']}")
     print(f"PDFs generated:    {results.get('pdfs_generated', 0)}")
     print(f"Certifications:    {len(results['certifications'])}")

@@ -1,0 +1,3 @@
+# Generated agent definitions (internal use)
+*.json
+!.gitignore

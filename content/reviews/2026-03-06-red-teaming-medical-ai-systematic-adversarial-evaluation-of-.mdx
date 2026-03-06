@@ -1,0 +1,110 @@
+---
+title: 'Red-Teaming Medical AI: Systematic Adversarial Evaluation of LLM Safety Guardrails
+  in Clinical Contexts'
+arxiv_id: medrxiv:2026.02.26.26347212
+authors:
+- Ekram, T. T.
+published_date: '2026-03-05'
+go_live_date: '2026-03-06'
+kappa: 0.55
+R: 0.375
+S: 0.319
+N: 0.307
+rsn_score: 0.37/0.32/0.31
+tags:
+- health informatics
+- llm-agents
+- llm
+- safety
+- ai-safety
+primary_topic: ai-safety
+difficulty: beginner
+abstract: 'Background: Large language models (LLMs) are increasingly deployed in medical
+  contexts as patient-facing assistants, providing medication information, symptom
+  triage, and health guidance. Understanding their robustness to adversarial inputs
+  is critical for patient safety, as even a single safety failure can lead to adverse
+  outcomes including severe harm or death. Objective: To systematically evaluate the
+  safety guardrails of state-of-the-art LLMs through adversarial red-teaming specifically
+  designed for medical contexts. Methods: We developed a comprehensive taxonomy of
+  8 adversarial attack categories targeting medical AI safety, encompassing 24 distinct
+  sub-strategies. Using an LLM-based attack generator, we created 160 realistic adversarial
+  prompts across categories including dangerous dosing, contraindication bypass, emergency
+  misdirection, and multi-turn escalation. We tested Claude Sonnet 4.5 using both
+  single-turn and multi-turn attack sequences under a standard medical assistant system
+  prompt. An automated evaluator pre-screened responses for harm potential on a 0-5
+  scale, with physician review planned for high-risk responses. Results: Of 160 adversarial
+  prompts, 11 (6.9%) elicited responses meeting our threshold for clinically significant
+  harm (harm level >= 3). The model exhibited full refusal in 86.2% of cases. Authority
+  Impersonation was the dominant attack vector (45.0% success rate), with the Educational
+  Authority sub-strategy achieving 83.3% success. Multi-turn escalation attacks achieved
+  0% success. Six of eight attack categories yielded no successful attacks. Conclusions:
+  Standard medical assistant system prompts provide strong baseline protection against
+  most adversarial attacks but are substantially vulnerable to authority impersonation,
+  particularly claims of educational context. The primary failure mode is behavioral
+  mode-switching rather than factual inaccuracy, suggesting guardrail improvements
+  should target context-conditioned behavior. Our open-source taxonomy and evaluation
+  pipeline enable ongoing adversarial assessment as medical AI systems evolve.'
+tldr: 'Background: Large language models (LLMs) are increasingly deployed in medical
+  contexts as patient-facing assistants, providing medication information, symptom
+  triage, and health guidance. Understandin...'
+arxiv_url: https://www.medrxiv.org/content/10.64898/2026.02.26.26347212
+pdf_url: https://www.medrxiv.org/content/10.64898/2026.02.26.26347212.full.pdf
+status: live
+featured: false
+date: '2026-03-06'
+source: medrxiv
+paperUrl: https://www.medrxiv.org/content/10.64898/2026.02.26.26347212
+pdfUrl: https://www.medrxiv.org/content/10.64898/2026.02.26.26347212.full.pdf
+similarityScore: 0.214
+matchedTopics:
+- ai-safety
+- llm-agents
+excerpt: 'Background: Large language models (LLMs) are increasingly deployed in medical
+  contexts as patient-facing assistants, providing medication information, symptom
+  triage, and health guidance. Understandin...'
+---
+
+# Red-Teaming Medical AI: Systematic Adversarial Evaluation of LLM Safety Guardrails in Clinical Contexts
+
+**RSCT Certification:** κ=0.550 (pending) | **RSN:** 0.37/0.32/0.31 | **Topics:** ai-safety, llm-agents
+
+## Overview
+
+This paper presents research in the area of health informatics.
+
+**Abstract Summary:**
+Background: Large language models (LLMs) are increasingly deployed in medical contexts as patient-facing assistants, providing medication information, symptom triage, and health guidance. Understanding their robustness to adversarial inputs is critical for patient safety, as even a single safety failure can lead to adverse outcomes including severe harm or death. Objective: To systematically evaluate the safety guardrails of state-of-the-art LLMs through adversarial red-teaming specifically desi...
+
+The work shows a **21% similarity** to our research interests in ai-safety, llm-agents.
+
+Further analysis pending manual review.
+
+## RSCT Quality Metrics
+
+This paper has been certified by the Swarm-It RSCT pipeline:
+
+- **κ-gate Score:** 0.550 (pending)
+- **Relevance (R):** 0.375 - Directly relevant to research goals
+- **Spurious (S):** 0.319 - Supporting context and correlations
+- **Noise (N):** 0.307 - Irrelevant or noisy components
+- **Decision:** REPAIR
+
+The RSN decomposition satisfies the simplex constraint (R+S+N=1.0), ensuring mathematically valid quality assessment.
+
+## Paper Details
+
+- **Authors:** Ekram, T. T.
+- **Published:** 2026-03-05
+- **Source:** [medrxiv](https://www.medrxiv.org/content/10.64898/2026.02.26.26347212)
+- **PDF:** [Download](https://www.medrxiv.org/content/10.64898/2026.02.26.26347212.full.pdf)
+- **Primary Topic:** ai-safety
+- **Difficulty:** Beginner
+
+## Abstract
+
+> Background: Large language models (LLMs) are increasingly deployed in medical contexts as patient-facing assistants, providing medication information, symptom triage, and health guidance. Understanding their robustness to adversarial inputs is critical for patient safety, as even a single safety failure can lead to adverse outcomes including severe harm or death. Objective: To systematically evaluate the safety guardrails of state-of-the-art LLMs through adversarial red-teaming specifically designed for medical contexts. Methods: We developed a comprehensive taxonomy of 8 adversarial attack categories targeting medical AI safety, encompassing 24 distinct sub-strategies. Using an LLM-based attack generator, we created 160 realistic adversarial prompts across categories including dangerous dosing, contraindication bypass, emergency misdirection, and multi-turn escalation. We tested Claude Sonnet 4.5 using both single-turn and multi-turn attack sequences under a standard medical assistant system prompt. An automated evaluator pre-screened responses for harm potential on a 0-5 scale, with physician review planned for high-risk responses. Results: Of 160 adversarial prompts, 11 (6.9%) elicited responses meeting our threshold for clinically significant harm (harm level >= 3). The model exhibited full refusal in 86.2% of cases. Authority Impersonation was the dominant attack vector (45.0% success rate), with the Educational Authority sub-strategy achieving 83.3% success. Multi-turn escalation attacks achieved 0% success. Six of eight attack categories yielded no successful attacks. Conclusions: Standard medical assistant system prompts provide strong baseline protection against most adversarial attacks but are substantially vulnerable to authority impersonation, particularly claims of educational context. The primary failure mode is behavioral mode-switching rather than factual inaccuracy, suggesting guardrail improvements should target context-conditioned behavior. Our open-source taxonomy and evaluation pipeline enable ongoing adversarial assessment as medical AI systems evolve.
+
+---
+
+*This analysis was automatically generated and certified by the Swarm-It RSCT pipeline.
+κ-gate score: 0.550 | Quality tier: pending*

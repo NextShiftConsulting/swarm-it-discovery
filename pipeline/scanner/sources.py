@@ -22,6 +22,16 @@ class Paper:
     pdf_url: Optional[str]
     published_date: str
     categories: List[str]
+    github_url: Optional[str] = None  # For Paper2SwarmAgent conversion
+
+
+def extract_github_url(text: str) -> Optional[str]:
+    """Extract GitHub URL from text (abstract, comments, etc.)."""
+    import re
+    # Match github.com URLs
+    pattern = r'https?://github\.com/[\w\-\.]+/[\w\-\.]+'
+    match = re.search(pattern, text)
+    return match.group(0) if match else None
 
 
 class PaperSource(ABC):
@@ -81,16 +91,21 @@ class ArxivSource(PaperSource):
 
             arxiv_id = entry.find("atom:id", ns).text.split("/abs/")[-1]
 
+            abstract = entry.find("atom:summary", ns).text.strip()
+            # Try to extract GitHub URL from abstract
+            github_url = extract_github_url(abstract)
+
             papers.append(Paper(
                 id=f"arxiv:{arxiv_id}",
                 title=entry.find("atom:title", ns).text.strip().replace("\n", " "),
-                abstract=entry.find("atom:summary", ns).text.strip(),
+                abstract=abstract,
                 authors=[a.find("atom:name", ns).text for a in entry.findall("atom:author", ns)],
                 source="arxiv",
                 url=f"https://arxiv.org/abs/{arxiv_id}",
                 pdf_url=f"https://arxiv.org/pdf/{arxiv_id}.pdf",
                 published_date=published[:10],
                 categories=[c.get("term") for c in entry.findall("arxiv:primary_category", ns)] or [],
+                github_url=github_url,
             ))
 
         return papers
