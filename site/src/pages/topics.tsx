@@ -169,13 +169,13 @@ const TopicsPage: React.FC<PageProps<{ allMdx: { nodes: ReviewNode[] }; topicsJs
               Each topic is defined by a set of keywords and concepts. When a new paper is discovered:
             </p>
             <ol className="text-gray-600 dark:text-gray-400 space-y-2">
-              <li><strong>Semantic Embedding:</strong> The paper's title and abstract are converted to vector embeddings</li>
-              <li><strong>Similarity Matching:</strong> Cosine similarity is computed against each topic's embedding</li>
+              <li><strong>Semantic Embedding:</strong> The paper title and abstract are converted to vector embeddings</li>
+              <li><strong>Similarity Matching:</strong> Cosine similarity is computed against each topic embedding</li>
               <li><strong>Threshold Filter:</strong> Papers above the similarity threshold (typically 0.5+) are matched</li>
               <li><strong>RSCT Certification:</strong> Matched papers are certified using κ-gate quality scoring</li>
             </ol>
             <p className="text-gray-600 dark:text-gray-400 mt-4">
-              This approach ensures we capture papers that are semantically relevant, even if they don't use exact keyword matches.
+              This approach ensures we capture papers that are semantically relevant, even if they do not use exact keyword matches.
             </p>
           </div>
         </div>

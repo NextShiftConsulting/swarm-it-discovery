@@ -51,7 +51,7 @@ export interface ValidationResult {
  * @returns Validation result with errors and warnings
  */
 export function validatePaperFrontmatter(
-  frontmatter: any
+  frontmatter: Partial<PaperFrontmatter> & Record<string, unknown>
 ): ValidationResult {
   const errors: string[] = []
   const warnings: string[] = []

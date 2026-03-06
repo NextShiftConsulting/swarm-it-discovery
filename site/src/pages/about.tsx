@@ -68,7 +68,7 @@ const AboutPage: React.FC = () => {
                   <div>
                     <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-1">Spurious (S)</h4>
                     <p className="text-gray-600 dark:text-gray-400">
-                      Supporting context, correlations, and related concepts that aren't directly relevant but provide useful background.
+                      Supporting context, correlations, and related concepts that are not directly relevant but provide useful background.
                     </p>
                   </div>
                 </div>
@@ -99,7 +99,7 @@ const AboutPage: React.FC = () => {
               <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">κ-gate Quality Scoring</h3>
               <p className="text-gray-600 dark:text-gray-400 mb-6">
                 The <strong>kappa (κ) score</strong> represents overall quality and compatibility.
-                It's a single number (0-1) that summarizes how well the paper passes our quality gates.
+                This is a single number (0-1) that summarizes how well the paper passes our quality gates.
               </p>
 
               <div className="space-y-3">
