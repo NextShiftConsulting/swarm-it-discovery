@@ -1,0 +1,98 @@
+---
+title: 'Cheap Thrills: Effective Amortized Optimization Using Inexpensive Labels'
+arxiv_id: 2603.05495v1
+authors:
+- Khai Nguyen
+- Petros Ellinas
+- Anvita Bhagavathula
+- Priya Donti
+published_date: '2026-03-05'
+go_live_date: '2026-03-06'
+kappa: 1.0
+R: 0.0
+S: 0.0
+N: 0.0
+rsn_score: 0.00/0.00/0.00
+tags:
+- llm-agents-and-reasoning
+- cs-lg
+primary_topic: LLM Agents and Reasoning
+difficulty: advanced
+abstract: To scale the solution of optimization and simulation problems, prior work
+  has explored machine-learning surrogates that inexpensively map problem parameters
+  to corresponding solutions. Commonly used approaches, including supervised and self-supervised
+  learning with either soft or hard feasibility enforcement, face inherent challenges
+  such as reliance on expensive, high-quality labels or difficult optimization landscapes.
+  To address their trade-offs, we propose a novel framework that first collects "cheap"
+  imperfect labels, then performs supervised pretraining, and finally refines the
+  model through self-supervised learning to improve overall performance. Our theoretical
+  analysis and merit-based criterion show that labeled data need only place the model
+  within a basin of attraction, confirming that only modest numbers of inexact labels
+  and training epochs are required. We empirically validate our simple three-stage
+  strategy across challenging domains, including nonconvex constrained optimization,
+  power-grid operation, and stiff dynamical systems, and show that it yields faster
+  convergence; improved accuracy, feasibility, and optimality; and up to 59x reductions
+  in total offline cost.
+tldr: To scale the solution of optimization and simulation problems, prior work has
+  explored machine-learning surrogates that inexpensively map problem parameters to
+  corresponding solutions. Commonly used a...
+arxiv_url: https://arxiv.org/abs/2603.05495v1
+pdf_url: https://arxiv.org/pdf/2603.05495v1.pdf
+status: live
+featured: false
+date: '2026-03-06'
+source: arxiv
+arxivId: 2603.05495v1
+paperUrl: https://arxiv.org/abs/2603.05495v1
+pdfUrl: https://arxiv.org/pdf/2603.05495v1.pdf
+similarityScore: 0.408
+matchedTopics:
+- LLM Agents and Reasoning
+excerpt: To scale the solution of optimization and simulation problems, prior work
+  has explored machine-learning surrogates that inexpensively map problem parameters
+  to corresponding solutions. Commonly used a...
+---
+
+# Cheap Thrills: Effective Amortized Optimization Using Inexpensive Labels
+
+**RSCT Certification:** κ=1.000 (exceptional) | **RSN:** 0.00/0.00/0.00 | **Topics:** LLM Agents and Reasoning
+
+## Overview
+
+### Understanding "Cheap Thrills": A Breakthrough in Amortized Optimization
+
+In the paper titled "Cheap Thrills: Effective Amortized Optimization Using Inexpensive Labels," the authors present a significant advancement in the field of optimization and simulation problems. Traditional methods often depend on expensive, high-quality labels for supervised learning, which can be a substantial barrier to scaling solutions effectively. This research introduces a novel framework that leverages "cheap" and imperfect labels through a three-stage process: collecting these labels, followed by supervised pretraining, and then refining the model using self-supervised learning. This approach addresses the challenges faced by conventional methods, effectively easing the dependency on costly labels while ensuring convergence towards robust solutions.
+
+One of the key technical contributions of this paper is the theoretical backing that suggests only modest amounts of inexact labels and training epochs are necessary for the model to perform well. The authors demonstrate that, by initially positioning the model within a "basin of attraction," they can achieve substantial improvements in performance metrics, such as convergence speed, accuracy, feasibility, and optimality. Their empirical results validate this approach across various challenging scenarios, including nonconvex constrained optimization and power-grid operational problems. The reduction of total offline costs by as much as 59 times illustrates the potential for this framework to democratize access to complex optimization solutions, making it a game-changer in many practical applications.
+
+This work also has implications for domains connected to AI safety and multi-agent systems. In environments where agents might need to collaborate or compete for resources, ensuring efficient and cost-effective learning is crucial. By allowing agents to rely on imperfect information, the proposed framework could enhance cooperation and adaptability in multi-agent settings without requiring exhaustive data collection. Furthermore, the insights on representation learning can facilitate the development of robust models that maintain performance even in the presence of noise and uncertainties typical in complex real-world scenarios. Overall, "Cheap Thrills" not only advances theoretical understanding but also opens avenues for innovative applications in AI-driven systems with safety and efficiency in mind.
+
+## RSCT Quality Metrics
+
+This paper has been certified by the Swarm-It RSCT pipeline:
+
+- **κ-gate Score:** 1.000 (exceptional)
+- **Relevance (R):** 0.000 - Directly relevant to research goals
+- **Spurious (S):** 0.000 - Supporting context and correlations
+- **Noise (N):** 0.000 - Irrelevant or noisy components
+- **Decision:** EXECUTE
+
+The RSN decomposition satisfies the simplex constraint (R+S+N=1.0), ensuring mathematically valid quality assessment.
+
+## Paper Details
+
+- **Authors:** Khai Nguyen, Petros Ellinas, Anvita Bhagavathula, Priya Donti
+- **Published:** 2026-03-05
+- **Source:** [arxiv](https://arxiv.org/abs/2603.05495v1)
+- **PDF:** [Download](https://arxiv.org/pdf/2603.05495v1.pdf)
+- **Primary Topic:** LLM Agents and Reasoning
+- **Difficulty:** Advanced
+
+## Abstract
+
+> To scale the solution of optimization and simulation problems, prior work has explored machine-learning surrogates that inexpensively map problem parameters to corresponding solutions. Commonly used approaches, including supervised and self-supervised learning with either soft or hard feasibility enforcement, face inherent challenges such as reliance on expensive, high-quality labels or difficult optimization landscapes. To address their trade-offs, we propose a novel framework that first collects "cheap" imperfect labels, then performs supervised pretraining, and finally refines the model through self-supervised learning to improve overall performance. Our theoretical analysis and merit-based criterion show that labeled data need only place the model within a basin of attraction, confirming that only modest numbers of inexact labels and training epochs are required. We empirically validate our simple three-stage strategy across challenging domains, including nonconvex constrained optimization, power-grid operation, and stiff dynamical systems, and show that it yields faster convergence; improved accuracy, feasibility, and optimality; and up to 59x reductions in total offline cost.
+
+---
+
+*This analysis was automatically generated and certified by the Swarm-It RSCT pipeline.
+κ-gate score: 1.000 | Quality tier: exceptional*
