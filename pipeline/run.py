@@ -84,10 +84,12 @@ class CertifiedPipeline:
         else:
             self.swarmit = None
 
-    def certify(self, content: str, stage: str) -> dict:
+    def certify(self, content: str, stage: str, fallback_score: float = None) -> dict:
         """Certify content through Swarm-It API."""
         if not self.swarmit:
-            return {"allowed": True, "kappa_gate": 1.0, "decision": "EXECUTE", "stage": stage}
+            # Use fallback score from RSCT scorer, or 0.0 if not provided
+            kappa = fallback_score if fallback_score is not None else 0.0
+            return {"allowed": True, "kappa_gate": kappa, "decision": "PENDING", "stage": stage}
 
         try:
             cert = self.swarmit.certify(content)
@@ -212,7 +214,12 @@ class CertifiedPipeline:
         paper_data = []
         for paper, match, rsct in relevant_with_rsct[:10]:  # Limit to top 10
             # Certify external paper content (not our summaries)
-            cert = self.certify(f"{paper.title}\n\nAbstract: {paper.abstract[:500]}", "paper")
+            # Pass RSCT combined_score as fallback when API unavailable
+            cert = self.certify(
+                f"{paper.title}\n\nAbstract: {paper.abstract[:500]}",
+                "paper",
+                fallback_score=rsct.combined_score
+            )
 
             paper_data.append(PaperData(
                 id=paper.id,
@@ -247,7 +254,11 @@ class CertifiedPipeline:
             pdf_papers = []
             for paper, match, rsct in top_for_pdf:
                 # Certify external paper content for PDF generation
-                cert = self.certify(f"{paper.title}\n\nAbstract: {paper.abstract[:500]}", "paper_pdf")
+                cert = self.certify(
+                    f"{paper.title}\n\nAbstract: {paper.abstract[:500]}",
+                    "paper_pdf",
+                    fallback_score=rsct.combined_score
+                )
                 pdf_papers.append({
                     "id": paper.id,
                     "title": paper.title,
