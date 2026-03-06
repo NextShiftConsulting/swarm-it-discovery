@@ -1,0 +1,96 @@
+---
+title: 'The Spike, the Sparse and the Sink: Anatomy of Massive Activations and Attention
+  Sinks'
+arxiv_id: 2603.05498v1
+authors:
+- Shangwen Sun
+- Alfredo Canziani
+- Yann LeCun
+- Jiachen Zhu
+published_date: '2026-03-05'
+go_live_date: '2026-03-06'
+kappa: 0.0
+R: 0.0
+S: 0.0
+N: 0.0
+rsn_score: 0.00/0.00/0.00
+tags:
+- cs-ai
+primary_topic: General ML
+difficulty: intermediate
+abstract: 'We study two recurring phenomena in Transformer language models: massive
+  activations, in which a small number of tokens exhibit extreme outliers in a few
+  channels, and attention sinks, in which certain tokens attract disproportionate
+  attention mass regardless of semantic relevance. Prior work observes that these
+  phenomena frequently co-occur and often involve the same tokens, but their functional
+  roles and causal relationship remain unclear. Through systematic experiments, we
+  show that the co-occurrence is largely an architectural artifact of modern Transformer
+  design, and that the two phenomena serve related but distinct functions. Massive
+  activations operate globally: they induce near-constant hidden representations that
+  persist across layers, effectively functioning as implicit parameters of the model.
+  Attention sinks operate locally: they modulate attention outputs across heads and
+  bias individual heads toward short-range dependencies. We identify the pre-norm
+  configuration as the key choice that enables the co-occurrence, and show that ablating
+  it causes the two phenomena to decouple.'
+tldr: 'We study two recurring phenomena in Transformer language models: massive activations,
+  in which a small number of tokens exhibit extreme outliers in a few channels, and
+  attention sinks, in which certai...'
+arxiv_url: https://arxiv.org/abs/2603.05498v1
+pdf_url: https://arxiv.org/pdf/2603.05498v1.pdf
+status: live
+featured: false
+date: '2026-03-06'
+source: arxiv
+arxivId: 2603.05498v1
+paperUrl: https://arxiv.org/abs/2603.05498v1
+pdfUrl: https://arxiv.org/pdf/2603.05498v1.pdf
+similarityScore: 0.295
+matchedTopics: []
+excerpt: 'We study two recurring phenomena in Transformer language models: massive
+  activations, in which a small number of tokens exhibit extreme outliers in a few
+  channels, and attention sinks, in which certai...'
+---
+
+# The Spike, the Sparse and the Sink: Anatomy of Massive Activations and Attention Sinks
+
+**RSCT Certification:** κ=0.000 (pending) | **RSN:** 0.00/0.00/0.00 | **Topics:** General
+
+## Overview
+
+## The Significance of "The Spike, the Sparse and the Sink"
+
+In the realm of Transformer architecture, "The Spike, the Sparse and the Sink" provides a critical examination of two intriguing phenomena observed in Transformer language models: massive activations and attention sinks. Massive activations refer to instances where only a few tokens exhibit extreme outlier values across select channels, while attention sinks describe how certain tokens disproportionately attract the model's attention, often ignoring their semantic significance. This research is crucial for a deeper understanding of how language models process information and the implications this has for model interpretability and performance. By systematically investigating these occurrences and their interrelation, the authors clarify the architectural factors that give rise to them, effectively bridging gaps in the understanding of current Transformer design and its implications for model behavior.
+
+The paper makes several key technical contributions that advance the field. Firstly, it clarifies the functional roles of massive activations and attention sinks, establishing that despite their co-occurrence, they serve distinct roles within Transformer architecture. Massive activations influence the model’s representations on a global scale, creating stability across layers, whereas attention sinks affect attention outputs on a local scale, biasing how the model interacts with token proximity. The authors pinpoint the pre-norm configuration as a pivotal element facilitating the co-occurrence of these phenomena. By demonstrating that altering this configuration can decouple the two behaviors, the research provides actionable insights that can lead to more effective transformer designs and optimizations.
+
+From a broader perspective, understanding massive activations and attention sinks is pertinent to discussions around AI safety and ethical AI deployment. As language models are increasingly incorporated into multi-agent systems, where interaction dynamics can potentially lead to undesirable outcomes, comprehending how these models attend to and process information is vital. By illuminating the layers of representation and attention in such models, this research lays groundwork for better strategies in mitigating risks tied to model bias and error propagation. Ensuring that these models navigate semantics effectively without succumbing to distracting or disproportionately influential tokens is crucial in fostering robust and reliable AI systems capable of functioning safely in complex environments.
+
+## RSCT Quality Metrics
+
+This paper has been certified by the Swarm-It RSCT pipeline:
+
+- **κ-gate Score:** 0.000 (pending)
+- **Relevance (R):** 0.000 - Directly relevant to research goals
+- **Spurious (S):** 0.000 - Supporting context and correlations
+- **Noise (N):** 0.000 - Irrelevant or noisy components
+- **Decision:** EXECUTE
+
+The RSN decomposition satisfies the simplex constraint (R+S+N=1.0), ensuring mathematically valid quality assessment.
+
+## Paper Details
+
+- **Authors:** Shangwen Sun, Alfredo Canziani, Yann LeCun, Jiachen Zhu
+- **Published:** 2026-03-05
+- **Source:** [arxiv](https://arxiv.org/abs/2603.05498v1)
+- **PDF:** [Download](https://arxiv.org/pdf/2603.05498v1.pdf)
+- **Primary Topic:** General ML
+- **Difficulty:** Intermediate
+
+## Abstract
+
+> We study two recurring phenomena in Transformer language models: massive activations, in which a small number of tokens exhibit extreme outliers in a few channels, and attention sinks, in which certain tokens attract disproportionate attention mass regardless of semantic relevance. Prior work observes that these phenomena frequently co-occur and often involve the same tokens, but their functional roles and causal relationship remain unclear. Through systematic experiments, we show that the co-occurrence is largely an architectural artifact of modern Transformer design, and that the two phenomena serve related but distinct functions. Massive activations operate globally: they induce near-constant hidden representations that persist across layers, effectively functioning as implicit parameters of the model. Attention sinks operate locally: they modulate attention outputs across heads and bias individual heads toward short-range dependencies. We identify the pre-norm configuration as the key choice that enables the co-occurrence, and show that ablating it causes the two phenomena to decouple.
+
+---
+
+*This analysis was automatically generated and certified by the Swarm-It RSCT pipeline.
+κ-gate score: 0.000 | Quality tier: pending*
