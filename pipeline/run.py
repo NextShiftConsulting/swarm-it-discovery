@@ -398,8 +398,51 @@ def analyze_source_distribution(papers: list) -> dict:
     return distribution
 
 
-def run_swarm_analysis(papers: list, top_n: int = 3) -> list:
-    """Run SWARM agent analysis on top papers."""
+def run_swarm_analysis(papers: list, top_n: int = 5) -> list:
+    """Run SWARM source-specific agent analysis on papers."""
+    try:
+        # Try to use full agent system
+        sys.path.insert(0, str(Path(__file__).parent.parent))
+        from agents.orchestrator import run_daily_agents
+
+        # Convert Paper objects to dicts
+        paper_dicts = [
+            {
+                "id": p.id,
+                "title": p.title,
+                "abstract": p.abstract,
+                "source": p.source,
+                "categories": getattr(p, 'categories', []),
+            }
+            for p in papers[:top_n * 2]  # Analyze more to get good coverage
+        ]
+
+        report = run_daily_agents(paper_dicts, s3_bucket=None)
+
+        # Convert to simple list format
+        analyses = []
+        for paper in report.get("top_papers", []):
+            analyses.append({
+                "paper_id": paper.get("paper_id", ""),
+                "paper_title": paper.get("title", ""),
+                "source": paper.get("source", ""),
+                "relevance": paper.get("relevance", 5),
+                "novelty": paper.get("novelty", 5),
+                "impact": paper.get("impact", 5),
+                "summary": paper.get("summary", ""),
+                "rsct_connections": paper.get("rsct_connections", []),
+            })
+
+        return analyses[:top_n]
+
+    except ImportError:
+        # Fall back to simple GPT analysis
+        print("  Using simple SWARM analysis (agents not available)")
+        return _simple_swarm_analysis(papers, top_n)
+
+
+def _simple_swarm_analysis(papers: list, top_n: int = 3) -> list:
+    """Fallback simple SWARM analysis when agents not available."""
     try:
         from openai import OpenAI
         client = OpenAI()
@@ -410,23 +453,15 @@ def run_swarm_analysis(papers: list, top_n: int = 3) -> list:
     analyses = []
     for paper in papers[:top_n]:
         try:
-            # Use GPT to simulate SWARM agent team analysis
             response = client.chat.completions.create(
                 model="gpt-4o-mini",
                 messages=[{
                     "role": "system",
-                    "content": """You are a SWARM research analysis team with 5 agents:
-1. RELEVANCE Agent: Score 0-10 how relevant to RSCT/AI safety
-2. NOVELTY Agent: Score 0-10 how novel the approach is
-3. IMPACT Agent: Score 0-10 potential research impact
-4. CITATION Agent: Key papers this should cite
-5. INTEGRATION Agent: How this connects to our research
-
-Respond in JSON format:
-{"relevance": N, "novelty": N, "impact": N, "citations": ["paper1", "paper2"], "integration": "brief note"}"""
+                    "content": """Analyze this research paper. Respond in JSON:
+{"relevance": <0-10>, "novelty": <0-10>, "impact": <0-10>, "summary": "<brief>", "rsct_connections": ["connection1"]}"""
                 }, {
                     "role": "user",
-                    "content": f"Analyze this paper:\n\nTitle: {paper.title}\n\nAbstract: {paper.abstract[:1000]}"
+                    "content": f"Title: {paper.title}\n\nAbstract: {paper.abstract[:1000]}"
                 }],
                 max_tokens=300,
                 response_format={"type": "json_object"},
@@ -438,10 +473,10 @@ Respond in JSON format:
             analysis["paper_title"] = paper.title
             analysis["source"] = paper.source
             analyses.append(analysis)
-            print(f"  SWARM analyzed: {paper.title[:50]}... (R:{analysis.get('relevance')}/N:{analysis.get('novelty')}/I:{analysis.get('impact')})")
+            print(f"  Analyzed: {paper.title[:50]}... R:{analysis.get('relevance')}/N:{analysis.get('novelty')}/I:{analysis.get('impact')}")
 
         except Exception as e:
-            print(f"  SWARM error for {paper.title[:30]}...: {e}")
+            print(f"  Error: {e}")
 
     return analyses
 
