@@ -1,0 +1,100 @@
+---
+title: Kraus Constrained Sequence Learning For Quantum Trajectories from Continuous
+  Measurement
+arxiv_id: 2603.05468v1
+authors:
+- Priyanshi Singh
+- Krishna Bhatia
+published_date: '2026-03-05'
+go_live_date: '2026-03-06'
+kappa: 0.549
+R: 0.374
+S: 0.318
+N: 0.307
+rsn_score: 0.37/0.32/0.31
+tags:
+- cs-lg
+- learning
+- representation-learning
+primary_topic: representation-learning
+difficulty: beginner
+abstract: Real-time reconstruction of conditional quantum states from continuous measurement
+  records is a fundamental requirement for quantum feedback control, yet standard
+  stochastic master equation (SME) solvers require exact model specification, known
+  system parameters, and are sensitive to parameter mismatch. While neural sequence
+  models can fit these stochastic dynamics, the unconstrained predictors can violate
+  physicality such as positivity or trace constraints, leading to unstable rollouts
+  and unphysical estimates. We propose a Kraus-structured output layer that converts
+  the hidden representation of a generic sequence backbone into a completely positive
+  trace preserving (CPTP) quantum operation, yielding physically valid state updates
+  by construction. We instantiate this layer across diverse backbones, RNN, GRU, LSTM,
+  TCN, ESN and Mamba; including Neural ODE as a comparative baseline, on stochastic
+  trajectories characterized by parameter drift. Our evaluation reveals distinct trade-offs
+  between gating mechanisms, linear recurrence, and global attention. Across all models,
+  Kraus-LSTM achieves the strongest results, improving state estimation quality by
+  7% over its unconstrained counterpart while guaranteeing physically valid predictions
+  in non-stationary regimes.
+tldr: Real-time reconstruction of conditional quantum states from continuous measurement
+  records is a fundamental requirement for quantum feedback control, yet standard
+  stochastic master equation (SME) solv...
+arxiv_url: https://arxiv.org/abs/2603.05468v1
+pdf_url: https://arxiv.org/pdf/2603.05468v1.pdf
+status: live
+featured: false
+date: '2026-03-06'
+source: arxiv
+arxivId: 2603.05468v1
+paperUrl: https://arxiv.org/abs/2603.05468v1
+pdfUrl: https://arxiv.org/pdf/2603.05468v1.pdf
+similarityScore: 0.237
+matchedTopics:
+- representation-learning
+excerpt: Real-time reconstruction of conditional quantum states from continuous measurement
+  records is a fundamental requirement for quantum feedback control, yet standard
+  stochastic master equation (SME) solv...
+---
+
+# Kraus Constrained Sequence Learning For Quantum Trajectories from Continuous Measurement
+
+**RSCT Certification:** κ=0.549 (pending) | **RSN:** 0.37/0.32/0.31 | **Topics:** representation-learning
+
+## Overview
+
+This paper presents research in the area of cs.LG.
+
+**Abstract Summary:**
+Real-time reconstruction of conditional quantum states from continuous measurement records is a fundamental requirement for quantum feedback control, yet standard stochastic master equation (SME) solvers require exact model specification, known system parameters, and are sensitive to parameter mismatch. While neural sequence models can fit these stochastic dynamics, the unconstrained predictors can violate physicality such as positivity or trace constraints, leading to unstable rollouts and unph...
+
+The work shows a **24% similarity** to our research interests in representation-learning.
+
+Further analysis pending manual review.
+
+## RSCT Quality Metrics
+
+This paper has been certified by the Swarm-It RSCT pipeline:
+
+- **κ-gate Score:** 0.549 (pending)
+- **Relevance (R):** 0.374 - Directly relevant to research goals
+- **Spurious (S):** 0.318 - Supporting context and correlations
+- **Noise (N):** 0.307 - Irrelevant or noisy components
+- **Decision:** REPAIR
+
+The RSN decomposition satisfies the simplex constraint (R+S+N=1.0), ensuring mathematically valid quality assessment.
+
+## Paper Details
+
+- **Authors:** Priyanshi Singh, Krishna Bhatia
+- **Published:** 2026-03-05
+- **Source:** [arxiv](https://arxiv.org/abs/2603.05468v1)
+- **PDF:** [Download](https://arxiv.org/pdf/2603.05468v1.pdf)
+- **Primary Topic:** representation-learning
+- **Difficulty:** Beginner
+
+## Abstract
+
+> Real-time reconstruction of conditional quantum states from continuous measurement records is a fundamental requirement for quantum feedback control, yet standard stochastic master equation (SME) solvers require exact model specification, known system parameters, and are sensitive to parameter mismatch. While neural sequence models can fit these stochastic dynamics, the unconstrained predictors can violate physicality such as positivity or trace constraints, leading to unstable rollouts and unphysical estimates. We propose a Kraus-structured output layer that converts the hidden representation of a generic sequence backbone into a completely positive trace preserving (CPTP) quantum operation, yielding physically valid state updates by construction. We instantiate this layer across diverse backbones, RNN, GRU, LSTM, TCN, ESN and Mamba; including Neural ODE as a comparative baseline, on stochastic trajectories characterized by parameter drift. Our evaluation reveals distinct trade-offs between gating mechanisms, linear recurrence, and global attention. Across all models, Kraus-LSTM achieves the strongest results, improving state estimation quality by 7% over its unconstrained counterpart while guaranteeing physically valid predictions in non-stationary regimes.
+
+---
+
+*This analysis was automatically generated and certified by the Swarm-It RSCT pipeline.
+κ-gate score: 0.549 | Quality tier: pending*

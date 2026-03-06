@@ -1,0 +1,108 @@
+---
+title: On-Policy Self-Distillation for Reasoning Compression
+arxiv_id: 2603.05433v1
+authors:
+- Hejian Sang
+- Yuanda Xu
+- Zhengze Zhou
+- Ran He
+- Zhipeng Wang
+published_date: '2026-03-05'
+go_live_date: '2026-03-06'
+kappa: 0.549
+R: 0.374
+S: 0.318
+N: 0.307
+rsn_score: 0.37/0.32/0.31
+tags:
+- llm-agents
+- cs-lg
+- representation-learning
+primary_topic: llm-agents
+difficulty: beginner
+abstract: "Reasoning models think out loud, but much of what they say is noise. We\
+  \ introduce OPSDC (On-Policy Self-Distillation for Reasoning Compression), a method\
+  \ that teaches models to reason more concisely by\n  distilling their own concise\
+  \ behavior back into themselves. The entire approach reduces to one idea: condition\
+  \ the same model on a \"be concise\" instruction to obtain teacher logits, and minimize\
+  \ per-token\n  reverse KL on the student's own rollouts. No ground-truth answers,\
+  \ no token budgets, no difficulty estimators. Just self-distillation. Yet this simplicity\
+  \ belies surprising sophistication: OPSDC automatically\n  compresses easy problems\
+  \ aggressively while preserving the deliberation needed for hard ones. On Qwen3-8B\
+  \ and Qwen3-14B, we achieve 57-59% token reduction on MATH-500 while improving accuracy\
+  \ by 9-16 points\n  absolute. On AIME 2024, the 14B model gains 10 points with 41%\
+  \ compression. The secret? Much of what reasoning models produce is not just redundant-it\
+  \ is actively harmful, compounding errors with every\n  unnecessary token."
+tldr: Reasoning models think out loud, but much of what they say is noise. We introduce
+  OPSDC (On-Policy Self-Distillation for Reasoning Compression), a method that teaches
+  models to reason more concisely b...
+arxiv_url: https://arxiv.org/abs/2603.05433v1
+pdf_url: https://arxiv.org/pdf/2603.05433v1.pdf
+status: live
+featured: false
+date: '2026-03-06'
+source: arxiv
+arxivId: 2603.05433v1
+paperUrl: https://arxiv.org/abs/2603.05433v1
+pdfUrl: https://arxiv.org/pdf/2603.05433v1.pdf
+similarityScore: 0.183
+matchedTopics:
+- llm-agents
+- representation-learning
+- ai-safety
+excerpt: Reasoning models think out loud, but much of what they say is noise. We introduce
+  OPSDC (On-Policy Self-Distillation for Reasoning Compression), a method that teaches
+  models to reason more concisely b...
+---
+
+# On-Policy Self-Distillation for Reasoning Compression
+
+**RSCT Certification:** κ=0.549 (pending) | **RSN:** 0.37/0.32/0.31 | **Topics:** llm-agents, representation-learning, ai-safety
+
+## Overview
+
+This paper presents research in the area of cs.LG.
+
+**Abstract Summary:**
+Reasoning models think out loud, but much of what they say is noise. We introduce OPSDC (On-Policy Self-Distillation for Reasoning Compression), a method that teaches models to reason more concisely by
+  distilling their own concise behavior back into themselves. The entire approach reduces to one idea: condition the same model on a "be concise" instruction to obtain teacher logits, and minimize per-token
+  reverse KL on the student's own rollouts. No ground-truth answers, no token budgets, no d...
+
+The work shows a **18% similarity** to our research interests in llm-agents, representation-learning, ai-safety.
+
+Further analysis pending manual review.
+
+## RSCT Quality Metrics
+
+This paper has been certified by the Swarm-It RSCT pipeline:
+
+- **κ-gate Score:** 0.549 (pending)
+- **Relevance (R):** 0.374 - Directly relevant to research goals
+- **Spurious (S):** 0.318 - Supporting context and correlations
+- **Noise (N):** 0.307 - Irrelevant or noisy components
+- **Decision:** REPAIR
+
+The RSN decomposition satisfies the simplex constraint (R+S+N=1.0), ensuring mathematically valid quality assessment.
+
+## Paper Details
+
+- **Authors:** Hejian Sang, Yuanda Xu, Zhengze Zhou, Ran He, Zhipeng Wang et al.
+- **Published:** 2026-03-05
+- **Source:** [arxiv](https://arxiv.org/abs/2603.05433v1)
+- **PDF:** [Download](https://arxiv.org/pdf/2603.05433v1.pdf)
+- **Primary Topic:** llm-agents
+- **Difficulty:** Beginner
+
+## Abstract
+
+> Reasoning models think out loud, but much of what they say is noise. We introduce OPSDC (On-Policy Self-Distillation for Reasoning Compression), a method that teaches models to reason more concisely by
+  distilling their own concise behavior back into themselves. The entire approach reduces to one idea: condition the same model on a "be concise" instruction to obtain teacher logits, and minimize per-token
+  reverse KL on the student's own rollouts. No ground-truth answers, no token budgets, no difficulty estimators. Just self-distillation. Yet this simplicity belies surprising sophistication: OPSDC automatically
+  compresses easy problems aggressively while preserving the deliberation needed for hard ones. On Qwen3-8B and Qwen3-14B, we achieve 57-59% token reduction on MATH-500 while improving accuracy by 9-16 points
+  absolute. On AIME 2024, the 14B model gains 10 points with 41% compression. The secret? Much of what reasoning models produce is not just redundant-it is actively harmful, compounding errors with every
+  unnecessary token.
+
+---
+
+*This analysis was automatically generated and certified by the Swarm-It RSCT pipeline.
+κ-gate score: 0.549 | Quality tier: pending*
