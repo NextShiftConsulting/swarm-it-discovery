@@ -56,7 +56,7 @@ export const Footer: React.FC = () => {
             </a>
             <h2 className="text-xl font-bold mb-4 font-heading">
               <span className="text-white">Next Shift</span>{" "}
-              <span className="text-amber-400">Consulting</span>
+              <span className="text-amber-500">Consulting</span>
             </h2>
             <p className="mb-6 max-w-md text-gray-400 leading-relaxed">
               AI-curated research discovery powered by Swarm-It RSCT certification.
