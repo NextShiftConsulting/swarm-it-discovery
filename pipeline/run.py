@@ -128,6 +128,7 @@ class CertifiedPipeline:
         print(f"\n[1/3] Fetching papers from last {days} day(s)...")
         papers = await fetch_all_sources(days=days, max_per_source=max_papers)
         results["papers_fetched"] = len(papers)
+        results["all_papers"] = papers  # For source distribution analysis
         print(f"  Found {len(papers)} papers")
 
         if not papers:
@@ -145,6 +146,7 @@ class CertifiedPipeline:
         # Filter by score
         relevant = [(p, m) for p, m in zip(papers, matches) if m.similarity_score >= self.min_score]
         results["papers_matched"] = len(relevant)
+        results["matched_papers"] = [p for p, m in relevant]  # For SWARM analysis
         print(f"  {len(relevant)} papers above {self.min_score:.0%} threshold")
 
         if not relevant:
@@ -339,6 +341,141 @@ def main():
                 print(f"   Key concepts: {', '.join(paper['key_overlaps'][:5])}")
 
 
+def upload_to_s3(local_dir: str, bucket: str, prefix: str = "content/reviews") -> list:
+    """Upload generated posts to S3."""
+    import boto3
+    from pathlib import Path
+
+    s3 = boto3.client("s3")
+    uploaded = []
+
+    local_path = Path(local_dir)
+    if not local_path.exists():
+        return uploaded
+
+    for file in local_path.glob("*.mdx"):
+        key = f"{prefix}/{file.name}"
+        try:
+            s3.upload_file(str(file), bucket, key, ExtraArgs={"ContentType": "text/markdown"})
+            uploaded.append(key)
+            print(f"  Uploaded: s3://{bucket}/{key}")
+        except Exception as e:
+            print(f"  S3 upload error for {file.name}: {e}")
+
+    return uploaded
+
+
+def analyze_source_distribution(papers: list) -> dict:
+    """Analyze which sources are producing matching papers."""
+    from collections import Counter
+
+    source_counts = Counter(p.source for p in papers)
+    total = len(papers)
+
+    distribution = {
+        "total_papers": total,
+        "sources": {},
+        "diversity_score": 0.0,
+    }
+
+    for source, count in source_counts.items():
+        pct = (count / total * 100) if total > 0 else 0
+        distribution["sources"][source] = {
+            "count": count,
+            "percentage": round(pct, 1),
+        }
+
+    # Diversity score: 1.0 = evenly distributed, 0.0 = single source
+    if total > 0 and len(source_counts) > 1:
+        # Shannon entropy normalized
+        import math
+        entropy = -sum((c/total) * math.log2(c/total) for c in source_counts.values() if c > 0)
+        max_entropy = math.log2(len(source_counts))
+        distribution["diversity_score"] = round(entropy / max_entropy, 3) if max_entropy > 0 else 0
+    elif len(source_counts) == 1:
+        distribution["diversity_score"] = 0.0
+
+    return distribution
+
+
+def run_swarm_analysis(papers: list, top_n: int = 3) -> list:
+    """Run SWARM agent analysis on top papers."""
+    try:
+        from openai import OpenAI
+        client = OpenAI()
+    except:
+        print("  SWARM analysis skipped (OpenAI not available)")
+        return []
+
+    analyses = []
+    for paper in papers[:top_n]:
+        try:
+            # Use GPT to simulate SWARM agent team analysis
+            response = client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[{
+                    "role": "system",
+                    "content": """You are a SWARM research analysis team with 5 agents:
+1. RELEVANCE Agent: Score 0-10 how relevant to RSCT/AI safety
+2. NOVELTY Agent: Score 0-10 how novel the approach is
+3. IMPACT Agent: Score 0-10 potential research impact
+4. CITATION Agent: Key papers this should cite
+5. INTEGRATION Agent: How this connects to our research
+
+Respond in JSON format:
+{"relevance": N, "novelty": N, "impact": N, "citations": ["paper1", "paper2"], "integration": "brief note"}"""
+                }, {
+                    "role": "user",
+                    "content": f"Analyze this paper:\n\nTitle: {paper.title}\n\nAbstract: {paper.abstract[:1000]}"
+                }],
+                max_tokens=300,
+                response_format={"type": "json_object"},
+            )
+
+            import json
+            analysis = json.loads(response.choices[0].message.content)
+            analysis["paper_id"] = paper.id
+            analysis["paper_title"] = paper.title
+            analysis["source"] = paper.source
+            analyses.append(analysis)
+            print(f"  SWARM analyzed: {paper.title[:50]}... (R:{analysis.get('relevance')}/N:{analysis.get('novelty')}/I:{analysis.get('impact')})")
+
+        except Exception as e:
+            print(f"  SWARM error for {paper.title[:30]}...: {e}")
+
+    return analyses
+
+
+def save_daily_report(results: dict, bucket: str) -> str:
+    """Save daily analytics report to S3."""
+    import boto3
+    import json
+    from datetime import datetime
+
+    s3 = boto3.client("s3")
+    today = datetime.utcnow().strftime("%Y-%m-%d")
+
+    report = {
+        "date": today,
+        "timestamp": datetime.utcnow().isoformat(),
+        **results,
+    }
+
+    key = f"analytics/daily/{today}.json"
+    try:
+        s3.put_object(
+            Bucket=bucket,
+            Key=key,
+            Body=json.dumps(report, indent=2, default=str),
+            ContentType="application/json",
+        )
+        print(f"  Report saved: s3://{bucket}/{key}")
+        return key
+    except Exception as e:
+        print(f"  Report save error: {e}")
+        return ""
+
+
 def handler(event, context):
     """AWS Lambda handler for scheduled execution."""
     import json
@@ -347,10 +484,11 @@ def handler(event, context):
     days = event.get("days", 1)
     max_papers = event.get("max_papers", 50)
     min_score = event.get("min_score", 0.5)
-    min_rsct_score = event.get("min_rsct_score", 0.3)
+    min_rsct_score = event.get("min_rsct_score", 0.1)  # Lowered default
     dry_run = event.get("dry_run", False)
 
     swarmit_url = os.getenv("SWARMIT_URL", "https://api.swarms.network")
+    s3_bucket = os.getenv("S3_BUCKET", "swarmit-nextshift-site")
 
     # Lambda can only write to /tmp
     # Use bundled whitepaper from Zenodo
@@ -373,9 +511,35 @@ def handler(event, context):
         generate_pdfs=False,  # Skip PDFs in Lambda (no LaTeX)
     ))
 
+    # Analyze source distribution
+    print("\n[5/5] Analyzing source distribution...")
+    source_dist = analyze_source_distribution(results.get("all_papers", []))
+    results["source_distribution"] = source_dist
+    print(f"  Sources: {len(source_dist['sources'])} | Diversity: {source_dist['diversity_score']:.1%}")
+    for src, data in source_dist["sources"].items():
+        print(f"    {src}: {data['count']} papers ({data['percentage']}%)")
+
+    # Run SWARM analysis on matched papers
+    if results.get("matched_papers") and not dry_run:
+        print("\n[6/6] Running SWARM agent analysis...")
+        swarm_analyses = run_swarm_analysis(results["matched_papers"], top_n=5)
+        results["swarm_analyses"] = swarm_analyses
+
+    # Upload posts to S3
+    if not dry_run and results.get("posts_generated", 0) > 0:
+        print("\n[7/7] Uploading posts to S3...")
+        uploaded = upload_to_s3("/tmp/generated-posts", s3_bucket)
+        results["s3_uploads"] = uploaded
+
+    # Save daily analytics report
+    if not dry_run:
+        report_key = save_daily_report(results, s3_bucket)
+        results["report_key"] = report_key
+
     # Log summary
-    print(f"Pipeline complete: {results['papers_fetched']} fetched, "
-          f"{results['papers_matched']} matched, {results['posts_generated']} posts")
+    print(f"\nPipeline complete: {results['papers_fetched']} fetched, "
+          f"{results['papers_matched']} matched, {results['posts_generated']} posts, "
+          f"{len(source_dist['sources'])} sources (diversity: {source_dist['diversity_score']:.1%})")
 
     return {
         "statusCode": 200,
@@ -384,6 +548,9 @@ def handler(event, context):
             "papers_matched": results["papers_matched"],
             "papers_rsct_ranked": results.get("papers_rsct_ranked", 0),
             "posts_generated": results["posts_generated"],
+            "source_distribution": source_dist,
+            "swarm_analyses": results.get("swarm_analyses", []),
+            "s3_uploads": results.get("s3_uploads", []),
             "top_papers": results.get("top_papers", [])[:5],
         })
     }
