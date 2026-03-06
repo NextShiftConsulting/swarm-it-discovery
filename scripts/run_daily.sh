@@ -67,19 +67,27 @@ if [ -f ~/GitHub/yrsn/keys/set_aws_env.sh ]; then
     source ~/GitHub/yrsn/keys/set_aws_env.sh 2>/dev/null
 fi
 
-# Get OpenAI key from Secrets Manager if not set
+# Get OpenAI key from local file or Secrets Manager
 if [ -z "$OPENAI_API_KEY" ]; then
-    export OPENAI_API_KEY=$(aws secretsmanager get-secret-value \
-        --secret-id swarmit/openai-api-key \
-        --region us-east-1 \
-        --query SecretString \
-        --output text 2>/dev/null)
+    if [ -f ~/GitHub/yrsn/keys/OPENAI_API_KEY.txt ]; then
+        # Local file format: OPENAI_API_KEY="sk-..."
+        export OPENAI_API_KEY=$(grep -o 'sk-[^"]*' ~/GitHub/yrsn/keys/OPENAI_API_KEY.txt)
+    else
+        export OPENAI_API_KEY=$(aws secretsmanager get-secret-value \
+            --secret-id swarmit/openai-api-key \
+            --region us-east-1 \
+            --query SecretString \
+            --output text 2>/dev/null)
+    fi
 fi
 
 # Configuration
 export S3_BUCKET="${S3_BUCKET:-swarmit-nextshift-site}"
 export SWARMIT_URL="${SWARMIT_URL:-https://api.swarms.network}"
 export S3_PREFIX="$S3_PREFIX"
+
+# Install ADK client if not present
+pip install -q -e ~/GitHub/swarm-it-adk/clients/python 2>/dev/null || true
 
 echo "=============================================="
 echo "  Daily Discovery Pipeline (LOCAL)"
@@ -107,14 +115,14 @@ if [ -f ~/opt/anaconda3/etc/profile.d/conda.sh ]; then
     conda activate py31209 2>/dev/null || true
 fi
 
-# Run the pipeline
-python3 scripts/daily_discovery.py \
+# Run the ADK pipeline (uses Swarm-It API for real RSCT scoring)
+python3 pipeline/run_adk.py \
     --max-papers "$MAX_PAPERS" \
     --days "$DAYS" \
+    --min-score 0.2 \
+    --min-rsct-score 0.1 \
     --topics-dir "$ROOT_DIR/content/topics" \
-    --whitepaper "$ROOT_DIR/pipeline/rsct_whitepaper.pdf" \
-    --s3-bucket "$S3_BUCKET" \
-    --s3-prefix "$S3_PREFIX" \
+    --output-dir "$ROOT_DIR/content/reviews" \
     $DRY_RUN
 
 echo ""
