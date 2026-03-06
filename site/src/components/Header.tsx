@@ -67,7 +67,7 @@ export const Header: React.FC = () => {
           >
             <LogoColor className="h-10 w-10" />
             <span className="text-xl font-bold font-heading">
-              <span className="text-gray-800">Next Shift</span>{" "}
+              <span className="text-gray-800 dark:text-white">Next Shift</span>{" "}
               <span className="text-amber-600">Consulting</span>
             </span>
           </a>
