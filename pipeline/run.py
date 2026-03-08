@@ -396,7 +396,31 @@ class CertifiedPipeline:
                 status = "PDF" if review.pdf_path else "TEX only"
                 print(f"    - {review.title[:50]}... [{status}]")
 
-        print(f"\nPipeline complete: {results['posts_generated']} posts, {results.get('pdfs_generated', 0)} PDFs, {results.get('agents_converted', 0)} agents")
+        # Stage 5: Generate RSCT analysis charts
+        print("\n[5/5] Generating RSCT analysis charts...")
+        try:
+            from publisher.chart_generator import generate_discovery_charts
+
+            # Collect certificates for charting
+            chart_certs = results.get("certifications", [])
+            if chart_certs:
+                chart_batch = generate_discovery_charts(chart_certs, upload_s3=not dry_run)
+                results["charts_generated"] = len(chart_batch.chart_paths)
+                results["chart_paths"] = chart_batch.chart_paths
+                print(f"  Generated {results['charts_generated']} charts")
+                if chart_batch.s3_paths:
+                    print(f"  Uploaded to S3: {len(chart_batch.s3_paths)} files")
+            else:
+                print("  No certificates to chart")
+                results["charts_generated"] = 0
+        except ImportError as e:
+            print(f"  Chart generation skipped (swarm-it-api not available): {e}")
+            results["charts_generated"] = 0
+        except Exception as e:
+            print(f"  Chart generation error: {e}")
+            results["charts_generated"] = 0
+
+        print(f"\nPipeline complete: {results['posts_generated']} posts, {results.get('pdfs_generated', 0)} PDFs, {results.get('agents_converted', 0)} agents, {results.get('charts_generated', 0)} charts")
         return results
 
 
@@ -445,6 +469,7 @@ def main():
     print(f"Agents converted:  {results.get('agents_converted', 0)}")
     print(f"Posts generated:   {results['posts_generated']}")
     print(f"PDFs generated:    {results.get('pdfs_generated', 0)}")
+    print(f"Charts generated:  {results.get('charts_generated', 0)}")
     print(f"Certifications:    {len(results['certifications'])}")
 
     if results["errors"]:
