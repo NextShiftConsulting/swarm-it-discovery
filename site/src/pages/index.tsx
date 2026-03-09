@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState, useMemo } from "react";
 import { graphql, PageProps, Link } from "gatsby";
 import Layout from "../components/Layout";
-import { SearchBox } from "../components/search/SearchBox";
+import Fuse from "fuse.js";
 
 interface DiscoveryNode {
   id: string;
@@ -14,6 +14,7 @@ interface DiscoveryNode {
     tags: string[];
     difficulty: string;
     featured?: boolean;
+    primary_topic?: string;
   };
   fields: {
     slug: string;
@@ -23,7 +24,52 @@ interface DiscoveryNode {
 }
 
 const IndexPage: React.FC<PageProps<{ allMdx: { nodes: DiscoveryNode[] } }>> = ({ data }) => {
-  const discoveries = data?.allMdx?.nodes || [];
+  const allPapers = data?.allMdx?.nodes || [];
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedTag, setSelectedTag] = useState<string | null>(null);
+
+  // Extract all unique tags
+  const allTags = useMemo(() => {
+    const tags = new Set<string>();
+    allPapers.forEach(paper => {
+      paper.frontmatter.tags?.forEach(tag => tags.add(tag));
+      if (paper.frontmatter.primary_topic) tags.add(paper.frontmatter.primary_topic);
+    });
+    return Array.from(tags).sort();
+  }, [allPapers]);
+
+  // Setup Fuse.js for fuzzy search
+  const fuse = useMemo(() => new Fuse(allPapers, {
+    keys: [
+      { name: "frontmatter.title", weight: 0.4 },
+      { name: "frontmatter.abstract", weight: 0.3 },
+      { name: "frontmatter.tags", weight: 0.2 },
+      { name: "frontmatter.primary_topic", weight: 0.1 },
+    ],
+    threshold: 0.4,
+    includeScore: true,
+  }), [allPapers]);
+
+  // Filter papers based on search and tag
+  const discoveries = useMemo(() => {
+    let results = allPapers;
+
+    // Apply search filter
+    if (searchQuery.trim()) {
+      const searchResults = fuse.search(searchQuery);
+      results = searchResults.map(r => r.item);
+    }
+
+    // Apply tag filter
+    if (selectedTag) {
+      results = results.filter(paper =>
+        paper.frontmatter.tags?.includes(selectedTag) ||
+        paper.frontmatter.primary_topic === selectedTag
+      );
+    }
+
+    return results;
+  }, [allPapers, searchQuery, selectedTag, fuse]);
 
   const getQualityTierBadge = (tier: string, kappa: number) => {
     const badges = {
@@ -57,10 +103,57 @@ const IndexPage: React.FC<PageProps<{ allMdx: { nodes: DiscoveryNode[] } }>> = (
 
           {/* Search Box */}
           <div className="max-w-2xl mx-auto">
-            <SearchBox
-              placeholder="Search papers by title, abstract, or topic..."
-              className="w-full"
-            />
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search papers by title, abstract, or topic..."
+                className="block w-full pl-10 pr-10 py-3 border-0 rounded-lg bg-white/90 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white shadow-lg"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                >
+                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              )}
+            </div>
+
+            {/* Tag Filter Pills */}
+            <div className="mt-4 flex flex-wrap gap-2 justify-center">
+              <button
+                onClick={() => setSelectedTag(null)}
+                className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
+                  selectedTag === null
+                    ? "bg-white text-purple-700"
+                    : "bg-white/20 text-white hover:bg-white/30"
+                }`}
+              >
+                All Topics
+              </button>
+              {allTags.slice(0, 8).map(tag => (
+                <button
+                  key={tag}
+                  onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
+                  className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
+                    selectedTag === tag
+                      ? "bg-white text-purple-700"
+                      : "bg-white/20 text-white hover:bg-white/30"
+                  }`}
+                >
+                  {tag}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -127,10 +220,22 @@ const IndexPage: React.FC<PageProps<{ allMdx: { nodes: DiscoveryNode[] } }>> = (
       <section className="py-16 bg-gray-50 dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center mb-8">
-            <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-gray-100">Latest Reviews</h2>
-            <span className="text-gray-600 dark:text-gray-300 bg-gray-200 dark:bg-gray-700 px-4 py-2 rounded-full text-sm font-medium">
-              {discoveries.length} papers reviewed
-            </span>
+            <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-gray-100">
+              {searchQuery || selectedTag ? "Search Results" : "Latest Reviews"}
+            </h2>
+            <div className="flex items-center gap-2">
+              {(searchQuery || selectedTag) && (
+                <button
+                  onClick={() => { setSearchQuery(""); setSelectedTag(null); }}
+                  className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+                >
+                  Clear filters
+                </button>
+              )}
+              <span className="text-gray-600 dark:text-gray-300 bg-gray-200 dark:bg-gray-700 px-4 py-2 rounded-full text-sm font-medium">
+                {discoveries.length} of {allPapers.length} papers
+              </span>
+            </div>
           </div>
 
           {discoveries.length === 0 ? (
@@ -254,7 +359,6 @@ export const query = graphql`
   query {
     allMdx(
       sort: {frontmatter: {published_date: DESC}}
-      limit: 20
       filter: {frontmatter: {status: {eq: "live"}}}
     ) {
       nodes {
@@ -266,6 +370,7 @@ export const query = graphql`
           kappa
           abstract
           tags
+          primary_topic
           difficulty
           featured
         }
