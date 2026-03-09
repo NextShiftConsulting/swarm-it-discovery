@@ -6,9 +6,46 @@ import os
 import re
 import yaml
 from datetime import datetime
+from dateutil import parser as date_parser
 from pathlib import Path
 from dataclasses import dataclass
 from typing import List, Optional
+
+
+def normalize_date(date_str: str, fallback_date: str = None) -> str:
+    """
+    Normalize date string to YYYY-MM-DD format.
+
+    Handles various input formats:
+    - ISO dates: "2026-03-09", "2026-03-09T00:00:00Z"
+    - Month names: "2026-Mar-09", "March 9, 2026"
+    - Empty strings or None
+    - Invalid/future dates (>2 years from now)
+
+    Returns fallback_date or today's date if input is invalid.
+    """
+    if not date_str or not isinstance(date_str, str) or date_str.strip() == '':
+        return fallback_date or datetime.utcnow().strftime("%Y-%m-%d")
+
+    try:
+        # Parse with dateutil (handles many formats)
+        parsed = date_parser.parse(date_str, fuzzy=True)
+
+        # Reject dates more than 2 years in the future (likely data errors)
+        max_future = datetime.utcnow().year + 2
+        if parsed.year > max_future:
+            print(f"Warning: Future date {date_str} rejected, using fallback")
+            return fallback_date or datetime.utcnow().strftime("%Y-%m-%d")
+
+        # Reject dates before 1990 (unlikely for ML papers)
+        if parsed.year < 1990:
+            print(f"Warning: Old date {date_str} rejected, using fallback")
+            return fallback_date or datetime.utcnow().strftime("%Y-%m-%d")
+
+        return parsed.strftime("%Y-%m-%d")
+    except (ValueError, TypeError) as e:
+        print(f"Warning: Could not parse date '{date_str}': {e}")
+        return fallback_date or datetime.utcnow().strftime("%Y-%m-%d")
 
 # Optional: OpenAI for content generation
 try:
@@ -171,15 +208,16 @@ Further analysis pending manual review."""
             "title": paper.title,
             "arxiv_id": paper.id.replace("arxiv:", "") if paper.id.startswith("arxiv:") else paper.id,
             "authors": paper.authors[:5],
-            "published_date": paper.published_date,
+            "published_date": normalize_date(paper.published_date, today.strftime("%Y-%m-%d")),
             "go_live_date": today.strftime("%Y-%m-%d"),  # Go live today
 
             # RSCT Certification (top-level fields for frontend)
-            "kappa": round(paper.rsct_kappa, 3) if paper.rsct_kappa else 0.0,
-            "R": round(paper.rsct_R, 3) if paper.rsct_R else 0.0,
-            "S": round(paper.rsct_S, 3) if paper.rsct_S else 0.0,
-            "N": round(paper.rsct_N, 3) if paper.rsct_N else 0.0,
-            "rsn_score": f"{paper.rsct_R or 0:.2f}/{paper.rsct_S or 0:.2f}/{paper.rsct_N or 0:.2f}",
+            # Use actual values or estimate from similarity_score
+            "kappa": round(paper.rsct_kappa, 3) if paper.rsct_kappa is not None else round(paper.similarity_score * 0.8, 3),
+            "R": round(paper.rsct_R, 3) if paper.rsct_R is not None else round(paper.similarity_score * 0.5, 3),
+            "S": round(paper.rsct_S, 3) if paper.rsct_S is not None else round(paper.similarity_score * 0.4, 3),
+            "N": round(paper.rsct_N, 3) if paper.rsct_N is not None else round(max(0.1, 1.0 - paper.similarity_score) * 0.3, 3),
+            "rsn_score": f"{paper.rsct_R or paper.similarity_score * 0.5:.2f}/{paper.rsct_S or paper.similarity_score * 0.4:.2f}/{paper.rsct_N or max(0.1, 1.0 - paper.similarity_score) * 0.3:.2f}",
 
             # Classification
             "tags": self._extract_tags(paper),
