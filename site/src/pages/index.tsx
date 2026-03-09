@@ -27,15 +27,24 @@ const IndexPage: React.FC<PageProps<{ allMdx: { nodes: DiscoveryNode[] } }>> = (
   const allPapers = data?.allMdx?.nodes || [];
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
 
   // Extract all unique tags
   const allTags = useMemo(() => {
     const tags = new Set<string>();
     allPapers.forEach(paper => {
       paper.frontmatter.tags?.forEach(tag => tags.add(tag));
-      if (paper.frontmatter.primary_topic) tags.add(paper.frontmatter.primary_topic);
     });
     return Array.from(tags).sort();
+  }, [allPapers]);
+
+  // Extract all unique topics
+  const allTopics = useMemo(() => {
+    const topics = new Set<string>();
+    allPapers.forEach(paper => {
+      if (paper.frontmatter.primary_topic) topics.add(paper.frontmatter.primary_topic);
+    });
+    return Array.from(topics).sort();
   }, [allPapers]);
 
   // Setup Fuse.js for fuzzy search
@@ -50,7 +59,7 @@ const IndexPage: React.FC<PageProps<{ allMdx: { nodes: DiscoveryNode[] } }>> = (
     includeScore: true,
   }), [allPapers]);
 
-  // Filter papers based on search and tag
+  // Filter papers based on search, tag, and topic
   const discoveries = useMemo(() => {
     let results = allPapers;
 
@@ -63,13 +72,19 @@ const IndexPage: React.FC<PageProps<{ allMdx: { nodes: DiscoveryNode[] } }>> = (
     // Apply tag filter
     if (selectedTag) {
       results = results.filter(paper =>
-        paper.frontmatter.tags?.includes(selectedTag) ||
-        paper.frontmatter.primary_topic === selectedTag
+        paper.frontmatter.tags?.includes(selectedTag)
+      );
+    }
+
+    // Apply topic filter
+    if (selectedTopic) {
+      results = results.filter(paper =>
+        paper.frontmatter.primary_topic === selectedTopic
       );
     }
 
     return results;
-  }, [allPapers, searchQuery, selectedTag, fuse]);
+  }, [allPapers, searchQuery, selectedTag, selectedTopic, fuse]);
 
   const getQualityTierBadge = (tier: string, kappa: number) => {
     const badges = {
@@ -128,31 +143,48 @@ const IndexPage: React.FC<PageProps<{ allMdx: { nodes: DiscoveryNode[] } }>> = (
               )}
             </div>
 
-            {/* Tag Filter Pills */}
-            <div className="mt-4 flex flex-wrap gap-2 justify-center">
-              <button
-                onClick={() => setSelectedTag(null)}
-                className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
-                  selectedTag === null
-                    ? "bg-white text-purple-700"
-                    : "bg-white/20 text-white hover:bg-white/30"
-                }`}
+            {/* Topic Dropdown + Tag Filter Pills */}
+            <div className="mt-4 flex flex-col items-center gap-3">
+              {/* Topic Dropdown */}
+              <select
+                value={selectedTopic || ""}
+                onChange={(e) => setSelectedTopic(e.target.value || null)}
+                className="px-4 py-2 rounded-lg bg-white/90 text-gray-900 font-medium text-sm border-0 focus:ring-2 focus:ring-white shadow-md cursor-pointer"
               >
-                All Topics
-              </button>
-              {allTags.slice(0, 8).map(tag => (
+                <option value="">All Primary Topics ({allPapers.length})</option>
+                {allTopics.map(topic => (
+                  <option key={topic} value={topic}>
+                    {topic} ({allPapers.filter(p => p.frontmatter.primary_topic === topic).length})
+                  </option>
+                ))}
+              </select>
+
+              {/* Tag Filter Pills */}
+              <div className="flex flex-wrap gap-2 justify-center">
                 <button
-                  key={tag}
-                  onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
+                  onClick={() => setSelectedTag(null)}
                   className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
-                    selectedTag === tag
+                    selectedTag === null
                       ? "bg-white text-purple-700"
                       : "bg-white/20 text-white hover:bg-white/30"
                   }`}
                 >
-                  {tag}
+                  All Tags
                 </button>
-              ))}
+                {allTags.slice(0, 10).map(tag => (
+                  <button
+                    key={tag}
+                    onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
+                    className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
+                      selectedTag === tag
+                        ? "bg-white text-purple-700"
+                        : "bg-white/20 text-white hover:bg-white/30"
+                    }`}
+                  >
+                    {tag}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -221,12 +253,12 @@ const IndexPage: React.FC<PageProps<{ allMdx: { nodes: DiscoveryNode[] } }>> = (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-gray-100">
-              {searchQuery || selectedTag ? "Search Results" : "Latest Reviews"}
+              {searchQuery || selectedTag || selectedTopic ? "Search Results" : "Latest Reviews"}
             </h2>
             <div className="flex items-center gap-2">
-              {(searchQuery || selectedTag) && (
+              {(searchQuery || selectedTag || selectedTopic) && (
                 <button
-                  onClick={() => { setSearchQuery(""); setSelectedTag(null); }}
+                  onClick={() => { setSearchQuery(""); setSelectedTag(null); setSelectedTopic(null); }}
                   className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
                 >
                   Clear filters
