@@ -182,34 +182,55 @@ RSCT Certification Metrics:
 - Decision: {paper.rsct_decision or 'PENDING'}
 """
 
-        prompt = f"""You are a research analyst writing for the Swarm-It AI Research Discovery platform.
+        # Determine RSCT gate interpretation
+        kappa = paper.rsct_kappa or 0
+        if kappa >= 0.7:
+            gate_interp = "passes the κ-gate (≥0.7), qualifying for EXECUTE - direct integration into research workflows"
+        elif kappa >= 0.5:
+            gate_interp = "reaches Gate 4 but doesn't pass κ-gate (<0.7), suggesting REPAIR - valuable with additional context"
+        elif kappa >= 0.3:
+            gate_interp = "flags at the stability gate, suggesting DELEGATE - needs expert review before integration"
+        else:
+            gate_interp = "flags early in the pipeline, suggesting careful evaluation before use"
 
-Analyze this paper and write a comprehensive review (800-900 words) that helps readers understand:
+        prompt = f"""You are a research analyst writing for the Swarm-It AI Research Discovery platform. Your reviews TEACH readers about RSCT (Representation-Space Compatibility Theory) while analyzing papers.
 
-**Paper:**
+**RSCT Quick Reference (use these concepts in your analysis):**
+- **κ-gate (kappa)**: Compatibility score measuring how well a paper's contributions integrate with existing knowledge. Range 0-1, threshold ≥0.7 for certification.
+- **R (Relevance)**: Signal strength - how directly the paper addresses core research questions
+- **S (Stability)**: Consistency of findings across contexts and methods
+- **N (Noise)**: Irrelevant or contradictory elements that dilute the core contribution
+- **RSN Simplex**: R + S + N = 1.0 (they're proportions, not independent scores)
+- **5-Gate System**: Papers pass through gates (Noise→Relevance→Stability→Kappa→Execute)
+- **Decisions**: EXECUTE (use directly), REPAIR (needs context), DELEGATE (needs expert), BLOCK (insufficient signal), REJECT (too noisy)
+
+**Paper to Analyze:**
 Title: {paper.title}
 Abstract: {paper.abstract}
 Topics: {', '.join(paper.matched_topics) if paper.matched_topics else 'General ML'}
 {rsct_context}
+Gate Status: This paper {gate_interp}
 
-**Write your analysis covering:**
+**Write your analysis (800-900 words) covering:**
 
-1. **Core Contribution** (2 paragraphs): What problem does this paper solve? What's the key innovation or finding? Why is this important?
+1. **Core Contribution** (2 paragraphs): What problem does this paper solve? What's the key innovation?
 
-2. **Technical Approach** (2-3 paragraphs): How does it work? What methods, architectures, or techniques are used? Include specific details about the methodology, datasets, or experimental setup.
+2. **Technical Approach** (2-3 paragraphs): How does it work? Specific methods, architectures, techniques.
 
-3. **Key Results** (1-2 paragraphs): What did they find? Include specific metrics, benchmarks, or comparisons where available.
+3. **Key Results** (1-2 paragraphs): What did they find? Metrics, benchmarks, comparisons.
 
-4. **Significance & Limitations** (1-2 paragraphs): Why does this matter for the field? What are potential limitations, open questions, or future directions?
+4. **Significance & Limitations** (1-2 paragraphs): Why does this matter? What are the limits?
 
-5. **RSCT Relevance** (1 paragraph): How does this relate to representation learning, AI safety, multi-agent systems, or alignment research?
+5. **Through the RSCT Lens** (2 paragraphs - THIS IS IMPORTANT, make it educational):
+   - First paragraph: Explain how this paper's approach relates to RSCT concepts. Does it improve representation quality (R)? Enhance stability (S)? Reduce noise (N)? Be specific about WHICH RSCT concepts apply and WHY.
+   - Second paragraph: Interpret the paper's κ={kappa:.2f} score. What does R={paper.rsct_R or 0:.2f}/S={paper.rsct_S or 0:.2f}/N={paper.rsct_N or 0:.2f} tell us about this work? Why did it {gate_interp.split(',')[0]}? What would improve its RSCT score?
 
-**Guidelines:**
-- Be specific and technical, but accessible
-- Avoid generic filler phrases like "This paper presents research in the area of..."
-- Include concrete details from the abstract
-- Connect to broader trends in AI/ML where relevant
-- Use markdown formatting (bold for key terms, bullet points where helpful)
+**Style Guidelines:**
+- Be specific and technical, but accessible to grad students
+- NO generic phrases like "highly relevant to RSCT" or "aligns with concerns about"
+- TEACH RSCT concepts by showing how they apply to this specific paper
+- Use the paper's actual findings to illustrate RSCT principles
+- Make readers smarter about RSCT after reading each review
 
 Write the analysis now:"""
 
