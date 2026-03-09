@@ -6,6 +6,7 @@ theory paper to identify papers most relevant to our research.
 """
 
 import os
+import json
 from pathlib import Path
 from typing import List, Optional, Tuple
 from dataclasses import dataclass
@@ -16,6 +17,14 @@ try:
     HAS_OPENAI = True
 except ImportError:
     HAS_OPENAI = False
+
+# Optional: Bedrock for embeddings (fallback)
+try:
+    import boto3
+    import numpy as np
+    HAS_BEDROCK = bool(os.environ.get("AWS_ACCESS_KEY_ID") or os.path.exists(os.path.expanduser("~/.aws/credentials")))
+except ImportError:
+    HAS_BEDROCK = False
 
 
 @dataclass
@@ -55,13 +64,24 @@ class RSCTScorer:
 
         self.whitepaper_text = self._load_whitepaper(whitepaper_path)
         self.whitepaper_embedding = None
+        self.use_bedrock = False
 
         if HAS_OPENAI and os.getenv("OPENAI_API_KEY"):
             self.openai = OpenAI()
             self._compute_whitepaper_embedding()
+            print("RSCT Scorer: Using OpenAI embeddings")
+        elif HAS_BEDROCK:
+            self.openai = None
+            self.use_bedrock = True
+            self.bedrock_client = boto3.client(
+                "bedrock-runtime",
+                region_name="us-east-1",
+            )
+            self._compute_whitepaper_embedding_bedrock()
+            print("RSCT Scorer: Using Bedrock Titan embeddings")
         else:
             self.openai = None
-            print("Warning: OpenAI not configured, using keyword matching only")
+            print("Warning: No embedding service configured, using keyword matching only")
 
     def _load_whitepaper(self, path: str) -> str:
         """Load and clean whitepaper text (supports .tex, .txt, .pdf)."""
@@ -95,7 +115,7 @@ class RSCTScorer:
             return ""
 
     def _compute_whitepaper_embedding(self):
-        """Compute embedding for whitepaper."""
+        """Compute embedding for whitepaper using OpenAI."""
         if not self.openai or not self.whitepaper_text:
             return
 
@@ -108,20 +128,47 @@ class RSCTScorer:
         except Exception as e:
             print(f"Error computing whitepaper embedding: {e}")
 
-    def _embed(self, text: str) -> Optional[List[float]]:
-        """Get embedding for text."""
-        if not self.openai:
+    def _compute_whitepaper_embedding_bedrock(self):
+        """Compute embedding for whitepaper using Bedrock Titan."""
+        if not self.whitepaper_text:
+            return
+
+        try:
+            self.whitepaper_embedding = self._embed_bedrock(self.whitepaper_text)
+        except Exception as e:
+            print(f"Error computing whitepaper embedding (Bedrock): {e}")
+
+    def _embed_bedrock(self, text: str) -> Optional[List[float]]:
+        """Get embedding from Bedrock Titan."""
+        if not self.use_bedrock:
             return None
 
         try:
-            response = self.openai.embeddings.create(
-                input=text[:8000],
-                model=self.embed_model,
+            response = self.bedrock_client.invoke_model(
+                modelId="amazon.titan-embed-text-v1",
+                body=json.dumps({"inputText": text[:8000]})
             )
-            return response.data[0].embedding
+            result = json.loads(response["body"].read())
+            return result["embedding"]
         except Exception as e:
-            print(f"Embedding error: {e}")
+            print(f"Bedrock embedding error: {e}")
             return None
+
+    def _embed(self, text: str) -> Optional[List[float]]:
+        """Get embedding for text (OpenAI or Bedrock)."""
+        if self.openai:
+            try:
+                response = self.openai.embeddings.create(
+                    input=text[:8000],
+                    model=self.embed_model,
+                )
+                return response.data[0].embedding
+            except Exception as e:
+                print(f"OpenAI embedding error: {e}")
+                return None
+        elif self.use_bedrock:
+            return self._embed_bedrock(text)
+        return None
 
     def _cosine_similarity(self, a: List[float], b: List[float]) -> float:
         """Compute cosine similarity."""

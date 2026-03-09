@@ -1,0 +1,99 @@
+---
+title: Do Foundation Models Know Geometry? Probing Frozen Features for Continuous
+  Physical Measurement
+arxiv_id: 2603.06459v1
+authors:
+- Yakov Pyotr Shkolnikov
+published_date: '2026-03-06'
+go_live_date: '2026-03-09'
+kappa: 0.494
+R: 0.374
+S: 0.318
+N: 0.307
+rsn_score: 0.37/0.32/0.31
+tags:
+- representation-learning
+- cs-cv
+primary_topic: representation-learning
+difficulty: beginner
+abstract: 'Vision-language models encode continuous geometry that their text pathway
+  fails to express: a 6,000-parameter linear probe extracts hand joint angles at 6.1
+  degrees MAE from frozen features, while the best text output achieves only 20.0
+  degrees -- a 3.3x bottleneck. LoRA fine-tuning (r=16, 2,000 images) narrows this
+  gap to 6.5 degrees, providing evidence for a pathway-training deficit rather than
+  a representational one. Training objective determines accuracy more than architecture:
+  five encoders spanning self-supervised, contrastive, and hybrid paradigms converge
+  to statistically equivalent accuracy (R^2 approximately 0.55, TOST-equivalent at
+  delta=0.03) despite sharing as little as CKA=0.41 representational similarity --
+  functional convergence without representational convergence. Autoregressive generation
+  damages geometric fidelity, but the damage originates in the generation process,
+  not in language alignment: Qwen2.5-VL''s LLM layers actually improve probe accuracy
+  over its raw vision encoder. Layer-wise analysis reveals a universal mid-network
+  accuracy peak across all architectures, with attention heads in layers 18-22 carrying
+  disproportionate geometric signal. These findings enable a single frozen backbone
+  to function as a multi-task geometric sensor through lightweight probes, without
+  fine-tuning or text generation.'
+tldr: 'Vision-language models encode continuous geometry that their text pathway fails
+  to express: a 6,000-parameter linear probe extracts hand joint angles at 6.1 degrees
+  MAE from frozen features, while the...'
+arxiv_url: https://arxiv.org/abs/2603.06459v1
+pdf_url: https://arxiv.org/pdf/2603.06459v1.pdf
+status: live
+featured: false
+date: '2026-03-09'
+source: arxiv
+arxivId: 2603.06459v1
+paperUrl: https://arxiv.org/abs/2603.06459v1
+pdfUrl: https://arxiv.org/pdf/2603.06459v1.pdf
+similarityScore: 0.357
+matchedTopics:
+- representation-learning
+excerpt: 'Vision-language models encode continuous geometry that their text pathway
+  fails to express: a 6,000-parameter linear probe extracts hand joint angles at 6.1
+  degrees MAE from frozen features, while the...'
+---
+
+# Do Foundation Models Know Geometry? Probing Frozen Features for Continuous Physical Measurement
+
+**RSCT Certification:** κ=0.494 (pending) | **RSN:** 0.37/0.32/0.31 | **Topics:** representation-learning
+
+## Overview
+
+This paper presents research in the area of cs.CV.
+
+**Abstract Summary:**
+Vision-language models encode continuous geometry that their text pathway fails to express: a 6,000-parameter linear probe extracts hand joint angles at 6.1 degrees MAE from frozen features, while the best text output achieves only 20.0 degrees -- a 3.3x bottleneck. LoRA fine-tuning (r=16, 2,000 images) narrows this gap to 6.5 degrees, providing evidence for a pathway-training deficit rather than a representational one. Training objective determines accuracy more than architecture: five encoders...
+
+The work shows a **36% similarity** to our research interests in representation-learning.
+
+Further analysis pending manual review.
+
+## RSCT Quality Metrics
+
+This paper has been certified by the Swarm-It RSCT pipeline:
+
+- **κ-gate Score:** 0.494 (pending)
+- **Relevance (R):** 0.374 - Directly relevant to research goals
+- **Spurious (S):** 0.318 - Supporting context and correlations
+- **Noise (N):** 0.307 - Irrelevant or noisy components
+- **Decision:** REPAIR
+
+The RSN decomposition satisfies the simplex constraint (R+S+N=1.0), ensuring mathematically valid quality assessment.
+
+## Paper Details
+
+- **Authors:** Yakov Pyotr Shkolnikov
+- **Published:** 2026-03-06
+- **Source:** [arxiv](https://arxiv.org/abs/2603.06459v1)
+- **PDF:** [Download](https://arxiv.org/pdf/2603.06459v1.pdf)
+- **Primary Topic:** representation-learning
+- **Difficulty:** Beginner
+
+## Abstract
+
+> Vision-language models encode continuous geometry that their text pathway fails to express: a 6,000-parameter linear probe extracts hand joint angles at 6.1 degrees MAE from frozen features, while the best text output achieves only 20.0 degrees -- a 3.3x bottleneck. LoRA fine-tuning (r=16, 2,000 images) narrows this gap to 6.5 degrees, providing evidence for a pathway-training deficit rather than a representational one. Training objective determines accuracy more than architecture: five encoders spanning self-supervised, contrastive, and hybrid paradigms converge to statistically equivalent accuracy (R^2 approximately 0.55, TOST-equivalent at delta=0.03) despite sharing as little as CKA=0.41 representational similarity -- functional convergence without representational convergence. Autoregressive generation damages geometric fidelity, but the damage originates in the generation process, not in language alignment: Qwen2.5-VL's LLM layers actually improve probe accuracy over its raw vision encoder. Layer-wise analysis reveals a universal mid-network accuracy peak across all architectures, with attention heads in layers 18-22 carrying disproportionate geometric signal. These findings enable a single frozen backbone to function as a multi-task geometric sensor through lightweight probes, without fine-tuning or text generation.
+
+---
+
+*This analysis was automatically generated and certified by the Swarm-It RSCT pipeline.
+κ-gate score: 0.494 | Quality tier: pending*

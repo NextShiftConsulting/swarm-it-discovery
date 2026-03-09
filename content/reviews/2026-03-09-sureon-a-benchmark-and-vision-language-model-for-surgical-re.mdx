@@ -1,0 +1,106 @@
+---
+title: 'SUREON: A Benchmark and Vision-Language-Model for Surgical Reasoning'
+arxiv_id: 2603.06570v1
+authors:
+- Alejandra Perez
+- Anita Rau
+- Lee White
+- Busisiwe Mlambo
+- Chinedu Nwoye
+published_date: '2026-03-06'
+go_live_date: '2026-03-09'
+kappa: 0.495
+R: 0.374
+S: 0.319
+N: 0.307
+rsn_score: 0.37/0.32/0.31
+tags:
+- ai-safety
+- cs-cv
+primary_topic: ai-safety
+difficulty: beginner
+abstract: 'Surgeons don''t just see -- they interpret. When an expert observes a surgical
+  scene, they understand not only what instrument is being used, but why it was chosen,
+  what risk it poses, and what comes next. Current surgical AI cannot answer such
+  questions, largely because training data that explicitly encodes surgical reasoning
+  is immensely difficult to annotate at scale. Yet surgical video lectures already
+  contain exactly this -- explanations of intent, rationale, and anticipation, narrated
+  by experts for the purpose of teaching. Though inherently noisy and unstructured,
+  these narrations encode the reasoning that surgical AI currently lacks. We introduce
+  SUREON, a large-scale video QA dataset that systematically harvests this training
+  signal from surgical academic videos. SUREON defines 12 question categories covering
+  safety assessment, decision rationale, and forecasting, and uses a multi-agent pipeline
+  to extract and structure supervision at scale. Across 134.7K clips and 170 procedure
+  types, SUREON yields 206.8k QA pairs and an expert-validated benchmark of 354 examples.
+  To evaluate the extent to which this supervision translates to surgical reasoning
+  ability, we introduce two models: SureonVLM, a vision-language model adapted through
+  supervised fine-tuning, and SureonVLM-R1, a reasoning model trained with Group Relative
+  Policy Optimization. Both models can answer complex questions about surgery and
+  substantially outperform larger general-domain models, exceeding 84% accuracy on
+  the SUREON benchmark while outperforming general-domain models on standard surgical
+  perception tasks. Qualitative analysis of SureonVLM-R1 reveals explicit reasoning
+  behavior, such as inferring operative intent from visual context.'
+tldr: Surgeons don't just see -- they interpret. When an expert observes a surgical
+  scene, they understand not only what instrument is being used, but why it was chosen,
+  what risk it poses, and what comes n...
+arxiv_url: https://arxiv.org/abs/2603.06570v1
+pdf_url: https://arxiv.org/pdf/2603.06570v1.pdf
+status: live
+featured: false
+date: '2026-03-09'
+source: arxiv
+arxivId: 2603.06570v1
+paperUrl: https://arxiv.org/abs/2603.06570v1
+pdfUrl: https://arxiv.org/pdf/2603.06570v1.pdf
+similarityScore: 0.372
+matchedTopics:
+- ai-safety
+excerpt: Surgeons don't just see -- they interpret. When an expert observes a surgical
+  scene, they understand not only what instrument is being used, but why it was chosen,
+  what risk it poses, and what comes n...
+---
+
+# SUREON: A Benchmark and Vision-Language-Model for Surgical Reasoning
+
+**RSCT Certification:** κ=0.495 (pending) | **RSN:** 0.37/0.32/0.31 | **Topics:** ai-safety
+
+## Overview
+
+This paper presents research in the area of cs.CV.
+
+**Abstract Summary:**
+Surgeons don't just see -- they interpret. When an expert observes a surgical scene, they understand not only what instrument is being used, but why it was chosen, what risk it poses, and what comes next. Current surgical AI cannot answer such questions, largely because training data that explicitly encodes surgical reasoning is immensely difficult to annotate at scale. Yet surgical video lectures already contain exactly this -- explanations of intent, rationale, and anticipation, narrated by ex...
+
+The work shows a **37% similarity** to our research interests in ai-safety.
+
+Further analysis pending manual review.
+
+## RSCT Quality Metrics
+
+This paper has been certified by the Swarm-It RSCT pipeline:
+
+- **κ-gate Score:** 0.495 (pending)
+- **Relevance (R):** 0.374 - Directly relevant to research goals
+- **Spurious (S):** 0.319 - Supporting context and correlations
+- **Noise (N):** 0.307 - Irrelevant or noisy components
+- **Decision:** REPAIR
+
+The RSN decomposition satisfies the simplex constraint (R+S+N=1.0), ensuring mathematically valid quality assessment.
+
+## Paper Details
+
+- **Authors:** Alejandra Perez, Anita Rau, Lee White, Busisiwe Mlambo, Chinedu Nwoye et al.
+- **Published:** 2026-03-06
+- **Source:** [arxiv](https://arxiv.org/abs/2603.06570v1)
+- **PDF:** [Download](https://arxiv.org/pdf/2603.06570v1.pdf)
+- **Primary Topic:** ai-safety
+- **Difficulty:** Beginner
+
+## Abstract
+
+> Surgeons don't just see -- they interpret. When an expert observes a surgical scene, they understand not only what instrument is being used, but why it was chosen, what risk it poses, and what comes next. Current surgical AI cannot answer such questions, largely because training data that explicitly encodes surgical reasoning is immensely difficult to annotate at scale. Yet surgical video lectures already contain exactly this -- explanations of intent, rationale, and anticipation, narrated by experts for the purpose of teaching. Though inherently noisy and unstructured, these narrations encode the reasoning that surgical AI currently lacks. We introduce SUREON, a large-scale video QA dataset that systematically harvests this training signal from surgical academic videos. SUREON defines 12 question categories covering safety assessment, decision rationale, and forecasting, and uses a multi-agent pipeline to extract and structure supervision at scale. Across 134.7K clips and 170 procedure types, SUREON yields 206.8k QA pairs and an expert-validated benchmark of 354 examples. To evaluate the extent to which this supervision translates to surgical reasoning ability, we introduce two models: SureonVLM, a vision-language model adapted through supervised fine-tuning, and SureonVLM-R1, a reasoning model trained with Group Relative Policy Optimization. Both models can answer complex questions about surgery and substantially outperform larger general-domain models, exceeding 84% accuracy on the SUREON benchmark while outperforming general-domain models on standard surgical perception tasks. Qualitative analysis of SureonVLM-R1 reveals explicit reasoning behavior, such as inferring operative intent from visual context.
+
+---
+
+*This analysis was automatically generated and certified by the Swarm-It RSCT pipeline.
+κ-gate score: 0.495 | Quality tier: pending*
