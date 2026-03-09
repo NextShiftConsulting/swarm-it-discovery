@@ -170,12 +170,15 @@ class MDXGenerator:
         # Build RSCT context
         rsct_context = ""
         if paper.rsct_kappa is not None:
+            r_val = f"{paper.rsct_R:.3f}" if paper.rsct_R else "N/A"
+            s_val = f"{paper.rsct_S:.3f}" if paper.rsct_S else "N/A"
+            n_val = f"{paper.rsct_N:.3f}" if paper.rsct_N else "N/A"
             rsct_context = f"""
 RSCT Certification Metrics:
 - κ-gate (compatibility): {paper.rsct_kappa:.3f}
-- R (relevance): {paper.rsct_R:.3f if paper.rsct_R else 'N/A'}
-- S (stability): {paper.rsct_S:.3f if paper.rsct_S else 'N/A'}
-- N (noise): {paper.rsct_N:.3f if paper.rsct_N else 'N/A'}
+- R (relevance): {r_val}
+- S (stability): {s_val}
+- N (noise): {n_val}
 - Decision: {paper.rsct_decision or 'PENDING'}
 """
 
