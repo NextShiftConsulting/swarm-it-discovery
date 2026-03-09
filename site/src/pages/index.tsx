@@ -65,6 +65,64 @@ const IndexPage: React.FC<PageProps<{ allMdx: { nodes: DiscoveryNode[] } }>> = (
         </div>
       </section>
 
+      {/* RSCT Dashboard Section */}
+      <section className="py-12 bg-white dark:bg-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-gray-100 text-center mb-8">
+            RSCT Quality Dashboard
+          </h2>
+          <p className="text-center text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
+            Visual analysis of paper quality metrics using the RSCT certification framework.
+          </p>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {/* Quality vs Kappa Chart */}
+            <div className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 border border-gray-200 dark:border-gray-700">
+              <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 text-center">
+                Quality vs Compatibility
+              </h3>
+              <img
+                src="/charts/quality_kappa.png"
+                alt="Quality vs Kappa quadrant chart"
+                className="w-full h-auto rounded-lg"
+              />
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center">
+                α (quality) vs κ (compatibility) quadrant diagnosis
+              </p>
+            </div>
+
+            {/* Kappa vs Sigma Chart */}
+            <div className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 border border-gray-200 dark:border-gray-700">
+              <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 text-center">
+                Kappa vs Turbulence
+              </h3>
+              <img
+                src="/charts/kappa_sigma.png"
+                alt="Kappa vs Sigma phase diagram"
+                className="w-full h-auto rounded-lg"
+              />
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center">
+                κ-gate vs σ (turbulence) phase diagram
+              </p>
+            </div>
+
+            {/* Gate Depth Chart */}
+            <div className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 border border-gray-200 dark:border-gray-700">
+              <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 text-center">
+                Gate Depth Reached
+              </h3>
+              <img
+                src="/charts/gate_depth.png"
+                alt="Gate depth gauge"
+                className="w-full h-auto rounded-lg"
+              />
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center">
+                Certification depth (0-5 gate system)
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Discoveries Section */}
       <section className="py-16 bg-gray-50 dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
