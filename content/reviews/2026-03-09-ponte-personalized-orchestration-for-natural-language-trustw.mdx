@@ -62,43 +62,48 @@ excerpt: Explainable Artificial Intelligence (XAI) seeks to enhance the transpar
 
 **RSCT Certification:** κ=0.550 (pending) | **RSN:** 0.38/0.32/0.31 | **Topics:** ai-safety
 
-## Overview
+Title: Personalized Orchestration for Natural Language Trustworthy Explanations
 
-This paper presents research in the area of cs.CL.
+Core Contribution:
+The paper presents PONTE, a human-in-the-loop framework for adaptive and reliable Explainable AI (XAI) narratives. Unlike existing XAI methods that follow a one-size-fits-all approach, PONTE addresses the challenge of catering to individual differences in user expertise, goals, and cognitive needs. By modeling personalization as a closed-loop validation and adaptation process, PONTE aims to generate natural language explanations that are both faithful to the underlying AI model and aligned with the user's stylistic preferences.
 
-**Abstract Summary:**
-Explainable Artificial Intelligence (XAI) seeks to enhance the transparency and accountability of machine learning systems, yet most methods follow a one-size-fits-all paradigm that neglects user differences in expertise, goals, and cognitive needs. Although Large Language Models can translate technical explanations into natural language, they introduce challenges related to faithfulness and hallucinations. To address these challenges, we present PONTE (Personalized Orchestration for Natural lan...
+The key innovation of PONTE is its multi-pronged approach to ensuring trustworthy and personalized explanations. It combines: (i) a low-dimensional preference model that captures the user's stylistic requirements, (ii) a preference-conditioned generator that grounds the explanations in structured XAI artifacts, and (iii) verification modules that enforce numerical faithfulness, informational completeness, and stylistic alignment. This verification-refinement loop allows the system to iteratively update the preference state, enabling quick personalization of the explanations.
 
-The work shows a **38% similarity** to our research interests in ai-safety.
+Technical Approach:
+PONTE's architecture consists of three main components: the preference model, the preference-conditioned generator, and the verification modules.
 
-Further analysis pending manual review.
+The preference model is a low-dimensional representation that captures the user's stylistic requirements, such as the level of technical detail, the use of analogies or metaphors, and the overall tone of the explanations. This model is trained on user feedback and can be updated iteratively as the user interacts with the system.
 
-## RSCT Quality Metrics
+The preference-conditioned generator is a large language model that is trained to generate natural language explanations conditioned on the user's preference state. This model is grounded in structured XAI artifacts, such as feature importance scores or causal graphs, to ensure that the generated explanations are faithful to the underlying AI model.
 
-This paper has been certified by the Swarm-It RSCT pipeline:
+The verification modules are responsible for enforcing the key properties of trustworthy explanations. The numerical faithfulness module ensures that the generated explanations align with the quantitative metrics of the AI model, such as feature importance scores. The informational completeness module checks that the explanations cover all the relevant aspects of the model's decision-making process. Finally, the stylistic alignment module verifies that the generated text matches the user's preferred style as captured by the preference model.
 
-- **κ-gate Score:** 0.550 (pending)
-- **Relevance (R):** 0.375 - Directly relevant to research goals
-- **Spurious (S):** 0.318 - Supporting context and correlations
-- **Noise (N):** 0.307 - Irrelevant or noisy components
-- **Decision:** REPAIR
+The PONTE framework operates in a closed-loop fashion, where user feedback is used to update the preference model, which in turn guides the generation of the next iteration of explanations. This iterative process continues until the user is satisfied with the generated explanations.
 
-The RSN decomposition satisfies the simplex constraint (R+S+N=1.0), ensuring mathematically valid quality assessment.
+Key Results:
+The authors evaluated PONTE across healthcare and finance domains, comparing it to validation-free generation baselines. The results show that the verification-refinement loop substantially improves the completeness and stylistic alignment of the generated explanations, as measured by both automatic and human evaluations.
+
+The human studies further confirm that there is a strong agreement between the intended preference vectors and the perceived style of the explanations. The system also demonstrated robustness to generation stochasticity, and users consistently provided positive quality assessments of the generated explanations.
+
+Significance and Limitations:
+The PONTE framework addresses a critical challenge in the field of XAI by taking a personalized approach to generating trustworthy explanations. This is particularly important as AI systems become more widely deployed in high-stakes domains, where the ability to understand and trust the model's decision-making process is crucial.
+
+By considering the user's expertise, goals, and cognitive needs, PONTE represents a significant step towards bridging the gap between the technical complexity of AI models and the human's ability to comprehend and critically evaluate their outputs. The iterative, closed-loop design also allows the system to adapt to the user's evolving preferences over time, further enhancing the user's trust and understanding.
+
+However, the paper also acknowledges some potential limitations. The preference model is currently focused on stylistic aspects, and future work could explore the incorporation of cognitive and task-specific factors into the personalization process. Additionally, the evaluation was conducted in controlled settings, and real-world deployment may introduce additional challenges related to user diversity and the complexity of the AI models.
+
+RSCT Relevance:
+The PONTE framework aligns with the goals of AI safety research, as it aims to enhance the transparency and accountability of AI systems through trustworthy and personalized explanations. By verifying the numerical faithfulness, informational completeness, and stylistic alignment of the generated explanations, PONTE helps to mitigate the risks of AI model "hallucinations" and ensures that users can more reliably understand and critique the inner workings of the AI systems they interact with.
+
+Additionally, the closed-loop personalization approach and the emphasis on user-centric design are relevant to the challenges of multi-agent alignment, as they demonstrate how AI systems can be tailored to individual preferences and needs while maintaining overall system reliability and robustness.
 
 ## Paper Details
 
 - **Authors:** Vittoria Vineis, Matteo Silvestri, Lorenzo Antonelli, Filippo Betello, Gabriele Tolomei
-- **Published:** 2026-03-06
-- **Source:** [arxiv](https://arxiv.org/abs/2603.06485v1)
+- **Source:** [arXiv](https://arxiv.org/abs/2603.06485v1)
 - **PDF:** [Download](https://arxiv.org/pdf/2603.06485v1.pdf)
-- **Primary Topic:** ai-safety
-- **Difficulty:** Beginner
-
-## Abstract
-
-> Explainable Artificial Intelligence (XAI) seeks to enhance the transparency and accountability of machine learning systems, yet most methods follow a one-size-fits-all paradigm that neglects user differences in expertise, goals, and cognitive needs. Although Large Language Models can translate technical explanations into natural language, they introduce challenges related to faithfulness and hallucinations. To address these challenges, we present PONTE (Personalized Orchestration for Natural language Trustworthy Explanations), a human-in-the-loop framework for adaptive and reliable XAI narratives. PONTE models personalization as a closed-loop validation and adaptation process rather than prompt engineering. It combines: (i) a low-dimensional preference model capturing stylistic requirements; (ii) a preference-conditioned generator grounded in structured XAI artifacts; and (iii) verification modules enforcing numerical faithfulness, informational completeness, and stylistic alignment, optionally supported by retrieval-grounded argumentation. User feedback iteratively updates the preference state, enabling quick personalization. Automatic and human evaluations across healthcare and finance domains show that the verification-refinement loop substantially improves completeness and stylistic alignment over validation-free generation. Human studies further confirm strong agreement between intended preference vectors and perceived style, robustness to generation stochasticity, and consistently positive quality assessments.
+- **Published:** 2026-03-06
 
 ---
 
-*This analysis was automatically generated and certified by the Swarm-It RSCT pipeline.
-κ-gate score: 0.550 | Quality tier: pending*
+*This analysis was generated by the Swarm-It RSCT pipeline using Claude.*

@@ -184,7 +184,7 @@ RSCT Certification Metrics:
 
         prompt = f"""You are a research analyst writing for the Swarm-It AI Research Discovery platform.
 
-Analyze this paper and write a substantive review (300-400 words) that helps readers understand:
+Analyze this paper and write a comprehensive review (800-900 words) that helps readers understand:
 
 **Paper:**
 Title: {paper.title}
@@ -194,11 +194,15 @@ Topics: {', '.join(paper.matched_topics) if paper.matched_topics else 'General M
 
 **Write your analysis covering:**
 
-1. **Core Contribution** (1 paragraph): What problem does this paper solve? What's the key innovation or finding?
+1. **Core Contribution** (2 paragraphs): What problem does this paper solve? What's the key innovation or finding? Why is this important?
 
-2. **Technical Approach** (1 paragraph): How does it work? What methods, architectures, or techniques are used?
+2. **Technical Approach** (2-3 paragraphs): How does it work? What methods, architectures, or techniques are used? Include specific details about the methodology, datasets, or experimental setup.
 
-3. **Significance & Limitations** (1 paragraph): Why does this matter for the field? What are potential limitations or open questions?
+3. **Key Results** (1-2 paragraphs): What did they find? Include specific metrics, benchmarks, or comparisons where available.
+
+4. **Significance & Limitations** (1-2 paragraphs): Why does this matter for the field? What are potential limitations, open questions, or future directions?
+
+5. **RSCT Relevance** (1 paragraph): How does this relate to representation learning, AI safety, multi-agent systems, or alignment research?
 
 **Guidelines:**
 - Be specific and technical, but accessible
@@ -221,7 +225,7 @@ Write the analysis now:"""
             modelId="anthropic.claude-3-haiku-20240307-v1:0",
             body=json.dumps({
                 "anthropic_version": "bedrock-2023-05-31",
-                "max_tokens": 1000,
+                "max_tokens": 2000,
                 "messages": [{"role": "user", "content": prompt}]
             })
         )
@@ -233,7 +237,7 @@ Write the analysis now:"""
         response = self.openai.chat.completions.create(
             model="gpt-4o-mini",
             messages=[{"role": "user", "content": prompt}],
-            max_tokens=1000,
+            max_tokens=2000,
         )
         return response.choices[0].message.content
 

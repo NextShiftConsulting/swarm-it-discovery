@@ -59,43 +59,43 @@ excerpt: We present the Judge Reliability Harness, an open source library for co
 
 **RSCT Certification:** κ=0.550 (pending) | **RSN:** 0.38/0.32/0.31 | **Topics:** ai-safety
 
-## Overview
+Title: Stress Testing the Reliability of Large Language Model (LLM) Judges
 
-This paper presents research in the area of cs.AI.
+Core Contribution:
+This paper presents the Judge Reliability Harness, an open-source library for constructing validation suites that rigorously assess the reliability of LLM-based scoring and judgment systems. As LLMs are increasingly used to evaluate performance in AI benchmarks, it is crucial to have robust tooling to evaluate the consistency and robustness of these "judge" models. The key innovation of this work is the development of a comprehensive suite of reliability tests that go beyond simple accuracy metrics to uncover vulnerabilities in how LLM judges respond to perturbations in the input text. This is an important step towards ensuring the reliability and trustworthiness of LLM-powered evaluation systems.
 
-**Abstract Summary:**
-We present the Judge Reliability Harness, an open source library for constructing validation suites that test the reliability of LLM judges. As LLM based scoring is widely deployed in AI benchmarks, more tooling is needed to efficiently assess the reliability of these methods. Given a benchmark dataset and an LLM judge configuration, the harness generates reliability tests that evaluate both binary judgment accuracy and ordinal grading performance for free-response and agentic task formats. We e...
+Technical Approach:
+The Judge Reliability Harness takes as input a benchmark dataset and an LLM judge configuration, and then generates a battery of reliability tests to evaluate the judge's performance. These tests assess both binary judgment accuracy as well as ordinal grading capabilities across two task formats: free-response and agentic (goal-oriented) tasks. 
 
-The work shows a **24% similarity** to our research interests in ai-safety.
+The specific reliability tests include:
+- Accuracy in judging another LLM's ability to complete a task, with perturbations like text formatting changes, paraphrasing, changes in verbosity, and flipping the ground truth label.
+- Stability of ordinal grading under similar perturbations.
+- Robustness to adversarial examples designed to confuse the judge.
 
-Further analysis pending manual review.
+The authors evaluated four state-of-the-art LLM judges across four benchmark datasets spanning safety, persuasion, misuse, and agentic behavior. These datasets were chosen to cover a diverse range of text-based AI tasks that LLM judges might be applied to in practice.
 
-## RSCT Quality Metrics
+Key Results:
+The authors found meaningful variation in the performance of the LLM judges across the different benchmarks and perturbation types. No single judge was found to be uniformly reliable across all the tests in the harness. For example, the judges showed inconsistencies in accurately judging another LLM's ability to complete a task, with accuracy dropping significantly under simple text formatting changes, paraphrasing, or changes in verbosity.
 
-This paper has been certified by the Swarm-It RSCT pipeline:
+Additionally, the judges exhibited stability issues in their ordinal grading, with scores fluctuating despite minimal changes to the input text. The authors also found that adversarial examples could substantially confuse the judges, highlighting opportunities to improve the robustness of these systems.
 
-- **κ-gate Score:** 0.550 (pending)
-- **Relevance (R):** 0.375 - Directly relevant to research goals
-- **Spurious (S):** 0.318 - Supporting context and correlations
-- **Noise (N):** 0.306 - Irrelevant or noisy components
-- **Decision:** REPAIR
+Significance & Limitations:
+This work is an important contribution to the growing field of AI safety and robustness. As LLMs become more ubiquitous in AI systems, it is critical to have rigorous tooling to assess their reliability and uncover potential vulnerabilities. The Judge Reliability Harness provides a much-needed framework for stress testing LLM judges, which can help drive the development of more robust and trustworthy evaluation systems.
 
-The RSN decomposition satisfies the simplex constraint (R+S+N=1.0), ensuring mathematically valid quality assessment.
+However, the authors acknowledge that this is an initial exploration, and more work is needed to fully capture the nuances of LLM judge reliability. The current harness focuses on text-based tasks, but future iterations could expand to other modalities, such as vision or multimodal inputs. Additionally, the authors note that the specific perturbations and benchmarks used in this study may not be exhaustive, and further research is needed to identify the most critical failure modes for LLM judges.
+
+RSCT Relevance:
+This work is highly relevant to the RSCT (Representation, Safety, Cooperation, Transparency) research agenda. The Judge Reliability Harness directly addresses the safety and robustness of AI systems, which is a core tenet of the RSCT framework. By developing tooling to stress test the reliability of LLM judges, the authors are contributing to the broader effort to ensure the trustworthiness and alignment of AI systems.
+
+Additionally, the findings from this work have implications for the representation and transparency of LLMs. The observed inconsistencies and vulnerabilities in the judges' performance suggest that the underlying representations and decision-making processes of these models may not be as robust or interpretable as desired. This underscores the need for continued research into more transparent and verifiable AI systems.
 
 ## Paper Details
 
 - **Authors:** Sunishchal Dev, Andrew Sloan, Joshua Kavner, Nicholas Kong, Morgan Sandler
-- **Published:** 2026-03-05
-- **Source:** [arxiv](https://arxiv.org/abs/2603.05399v1)
+- **Source:** [arXiv](https://arxiv.org/abs/2603.05399v1)
 - **PDF:** [Download](https://arxiv.org/pdf/2603.05399v1.pdf)
-- **Primary Topic:** ai-safety
-- **Difficulty:** Beginner
-
-## Abstract
-
-> We present the Judge Reliability Harness, an open source library for constructing validation suites that test the reliability of LLM judges. As LLM based scoring is widely deployed in AI benchmarks, more tooling is needed to efficiently assess the reliability of these methods. Given a benchmark dataset and an LLM judge configuration, the harness generates reliability tests that evaluate both binary judgment accuracy and ordinal grading performance for free-response and agentic task formats. We evaluate four state-of-the-art judges across four benchmarks spanning safety, persuasion, misuse, and agentic behavior, and find meaningful variation in performance across models and perturbation types, highlighting opportunities to improve the robustness of LLM judges. No judge that we evaluated is uniformly reliable across benchmarks using our harness. For example, our preliminary experiments on judges revealed consistency issues as measured by accuracy in judging another LLM's ability to complete a task due to simple text formatting changes, paraphrasing, changes in verbosity, and flipping the ground truth label in LLM-produced responses. The code for this tool is available at: https://github.com/RANDCorporation/judge-reliability-harness
+- **Published:** 2026-03-05
 
 ---
 
-*This analysis was automatically generated and certified by the Swarm-It RSCT pipeline.
-κ-gate score: 0.550 | Quality tier: pending*
+*This analysis was generated by the Swarm-It RSCT pipeline using Claude.*

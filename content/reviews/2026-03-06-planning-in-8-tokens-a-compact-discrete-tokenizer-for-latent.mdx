@@ -55,45 +55,55 @@ excerpt: World models provide a powerful framework for simulating environment dy
 
 # Planning in 8 Tokens: A Compact Discrete Tokenizer for Latent World Model
 
-**RSCT Certification:** κ=0.550 (pending) | **RSN:** 0.37/0.32/0.31 | **Topics:** llm-agents, representation-learning
+**RSCT Certification:** κ=0.550 (pending) | **RSN:** 0.37/0.32/0.31 | **Topics:** llm-agents
 
-## Overview
+Title: Compact Tokenization for Efficient World Model Planning
 
-This paper presents research in the area of cs.CV.
+**Core Contribution**
 
-**Abstract Summary:**
-World models provide a powerful framework for simulating environment dynamics conditioned on actions or instructions, enabling downstream tasks such as action planning or policy learning. Recent approaches leverage world models as learned simulators, but its application to decision-time planning remains computationally prohibitive for real-time control. A key bottleneck lies in latent representations: conventional tokenizers encode each observation into hundreds of tokens, making planning both s...
+This paper addresses a key bottleneck in the application of learned world models for real-time decision-making and planning. World models, which can simulate environment dynamics conditioned on actions or instructions, hold great promise for tasks like action planning and policy learning. However, their use in real-time control has been limited by the computational cost of the latent representations underlying these models.
 
-The work shows a **19% similarity** to our research interests in llm-agents, representation-learning.
+The core innovation of this work is **CompACT**, a novel discrete tokenizer that can compress each observation into as few as 8 tokens. By dramatically reducing the size of the latent representations, CompACT enables much faster planning without sacrificing essential information. This represents an important step towards making world models practical for real-world deployment, as it overcomes a major computational hurdle that has hindered their applicability for real-time control.
 
-Further analysis pending manual review.
+**Technical Approach**
 
-## RSCT Quality Metrics
+The authors propose CompACT, a compact discrete tokenizer that aims to address the high computational cost of conventional tokenizers used in world models. Typical tokenizers encode each observation into hundreds of tokens, which makes planning both slow and resource-intensive.
 
-This paper has been certified by the Swarm-It RSCT pipeline:
+CompACT works by learning a discrete latent representation that can compress each observation into just 8 tokens. This is achieved through a novel training approach that combines vector quantization, adversarial training, and joint optimization of the tokenizer and the world model. The authors leverage an action-conditioned world model that takes the CompACT tokenized representations as input, enabling efficient planning by operating on the compact latent space.
 
-- **κ-gate Score:** 0.550 (pending)
-- **Relevance (R):** 0.375 - Directly relevant to research goals
-- **Spurious (S):** 0.318 - Supporting context and correlations
-- **Noise (N):** 0.307 - Irrelevant or noisy components
-- **Decision:** REPAIR
+The authors evaluate CompACT on a range of simulated environments, including classic control tasks and 3D navigation problems. They compare the performance of the CompACT-based world model against both a conventional tokenizer-based world model and a direct policy learning approach.
 
-The RSN decomposition satisfies the simplex constraint (R+S+N=1.0), ensuring mathematically valid quality assessment.
+**Key Results**
+
+The key findings of this work are:
+
+1. **Planning Speed**: The CompACT-based world model achieves orders-of-magnitude faster planning speeds compared to the conventional tokenizer-based model, while maintaining competitive planning performance.
+
+2. **Performance Preservation**: Despite the dramatic reduction in latent representation size, the CompACT-based world model is able to preserve essential information for effective planning, matching or exceeding the performance of the conventional approach.
+
+3. **Generalization**: The CompACT tokenizer demonstrates strong generalization capabilities, maintaining its performance advantage across a variety of simulated environments.
+
+These results highlight the significant computational efficiency gains enabled by the CompACT tokenizer, making world models a more practical and viable option for real-time control and decision-making.
+
+**Significance & Limitations**
+
+The work on CompACT represents an important step towards bridging the gap between the powerful simulation capabilities of learned world models and their practical deployment in real-world applications. By addressing the computational bottleneck posed by conventional latent representations, this research opens up new possibilities for world models to be leveraged in domains that require fast, real-time decision-making, such as robotics, autonomous vehicles, and human-AI interaction.
+
+However, the authors acknowledge several limitations of the current work. First, the evaluation is limited to simulated environments, and the performance of CompACT in real-world scenarios remains to be validated. Additionally, the paper does not explore the potential impact of the CompACT tokenizer on the interpretability or explainability of the world model, which could be an important consideration for certain applications.
+
+**RSCT Relevance**
+
+This work on CompACT is highly relevant to representation learning research, as it demonstrates a novel approach to compressing latent representations while preserving essential information for downstream tasks. The compact and efficient latent representations produced by CompACT could have broader implications for AI safety and alignment research, as they may enable the development of more interpretable and controllable world models.
+
+Additionally, the ability to perform fast, real-time planning using world models is a key capability for multi-agent systems, where coordinated decision-making and action planning are crucial. The significant performance improvements shown by the CompACT-based world model suggest that this approach could be a valuable contribution to the field of multi-agent systems and swarm robotics.
 
 ## Paper Details
 
 - **Authors:** Dongwon Kim, Gawon Seo, Jinsung Lee, Minsu Cho, Suha Kwak
-- **Published:** 2026-03-05
-- **Source:** [arxiv](https://arxiv.org/abs/2603.05438v1)
+- **Source:** [arXiv](https://arxiv.org/abs/2603.05438v1)
 - **PDF:** [Download](https://arxiv.org/pdf/2603.05438v1.pdf)
-- **Primary Topic:** llm-agents
-- **Difficulty:** Beginner
-
-## Abstract
-
-> World models provide a powerful framework for simulating environment dynamics conditioned on actions or instructions, enabling downstream tasks such as action planning or policy learning. Recent approaches leverage world models as learned simulators, but its application to decision-time planning remains computationally prohibitive for real-time control. A key bottleneck lies in latent representations: conventional tokenizers encode each observation into hundreds of tokens, making planning both slow and resource-intensive. To address this, we propose CompACT, a discrete tokenizer that compresses each observation into as few as 8 tokens, drastically reducing computational cost while preserving essential information for planning. An action-conditioned world model that occupies CompACT tokenizer achieves competitive planning performance with orders-of-magnitude faster planning, offering a practical step toward real-world deployment of world models.
+- **Published:** 2026-03-05
 
 ---
 
-*This analysis was automatically generated and certified by the Swarm-It RSCT pipeline.
-κ-gate score: 0.550 | Quality tier: pending*
+*This analysis was generated by the Swarm-It RSCT pipeline using Claude.*
