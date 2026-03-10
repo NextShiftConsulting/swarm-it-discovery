@@ -15,7 +15,7 @@ export interface PaperFrontmatter {
   kappa: number            // κ-gate score (0-1)
   rsn_score: string        // "R/S/N" format (e.g., "0.75/0.82/0.43")
   R: number                // Relevance (0-1)
-  S: number                // Stability (0-1)
+  S: number                // Superfluous (0-1)
   N: number                // Noise (0-1)
 
   // Classification

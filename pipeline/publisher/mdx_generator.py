@@ -198,10 +198,10 @@ RSCT Certification Metrics:
 **RSCT Quick Reference (use these concepts in your analysis):**
 - **κ-gate (kappa)**: Compatibility score measuring how well a paper's contributions integrate with existing knowledge. Range 0-1, threshold ≥0.7 for certification.
 - **R (Relevance)**: Signal strength - how directly the paper addresses core research questions
-- **S (Stability)**: Consistency of findings across contexts and methods
+- **S (Superfluous)**: Content that doesn't directly contribute to the core finding - padding, tangents, over-explanation
 - **N (Noise)**: Irrelevant or contradictory elements that dilute the core contribution
 - **RSN Simplex**: R + S + N = 1.0 (they're proportions, not independent scores)
-- **5-Gate System**: Papers pass through gates (Noise→Relevance→Stability→Kappa→Execute)
+- **5-Gate System**: Papers pass through gates (Noise→Relevance→Superfluous→Kappa→Execute)
 - **Decisions**: EXECUTE (use directly), REPAIR (needs context), DELEGATE (needs expert), BLOCK (insufficient signal), REJECT (too noisy)
 
 **Paper to Analyze:**
