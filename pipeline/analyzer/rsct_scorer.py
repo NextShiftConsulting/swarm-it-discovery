@@ -41,12 +41,19 @@ class RSCTScore:
 class RSCTScorer:
     """Score papers by relevance to RSCT theory."""
 
-    # Key RSCT concepts to look for
+    # Key RSCT concepts to look for (aligned with whitepaper terminology)
     RSCT_CONCEPTS = [
+        # Core theory terms
         "representation", "solver", "compatibility", "kappa",
-        "noise", "spurious", "relevance", "decomposition",
-        "simplex", "certification", "multi-agent", "swarm",
-        "hallucination", "alignment", "safety", "constraint",
+        # Three certification axes
+        "purity", "alpha", "turbulence", "sigma", "stability",
+        # RSN decomposition
+        "noise", "superfluous", "relevance", "decomposition", "simplex",
+        # Gatekeeper system
+        "gatekeeper", "gate", "oobleck", "fano", "threshold",
+        # Multi-agent and safety
+        "certification", "multi-agent", "swarm", "hallucination",
+        "alignment", "safety", "constraint", "adversarial",
     ]
 
     def __init__(

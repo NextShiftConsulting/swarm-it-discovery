@@ -241,7 +241,7 @@ const IndexPage: React.FC<PageProps<{ allMdx: { nodes: DiscoveryNode[] } }>> = (
                 className="w-full h-auto rounded-lg"
               />
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center">
-                Certification depth (0-5 gate system)
+                Certification depth (4-gate system)
               </p>
             </div>
           </div>

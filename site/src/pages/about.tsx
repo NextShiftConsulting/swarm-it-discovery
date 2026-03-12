@@ -24,7 +24,7 @@ const AboutPage: React.FC = () => {
 
           <div className="prose prose-lg dark:prose-invert max-w-none">
             <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-6">
-              Swarm-It Discovery automatically scans arXiv and other sources for new research papers, matches them against curated topics, and certifies their quality using <strong>RSCT (Representation Solver Compatibility Testing)</strong>.
+              Swarm-It Discovery automatically scans arXiv and other sources for new research papers, matches them against curated topics, and certifies their quality using <strong>RSCT (Representation-Solver Compatibility Theory)</strong>.
             </p>
 
             <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed">
@@ -38,6 +38,31 @@ const AboutPage: React.FC = () => {
       <section className="py-16 bg-gray-50 dark:bg-gray-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">RSCT Certification</h2>
+
+          {/* Three Axes Overview */}
+          <div className="mb-8 p-6 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
+            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Three Independent Certification Axes</h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-4">
+              RSCT certifies representations on <strong>three provably independent axes</strong>. A system can be perfectly stable and completely wrong, or highly compatible but information-blocked. Single quality scores collapse these distinct failure modes—RSCT distinguishes them.
+            </p>
+            <div className="grid md:grid-cols-3 gap-4">
+              <div className="text-center p-3 bg-white dark:bg-gray-800 rounded-lg">
+                <div className="text-2xl mb-1">α</div>
+                <div className="font-bold text-gray-900 dark:text-gray-100">Signal Purity</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400">Content level</div>
+              </div>
+              <div className="text-center p-3 bg-white dark:bg-gray-800 rounded-lg">
+                <div className="text-2xl mb-1">κ</div>
+                <div className="font-bold text-gray-900 dark:text-gray-100">Compatibility</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400">Solver level</div>
+              </div>
+              <div className="text-center p-3 bg-white dark:bg-gray-800 rounded-lg">
+                <div className="text-2xl mb-1">σ</div>
+                <div className="font-bold text-gray-900 dark:text-gray-100">Turbulence</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400">Dynamics level</div>
+              </div>
+            </div>
+          </div>
 
           <div className="space-y-8">
             {/* RSN Decomposition */}
@@ -66,22 +91,23 @@ const AboutPage: React.FC = () => {
                     🔗
                   </div>
                   <div>
-                    <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-1">Spurious (S)</h4>
+                    <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-1">Superfluous (S)</h4>
                     <p className="text-gray-600 dark:text-gray-400">
-                      Supporting context, correlations, and related concepts that are not directly relevant but provide useful background.
+                      Content that occupies context but neither helps nor corrupts inference.
+                      Unlike noise, superfluous content is tolerable—it wastes space but doesn't mislead.
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-start">
-                  <div className="flex-shrink-0 w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center text-2xl mr-4">
-                    🔇
+                  <div className="flex-shrink-0 w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center text-2xl mr-4">
+                    ⚠️
                   </div>
                   <div>
                     <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-1">Noise (N)</h4>
                     <p className="text-gray-600 dark:text-gray-400">
-                      Irrelevant information, boilerplate, or content unrelated to the research focus.
-                      Low N is better.
+                      Adversarial content that actively corrupts inference—not merely irrelevant, but misleading.
+                      When N ≥ 0.5, no solver can recover correct inference (Fano bound). Low N is critical.
                     </p>
                   </div>
                 </div>
@@ -90,6 +116,17 @@ const AboutPage: React.FC = () => {
               <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
                 <p className="text-sm text-blue-900 dark:text-blue-100">
                   <strong>Simplex Constraint:</strong> R + S + N = 1.0 (always)
+                </p>
+              </div>
+
+              {/* Signal Purity */}
+              <div className="mt-6 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
+                <h4 className="font-bold text-green-900 dark:text-green-100 mb-2">Signal Purity (α)</h4>
+                <p className="text-sm text-green-800 dark:text-green-200 mb-2">
+                  The critical measure is <strong>purity: α = R/(R+N)</strong>. This ratio determines the hard ceiling on solver performance—no amount of model capacity can overcome low purity (Fano's inequality).
+                </p>
+                <p className="text-sm text-green-700 dark:text-green-300">
+                  When α → 0, correct inference becomes information-theoretically impossible. This is why Gate 1 blocks inputs with N ≥ 0.5.
                 </p>
               </div>
             </div>
@@ -141,6 +178,82 @@ const AboutPage: React.FC = () => {
                 <p className="text-sm text-purple-900 dark:text-purple-100">
                   <strong>Quality Threshold:</strong> Only papers with κ ≥ 0.7 are published. This ensures all reviews meet a minimum quality standard.
                 </p>
+              </div>
+            </div>
+
+            {/* Turbulence */}
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-8 border border-gray-200 dark:border-gray-700">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Turbulence (σ)</h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-6">
+                The third certification axis measures <strong>representational stability</strong>. Even a compatible encoding can fail if it produces unstable dynamics.
+              </p>
+
+              <div className="space-y-4">
+                <div className="flex items-start">
+                  <div className="flex-shrink-0 w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center text-2xl mr-4">
+                    ✓
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-1">Stable (σ ≤ 0.5)</h4>
+                    <p className="text-gray-600 dark:text-gray-400">
+                      Solver trajectories converge reliably. Safe to execute.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start">
+                  <div className="flex-shrink-0 w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center text-2xl mr-4">
+                    ⚡
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-1">Turbulent (σ &gt; 0.5)</h4>
+                    <p className="text-gray-600 dark:text-gray-400">
+                      Risk of trajectory divergence. Higher κ required via the Oobleck principle: κ_req(σ) = κ_base + λσ
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* The Four Gates */}
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-8 border border-gray-200 dark:border-gray-700">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">The 4-Gate Gatekeeper</h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-6">
+                RSCT enforces quality through a <strong>sequential 4-gate system</strong>. Gate ordering is a security guarantee, not an efficiency choice—reordering creates vulnerabilities.
+              </p>
+
+              <div className="space-y-3">
+                <div className="flex items-center p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800">
+                  <span className="text-2xl mr-3">🛑</span>
+                  <div className="flex-1">
+                    <div className="font-bold text-gray-900 dark:text-gray-100">Gate 1: Integrity Guard</div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400">If N ≥ 0.5 → REJECT (noise saturation)</div>
+                  </div>
+                </div>
+
+                <div className="flex items-center p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800">
+                  <span className="text-2xl mr-3">⏸️</span>
+                  <div className="flex-1">
+                    <div className="font-bold text-gray-900 dark:text-gray-100">Gate 2: Consensus Gate</div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400">If consensus coherence c &lt; 0.4 → BLOCK</div>
+                  </div>
+                </div>
+
+                <div className="flex items-center p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-200 dark:border-orange-800">
+                  <span className="text-2xl mr-3">🔄</span>
+                  <div className="flex-1">
+                    <div className="font-bold text-gray-900 dark:text-gray-100">Gate 3: Admissibility (Oobleck)</div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400">If κ &lt; κ_req(σ) → RE_ENCODE</div>
+                  </div>
+                </div>
+
+                <div className="flex items-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                  <span className="text-2xl mr-3">🔧</span>
+                  <div className="flex-1">
+                    <div className="font-bold text-gray-900 dark:text-gray-100">Gate 4: Grounding Repair</div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400">If κ_L &lt; 0.3 → REPAIR (low-level health)</div>
+                  </div>
+                </div>
               </div>
             </div>
 

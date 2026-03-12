@@ -122,16 +122,37 @@ class AnalystAgent(ADKAgent):
             print(f"  Warning: Could not connect to Swarm-It API: {e}")
             self.swarmit = None
 
-    def certify(self, content: str, stage: str) -> dict:
+    def certify(self, content: str, stage: str, fallback_score: float = None) -> dict:
         """Certify content through Swarm-It API."""
         if not self.swarmit:
+            # Estimate RSN from fallback score if available
+            if fallback_score is not None and fallback_score > 0:
+                R = min(0.9, fallback_score * 1.2)
+                S = min(0.9, fallback_score * 0.9)
+                N = max(0.1, 1.0 - fallback_score)
+                total = R + S + N
+                R, S, N = R/total, S/total, N/total
+                kappa = R / (R + N) if (R + N) > 0 else 0.5
+                # RSCT 4-gate decisions: EXECUTE, RE_ENCODE, BLOCK, REPAIR, REJECT
+                if N >= 0.5:
+                    decision = "REJECT"  # Gate 1: Noise saturation
+                elif kappa >= 0.7:
+                    decision = "EXECUTE"  # Passed all gates
+                elif kappa >= 0.5:
+                    decision = "REPAIR"  # Needs grounding (Gate 4)
+                else:
+                    decision = "RE_ENCODE"  # Failed admissibility (Gate 3)
+            else:
+                R, S, N = 0.33, 0.34, 0.33
+                kappa = 0.5
+                decision = "PENDING"
             return {
                 "allowed": True,
-                "kappa_gate": 1.0,
-                "decision": "EXECUTE",
-                "R": 0.85,
-                "S": 0.12,
-                "N": 0.03,
+                "kappa_gate": round(kappa, 3),
+                "decision": decision,
+                "R": round(R, 3),
+                "S": round(S, 3),
+                "N": round(N, 3),
                 "stage": stage
             }
 

@@ -144,7 +144,10 @@ class CertifiedPipeline:
             self.swarmit = None
 
     def certify(self, content: str, stage: str, fallback_score: float = None) -> dict:
-        """Certify content through Swarm-It API."""
+        """Certify content through Swarm-It API with constraint graph evaluation."""
+        # Import constraint graph for rich evaluation
+        from analyzer.constraint_graph import evaluate_paper_constraints, get_gate_diagnosis
+
         if not self.swarmit:
             # Use fallback score from RSCT scorer to estimate RSN
             # When API unavailable, estimate from combined_score
@@ -159,46 +162,86 @@ class CertifiedPipeline:
                 kappa = R / (R + N) if (R + N) > 0 else 0.5
                 # Estimate sigma (turbulence) from noise - lower N means more stable
                 sigma = N * 0.7  # Scale noise to turbulence range
-                # Gate reached depends on decision path
-                if kappa >= 0.7:
-                    decision = "EXECUTE"
-                    gate_reached = 5
-                elif kappa >= 0.5:
-                    decision = "REPAIR"
-                    gate_reached = 4
-                else:
-                    decision = "BLOCK"
-                    gate_reached = 2
+
+                # Use constraint graph for full evaluation
+                eval_result = evaluate_paper_constraints(R, S, N, kappa, sigma)
+
+                return {
+                    "allowed": eval_result.decision != "REJECT",
+                    "kappa_gate": round(kappa, 3),
+                    "R": round(R, 3),
+                    "S": round(S, 3),
+                    "N": round(N, 3),
+                    "sigma": round(sigma, 3),
+                    "alpha": round(eval_result.alpha, 3),
+                    "gate_reached": eval_result.gate_reached.value,
+                    "decision": eval_result.decision.value,
+                    "stage": stage,
+                    # Rich graph-based insights
+                    "diagnosis": eval_result.diagnosis,
+                    "recommendations": eval_result.recommendations,
+                    "is_bridge_paper": eval_result.is_bridge_paper,
+                    "bridge_factor": round(eval_result.bridge_factor, 3),
+                    "collapse_types": [c.value for c in eval_result.collapse_types],
+                    "domains_affected": [d.value for d in eval_result.domains_affected],
+                    "violations": [v.message for v in eval_result.violations if v.severity in ["fatal", "critical", "warning"]],
+                }
             else:
                 R, S, N = 0.33, 0.34, 0.33  # Uniform when no score
                 kappa = 0.5
                 sigma = 0.3
                 decision = "PENDING"
-                gate_reached = 3
-            return {
-                "allowed": True,
-                "kappa_gate": round(kappa, 3),
-                "R": round(R, 3),
-                "S": round(S, 3),
-                "N": round(N, 3),
-                "sigma": round(sigma, 3),
-                "gate_reached": gate_reached,
-                "decision": decision,
-                "stage": stage
-            }
+                gate_reached = 0  # Not yet evaluated
+                return {
+                    "allowed": True,
+                    "kappa_gate": round(kappa, 3),
+                    "R": round(R, 3),
+                    "S": round(S, 3),
+                    "N": round(N, 3),
+                    "sigma": round(sigma, 3),
+                    "alpha": 0.5,
+                    "gate_reached": gate_reached,
+                    "decision": decision,
+                    "stage": stage,
+                    "diagnosis": "Pending evaluation - no score available",
+                    "recommendations": ["Score the paper to get full evaluation"],
+                    "is_bridge_paper": False,
+                    "bridge_factor": 0.0,
+                    "collapse_types": [],
+                    "domains_affected": [],
+                    "violations": [],
+                }
 
         try:
             cert = self.swarmit.certify(content)
+            R = cert.R
+            S = cert.S
+            N = cert.N
+            kappa = cert.kappa_gate
+            sigma = cert.sigma if hasattr(cert, 'sigma') else 0.3
+
+            # Use constraint graph for additional insights
+            eval_result = evaluate_paper_constraints(R, S, N, kappa, sigma)
+
             return {
                 "allowed": cert.allowed,
-                "kappa_gate": cert.kappa_gate,
+                "kappa_gate": kappa,
                 "decision": cert.decision.value if hasattr(cert.decision, 'value') else str(cert.decision),
-                "R": cert.R,
-                "S": cert.S,
-                "N": cert.N,
-                "sigma": cert.sigma if hasattr(cert, 'sigma') else 0.3,
-                "gate_reached": cert.gate_reached if hasattr(cert, 'gate_reached') else 5,
+                "R": R,
+                "S": S,
+                "N": N,
+                "sigma": sigma,
+                "alpha": round(eval_result.alpha, 3),
+                "gate_reached": cert.gate_reached if hasattr(cert, 'gate_reached') else eval_result.gate_reached.value,
                 "stage": stage,
+                # Rich graph-based insights
+                "diagnosis": eval_result.diagnosis,
+                "recommendations": eval_result.recommendations,
+                "is_bridge_paper": eval_result.is_bridge_paper,
+                "bridge_factor": round(eval_result.bridge_factor, 3),
+                "collapse_types": [c.value for c in eval_result.collapse_types],
+                "domains_affected": [d.value for d in eval_result.domains_affected],
+                "violations": [v.message for v in eval_result.violations if v.severity in ["fatal", "critical", "warning"]],
             }
         except Exception as e:
             print(f"Certification error: {e}")
@@ -409,6 +452,14 @@ class CertifiedPipeline:
                 rsct_N=cert.get("N"),
                 rsct_kappa=cert.get("kappa_gate"),
                 rsct_decision=cert.get("decision"),
+                # Graph-based insights
+                rsct_alpha=cert.get("alpha"),
+                rsct_sigma=cert.get("sigma"),
+                rsct_diagnosis=cert.get("diagnosis"),
+                rsct_recommendations=cert.get("recommendations"),
+                rsct_is_bridge_paper=cert.get("is_bridge_paper", False),
+                rsct_collapse_types=cert.get("collapse_types"),
+                rsct_violations=cert.get("violations"),
             ))
 
         # Generate posts

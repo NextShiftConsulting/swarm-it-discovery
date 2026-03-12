@@ -81,7 +81,15 @@ class PaperData:
     rsct_S: float = None  # Spurious/Support
     rsct_N: float = None  # Noise
     rsct_kappa: float = None  # Compatibility score
-    rsct_decision: str = None  # EXECUTE, REPAIR, BLOCK
+    rsct_decision: str = None  # EXECUTE, REPAIR, BLOCK, RE_ENCODE, REJECT
+    # Graph-based insights (from constraint graph)
+    rsct_alpha: float = None  # Purity = R/(R+N)
+    rsct_sigma: float = None  # Turbulence
+    rsct_diagnosis: str = None  # Human-readable diagnosis
+    rsct_recommendations: List[str] = None  # Actionable recommendations
+    rsct_is_bridge_paper: bool = False  # Cross-domain paper flag
+    rsct_collapse_types: List[str] = None  # Detected failure modes
+    rsct_violations: List[str] = None  # Constraint violations
 
 
 @dataclass
@@ -165,6 +173,41 @@ class MDXGenerator:
 
         return list(tags)[:5]
 
+    def _generate_graph_insights_section(self, paper: PaperData) -> str:
+        """Generate the graph-based insights section for the review."""
+        sections = []
+
+        # Diagnosis from constraint graph
+        if paper.rsct_diagnosis:
+            sections.append(f"**Diagnosis:** {paper.rsct_diagnosis}")
+
+        # Bridge paper notice
+        if paper.rsct_is_bridge_paper:
+            sections.append(
+                "\n**Cross-Domain Paper:** This paper bridges multiple fields. "
+                "High background content is intentional to help readers from different domains. "
+                "Skip sections covering your area of expertise."
+            )
+
+        # Recommendations
+        if paper.rsct_recommendations and len(paper.rsct_recommendations) > 0:
+            rec_items = "\n".join([f"- {r}" for r in paper.rsct_recommendations[:4]])
+            sections.append(f"\n**Recommendations:**\n{rec_items}")
+
+        # Constraint violations (if any warnings)
+        if paper.rsct_violations and len(paper.rsct_violations) > 0:
+            violation_items = "\n".join([f"- {v}" for v in paper.rsct_violations[:3]])
+            sections.append(f"\n**Quality Concerns:**\n{violation_items}")
+
+        # Collapse types (failure modes detected)
+        if paper.rsct_collapse_types and len(paper.rsct_collapse_types) > 0:
+            collapse_str = ", ".join(paper.rsct_collapse_types)
+            sections.append(f"\n**Detected Issues:** {collapse_str}")
+
+        if sections:
+            return "\n\n### Constraint Analysis\n\n" + "\n".join(sections) + "\n"
+        return ""
+
     def _generate_analysis_llm(self, paper: PaperData) -> str:
         """Use LLM to generate paper analysis."""
         # Build RSCT context
@@ -176,9 +219,10 @@ class MDXGenerator:
             rsct_context = f"""
 RSCT Certification Metrics:
 - κ-gate (compatibility): {paper.rsct_kappa:.3f}
-- R (relevance): {r_val}
-- S (stability): {s_val}
-- N (noise): {n_val}
+- R (Relevant signal): {r_val}
+- S (Superfluous content): {s_val}
+- N (Adversarial noise): {n_val}
+- α (Purity = R/(R+N)): {float(paper.rsct_R or 0) / (float(paper.rsct_R or 0) + float(paper.rsct_N or 0.01)):.3f}
 - Decision: {paper.rsct_decision or 'PENDING'}
 """
 
@@ -193,46 +237,99 @@ RSCT Certification Metrics:
         else:
             gate_interp = "flags early in the pipeline, suggesting careful evaluation before use"
 
-        prompt = f"""You are a research analyst writing for the Swarm-It AI Research Discovery platform. Your reviews TEACH readers about RSCT (Representation-Space Compatibility Theory) while analyzing papers.
+        # Calculate metrics for the prompt
+        R_val = float(paper.rsct_R or 0.5)
+        S_val = float(paper.rsct_S or 0.3)
+        N_val = float(paper.rsct_N or 0.1)
+        purity = R_val / (R_val + N_val) if (R_val + N_val) > 0 else 0.5
 
-**RSCT Quick Reference (use these concepts in your analysis):**
-- **κ-gate (kappa)**: Compatibility score measuring how well a paper's contributions integrate with existing knowledge. Range 0-1, threshold ≥0.7 for certification.
-- **R (Relevance)**: Signal strength - how directly the paper addresses core research questions
-- **S (Superfluous)**: Content that doesn't directly contribute to the core finding - padding, tangents, over-explanation
-- **N (Noise)**: Irrelevant or contradictory elements that dilute the core contribution
-- **RSN Simplex**: R + S + N = 1.0 (they're proportions, not independent scores)
-- **5-Gate System**: Papers pass through gates (Noise→Relevance→Superfluous→Kappa→Execute)
-- **Decisions**: EXECUTE (use directly), REPAIR (needs context), DELEGATE (needs expert), BLOCK (insufficient signal), REJECT (too noisy)
+        # Detect cross-domain papers (multiple topics or high S)
+        is_cross_domain = len(paper.matched_topics or []) > 1 or S_val > 0.35
 
-**Paper to Analyze:**
+        # Determine trust level based on scores
+        if kappa >= 0.85 and N_val < 0.15:
+            trust_level = "HIGH - Core claims well-supported, safe to build on"
+            read_time = "Worth deep reading (2-3 hours)"
+        elif kappa >= 0.7 and N_val < 0.25:
+            trust_level = "MODERATE - Solid work, verify key results before building on"
+            read_time = "Worth reading (1-2 hours), skim supplementary"
+        elif kappa >= 0.5:
+            trust_level = "CAUTIOUS - Interesting ideas, but validate independently"
+            read_time = "Skim first (30 min), deep read only if directly relevant"
+        else:
+            trust_level = "LOW - Treat as preliminary/speculative"
+            read_time = "Quick skim only (15 min), wait for follow-up work"
+
+        # Cross-domain guidance
+        cross_domain_note = ""
+        if is_cross_domain:
+            cross_domain_note = f"""
+**Cross-Domain Paper Detected ({S_val:.0%} background/context content):**
+This paper bridges multiple fields. High background content is a FEATURE, not a bug—it helps readers from different domains understand the work. When reviewing:
+- Identify which sections are "background for X experts" vs "background for Y experts"
+- Help readers know what they can skip based on their expertise
+- Don't penalize the paper for being accessible to multiple audiences
+"""
+
+        prompt = f"""You are a research advisor helping PhD students decide what papers to read and how to use them. Write a practical, actionable review.
+
+**Paper:**
 Title: {paper.title}
 Abstract: {paper.abstract}
 Topics: {', '.join(paper.matched_topics) if paper.matched_topics else 'General ML'}
-{rsct_context}
-Gate Status: This paper {gate_interp}
 
-**Write your analysis (800-900 words) covering:**
+**Quality Signals (from automated analysis):**
+- Signal strength: {R_val:.0%} of content directly supports claims
+- Background/context: {S_val:.0%} supporting material for readers from other fields
+- Noise level: {N_val:.0%} potentially misleading content
+- Overall reliability: {kappa:.0%}
+- Trust level: {trust_level}
+- Suggested time investment: {read_time}
+{cross_domain_note}
+**Write a review (700-900 words) with these sections:**
 
-1. **Core Contribution** (2 paragraphs): What problem does this paper solve? What's the key innovation?
+## One-Sentence Summary
+What this paper does, in plain English. No jargon.
 
-2. **Technical Approach** (2-3 paragraphs): How does it work? Specific methods, architectures, techniques.
+## Key Innovation
+What's actually NEW here vs. incremental improvement? Be honest - many papers oversell novelty.
 
-3. **Key Results** (1-2 paragraphs): What did they find? Metrics, benchmarks, comparisons.
+## Should You Read This?
+**If you work on [X]**: Yes/No/Maybe, because...
+**If you work on [Y]**: Yes/No/Maybe, because...
+(Pick 2-3 relevant research areas based on the paper's topics)
 
-4. **Significance & Limitations** (1-2 paragraphs): Why does this matter? What are the limits?
+## The Good
+- What parts are solid and trustworthy?
+- What can you cite without verification?
+- Where does the paper excel?
 
-5. **Through the RSCT Lens** (2 paragraphs - THIS IS IMPORTANT, make it educational):
-   - First paragraph: Explain how this paper's approach relates to RSCT concepts. Does it improve representation quality (R)? Enhance stability (S)? Reduce noise (N)? Be specific about WHICH RSCT concepts apply and WHY.
-   - Second paragraph: Interpret the paper's κ={kappa:.2f} score. What does R={paper.rsct_R or 0:.2f}/S={paper.rsct_S or 0:.2f}/N={paper.rsct_N or 0:.2f} tell us about this work? Why did it {gate_interp.split(',')[0]}? What would improve its RSCT score?
+## The Gaps
+- What assumptions does the paper make that might not hold?
+- What's missing from the evaluation?
+- Where should you be skeptical?
+- What would you need to verify before building on this?
+
+## How to Read This Paper
+Practical reading guide tailored to your background:
+- **If you're from [Domain A]**: Which sections can you skip? What's new for you?
+- **If you're from [Domain B]**: Which background sections help you? What's the core for you?
+- **Must read (everyone)**: Which sections contain the core contribution?
+- **Verify**: Which claims need independent validation?
+(Identify the relevant domains from the paper's topics and give specific section guidance)
+
+## Bottom Line
+One paragraph: What's the actionable takeaway? How might this change what you do in your research?
 
 **Style Guidelines:**
-- Be specific and technical, but accessible to grad students
-- NO generic phrases like "highly relevant to RSCT" or "aligns with concerns about"
-- TEACH RSCT concepts by showing how they apply to this specific paper
-- Use the paper's actual findings to illustrate RSCT principles
-- Make readers smarter about RSCT after reading each review
+- Write for a busy PhD student who reads 10+ papers/week
+- Be direct and practical - they need to make decisions
+- Avoid vague praise ("interesting", "promising", "novel approach")
+- Give specific, actionable guidance
+- It's OK to say "this paper is not worth your time" if that's true
+- Don't pad with generic observations - every sentence should add value
 
-Write the analysis now:"""
+Write the review now:"""
 
         if self.llm_provider == "bedrock":
             return self._call_bedrock(prompt)
@@ -264,42 +361,63 @@ Write the analysis now:"""
 
     def _generate_analysis_template(self, paper: PaperData) -> str:
         """Template-based analysis when LLM unavailable."""
-        # Extract key info from abstract
         abstract = paper.abstract or ""
         first_sentence = abstract.split('.')[0] + '.' if '.' in abstract else abstract[:200]
-
-        # Build topic context
         topics = ', '.join(paper.matched_topics) if paper.matched_topics else 'machine learning'
-        categories = ', '.join(paper.categories[:2]) if paper.categories else 'AI/ML'
 
-        # Build RSCT interpretation
-        rsct_interp = ""
-        if paper.rsct_kappa is not None:
-            if paper.rsct_kappa >= 0.8:
-                rsct_interp = "The high κ-gate score indicates strong alignment with quality standards and low noise."
-            elif paper.rsct_kappa >= 0.6:
-                rsct_interp = "The moderate κ-gate score suggests good relevance with some areas for deeper review."
-            else:
-                rsct_interp = "The κ-gate score indicates this paper may benefit from additional context or review."
+        # Calculate scores
+        kappa = paper.rsct_kappa or 0.5
+        R = paper.rsct_R or 0.5
+        N = paper.rsct_N or 0.2
 
-        return f"""## Core Contribution
+        # Generate practical guidance based on scores
+        if kappa >= 0.8 and N < 0.15:
+            trust = "HIGH"
+            guidance = "Core claims appear well-supported. Safe to cite and build upon."
+            time_rec = "Worth a deep read (1-2 hours)"
+        elif kappa >= 0.7:
+            trust = "MODERATE"
+            guidance = "Solid work overall. Verify key experimental results before building on this."
+            time_rec = "Worth reading (1 hour), focus on methods and results"
+        elif kappa >= 0.5:
+            trust = "CAUTIOUS"
+            guidance = "Interesting direction but validate claims independently before citing."
+            time_rec = "Skim first (30 min), deep read only if directly relevant"
+        else:
+            trust = "LOW"
+            guidance = "Treat as preliminary work. Wait for replication or follow-up studies."
+            time_rec = "Quick scan only (15 min)"
+
+        return f"""## One-Sentence Summary
 
 {first_sentence}
 
-This work addresses challenges in **{topics}**, contributing to the broader field of {categories}.
+## Should You Read This?
 
-## Technical Approach
+**Time investment:** {time_rec}
 
-{abstract[:600]}{'...' if len(abstract) > 600 else ''}
+**If you work on {topics}:** This paper may be relevant to your research. The abstract suggests contributions in this area.
 
-## RSCT Assessment
+**Trust level:** {trust} - {guidance}
 
-{rsct_interp}
+## What We Know From Automated Analysis
 
-**Matched Topics:** {topics}
-**Similarity Score:** {paper.similarity_score:.0%}
+- **{R:.0%} signal strength** - Proportion of content directly supporting claims
+- **{N:.0%} noise detected** - Content that may need verification
+- **Reliability:** {kappa:.0%}
 
-*Note: This is an automated summary. For detailed analysis, see the full paper.*"""
+## The Abstract
+
+{abstract}
+
+## Reading Recommendation
+
+Based on automated quality analysis, we recommend:
+- **Read carefully:** Methods section (verify the approach)
+- **Check:** Experimental setup and baselines
+- **Verify:** Any claims that seem too good to be true
+
+*This is an automated assessment. For nuanced analysis, consult the full paper and related work.*"""
 
     def generate_post(self, paper: PaperData) -> BlogPost:
         """Generate a blog post from paper data."""
@@ -393,6 +511,14 @@ This work addresses challenges in **{topics}**, contributing to the broader fiel
                        "high-quality" if kappa >= 0.8 else \
                        "certified" if kappa >= 0.7 else "pending"
 
+        # Detect cross-domain papers and frame S positively
+        is_bridge_paper = len(paper.matched_topics or []) > 1 or S > 0.35
+        s_description = (
+            f"Background material for readers from other fields (this is a **bridge paper** - high context is a feature!)"
+            if is_bridge_paper else
+            "Background material, not critical to evaluate"
+        )
+
         content = f"""---
 {frontmatter_yaml.strip()}
 ---
@@ -405,17 +531,31 @@ This work addresses challenges in **{topics}**, contributing to the broader fiel
 
 {analysis}
 
-## RSCT Quality Metrics
+## Quality Assessment
 
-This paper has been certified by the Swarm-It RSCT pipeline:
+**Trust Level:** {
+    'HIGH - Safe to build on' if kappa >= 0.85 and N < 0.15 else
+    'MODERATE - Verify key results first' if kappa >= 0.7 else
+    'CAUTIOUS - Validate independently' if kappa >= 0.5 else
+    'LOW - Treat as preliminary'
+}
 
-- **κ-gate Score:** {kappa:.3f} ({quality_tier})
-- **Relevance (R):** {R:.3f} - Directly relevant to research goals
-- **Spurious (S):** {S:.3f} - Supporting context and correlations
-- **Noise (N):** {N:.3f} - Irrelevant or noisy components
-- **Decision:** {paper.rsct_decision or 'EXECUTE'}
+**What the scores mean:**
+- **{R:.0%} signal** - This much of the paper directly supports its claims
+- **{S:.0%} context** - {s_description}
+- **{N:.0%} noise** - Content that may mislead if taken at face value{' ⚠️ Higher than ideal' if N > 0.25 else ''}
 
-The RSN decomposition satisfies the simplex constraint (R+S+N=1.0), ensuring mathematically valid quality assessment.
+**Reliability score:** {kappa:.0%} ({quality_tier})
+
+**Practical interpretation:**
+{
+    f"Core methodology appears solid. Safe to cite the main results. Verify edge cases before extending." if kappa >= 0.8 else
+    f"Good foundation but some gaps. Read critically and verify key claims before building on this work." if kappa >= 0.7 else
+    f"Interesting direction but needs validation. Wait for replication or verify independently before citing heavily." if kappa >= 0.5 else
+    f"Early-stage work. Treat claims as hypotheses rather than established results."
+}
+
+{self._generate_graph_insights_section(paper)}
 
 ## Paper Details
 

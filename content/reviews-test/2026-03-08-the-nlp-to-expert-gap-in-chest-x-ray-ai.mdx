@@ -1,0 +1,142 @@
+---
+title: The NLP-to-Expert Gap in Chest X-ray AI
+arxiv_id: medrxiv:2026.02.27.26347261
+authors:
+- Fisher, G. R.
+published_date: '2026-03-02'
+go_live_date: '2026-03-08'
+kappa: 0.55
+R: 0.375
+S: 0.318
+N: 0.307
+rsn_score: 0.37/0.32/0.31
+tags:
+- radiology and imaging
+- ai-safety
+- representation-learning
+primary_topic: ai-safety
+difficulty: beginner
+abstract: 'In previous work, we achieved state-of-the-art performance on ChestX-ray14
+  (ROC-AUC 0.940, F1 0.821) using pretraining diversity and clinical metric optimization.
+  Applying the same methodology to CheXpert, we received similar results when using
+  NLP valuation and test data--but when evaluated against expert radiologist labels,
+  performance was only 0.75-0.87 ROC-AUC. The models had learned to match the automated
+  NLP labeling system, not to diagnose disease.
+
+
+  This paper documents our investigation into this failure and our suggested resolution.
+  We identify the NLP-to-Expert generalization gap: a systematic divergence between
+  models optimized on labels extracted from radiology reports and their agreement
+  with board-certified radiologists. More surprisingly, we discovered that directly
+  optimizing for small expert-labeled validation sets can be counterproductive-- models
+  with lower validation scores often generalized better to held-out expert test data.
+
+
+  Four findings emerged:
+
+
+  First, expert-labeled images for at least the validation and testing datasets, even
+  if not for training, were vital in revealing the gap between NLP agreement and diagnostic
+  accuracy. Without them, our models appeared excellent while failing to generalize
+  to clinical judgment.
+
+
+  Second, less training is better. Short training (1-5 epochs) outperformed extended
+  training (60+ epochs) because longer training doesnt improve the model--it memorizes
+  the labelers mistakes.
+
+
+  Third, ImageNet features are sufficient. Freezing the pretrained backbone and training
+  only the classifier achieved 0.891 ROC-AUC--matching models with full fine-tuning.
+  The rapid convergence we observed wasnt the model learning chest X-ray features;
+  it was the classifier calibrating to already-sufficient visual representations.
+
+
+  Fourth, regularization beats optimization. Label smoothing and frozen backbones--methods
+  that prevent overfitting--outperformed direct metric optimization on small validation
+  sets. The 200 expert-labeled validation images in CheXpert are too few to optimize
+  directly; they are better used as a compass than a target.
+
+
+  With these insights, we improved from 0.823 to 0.917 ROC-AUC, exceeding Stanfords
+  official baseline (0.907).'
+tldr: In previous work, we achieved state-of-the-art performance on ChestX-ray14 (ROC-AUC
+  0.940, F1 0.821) using pretraining diversity and clinical metric optimization. Applying
+  the same methodology to CheX...
+arxiv_url: https://www.medrxiv.org/content/10.64898/2026.02.27.26347261
+pdf_url: https://www.medrxiv.org/content/10.64898/2026.02.27.26347261.full.pdf
+status: live
+featured: false
+date: '2026-03-08'
+source: medrxiv
+paperUrl: https://www.medrxiv.org/content/10.64898/2026.02.27.26347261
+pdfUrl: https://www.medrxiv.org/content/10.64898/2026.02.27.26347261.full.pdf
+similarityScore: 0.317
+matchedTopics:
+- ai-safety
+- representation-learning
+excerpt: In previous work, we achieved state-of-the-art performance on ChestX-ray14
+  (ROC-AUC 0.940, F1 0.821) using pretraining diversity and clinical metric optimization.
+  Applying the same methodology to CheX...
+---
+
+# The NLP-to-Expert Gap in Chest X-ray AI
+
+**RSCT Certification:** κ=0.550 (pending) | **RSN:** 0.37/0.32/0.31 | **Topics:** ai-safety, representation-learning
+
+## Overview
+
+This paper presents research in the area of radiology and imaging.
+
+**Abstract Summary:**
+In previous work, we achieved state-of-the-art performance on ChestX-ray14 (ROC-AUC 0.940, F1 0.821) using pretraining diversity and clinical metric optimization. Applying the same methodology to CheXpert, we received similar results when using NLP valuation and test data--but when evaluated against expert radiologist labels, performance was only 0.75-0.87 ROC-AUC. The models had learned to match the automated NLP labeling system, not to diagnose disease.
+
+This paper documents our investigation ...
+
+The work shows a **32% similarity** to our research interests in ai-safety, representation-learning.
+
+Further analysis pending manual review.
+
+## RSCT Quality Metrics
+
+This paper has been certified by the Swarm-It RSCT pipeline:
+
+- **κ-gate Score:** 0.550 (pending)
+- **Relevance (R):** 0.375 - Directly relevant to research goals
+- **Spurious (S):** 0.318 - Supporting context and correlations
+- **Noise (N):** 0.307 - Irrelevant or noisy components
+- **Decision:** REPAIR
+
+The RSN decomposition satisfies the simplex constraint (R+S+N=1.0), ensuring mathematically valid quality assessment.
+
+## Paper Details
+
+- **Authors:** Fisher, G. R.
+- **Published:** 2026-03-02
+- **Source:** [medrxiv](https://www.medrxiv.org/content/10.64898/2026.02.27.26347261)
+- **PDF:** [Download](https://www.medrxiv.org/content/10.64898/2026.02.27.26347261.full.pdf)
+- **Primary Topic:** ai-safety
+- **Difficulty:** Beginner
+
+## Abstract
+
+> In previous work, we achieved state-of-the-art performance on ChestX-ray14 (ROC-AUC 0.940, F1 0.821) using pretraining diversity and clinical metric optimization. Applying the same methodology to CheXpert, we received similar results when using NLP valuation and test data--but when evaluated against expert radiologist labels, performance was only 0.75-0.87 ROC-AUC. The models had learned to match the automated NLP labeling system, not to diagnose disease.
+
+This paper documents our investigation into this failure and our suggested resolution. We identify the NLP-to-Expert generalization gap: a systematic divergence between models optimized on labels extracted from radiology reports and their agreement with board-certified radiologists. More surprisingly, we discovered that directly optimizing for small expert-labeled validation sets can be counterproductive-- models with lower validation scores often generalized better to held-out expert test data.
+
+Four findings emerged:
+
+First, expert-labeled images for at least the validation and testing datasets, even if not for training, were vital in revealing the gap between NLP agreement and diagnostic accuracy. Without them, our models appeared excellent while failing to generalize to clinical judgment.
+
+Second, less training is better. Short training (1-5 epochs) outperformed extended training (60+ epochs) because longer training doesnt improve the model--it memorizes the labelers mistakes.
+
+Third, ImageNet features are sufficient. Freezing the pretrained backbone and training only the classifier achieved 0.891 ROC-AUC--matching models with full fine-tuning. The rapid convergence we observed wasnt the model learning chest X-ray features; it was the classifier calibrating to already-sufficient visual representations.
+
+Fourth, regularization beats optimization. Label smoothing and frozen backbones--methods that prevent overfitting--outperformed direct metric optimization on small validation sets. The 200 expert-labeled validation images in CheXpert are too few to optimize directly; they are better used as a compass than a target.
+
+With these insights, we improved from 0.823 to 0.917 ROC-AUC, exceeding Stanfords official baseline (0.907).
+
+---
+
+*This analysis was automatically generated and certified by the Swarm-It RSCT pipeline.
+κ-gate score: 0.550 | Quality tier: pending*

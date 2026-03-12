@@ -74,7 +74,7 @@ class PDFReviewGenerator:
         if not self.openai:
             return self._template_analysis(title, abstract, rsct_score, key_overlaps)
 
-        prompt = f"""Write a detailed academic review of this paper from an RSCT (Representation-Solver Compatibility Testing) perspective.
+        prompt = f"""Write a detailed academic review of this paper from an RSCT (Representation-Solver Compatibility Theory) perspective.
 
 Paper Title: {title}
 
@@ -87,15 +87,15 @@ Write 3-4 paragraphs covering:
 
 1. **Summary**: What the paper does and its main contributions
 
-2. **RSCT Analysis**: How this work relates to Representation-Solver Compatibility Testing theory:
-   - Does it address representation quality (R)?
-   - Does it handle spurious correlations (S)?
-   - Does it deal with noise/uncertainty (N)?
-   - Any implications for the kappa compatibility metric?
+2. **RSCT Analysis**: How this work relates to RSCT's three independent certification axes:
+   - Signal purity (α = R/(R+N)): Does it improve the ratio of relevant signal to adversarial noise?
+   - Geometric compatibility (κ): Does it address representation-solver fit?
+   - Turbulence (σ): Does it consider dynamical stability of representations?
+   - RSN decomposition: Does the work help distinguish Relevant signal, Superfluous context, and adversarial Noise?
 
 3. **Technical Depth**: Key methodological contributions and their significance
 
-4. **Research Implications**: How this could inform or be informed by RSCT-based approaches to AI safety and multi-agent certification
+4. **Research Implications**: How this could inform or be informed by RSCT-based approaches to AI safety and multi-agent certification. Consider implications for the 4-gate gatekeeper (Integrity, Consensus, Admissibility, Grounding).
 
 Use academic tone. Be specific about connections to RSCT theory."""
 
@@ -123,9 +123,9 @@ Use academic tone. Be specific about connections to RSCT theory."""
 
 \\textbf{{Abstract Summary:}} {abstract[:500]}{'...' if len(abstract) > 500 else ''}
 
-\\textbf{{RSCT Relevance:}} The work touches on concepts related to {overlaps_text}, which have connections to the Representation-Solver Compatibility Testing framework.
+\\textbf{{RSCT Relevance:}} The work touches on concepts related to {overlaps_text}, which have connections to Representation-Solver Compatibility Theory (RSCT) and its three certification axes: signal purity (α), geometric compatibility (κ), and turbulence (σ).
 
-\\textbf{{Further Analysis:}} A detailed manual review is recommended to fully assess the implications for RSCT-based certification approaches."""
+\\textbf{{Further Analysis:}} A detailed manual review is recommended to fully assess the implications for RSCT-based certification approaches and the 4-gate gatekeeper system."""
 
     def generate_review(
         self,
@@ -187,7 +187,7 @@ The kappa score of {rsct_kappa:.3f} indicates {'high' if rsct_kappa > 0.7 else '
 \\maketitle
 
 \\begin{{abstract}}
-This document provides an automated review of the paper ``{safe_title}'' from an RSCT (Representation-Solver Compatibility Testing) perspective. The paper achieved an RSCT relevance score of {rsct_score:.1%} and topic similarity of {topic_similarity:.1%}.
+This document provides an automated review of the paper ``{safe_title}'' from an RSCT (Representation-Solver Compatibility Theory) perspective, evaluating signal purity (α), geometric compatibility (κ), and representational stability (σ). RSCT relevance: {rsct_score:.1%}, topic similarity: {topic_similarity:.1%}.
 \\end{{abstract}}
 
 \\section{{Paper Information}}

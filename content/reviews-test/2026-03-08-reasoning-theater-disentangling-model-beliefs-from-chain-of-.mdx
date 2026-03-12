@@ -1,0 +1,101 @@
+---
+title: 'Reasoning Theater: Disentangling Model Beliefs from Chain-of-Thought'
+arxiv_id: 2603.05488v1
+authors:
+- Siddharth Boppana
+- Annabel Ma
+- Max Loeffler
+- Raphael Sarfati
+- Eric Bigelow
+published_date: '2026-03-05'
+go_live_date: '2026-03-08'
+kappa: 0.0
+R: 0.0
+S: 0.0
+N: 1.0
+rsn_score: 0.18/0.14/1.00
+tags:
+- cs-cl
+- ai-safety
+- llm-agents
+primary_topic: llm-agents
+difficulty: intermediate
+abstract: 'We provide evidence of performative chain-of-thought (CoT) in reasoning
+  models, where a model becomes strongly confident in its final answer, but continues
+  generating tokens without revealing its internal belief. Our analysis compares activation
+  probing, early forced answering, and a CoT monitor across two large models (DeepSeek-R1
+  671B & GPT-OSS 120B) and find task difficulty-specific differences: The model''s
+  final answer is decodable from activations far earlier in CoT than a monitor is
+  able to say, especially for easy recall-based MMLU questions. We contrast this with
+  genuine reasoning in difficult multihop GPQA-Diamond questions. Despite this, inflection
+  points (e.g., backtracking, ''aha'' moments) occur almost exclusively in responses
+  where probes show large belief shifts, suggesting these behaviors track genuine
+  uncertainty rather than learned "reasoning theater." Finally, probe-guided early
+  exit reduces tokens by up to 80% on MMLU and 30% on GPQA-Diamond with similar accuracy,
+  positioning attention probing as an efficient tool for detecting performative reasoning
+  and enabling adaptive computation.'
+tldr: We provide evidence of performative chain-of-thought (CoT) in reasoning models,
+  where a model becomes strongly confident in its final answer, but continues generating
+  tokens without revealing its inte...
+arxiv_url: https://arxiv.org/abs/2603.05488v1
+pdf_url: https://arxiv.org/pdf/2603.05488v1.pdf
+status: live
+featured: false
+date: '2026-03-08'
+source: arxiv
+arxivId: 2603.05488v1
+paperUrl: https://arxiv.org/abs/2603.05488v1
+pdfUrl: https://arxiv.org/pdf/2603.05488v1.pdf
+similarityScore: 0.354
+matchedTopics:
+- llm-agents
+- ai-safety
+excerpt: We provide evidence of performative chain-of-thought (CoT) in reasoning models,
+  where a model becomes strongly confident in its final answer, but continues generating
+  tokens without revealing its inte...
+---
+
+# Reasoning Theater: Disentangling Model Beliefs from Chain-of-Thought
+
+**RSCT Certification:** κ=0.000 (pending) | **RSN:** 0.18/0.14/1.00 | **Topics:** llm-agents, ai-safety
+
+## Overview
+
+This paper presents research in the area of cs.CL.
+
+**Abstract Summary:**
+We provide evidence of performative chain-of-thought (CoT) in reasoning models, where a model becomes strongly confident in its final answer, but continues generating tokens without revealing its internal belief. Our analysis compares activation probing, early forced answering, and a CoT monitor across two large models (DeepSeek-R1 671B & GPT-OSS 120B) and find task difficulty-specific differences: The model's final answer is decodable from activations far earlier in CoT than a monitor is able t...
+
+The work shows a **35% similarity** to our research interests in llm-agents, ai-safety.
+
+Further analysis pending manual review.
+
+## RSCT Quality Metrics
+
+This paper has been certified by the Swarm-It RSCT pipeline:
+
+- **κ-gate Score:** 0.000 (pending)
+- **Relevance (R):** 0.000 - Directly relevant to research goals
+- **Spurious (S):** 0.000 - Supporting context and correlations
+- **Noise (N):** 1.000 - Irrelevant or noisy components
+- **Decision:** REJECT
+
+The RSN decomposition satisfies the simplex constraint (R+S+N=1.0), ensuring mathematically valid quality assessment.
+
+## Paper Details
+
+- **Authors:** Siddharth Boppana, Annabel Ma, Max Loeffler, Raphael Sarfati, Eric Bigelow et al.
+- **Published:** 2026-03-05
+- **Source:** [arxiv](https://arxiv.org/abs/2603.05488v1)
+- **PDF:** [Download](https://arxiv.org/pdf/2603.05488v1.pdf)
+- **Primary Topic:** llm-agents
+- **Difficulty:** Intermediate
+
+## Abstract
+
+> We provide evidence of performative chain-of-thought (CoT) in reasoning models, where a model becomes strongly confident in its final answer, but continues generating tokens without revealing its internal belief. Our analysis compares activation probing, early forced answering, and a CoT monitor across two large models (DeepSeek-R1 671B & GPT-OSS 120B) and find task difficulty-specific differences: The model's final answer is decodable from activations far earlier in CoT than a monitor is able to say, especially for easy recall-based MMLU questions. We contrast this with genuine reasoning in difficult multihop GPQA-Diamond questions. Despite this, inflection points (e.g., backtracking, 'aha' moments) occur almost exclusively in responses where probes show large belief shifts, suggesting these behaviors track genuine uncertainty rather than learned "reasoning theater." Finally, probe-guided early exit reduces tokens by up to 80% on MMLU and 30% on GPQA-Diamond with similar accuracy, positioning attention probing as an efficient tool for detecting performative reasoning and enabling adaptive computation.
+
+---
+
+*This analysis was automatically generated and certified by the Swarm-It RSCT pipeline.
+κ-gate score: 0.000 | Quality tier: pending*
