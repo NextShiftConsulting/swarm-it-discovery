@@ -20,6 +20,9 @@ from .publisher_agent import PublisherAgent, PublishResult, BatchPublishResult
 # Content Agents (YouTube, Blogs, etc.)
 from .youtube_agent import YouTubeAgent, VideoAnalysis, BatchVideoAnalysis
 
+# Archive Agent
+from .archive_agent import ArchiveAgent, ArchivedPaper, ArchiveResult, ArchiveThresholds
+
 # Source Agents
 from .base_agent import BaseSourceAgent, PaperAnalysis
 from .arxiv_agent import ArXivAgent
@@ -45,6 +48,11 @@ __all__ = [
     "YouTubeAgent",
     "VideoAnalysis",
     "BatchVideoAnalysis",
+    # Archive Agent
+    "ArchiveAgent",
+    "ArchivedPaper",
+    "ArchiveResult",
+    "ArchiveThresholds",
     # Source Agents
     "BaseSourceAgent",
     "PaperAnalysis",
