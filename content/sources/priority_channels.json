@@ -1,0 +1,91 @@
+{
+  "priority_sources": [
+    {
+      "id": "code4ai",
+      "name": "code4AI",
+      "platform": "youtube",
+      "url": "https://www.youtube.com/@code4AI",
+      "priority": "mandatory",
+      "treatment": "All research papers and reports mentioned MUST be added to discovery pipeline",
+      "topics": ["AI research", "ML papers", "latest reports"],
+      "scan_frequency": "daily",
+      "notes": "User specified: mandatory pull and review of ANY research mentioned",
+      "added": "2026-03-15"
+    },
+    {
+      "id": "yannic-kilcher",
+      "name": "Yannic Kilcher",
+      "platform": "youtube",
+      "url": "https://www.youtube.com/@YannicKilcher",
+      "priority": "high",
+      "treatment": "Paper reviews and ML news",
+      "topics": ["paper reviews", "ML research", "AI news"],
+      "scan_frequency": "weekly"
+    },
+    {
+      "id": "indydevdan",
+      "name": "IndyDevDan",
+      "platform": "youtube",
+      "url": "https://www.youtube.com/@indydevdan",
+      "priority": "high",
+      "treatment": "Agentic coding, Claude Code, MCP",
+      "topics": ["agentic coding", "Claude Code", "AI IDEs"],
+      "scan_frequency": "weekly"
+    },
+    {
+      "id": "huggingface",
+      "name": "HuggingFace",
+      "platform": "youtube",
+      "url": "https://www.youtube.com/@HuggingFace",
+      "priority": "high",
+      "treatment": "New models, transformers releases",
+      "topics": ["transformers", "new models", "MoE"],
+      "scan_frequency": "weekly"
+    },
+    {
+      "id": "3blue1brown",
+      "name": "3Blue1Brown",
+      "platform": "youtube",
+      "url": "https://www.youtube.com/@3blue1brown",
+      "priority": "medium",
+      "treatment": "Visual ML explanations",
+      "topics": ["neural networks", "transformers", "math"],
+      "scan_frequency": "monthly"
+    },
+    {
+      "id": "onchain-ai-garage",
+      "name": "OnchainAI Garage",
+      "platform": "youtube",
+      "url": "https://www.youtube.com/@OnchainAIGarage",
+      "priority": "medium",
+      "treatment": "Crypto AI agents",
+      "topics": ["crypto", "DeFi", "onchain AI"],
+      "scan_frequency": "weekly"
+    },
+    {
+      "id": "veritasium",
+      "name": "Veritasium",
+      "platform": "youtube",
+      "url": "https://www.youtube.com/@veritasium",
+      "priority": "medium",
+      "treatment": "Science and AI learning",
+      "topics": ["science", "AI learning", "cognition"],
+      "scan_frequency": "monthly"
+    },
+    {
+      "id": "mastra",
+      "name": "Mastra",
+      "platform": "website",
+      "url": "https://mastra.ai/blog",
+      "priority": "high",
+      "treatment": "TypeScript AI framework updates",
+      "topics": ["AI frameworks", "MCP", "agents"],
+      "scan_frequency": "weekly"
+    }
+  ],
+  "priority_levels": {
+    "mandatory": "MUST pull and review all research mentioned - no exceptions",
+    "high": "Actively monitor and include relevant content",
+    "medium": "Check periodically for new content"
+  }
+}
