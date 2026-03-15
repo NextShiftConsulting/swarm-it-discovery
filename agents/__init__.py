@@ -26,6 +26,9 @@ from .archive_agent import ArchiveAgent, ArchivedPaper, ArchiveResult, ArchiveTh
 # X/Twitter Agent
 from .x_agent import XAgent, TweetAnalysis, BatchTweetAnalysis
 
+# HuggingFace Papers Agent
+from .huggingface_agent import HuggingFacePapersAgent, HFPaper, HFPapersResult
+
 # Source Agents
 from .base_agent import BaseSourceAgent, PaperAnalysis
 from .arxiv_agent import ArXivAgent
@@ -60,6 +63,10 @@ __all__ = [
     "XAgent",
     "TweetAnalysis",
     "BatchTweetAnalysis",
+    # HuggingFace Papers Agent
+    "HuggingFacePapersAgent",
+    "HFPaper",
+    "HFPapersResult",
     # Source Agents
     "BaseSourceAgent",
     "PaperAnalysis",
