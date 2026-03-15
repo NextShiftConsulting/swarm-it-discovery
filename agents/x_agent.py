@@ -92,6 +92,8 @@ class XAgent:
     ARXIV_PATTERNS = [
         r'arxiv\.org/abs/(\d{4}\.\d{4,5}(?:v\d+)?)',
         r'arxiv\.org/pdf/(\d{4}\.\d{4,5}(?:v\d+)?)',
+        r'huggingface\.co/papers/(\d{4}\.\d{4,5}(?:v\d+)?)',  # HuggingFace papers
+        r'hf\.co/papers/(\d{4}\.\d{4,5}(?:v\d+)?)',           # Short HF URL
         r'arxiv:(\d{4}\.\d{4,5}(?:v\d+)?)',
         r'\[(\d{4}\.\d{4,5}(?:v\d+)?)\]',
     ]
@@ -274,8 +276,8 @@ TWEET:
 
             user_id = user_response.json()['data']['id']
 
-            # Get tweets
-            start_time = (datetime.utcnow() - timedelta(days=days)).isoformat() + "Z"
+            # Get tweets - X API requires RFC3339 format without microseconds
+            start_time = (datetime.utcnow() - timedelta(days=days)).strftime("%Y-%m-%dT%H:%M:%SZ")
             tweets_url = f"https://api.twitter.com/2/users/{user_id}/tweets"
             params = {
                 "start_time": start_time,
@@ -286,6 +288,7 @@ TWEET:
             tweets_response = self._http_client.get(tweets_url, headers=headers, params=params)
 
             if tweets_response.status_code != 200:
+                print(f"  ⚠ Tweets fetch failed ({tweets_response.status_code})")
                 return self.fetch_tweets_nitter(username, days)
 
             tweets = []
@@ -296,6 +299,7 @@ TWEET:
                     'content': tweet['text'],
                     'posted_at': tweet.get('created_at', ''),
                     'url': f"https://twitter.com/{username}/status/{tweet['id']}",
+                    'entities': tweet.get('entities', {}),  # Include entities for URL expansion
                 })
 
             print(f"  ✓ Fetched {len(tweets)} tweets via API")
@@ -318,9 +322,17 @@ TWEET:
         content = tweet.get('content', '')
         author = tweet.get('author', 'unknown')
 
-        # Extract arXiv IDs directly (fast, no LLM needed)
+        # Extract arXiv IDs from tweet text
         arxiv_ids = self.extract_arxiv_ids(content)
         links = self.extract_links(content)
+
+        # Also check expanded URLs from entities (X API provides these)
+        entities = tweet.get('entities', {})
+        for url_entity in entities.get('urls', []):
+            expanded_url = url_entity.get('expanded_url', '')
+            arxiv_ids.extend(self.extract_arxiv_ids(expanded_url))
+            if expanded_url and expanded_url not in links:
+                links.append(expanded_url)
 
         # Check priority
         is_priority, priority_level = self._get_priority(author)
