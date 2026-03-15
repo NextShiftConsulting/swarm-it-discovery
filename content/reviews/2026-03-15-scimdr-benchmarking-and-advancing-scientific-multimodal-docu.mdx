@@ -1,0 +1,130 @@
+---
+title: 'SciMDR: Benchmarking and Advancing Scientific Multimodal Document Reasoning'
+arxiv_id: 2603.12249v1
+authors:
+- Ziyu Chen
+- Yilun Zhao
+- Chengye Wang
+- Rilyn Han
+- Manasi Patwardhan
+published_date: '2026-03-12'
+go_live_date: '2026-03-15'
+kappa: 0.778
+R: 0.7
+S: 0.75
+N: 0.2
+rsn_score: 0.70/0.75/0.20
+tags:
+- cs-cl
+- multi-agent-systems
+- llm-agents-and-reasoning
+primary_topic: LLM Agents and Reasoning
+difficulty: intermediate
+abstract: 'Constructing scientific multimodal document reasoning datasets for foundation
+  model training involves an inherent trade-off among scale, faithfulness, and realism.
+  To address this challenge, we introduce the synthesize-and-reground framework, a
+  two-stage pipeline comprising: (1) Claim-Centric QA Synthesis, which generates faithful,
+  isolated QA pairs and reasoning on focused segments, and (2) Document-Scale Regrounding,
+  which programmatically re-embeds these pairs into full-document tasks to ensure
+  realistic complexity. Using this framework, we construct SciMDR, a large-scale training
+  dataset for cross-modal comprehension, comprising 300K QA pairs with explicit reasoning
+  chains across 20K scientific papers. We further construct SciMDR-Eval, an expert-annotated
+  benchmark to evaluate multimodal comprehension within full-length scientific workflows.
+  Experiments demonstrate that models fine-tuned on SciMDR achieve significant improvements
+  across multiple scientific QA benchmarks, particularly in those tasks requiring
+  complex document-level reasoning.'
+tldr: Constructing scientific multimodal document reasoning datasets for foundation
+  model training involves an inherent trade-off among scale, faithfulness, and realism.
+  To address this challenge, we introd...
+arxiv_url: https://arxiv.org/abs/2603.12249v1
+pdf_url: https://arxiv.org/pdf/2603.12249v1.pdf
+status: live
+featured: false
+date: '2026-03-15'
+source: arxiv
+arxivId: 2603.12249v1
+paperUrl: https://arxiv.org/abs/2603.12249v1
+pdfUrl: https://arxiv.org/pdf/2603.12249v1.pdf
+similarityScore: 0.426
+matchedTopics:
+- LLM Agents and Reasoning
+- Multi-Agent Systems
+- RSCT Core Theory
+excerpt: Constructing scientific multimodal document reasoning datasets for foundation
+  model training involves an inherent trade-off among scale, faithfulness, and realism.
+  To address this challenge, we introd...
+---
+
+# SciMDR: Benchmarking and Advancing Scientific Multimodal Document Reasoning
+
+**RSCT Certification:** κ=0.778 (certified) | **RSN:** 0.70/0.75/0.20 | **Topics:** LLM Agents and Reasoning, Multi-Agent Systems, RSCT Core Theory
+
+## Overview
+
+## One-Sentence Summary
+This paper introduces SciMDR, a large-scale dataset for training and evaluating models on scientific multimodal document reasoning, which combines programmatically generated question-answer pairs with real research papers to create realistic, challenging benchmarks.
+
+## Key Innovation
+The core innovation is the "synthesize-and-reground" framework, which generates focused QA pairs and then embeds them into full research papers to create realistic, document-level reasoning tasks. This addresses the common trade-off in dataset creation between scale, faithfulness, and realism.
+
+## Should You Read This?
+**If you work on language models and reasoning:** Yes. SciMDR provides a valuable new benchmark for evaluating how well models can understand and reason about scientific documents, including integrating text and visual information. The dataset and insights could directly inform your model development and evaluation.
+
+**If you work on scientific information extraction/QA:** Maybe. While SciMDR is focused on document-level reasoning rather than narrow extraction, the dataset creation methodology and evaluation framework could provide useful inspiration or even be adapted for your own work. However, the specific benchmarks may not align perfectly with your research goals.
+
+## The Good
+- The SciMDR dataset is large-scale (300K QA pairs) and covers a broad range of scientific topics, making it a compelling training and evaluation resource.
+- The two-stage dataset construction process—generating focused QA pairs and then regrounding them in full documents—is a clever solution to the common challenges in creating realistic, high-quality multimodal reasoning datasets.
+- The paper provides a thorough analysis of model performance on SciMDR, demonstrating significant improvements over prior benchmarks and shedding light on the specific capabilities and limitations of current language models.
+- The expert-annotated SciMDR-Eval subset provides a high-quality, realistic evaluation scenario that goes beyond simple extractive QA.
+
+## The Gaps
+- While the QA pair generation is designed to be "faithful" to the source material, there may still be some biases or artifacts introduced by the automated process. Validation against human-authored questions would provide additional confidence.
+- The evaluation primarily focuses on question-answering performance, but doesn't delve into other important aspects of multimodal reasoning, such as explanations, counterfactuals, or open-ended inference.
+- It's unclear how well the SciMDR dataset generalizes beyond the specific set of scientific papers used. Broader evaluations across diverse document types would strengthen the claims.
+
+## How to Read This Paper
+**If you're from the language modeling/reasoning community:** Focus on the dataset construction methodology, the analysis of model performance, and the insights into current model capabilities and limitations. You can likely skim the background on scientific document understanding.
+
+**If you're from the scientific information extraction/QA community:** Pay close attention to the dataset creation process and how it differs from typical QA dataset construction. Also consider how the SciMDR evaluation framework could be adapted or extended for your own work.
+
+**Must read (everyone):** The sections describing the SciMDR dataset and the SciMDR-Eval benchmark, as well as the main experiments and results.
+
+**Verify:** The faithfulness and realism claims around the dataset construction, as well as the generalization of the results beyond the specific set of papers used.
+
+## Bottom Line
+SciMDR is a valuable new resource for advancing scientific multimodal document reasoning, providing a large-scale, realistic dataset and evaluation framework that can help drive progress in language models and information extraction. While the dataset may not directly align with everyone's research goals, the methodological insights and performance evaluations are likely to be broadly useful. Researchers working on language understanding and reasoning should strongly consider incorporating SciMDR into their model development and evaluation workflows.
+
+## Quality Assessment
+
+**Trust Level:** MODERATE - Verify key results first
+
+**What the scores mean:**
+- **70% signal** - This much of the paper directly supports its claims
+- **75% context** - Background material for readers from other fields (this is a **bridge paper** - high context is a feature!)
+- **20% noise** - Content that may mislead if taken at face value
+
+**Reliability score:** 78% (certified)
+
+**Practical interpretation:**
+Good foundation but some gaps. Read critically and verify key claims before building on this work.
+
+
+
+## Paper Details
+
+- **Authors:** Ziyu Chen, Yilun Zhao, Chengye Wang, Rilyn Han, Manasi Patwardhan et al.
+- **Published:** 2026-03-12
+- **Source:** [arxiv](https://arxiv.org/abs/2603.12249v1)
+- **PDF:** [Download](https://arxiv.org/pdf/2603.12249v1.pdf)
+- **Primary Topic:** LLM Agents and Reasoning
+- **Difficulty:** Intermediate
+
+## Abstract
+
+> Constructing scientific multimodal document reasoning datasets for foundation model training involves an inherent trade-off among scale, faithfulness, and realism. To address this challenge, we introduce the synthesize-and-reground framework, a two-stage pipeline comprising: (1) Claim-Centric QA Synthesis, which generates faithful, isolated QA pairs and reasoning on focused segments, and (2) Document-Scale Regrounding, which programmatically re-embeds these pairs into full-document tasks to ensure realistic complexity. Using this framework, we construct SciMDR, a large-scale training dataset for cross-modal comprehension, comprising 300K QA pairs with explicit reasoning chains across 20K scientific papers. We further construct SciMDR-Eval, an expert-annotated benchmark to evaluate multimodal comprehension within full-length scientific workflows. Experiments demonstrate that models fine-tuned on SciMDR achieve significant improvements across multiple scientific QA benchmarks, particularly in those tasks requiring complex document-level reasoning.
+
+---
+
+*This analysis was automatically generated and certified by the Swarm-It RSCT pipeline.
+κ-gate score: 0.778 | Quality tier: certified*

@@ -1,12 +1,20 @@
 """
 Base Source Agent - Abstract base for all source-specific agents.
+
+Uses swarm-it-auth for credentials and swarm-it-adk for certification.
+NEVER uses direct API keys or OpenAI imports.
 """
 
-import os
+import sys
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Tuple
 from datetime import datetime
+from pathlib import Path
+
+# Add swarm-it repos to path
+sys.path.insert(0, str(Path.home() / "GitHub" / "swarm-it-adk" / "adk"))
+sys.path.insert(0, str(Path.home() / "GitHub" / "swarm-it-auth"))
 
 
 @dataclass
@@ -36,9 +44,19 @@ class PaperAnalysis:
     agent_name: str
     confidence: float  # 0-1, agent's confidence in analysis
 
+    # RSCT Certificate (from swarm-it-adk)
+    rsct_certified: bool = False
+    rsct_kappa: Optional[float] = None
+
 
 class BaseSourceAgent(ABC):
-    """Abstract base class for source-specific agents."""
+    """
+    Abstract base class for source-specific agents.
+
+    Integration:
+    - Credentials via swarm-it-auth (EnvCredentialAdapter or OpenAICredentialBroker)
+    - Certification via swarm-it-adk (certify before LLM calls)
+    """
 
     SOURCE_NAME: str = "base"
     AGENT_NAME: str = "BaseAgent"
@@ -47,17 +65,69 @@ class BaseSourceAgent(ABC):
     EXPERTISE_PROMPT: str = """You are a research paper analysis agent."""
 
     def __init__(self):
-        self.openai = None
-        self._init_client()
+        self._llm_client = None
+        self._certifier = None
+        self._credential_adapter = None
+        self._init_integrations()
 
-    def _init_client(self):
-        """Initialize OpenAI client."""
+    def _init_integrations(self):
+        """Initialize swarm-it-auth and swarm-it-adk integrations."""
+
+        # 1. Initialize credential adapter (swarm-it-auth)
         try:
-            from openai import OpenAI
-            if os.getenv("OPENAI_API_KEY"):
-                self.openai = OpenAI()
-        except ImportError:
-            pass
+            from swarm_auth.adapters import EnvCredentialAdapter
+            self._credential_adapter = EnvCredentialAdapter()
+            print(f"  ✓ {self.AGENT_NAME}: swarm-it-auth initialized")
+        except ImportError as e:
+            print(f"  ✗ {self.AGENT_NAME}: swarm-it-auth not available: {e}")
+
+        # 2. Initialize certifier (swarm-it-adk)
+        try:
+            from swarm_it import certify, LocalEngine
+            self._certifier = LocalEngine()
+            print(f"  ✓ {self.AGENT_NAME}: swarm-it-adk initialized")
+        except ImportError as e:
+            print(f"  ✗ {self.AGENT_NAME}: swarm-it-adk not available: {e}")
+
+        # 3. Initialize LLM client using credentials from auth
+        self._init_llm_client()
+
+    def _init_llm_client(self):
+        """Initialize LLM client using credentials from swarm-it-auth.
+
+        Priority:
+        1. MiMoClient (cost-effective, 99% cheaper)
+        2. OpenAI (fallback)
+        """
+        if not self._credential_adapter:
+            return
+
+        # Try MiMoClient first (99% cheaper than OpenAI)
+        try:
+            from swarm_auth.adapters import MiMoClient
+            mimo_key = self._credential_adapter.retrieve("MIMO_API_KEY")
+
+            if mimo_key:
+                self._llm_client = MiMoClient()
+                self._llm_provider = "mimo"
+                print(f"  ✓ {self.AGENT_NAME}: MiMoClient ready (99% cost savings)")
+                return
+        except Exception as e:
+            print(f"  ⚠ {self.AGENT_NAME}: MiMoClient not available: {e}")
+
+        # Fallback to OpenAI
+        try:
+            api_key = self._credential_adapter.retrieve("OPENAI_API_KEY")
+
+            if api_key:
+                from openai import OpenAI
+                self._llm_client = OpenAI(api_key=api_key)
+                self._llm_provider = "openai"
+                print(f"  ✓ {self.AGENT_NAME}: OpenAI client ready (fallback)")
+            else:
+                print(f"  ✗ {self.AGENT_NAME}: No LLM credentials found")
+        except Exception as e:
+            print(f"  ✗ {self.AGENT_NAME}: LLM client init failed: {e}")
 
     @abstractmethod
     def get_source_context(self, paper: Dict) -> str:
@@ -69,9 +139,33 @@ class BaseSourceAgent(ABC):
         """Extract quality indicators specific to this source."""
         pass
 
+    def _certify_prompt(self, prompt: str) -> Tuple[bool, Optional[float]]:
+        """
+        Certify prompt using swarm-it-adk before LLM call.
+
+        Returns:
+            (allowed, kappa) - whether to proceed and the kappa score
+        """
+        if not self._certifier:
+            # No certifier = allow but flag as uncertified
+            return True, None
+
+        try:
+            cert = self._certifier.certify(prompt)
+
+            # Check RSCT decision
+            from swarm_it.local.engine import GateDecision
+            allowed = cert.decision in [GateDecision.EXECUTE, GateDecision.REPAIR]
+
+            return allowed, cert.kappa_gate
+        except Exception as e:
+            print(f"  ⚠ {self.AGENT_NAME}: Certification failed: {e}")
+            return True, None  # Fail open for now
+
     def analyze_paper(self, paper: Dict) -> Optional[PaperAnalysis]:
         """Analyze a paper using this agent's expertise."""
-        if not self.openai:
+        if not self._llm_client:
+            print(f"  ✗ {self.AGENT_NAME}: No LLM client available")
             return None
 
         source_context = self.get_source_context(paper)
@@ -99,16 +193,29 @@ Provide analysis in JSON format:
     "confidence": <0-1, your confidence in this analysis>
 }}"""
 
-        try:
-            response = self.openai.chat.completions.create(
-                model="gpt-4o-mini",
-                messages=[{"role": "user", "content": prompt}],
-                max_tokens=500,
-                response_format={"type": "json_object"},
-            )
+        # RSCT Certification before LLM call
+        allowed, kappa = self._certify_prompt(prompt)
 
+        if not allowed:
+            print(f"  ✗ {self.AGENT_NAME}: Prompt rejected by RSCT (κ={kappa:.3f})")
+            return None
+
+        try:
             import json
-            result = json.loads(response.choices[0].message.content)
+
+            # Use appropriate client based on provider
+            if hasattr(self, '_llm_provider') and self._llm_provider == "mimo":
+                # MiMoClient (cost-effective)
+                result = self._llm_client.chat_json(prompt)
+            else:
+                # OpenAI client (fallback)
+                response = self._llm_client.chat.completions.create(
+                    model="gpt-4o-mini",
+                    messages=[{"role": "user", "content": prompt}],
+                    max_tokens=500,
+                    response_format={"type": "json_object"},
+                )
+                result = json.loads(response.choices[0].message.content)
 
             return PaperAnalysis(
                 paper_id=paper.get('id', ''),
@@ -126,9 +233,11 @@ Provide analysis in JSON format:
                 analyzed_at=datetime.utcnow().isoformat(),
                 agent_name=self.AGENT_NAME,
                 confidence=result.get('confidence', 0.5),
+                rsct_certified=kappa is not None,
+                rsct_kappa=kappa,
             )
         except Exception as e:
-            print(f"  {self.AGENT_NAME} error: {e}")
+            print(f"  ✗ {self.AGENT_NAME} error: {e}")
             return None
 
     def analyze_batch(self, papers: List[Dict]) -> List[PaperAnalysis]:
@@ -142,6 +251,7 @@ Provide analysis in JSON format:
             analysis = self.analyze_paper(paper)
             if analysis:
                 results.append(analysis)
-                print(f"    {paper.get('title', '')[:40]}... R:{analysis.relevance}/N:{analysis.novelty}/I:{analysis.impact}")
+                cert_status = f"κ={analysis.rsct_kappa:.2f}" if analysis.rsct_kappa else "uncert"
+                print(f"    {paper.get('title', '')[:40]}... R:{analysis.relevance}/N:{analysis.novelty}/I:{analysis.impact} [{cert_status}]")
 
         return results

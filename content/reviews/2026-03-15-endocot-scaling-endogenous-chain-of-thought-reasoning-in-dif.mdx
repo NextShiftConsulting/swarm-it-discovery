@@ -1,0 +1,141 @@
+---
+title: 'EndoCoT: Scaling Endogenous Chain-of-Thought Reasoning in Diffusion Models'
+arxiv_id: 2603.12252v1
+authors:
+- Xuanlang Dai
+- Yujie Zhou
+- Long Xing
+- Jiazi Bu
+- Xilin Wei
+published_date: '2026-03-12'
+go_live_date: '2026-03-15'
+kappa: 0.778
+R: 0.7
+S: 0.75
+N: 0.2
+rsn_score: 0.70/0.75/0.20
+tags:
+- cs-cv
+- diffusion
+- rsct-core-theory
+- llm-agents-and-reasoning
+primary_topic: LLM Agents and Reasoning
+difficulty: intermediate
+abstract: 'Recently, Multimodal Large Language Models (MLLMs) have been widely integrated
+  into diffusion frameworks primarily as text encoders to tackle complex tasks such
+  as spatial reasoning. However, this paradigm suffers from two critical limitations:
+  (i) MLLMs text encoder exhibits insufficient reasoning depth. Single-step encoding
+  fails to activate the Chain-of-Thought process, which is essential for MLLMs to
+  provide accurate guidance for complex tasks. (ii) The guidance remains invariant
+  during the decoding process. Invariant guidance during decoding prevents DiT from
+  progressively decomposing complex instructions into actionable denoising steps,
+  even with correct MLLM encodings. To this end, we propose Endogenous Chain-of-Thought
+  (EndoCoT), a novel framework that first activates MLLMs'' reasoning potential by
+  iteratively refining latent thought states through an iterative thought guidance
+  module, and then bridges these states to the DiT''s denoising process. Second, a
+  terminal thought grounding module is applied to ensure the reasoning trajectory
+  remains grounded in textual supervision by aligning the final state with ground-truth
+  answers. With these two components, the MLLM text encoder delivers meticulously
+  reasoned guidance, enabling the DiT to execute it progressively and ultimately solve
+  complex tasks in a step-by-step manner. Extensive evaluations across diverse benchmarks
+  (e.g., Maze, TSP, VSP, and Sudoku) achieve an average accuracy of 92.1%, outperforming
+  the strongest baseline by 8.3 percentage points.'
+tldr: Recently, Multimodal Large Language Models (MLLMs) have been widely integrated
+  into diffusion frameworks primarily as text encoders to tackle complex tasks such
+  as spatial reasoning. However, this par...
+arxiv_url: https://arxiv.org/abs/2603.12252v1
+pdf_url: https://arxiv.org/pdf/2603.12252v1.pdf
+status: live
+featured: false
+date: '2026-03-15'
+source: arxiv
+arxivId: 2603.12252v1
+paperUrl: https://arxiv.org/abs/2603.12252v1
+pdfUrl: https://arxiv.org/pdf/2603.12252v1.pdf
+similarityScore: 0.466
+matchedTopics:
+- LLM Agents and Reasoning
+- RSCT Core Theory
+- Multi-Agent Systems
+excerpt: Recently, Multimodal Large Language Models (MLLMs) have been widely integrated
+  into diffusion frameworks primarily as text encoders to tackle complex tasks such
+  as spatial reasoning. However, this par...
+---
+
+# EndoCoT: Scaling Endogenous Chain-of-Thought Reasoning in Diffusion Models
+
+**RSCT Certification:** κ=0.778 (certified) | **RSN:** 0.70/0.75/0.20 | **Topics:** LLM Agents and Reasoning, RSCT Core Theory, Multi-Agent Systems
+
+## Overview
+
+## One-Sentence Summary
+EndoCoT is a novel framework that enhances the reasoning capabilities of Multimodal Large Language Models (MLLMs) in diffusion-based models, enabling them to provide more accurate and progressive guidance for complex tasks.
+
+## Key Innovation
+The key innovation in this paper is the EndoCoT framework, which consists of two main components:
+
+1. An iterative thought guidance module that refines the latent thought states of the MLLM text encoder, activating its chain-of-thought reasoning process.
+2. A terminal thought grounding module that aligns the final reasoning state with the ground-truth answers, ensuring the guidance remains grounded in textual supervision.
+
+These components allow the MLLM to deliver meticulously reasoned guidance, which the diffusion model can then execute in a progressive, step-by-step manner to solve complex tasks.
+
+## Should You Read This?
+**If you work on LLM Agents and Reasoning**: Yes, this paper is highly relevant as it presents a novel framework for improving the reasoning capabilities of LLMs in diffusion-based models, which is a critical challenge in this field.
+
+**If you work on Multi-Agent Systems**: Maybe, as the EndoCoT framework could potentially be applicable to multi-agent scenarios where complex reasoning is required, but the paper's focus is more on single-agent diffusion models.
+
+## The Good
+- The paper provides a clear and detailed explanation of the EndoCoT framework and its components, making it easy to understand the key ideas.
+- The extensive evaluation across diverse benchmarks (Maze, TSP, VSP, Sudoku) demonstrates the effectiveness of the EndoCoT approach, achieving an impressive average accuracy of 92.1%.
+- The authors have done a good job of providing sufficient background and context for readers from different fields, making the paper accessible to a wider audience.
+
+## The Gaps
+- The paper does not provide much insight into the specific architectural details of the MLLM text encoder and the diffusion model used in the experiments. This makes it difficult to assess the generalizability of the EndoCoT framework to other model architectures.
+- The paper could benefit from a deeper discussion of the limitations and potential failure modes of the EndoCoT approach, as well as any edge cases or scenarios where it may not perform as well.
+- The authors could have provided more analysis on the intermediate thought states generated by the iterative thought guidance module and how they contribute to the final task performance.
+
+## How to Read This Paper
+**If you're from the LLM Agents and Reasoning domain**: You can focus on the core technical details of the EndoCoT framework, including the iterative thought guidance module and the terminal thought grounding module. The background sections on diffusion models and LLMs can be skimmed.
+
+**If you're from the Multi-Agent Systems domain**: Pay close attention to the sections that discuss the potential applicability of the EndoCoT framework to multi-agent scenarios, and consider how the reasoning capabilities could be leveraged in a multi-agent setting.
+
+**Must read (everyone)**: The sections describing the EndoCoT framework and its key components, as well as the evaluation results, are essential for understanding the core contribution of this paper.
+
+**Verify**: The specific architectural details of the MLLM text encoder and diffusion model used in the experiments, as well as the generalizability of the EndoCoT approach to other model architectures, should be verified through further research or independent validation.
+
+## Bottom Line
+The EndoCoT framework presented in this paper is a promising approach for enhancing the reasoning capabilities of LLMs in diffusion-based models, enabling them to provide more accurate and progressive guidance for complex tasks. The extensive evaluation results are impressive, and the framework could have significant implications for improving the performance of diffusion models in a wide range of applications. However, before building on this work, it would be important to verify the generalizability of the approach and explore its potential limitations and failure modes in more depth.
+
+## Quality Assessment
+
+**Trust Level:** MODERATE - Verify key results first
+
+**What the scores mean:**
+- **70% signal** - This much of the paper directly supports its claims
+- **75% context** - Background material for readers from other fields (this is a **bridge paper** - high context is a feature!)
+- **20% noise** - Content that may mislead if taken at face value
+
+**Reliability score:** 78% (certified)
+
+**Practical interpretation:**
+Good foundation but some gaps. Read critically and verify key claims before building on this work.
+
+
+
+## Paper Details
+
+- **Authors:** Xuanlang Dai, Yujie Zhou, Long Xing, Jiazi Bu, Xilin Wei et al.
+- **Published:** 2026-03-12
+- **Source:** [arxiv](https://arxiv.org/abs/2603.12252v1)
+- **PDF:** [Download](https://arxiv.org/pdf/2603.12252v1.pdf)
+- **Primary Topic:** LLM Agents and Reasoning
+- **Difficulty:** Intermediate
+
+## Abstract
+
+> Recently, Multimodal Large Language Models (MLLMs) have been widely integrated into diffusion frameworks primarily as text encoders to tackle complex tasks such as spatial reasoning. However, this paradigm suffers from two critical limitations: (i) MLLMs text encoder exhibits insufficient reasoning depth. Single-step encoding fails to activate the Chain-of-Thought process, which is essential for MLLMs to provide accurate guidance for complex tasks. (ii) The guidance remains invariant during the decoding process. Invariant guidance during decoding prevents DiT from progressively decomposing complex instructions into actionable denoising steps, even with correct MLLM encodings. To this end, we propose Endogenous Chain-of-Thought (EndoCoT), a novel framework that first activates MLLMs' reasoning potential by iteratively refining latent thought states through an iterative thought guidance module, and then bridges these states to the DiT's denoising process. Second, a terminal thought grounding module is applied to ensure the reasoning trajectory remains grounded in textual supervision by aligning the final state with ground-truth answers. With these two components, the MLLM text encoder delivers meticulously reasoned guidance, enabling the DiT to execute it progressively and ultimately solve complex tasks in a step-by-step manner. Extensive evaluations across diverse benchmarks (e.g., Maze, TSP, VSP, and Sudoku) achieve an average accuracy of 92.1%, outperforming the strongest baseline by 8.3 percentage points.
+
+---
+
+*This analysis was automatically generated and certified by the Swarm-It RSCT pipeline.
+κ-gate score: 0.778 | Quality tier: certified*

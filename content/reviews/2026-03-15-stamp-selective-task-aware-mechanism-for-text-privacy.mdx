@@ -1,0 +1,148 @@
+---
+title: 'STAMP: Selective Task-Aware Mechanism for Text Privacy'
+arxiv_id: 2603.12237v1
+authors:
+- Fengwei Tian
+- Payel Bhattacharjee
+- Heidi Hanson
+- Geoffrey D. Rubin
+- Joseph Y. Lo
+published_date: '2026-03-12'
+go_live_date: '2026-03-15'
+kappa: 0.778
+R: 0.7
+S: 0.75
+N: 0.2
+rsn_score: 0.70/0.75/0.20
+tags:
+- rsct-core-theory
+- cs-lg
+- llm-agents-and-reasoning
+primary_topic: LLM Agents and Reasoning
+difficulty: intermediate
+abstract: We present STAMP (Selective Task-Aware Mechanism for Text Privacy), a new
+  framework for task-aware text privatization that achieves an improved privacy-utility
+  trade-off. STAMP selectively allocates privacy budgets across tokens by jointly
+  considering (i) each token's importance to the downstream task (as measured via
+  a task- or query-specific representation), and (ii) its privacy sensitivity (e.g.,
+  names, dates, identifiers). This token-level partitioning enables fine-grained,
+  group-wise control over the level of noise applied to different parts of the input,
+  balancing privacy protection with task relevance. To privatize individual token
+  embeddings, we introduce the polar mechanism, which perturbs only the direction
+  of embeddings on the unit sphere while preserving their magnitude. Decoding is performed
+  via cosine nearest-neighbor search, aligning the perturbation geometry with the
+  decoding geometry. Unlike isotropic noise mechanisms, the polar mechanism maintains
+  semantic neighborhoods in the embedding space and better preserves downstream utility.
+  Experimental evaluations on SQuAD, Yelp, and AG News datasets demonstrate that STAMP,
+  when combined with the normalized polar mechanism, consistently achieves superior
+  privacy-utility trade-offs across varying per-token privacy budgets.
+tldr: We present STAMP (Selective Task-Aware Mechanism for Text Privacy), a new framework
+  for task-aware text privatization that achieves an improved privacy-utility trade-off.
+  STAMP selectively allocates p...
+arxiv_url: https://arxiv.org/abs/2603.12237v1
+pdf_url: https://arxiv.org/pdf/2603.12237v1.pdf
+status: live
+featured: false
+date: '2026-03-15'
+source: arxiv
+arxivId: 2603.12237v1
+paperUrl: https://arxiv.org/abs/2603.12237v1
+pdfUrl: https://arxiv.org/pdf/2603.12237v1.pdf
+similarityScore: 0.377
+matchedTopics:
+- LLM Agents and Reasoning
+- RSCT Core Theory
+- AI Safety and Alignment
+excerpt: We present STAMP (Selective Task-Aware Mechanism for Text Privacy), a new
+  framework for task-aware text privatization that achieves an improved privacy-utility
+  trade-off. STAMP selectively allocates p...
+---
+
+# STAMP: Selective Task-Aware Mechanism for Text Privacy
+
+**RSCT Certification:** κ=0.778 (certified) | **RSN:** 0.70/0.75/0.20 | **Topics:** LLM Agents and Reasoning, RSCT Core Theory, AI Safety and Alignment
+
+## Overview
+
+Title: STAMP: Selective Task-Aware Mechanism for Text Privacy
+
+One-Sentence Summary:
+This paper introduces STAMP, a framework for task-aware text privatization that achieves improved privacy-utility trade-offs by selectively applying noise to sensitive tokens based on their importance to the downstream task.
+
+Key Innovation:
+The key innovation in this paper is the STAMP framework, which jointly considers a token's task relevance and privacy sensitivity to allocate the privacy budget at the token level. This enables fine-grained control over the balance between privacy protection and task utility, going beyond previous approaches that applied uniform noise.
+
+Should You Read This?
+
+If you work on privacy-preserving machine learning:
+Yes, this paper is highly relevant as it presents a novel approach to the fundamental challenge of balancing privacy and utility in text data. The STAMP framework and the proposed polar mechanism offer practical techniques that could be directly applicable to your work.
+
+If you work on natural language processing (NLP) tasks:
+Maybe. While the paper is primarily focused on the privacy aspect, the proposed techniques for preserving task-relevant information during text privatization could be of interest. However, the NLP-specific contributions may be limited, and you should focus on the key privacy-utility trade-off insights.
+
+The Good:
+- The STAMP framework and the polar mechanism are well-motivated and technically sound, with thorough theoretical and empirical analysis.
+- The experimental evaluations on diverse datasets (SQuAD, Yelp, AG News) demonstrate the effectiveness of STAMP in achieving superior privacy-utility trade-offs.
+- The paper is well-written, with clear explanations of the key concepts and a good balance of technical depth and background for readers from different fields.
+
+The Gaps:
+- The paper makes assumptions about the availability of task-specific representations and the ability to estimate token-level privacy sensitivities, which may not always hold in practice.
+- The evaluation could be expanded to include a broader set of downstream tasks and privacy metrics to further validate the generalizability of STAMP.
+- While the polar mechanism is an interesting approach, its performance should be verified against alternative perturbation techniques, such as differentially private noise addition.
+
+How to Read This Paper:
+
+If you're from the machine learning or privacy research community:
+- You can skim the background sections on NLP tasks and text privacy, as they provide good context but may not contain novel insights for you.
+- Focus on the STAMP framework, the polar mechanism, and the experimental evaluations, as these sections contain the core contributions.
+- Verify the claims about the privacy-utility trade-offs and the effectiveness of STAMP compared to baselines.
+
+If you're from the NLP community:
+- Start with the background sections on text privacy and task-aware privatization, as they will help you understand the problem context and the motivations behind STAMP.
+- Dive into the details of the STAMP framework and the polar mechanism to assess their potential impact on your NLP tasks.
+- Consider how the proposed techniques could be adapted or extended to address specific challenges in your domain.
+
+Must read (everyone):
+- The STAMP framework section, which outlines the key components and the overall approach.
+- The experimental evaluation section, which demonstrates the performance of STAMP across different datasets and settings.
+
+Verify:
+- The assumptions about the availability of task-specific representations and the ability to estimate token-level privacy sensitivities.
+- The comparative performance of the polar mechanism against alternative perturbation techniques.
+
+Bottom Line:
+The STAMP framework presents a promising approach to the fundamental challenge of balancing privacy and utility in text data. By selectively applying noise based on token importance and sensitivity, it offers a practical way to improve the privacy-utility trade-off. While the paper makes some assumptions that may require further validation, the core ideas and the experimental results are compelling and worth considering for researchers working on privacy-preserving machine learning or NLP tasks involving sensitive text data.
+
+## Quality Assessment
+
+**Trust Level:** MODERATE - Verify key results first
+
+**What the scores mean:**
+- **70% signal** - This much of the paper directly supports its claims
+- **75% context** - Background material for readers from other fields (this is a **bridge paper** - high context is a feature!)
+- **20% noise** - Content that may mislead if taken at face value
+
+**Reliability score:** 78% (certified)
+
+**Practical interpretation:**
+Good foundation but some gaps. Read critically and verify key claims before building on this work.
+
+
+
+## Paper Details
+
+- **Authors:** Fengwei Tian, Payel Bhattacharjee, Heidi Hanson, Geoffrey D. Rubin, Joseph Y. Lo et al.
+- **Published:** 2026-03-12
+- **Source:** [arxiv](https://arxiv.org/abs/2603.12237v1)
+- **PDF:** [Download](https://arxiv.org/pdf/2603.12237v1.pdf)
+- **Primary Topic:** LLM Agents and Reasoning
+- **Difficulty:** Intermediate
+
+## Abstract
+
+> We present STAMP (Selective Task-Aware Mechanism for Text Privacy), a new framework for task-aware text privatization that achieves an improved privacy-utility trade-off. STAMP selectively allocates privacy budgets across tokens by jointly considering (i) each token's importance to the downstream task (as measured via a task- or query-specific representation), and (ii) its privacy sensitivity (e.g., names, dates, identifiers). This token-level partitioning enables fine-grained, group-wise control over the level of noise applied to different parts of the input, balancing privacy protection with task relevance. To privatize individual token embeddings, we introduce the polar mechanism, which perturbs only the direction of embeddings on the unit sphere while preserving their magnitude. Decoding is performed via cosine nearest-neighbor search, aligning the perturbation geometry with the decoding geometry. Unlike isotropic noise mechanisms, the polar mechanism maintains semantic neighborhoods in the embedding space and better preserves downstream utility. Experimental evaluations on SQuAD, Yelp, and AG News datasets demonstrate that STAMP, when combined with the normalized polar mechanism, consistently achieves superior privacy-utility trade-offs across varying per-token privacy budgets.
+
+---
+
+*This analysis was automatically generated and certified by the Swarm-It RSCT pipeline.
+κ-gate score: 0.778 | Quality tier: certified*

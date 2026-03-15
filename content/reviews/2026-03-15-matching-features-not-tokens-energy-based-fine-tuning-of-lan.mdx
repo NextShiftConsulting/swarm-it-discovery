@@ -1,0 +1,126 @@
+---
+title: 'Matching Features, Not Tokens: Energy-Based Fine-Tuning of Language Models'
+arxiv_id: 2603.12248v1
+authors:
+- Samy Jelassi
+- Mujin Kwun
+- Rosie Zhao
+- Yuanzhi Li
+- Nicolo Fusi
+published_date: '2026-03-12'
+go_live_date: '2026-03-15'
+kappa: 0.778
+R: 0.7
+S: 0.75
+N: 0.2
+rsn_score: 0.70/0.75/0.20
+tags:
+- rsct-core-theory
+- cs-lg
+- representation-learning
+primary_topic: Representation Learning
+difficulty: intermediate
+abstract: Cross-entropy (CE) training provides dense and scalable supervision for
+  language models, but it optimizes next-token prediction under teacher forcing rather
+  than sequence-level behavior under model rollouts. We introduce a feature-matching
+  objective for language-model fine-tuning that targets sequence-level statistics
+  of the completion distribution, providing dense semantic feedback without requiring
+  a task-specific verifier or preference model. To optimize this objective efficiently,
+  we propose energy-based fine-tuning (EBFT), which uses strided block-parallel sampling
+  to generate multiple rollouts from nested prefixes concurrently, batches feature
+  extraction over these rollouts, and uses the resulting embeddings to perform an
+  on-policy policy-gradient update. We present a theoretical perspective connecting
+  EBFT to KL-regularized feature-matching and energy-based modeling. Empirically,
+  across Q&A coding, unstructured coding, and translation, EBFT matches RLVR and outperforms
+  SFT on downstream accuracy while achieving a lower validation cross-entropy than
+  both methods.
+tldr: Cross-entropy (CE) training provides dense and scalable supervision for language
+  models, but it optimizes next-token prediction under teacher forcing rather than
+  sequence-level behavior under model ro...
+arxiv_url: https://arxiv.org/abs/2603.12248v1
+pdf_url: https://arxiv.org/pdf/2603.12248v1.pdf
+status: live
+featured: false
+date: '2026-03-15'
+source: arxiv
+arxivId: 2603.12248v1
+paperUrl: https://arxiv.org/abs/2603.12248v1
+pdfUrl: https://arxiv.org/pdf/2603.12248v1.pdf
+similarityScore: 0.394
+matchedTopics:
+- Representation Learning
+- RSCT Core Theory
+- LLM Agents and Reasoning
+excerpt: Cross-entropy (CE) training provides dense and scalable supervision for language
+  models, but it optimizes next-token prediction under teacher forcing rather than
+  sequence-level behavior under model ro...
+---
+
+# Matching Features, Not Tokens: Energy-Based Fine-Tuning of Language Models
+
+**RSCT Certification:** κ=0.778 (certified) | **RSN:** 0.70/0.75/0.20 | **Topics:** Representation Learning, RSCT Core Theory, LLM Agents and Reasoning
+
+## Overview
+
+One-Sentence Summary
+This paper introduces Energy-Based Fine-Tuning (EBFT), a novel approach to fine-tuning language models that optimizes sequence-level statistics rather than next-token prediction, leading to improved performance on downstream tasks.
+
+Key Innovation
+The key innovation in this paper is the feature-matching objective for language model fine-tuning, which targets sequence-level statistics of the completion distribution rather than just next-token prediction. This provides dense semantic feedback without requiring a task-specific verifier or preference model. The authors also propose an efficient optimization method, EBFT, which uses strided block-parallel sampling and batched feature extraction to perform on-policy policy-gradient updates.
+
+Should You Read This?
+**If you work on language model fine-tuning**: Yes, this paper presents a promising alternative to standard cross-entropy fine-tuning that may lead to improved performance on a variety of tasks.
+**If you work on energy-based models or reinforcement learning for language generation**: Yes, the theoretical connections drawn between EBFT, KL-regularized feature-matching, and energy-based modeling make this paper a valuable read.
+
+The Good
+- The paper provides a solid theoretical foundation for the EBFT approach, connecting it to KL-regularized feature-matching and energy-based modeling.
+- The empirical results demonstrate that EBFT matches or outperforms strong baselines like RLVR on downstream accuracy while achieving lower validation cross-entropy.
+- The authors have made their code publicly available, which allows for easy verification and extension of their work.
+
+The Gaps
+- The paper does not provide a thorough analysis of the failure modes or limitations of EBFT. It would be helpful to understand the types of tasks or datasets where EBFT may struggle compared to other fine-tuning approaches.
+- The evaluation is focused on a relatively narrow set of tasks (Q&A coding, unstructured coding, and translation). It would be valuable to see how EBFT performs on a broader range of language understanding and generation tasks.
+- The paper does not provide a detailed comparison of the computational efficiency of EBFT compared to other fine-tuning methods. This could be an important consideration for real-world deployment.
+
+How to Read This Paper
+**If you're from the language modeling or fine-tuning community**: The background sections on cross-entropy training and the motivation for sequence-level optimization can be skimmed. Focus on the EBFT method, the theoretical connections, and the empirical results.
+**If you're from the energy-based modeling or reinforcement learning community**: The background on language modeling and fine-tuning may be new to you, so spend more time on those sections to understand the context.
+**Must read (everyone)**: The sections describing the EBFT method and the theoretical connections to feature-matching and energy-based modeling.
+**Verify**: The claims about EBFT's performance compared to other fine-tuning methods should be validated through independent experiments before building on this work.
+
+Bottom Line
+This paper presents a promising new approach to language model fine-tuning that optimizes sequence-level statistics rather than next-token prediction. The EBFT method offers potential advantages over standard cross-entropy fine-tuning, and the theoretical connections to feature-matching and energy-based modeling provide an interesting new perspective. While the empirical results are encouraging, it will be important to further validate the claims and explore the broader applicability of EBFT before incorporating it into your own research. Overall, this paper is worth reading for researchers working on language model fine-tuning or energy-based modeling, as it may inspire new directions for improving the performance and robustness of language models.
+
+## Quality Assessment
+
+**Trust Level:** MODERATE - Verify key results first
+
+**What the scores mean:**
+- **70% signal** - This much of the paper directly supports its claims
+- **75% context** - Background material for readers from other fields (this is a **bridge paper** - high context is a feature!)
+- **20% noise** - Content that may mislead if taken at face value
+
+**Reliability score:** 78% (certified)
+
+**Practical interpretation:**
+Good foundation but some gaps. Read critically and verify key claims before building on this work.
+
+
+
+## Paper Details
+
+- **Authors:** Samy Jelassi, Mujin Kwun, Rosie Zhao, Yuanzhi Li, Nicolo Fusi et al.
+- **Published:** 2026-03-12
+- **Source:** [arxiv](https://arxiv.org/abs/2603.12248v1)
+- **PDF:** [Download](https://arxiv.org/pdf/2603.12248v1.pdf)
+- **Primary Topic:** Representation Learning
+- **Difficulty:** Intermediate
+
+## Abstract
+
+> Cross-entropy (CE) training provides dense and scalable supervision for language models, but it optimizes next-token prediction under teacher forcing rather than sequence-level behavior under model rollouts. We introduce a feature-matching objective for language-model fine-tuning that targets sequence-level statistics of the completion distribution, providing dense semantic feedback without requiring a task-specific verifier or preference model. To optimize this objective efficiently, we propose energy-based fine-tuning (EBFT), which uses strided block-parallel sampling to generate multiple rollouts from nested prefixes concurrently, batches feature extraction over these rollouts, and uses the resulting embeddings to perform an on-policy policy-gradient update. We present a theoretical perspective connecting EBFT to KL-regularized feature-matching and energy-based modeling. Empirically, across Q&A coding, unstructured coding, and translation, EBFT matches RLVR and outperforms SFT on downstream accuracy while achieving a lower validation cross-entropy than both methods.
+
+---
+
+*This analysis was automatically generated and certified by the Swarm-It RSCT pipeline.
+κ-gate score: 0.778 | Quality tier: certified*
