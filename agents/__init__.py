@@ -4,6 +4,7 @@ SWARM Discovery Agents - Modular agents for the discovery pipeline.
 Architecture:
 - Pipeline Agents: ScannerAgent → AnalyzerAgent → PublisherAgent
 - Source Agents: ArXiv, PubMed, BioRxiv, SemanticScholar, OpenAlex
+- Content Agents: YouTubeAgent (extracts research from videos)
 - Orchestrator: Coordinates pipeline and source agents
 
 All agents use:
@@ -15,6 +16,9 @@ All agents use:
 from .scanner_agent import ScannerAgent, ScanResult
 from .analyzer_agent import AnalyzerAgent, AnalysisResult, BatchAnalysisResult
 from .publisher_agent import PublisherAgent, PublishResult, BatchPublishResult
+
+# Content Agents (YouTube, Blogs, etc.)
+from .youtube_agent import YouTubeAgent, VideoAnalysis, BatchVideoAnalysis
 
 # Source Agents
 from .base_agent import BaseSourceAgent, PaperAnalysis
@@ -37,6 +41,10 @@ __all__ = [
     "PublisherAgent",
     "PublishResult",
     "BatchPublishResult",
+    # Content Agents
+    "YouTubeAgent",
+    "VideoAnalysis",
+    "BatchVideoAnalysis",
     # Source Agents
     "BaseSourceAgent",
     "PaperAnalysis",
