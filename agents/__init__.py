@@ -23,6 +23,9 @@ from .youtube_agent import YouTubeAgent, VideoAnalysis, BatchVideoAnalysis
 # Archive Agent
 from .archive_agent import ArchiveAgent, ArchivedPaper, ArchiveResult, ArchiveThresholds
 
+# X/Twitter Agent
+from .x_agent import XAgent, TweetAnalysis, BatchTweetAnalysis
+
 # Source Agents
 from .base_agent import BaseSourceAgent, PaperAnalysis
 from .arxiv_agent import ArXivAgent
@@ -53,6 +56,10 @@ __all__ = [
     "ArchivedPaper",
     "ArchiveResult",
     "ArchiveThresholds",
+    # X/Twitter Agent
+    "XAgent",
+    "TweetAnalysis",
+    "BatchTweetAnalysis",
     # Source Agents
     "BaseSourceAgent",
     "PaperAnalysis",

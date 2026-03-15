@@ -81,6 +81,77 @@
       "treatment": "TypeScript AI framework updates",
       "topics": ["AI frameworks", "MCP", "agents"],
       "scan_frequency": "weekly"
+    },
+    {
+      "id": "akhaliq",
+      "name": "@_akhaliq",
+      "platform": "x",
+      "url": "https://x.com/_akhaliq",
+      "priority": "mandatory",
+      "treatment": "Daily paper summaries - ALL arXiv IDs must be captured",
+      "topics": ["daily papers", "arXiv", "ML research"],
+      "scan_frequency": "daily",
+      "notes": "Most influential ML paper curator on X"
+    },
+    {
+      "id": "papers-daily",
+      "name": "@papers_daily",
+      "platform": "x",
+      "url": "https://x.com/papers_daily",
+      "priority": "high",
+      "treatment": "arXiv highlights",
+      "topics": ["arXiv", "paper highlights"],
+      "scan_frequency": "daily"
+    },
+    {
+      "id": "drjimfan",
+      "name": "@DrJimFan",
+      "platform": "x",
+      "url": "https://x.com/DrJimFan",
+      "priority": "high",
+      "treatment": "NVIDIA AI research and embodied AI",
+      "topics": ["NVIDIA", "embodied AI", "robotics"],
+      "scan_frequency": "daily"
+    },
+    {
+      "id": "huggingface-x",
+      "name": "@huggingface",
+      "platform": "x",
+      "url": "https://x.com/huggingface",
+      "priority": "high",
+      "treatment": "Model releases and announcements",
+      "topics": ["model releases", "transformers", "open source"],
+      "scan_frequency": "daily"
+    },
+    {
+      "id": "anthropic-x",
+      "name": "@AnthropicAI",
+      "platform": "x",
+      "url": "https://x.com/AnthropicAI",
+      "priority": "high",
+      "treatment": "Claude research and safety",
+      "topics": ["Claude", "AI safety", "alignment"],
+      "scan_frequency": "daily"
+    },
+    {
+      "id": "openai-x",
+      "name": "@OpenAI",
+      "platform": "x",
+      "url": "https://x.com/OpenAI",
+      "priority": "high",
+      "treatment": "GPT research and releases",
+      "topics": ["GPT", "OpenAI research"],
+      "scan_frequency": "daily"
+    },
+    {
+      "id": "deepmind-x",
+      "name": "@GoogleDeepMind",
+      "platform": "x",
+      "url": "https://x.com/GoogleDeepMind",
+      "priority": "high",
+      "treatment": "DeepMind research",
+      "topics": ["DeepMind", "Gemini", "AlphaFold"],
+      "scan_frequency": "daily"
     }
   ],
   "priority_levels": {
