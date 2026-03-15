@@ -29,6 +29,55 @@
       "title": "LLM Agents and Reasoning",
       "content": "large language model LLM agent reasoning chain of thought planning tool use function calling retrieval augmented generation RAG prompt engineering instruction following few-shot in-context learning",
       "keywords": ["llm", "agent", "reasoning", "planning", "tool", "retrieval", "prompt", "instruction"]
+    },
+    {
+      "id": "agentic-coding",
+      "title": "Agentic Coding and AI IDEs",
+      "content": "agentic coding AI pair programming Claude Code Aider Cursor OpenCode Codex agent orchestration parallel execution hooks MCP model context protocol infinite loop two-prompt system autonomous coding software engineering code generation refactoring debugging test generation",
+      "keywords": ["agentic", "coding", "claude-code", "aider", "cursor", "mcp", "autonomous", "pair-programming", "code-generation"],
+      "source": "IndyDevDan"
+    },
+    {
+      "id": "ai-frameworks",
+      "title": "AI Agent Frameworks",
+      "content": "Mastra TypeScript AI framework Transformers v5 LangChain LlamaIndex CrewAI AutoGen agent orchestration workflow automation human-in-the-loop MCP server tool integration RAG pipeline multi-agent coordination supervisor pattern",
+      "keywords": ["mastra", "transformers", "langchain", "llamaindex", "crewai", "autogen", "framework", "orchestration", "workflow"],
+      "source": "Mastra/HuggingFace"
+    },
+    {
+      "id": "crypto-ai-agents",
+      "title": "Crypto and Onchain AI Agents",
+      "content": "crypto AI agents OnchainOS DeFi autonomous trading blockchain wallet agentic wallet x402 protocol stablecoin payments smart contract execution cross-chain liquidity routing decentralized AI verifiable inference onchain audit",
+      "keywords": ["crypto", "onchain", "defi", "blockchain", "wallet", "trading", "decentralized", "verifiable"],
+      "source": "OnchainAIGarage"
+    },
+    {
+      "id": "mixture-of-experts",
+      "title": "Mixture of Experts Architectures",
+      "content": "mixture of experts MoE sparse activation routing expert selection Qwen3.5 MoE OLMo Hybrid Gated Deltanet linear attention hybrid architecture efficient inference conditional computation load balancing expert specialization",
+      "keywords": ["moe", "mixture-of-experts", "sparse", "routing", "expert", "hybrid", "efficient", "gated"],
+      "source": "HuggingFace"
+    },
+    {
+      "id": "vision-language",
+      "title": "Vision-Language Models",
+      "content": "vision language model VLM multimodal document understanding ModernVBert SigLIP visual encoder CLIP image-text retrieval OCR document parsing chart understanding diagram reasoning visual question answering",
+      "keywords": ["vision", "language", "multimodal", "vlm", "document", "image", "visual", "retrieval"],
+      "source": "HuggingFace"
+    },
+    {
+      "id": "speech-audio-ai",
+      "title": "Speech and Audio AI",
+      "content": "speech recognition ASR VibeVoice audio tokenizer acoustic model semantic tokenizer voice-to-text text-to-speech TTS speech synthesis whisper audio language model music generation sound understanding",
+      "keywords": ["speech", "audio", "asr", "tts", "voice", "acoustic", "tokenizer", "whisper"],
+      "source": "HuggingFace"
+    },
+    {
+      "id": "diffusion-models",
+      "title": "Diffusion and Generative Models",
+      "content": "diffusion model denoising score matching DDPM DDIM latent diffusion Stable Diffusion FLUX text-to-image image generation video generation DiT transformer diffusion ControlNet guidance classifier-free",
+      "keywords": ["diffusion", "generative", "denoising", "latent", "stable-diffusion", "flux", "dit", "controlnet"],
+      "source": "3Blue1Brown"
     }
   ]
 }
