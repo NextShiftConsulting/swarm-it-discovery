@@ -78,6 +78,41 @@
       "content": "diffusion model denoising score matching DDPM DDIM latent diffusion Stable Diffusion FLUX text-to-image image generation video generation DiT transformer diffusion ControlNet guidance classifier-free",
       "keywords": ["diffusion", "generative", "denoising", "latent", "stable-diffusion", "flux", "dit", "controlnet"],
       "source": "3Blue1Brown"
+    },
+    {
+      "id": "energy-based-models",
+      "title": "Energy-Based Transformers",
+      "content": "energy-based model EBM EBT energy-based transformers unnormalized probability gradient descent energy minimization verifier System 2 thinking scalable learning bidirectional attention BERT GPT architecture optimization",
+      "keywords": ["energy-based", "ebt", "ebm", "energy", "minimization", "verifier", "system-2", "optimization"],
+      "source": "YannicKilcher"
+    },
+    {
+      "id": "alignment-safety",
+      "title": "AI Alignment and Model Safety",
+      "content": "alignment faking circuit tracing jailbreak filtering red teaming eval awareness benchmark contamination sandbagging reasoning transparency constitutional AI safety training refusal safe-completion model psychology",
+      "keywords": ["alignment", "safety", "jailbreak", "red-team", "sandbagging", "constitutional", "refusal", "transparency"],
+      "source": "Anthropic"
+    },
+    {
+      "id": "science-acceleration",
+      "title": "AI for Science Acceleration",
+      "content": "science acceleration autonomous lab protein synthesis materials discovery drug discovery scientific reasoning math proof theorem proving physics simulation biology automation literature review knowledge synthesis frontier science",
+      "keywords": ["science", "acceleration", "autonomous-lab", "protein", "materials", "proof", "theorem", "synthesis"],
+      "source": "OpenAI"
+    },
+    {
+      "id": "code-security",
+      "title": "AI Code Security and Vulnerability",
+      "content": "code security vulnerability detection static analysis SAST DAST code review security flaw injection XSS SQL injection buffer overflow secure coding AI-generated code compiler verification formal methods",
+      "keywords": ["security", "vulnerability", "code-review", "injection", "compiler", "verification", "formal-methods"],
+      "source": "Anthropic/OpenAI"
+    },
+    {
+      "id": "ai-labor-economics",
+      "title": "AI Labor Market Impact",
+      "content": "labor market automation job displacement task exposure economic disruption white-collar workers knowledge work productivity augmentation human-AI collaboration workforce transformation occupation exposure index",
+      "keywords": ["labor", "automation", "jobs", "displacement", "productivity", "workforce", "economic"],
+      "source": "Anthropic"
     }
   ]
 }
