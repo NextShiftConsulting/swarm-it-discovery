@@ -23,13 +23,19 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 # Try to import ADK
 HAS_ADK = False
 try:
-    sys.path.insert(0, os.path.expanduser("~/GitHub/swarm-it-adk/clients/python"))
-    from swarm_it import SwarmIt
+    sys.path.insert(0, os.path.expanduser("~/GitHub/swarm-it-adk/adk"))
+    from swarm_it import (
+        SwarmIt,
+        LocalEngine,
+        RSCTCertificate,
+        GateDecision,
+        certify_local,
+    )
     HAS_ADK = True
     print("✓ Swarm-It ADK found - using agent orchestration")
 except ImportError:
     print("✗ Swarm-It ADK not found - falling back to legacy runner")
-    print("  Install: pip install -e ~/GitHub/swarm-it-adk/clients/python")
+    print("  Install: pip install -e ~/GitHub/swarm-it-adk/adk")
 
 if not HAS_ADK:
     # Fallback to legacy runner
@@ -113,63 +119,54 @@ class AnalystAgent(ADKAgent):
         self.rsct_scorer = RSCTScorer()
 
         # Initialize Swarm-It API client
+        self.swarmit = None
+        self.local_engine = LocalEngine(policy="discovery")
+
         try:
             self.swarmit = SwarmIt(url=swarmit_url)
-            if not self.swarmit.health():
-                print(f"  Warning: Swarm-It API not reachable at {swarmit_url}")
+            if self.swarmit.health():
+                print(f"  ✓ Swarm-It API connected at {swarmit_url}")
+            else:
+                print(f"  ⚠ Swarm-It API not reachable, using ADK LocalEngine")
                 self.swarmit = None
         except Exception as e:
-            print(f"  Warning: Could not connect to Swarm-It API: {e}")
-            self.swarmit = None
+            print(f"  ⚠ Could not connect to Swarm-It API: {e}")
+            print(f"  → Using ADK LocalEngine for certification")
 
     def certify(self, content: str, stage: str, fallback_score: float = None) -> dict:
-        """Certify content through Swarm-It API."""
-        if not self.swarmit:
-            # Estimate RSN from fallback score if available
-            if fallback_score is not None and fallback_score > 0:
-                R = min(0.9, fallback_score * 1.2)
-                S = min(0.9, fallback_score * 0.9)
-                N = max(0.1, 1.0 - fallback_score)
-                total = R + S + N
-                R, S, N = R/total, S/total, N/total
-                kappa = R / (R + N) if (R + N) > 0 else 0.5
-                # RSCT 4-gate decisions: EXECUTE, RE_ENCODE, BLOCK, REPAIR, REJECT
-                if N >= 0.5:
-                    decision = "REJECT"  # Gate 1: Noise saturation
-                elif kappa >= 0.7:
-                    decision = "EXECUTE"  # Passed all gates
-                elif kappa >= 0.5:
-                    decision = "REPAIR"  # Needs grounding (Gate 4)
-                else:
-                    decision = "RE_ENCODE"  # Failed admissibility (Gate 3)
-            else:
-                R, S, N = 0.33, 0.34, 0.33
-                kappa = 0.5
-                decision = "PENDING"
-            return {
-                "allowed": True,
-                "kappa_gate": round(kappa, 3),
-                "decision": decision,
-                "R": round(R, 3),
-                "S": round(S, 3),
-                "N": round(N, 3),
-                "stage": stage
-            }
+        """
+        Certify content through Swarm-It ADK.
 
-        try:
-            cert = self.swarmit.certify(content)
-            return {
-                "allowed": cert.allowed,
-                "kappa_gate": cert.kappa_gate,
-                "decision": cert.decision.value if hasattr(cert.decision, 'value') else cert.decision,
-                "R": cert.R,
-                "S": cert.S,
-                "N": cert.N,
-                "stage": stage,
-            }
-        except Exception as e:
-            print(f"  Certification error: {e}")
-            return {"allowed": True, "kappa_gate": 0.0, "decision": "ERROR", "stage": stage}
+        Uses API if available, falls back to ADK LocalEngine.
+        Returns dict compatible with downstream code.
+        """
+        cert: RSCTCertificate = None
+
+        # Try API first
+        if self.swarmit:
+            try:
+                cert = self.swarmit.certify(content)
+            except Exception as e:
+                print(f"  API certification error: {e}, using LocalEngine")
+
+        # Fall back to ADK LocalEngine
+        if cert is None:
+            cert = self.local_engine.certify(content, policy="discovery")
+
+        # Convert RSCTCertificate to dict for downstream compatibility
+        decision = cert.decision.value if hasattr(cert.decision, 'value') else str(cert.decision)
+
+        return {
+            "allowed": cert.decision.allowed if hasattr(cert.decision, 'allowed') else True,
+            "kappa_gate": cert.kappa_gate,
+            "decision": decision,
+            "R": cert.R,
+            "S": cert.S,
+            "N": cert.N,
+            "stage": stage,
+            "gate_reached": getattr(cert, 'gate_reached', 0),
+            "reason": getattr(cert, 'reason', ''),
+        }
 
     async def execute(self, scanner_result):
         """Run existing analysis logic."""
