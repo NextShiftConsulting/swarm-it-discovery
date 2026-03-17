@@ -1,0 +1,130 @@
+---
+title: Mixture-of-Depths Attention
+arxiv_id: 2603.15619v1
+authors:
+- Lianghui Zhu
+- Yuxin Fang
+- Bencheng Liao
+- Shijie Wang
+- Tianheng Cheng
+published_date: '2026-03-16'
+go_live_date: '2026-03-17'
+kappa: 0.778
+R: 0.7
+S: 0.75
+N: 0.2
+rsn_score: 0.70/0.75/0.20
+tags:
+- ai-safety-and-alignment
+- ai-agent-frameworks
+- cs-cl
+primary_topic: AI Agent Frameworks
+difficulty: intermediate
+abstract: 'Scaling depth is a key driver for large language models (LLMs). Yet, as
+  LLMs become deeper, they often suffer from signal degradation: informative features
+  formed in shallow layers are gradually diluted by repeated residual updates, making
+  them harder to recover in deeper layers. We introduce mixture-of-depths attention
+  (MoDA), a mechanism that allows each attention head to attend to sequence KV pairs
+  at the current layer and depth KV pairs from preceding layers. We further describe
+  a hardware-efficient algorithm for MoDA that resolves non-contiguous memory-access
+  patterns, achieving 97.3% of FlashAttention-2''s efficiency at a sequence length
+  of 64K. Experiments on 1.5B-parameter models demonstrate that MoDA consistently
+  outperforms strong baselines. Notably, it improves average perplexity by 0.2 across
+  10 validation benchmarks and increases average performance by 2.11% on 10 downstream
+  tasks, with a negligible 3.7% FLOPs computational overhead. We also find that combining
+  MoDA with post-norm yields better performance than using it with pre-norm. These
+  results suggest that MoDA is a promising primitive for depth scaling. Code is released
+  at https://github.com/hustvl/MoDA .'
+tldr: 'Scaling depth is a key driver for large language models (LLMs). Yet, as LLMs
+  become deeper, they often suffer from signal degradation: informative features formed
+  in shallow layers are gradually dilut...'
+arxiv_url: https://arxiv.org/abs/2603.15619v1
+pdf_url: https://arxiv.org/pdf/2603.15619v1.pdf
+status: live
+featured: false
+date: '2026-03-17'
+source: arxiv
+arxivId: 2603.15619v1
+paperUrl: https://arxiv.org/abs/2603.15619v1
+pdfUrl: https://arxiv.org/pdf/2603.15619v1.pdf
+similarityScore: 0.434
+matchedTopics:
+- AI Agent Frameworks
+- AI Safety and Alignment
+- LLM Agents and Reasoning
+excerpt: 'Scaling depth is a key driver for large language models (LLMs). Yet, as
+  LLMs become deeper, they often suffer from signal degradation: informative features
+  formed in shallow layers are gradually dilut...'
+---
+
+# Mixture-of-Depths Attention
+
+**RSCT Certification:** κ=0.778 (certified) | **RSN:** 0.70/0.75/0.20 | **Topics:** AI Agent Frameworks, AI Safety and Alignment, LLM Agents and Reasoning
+
+## Overview
+
+## One-Sentence Summary
+This paper introduces "mixture-of-depths attention" (MoDA), a novel attention mechanism that allows language models to better leverage information from different layers of the network, improving performance on a range of tasks with minimal computational overhead.
+
+## Key Innovation
+The key innovation in this paper is the MoDA mechanism, which enables attention heads to attend to feature representations not just from the current layer, but also from preceding layers. This addresses the signal degradation problem that often occurs as language models become deeper, where salient features learned in shallow layers get diluted over the course of the network. The authors also describe a hardware-efficient algorithm for implementing MoDA, achieving 97.3% of the efficiency of state-of-the-art approaches.
+
+## Should You Read This?
+**If you work on large language models (LLMs)**: Yes, this paper is highly relevant. MoDA presents a promising solution to the depth scaling challenges faced by modern LLMs, and the performance improvements demonstrated are substantial.
+**If you work on attention mechanisms or architecture design for deep neural networks**: Yes, this paper introduces an interesting new attention primitive that could have broader applications beyond just language modeling. The hardware-efficient implementation is also noteworthy.
+
+## The Good
+- The MoDA mechanism is well-motivated and the authors provide a clear explanation of the underlying problem it aims to address.
+- The experimental evaluation is thorough, with tests on a 1.5B-parameter model across 10 validation benchmarks and 10 downstream tasks.
+- The performance improvements from MoDA are significant, with a 0.2 reduction in average perplexity and 2.11% increase in average downstream task performance.
+- The hardware-efficient algorithm for MoDA is an impressive technical contribution, achieving near state-of-the-art efficiency.
+- The code has been made publicly available, which is helpful for further research and validation.
+
+## The Gaps
+- While the performance improvements are substantial, the paper does not provide a detailed analysis of where exactly the gains come from. More insight into the types of tasks and inputs where MoDA shines would be helpful.
+- The authors claim that MoDA can be combined with post-norm architectures for even better results, but they do not explore this in depth. Further investigation into the interactions between MoDA and architectural choices would be valuable.
+- The paper does not discuss potential downsides or limitations of the MoDA approach. For example, it's unclear how MoDA might scale to extremely deep models or very long sequences.
+- Independent validation of the MoDA results on different model sizes and tasks would be prudent before building directly on this work.
+
+## How to Read This Paper
+**If you're from the language modeling/LLM domain**: You can skim the background sections on attention and depth scaling, as these are likely familiar concepts. Focus on the MoDA mechanism itself, the hardware-efficient implementation, and the experimental results.
+**If you're from the neural network architecture design domain**: Spend more time on the background sections to understand the depth scaling problem and the role of attention. The MoDA mechanism and hardware optimizations will be the core contributions for you.
+**Must read (everyone)**: Sections 3-4 describing the MoDA mechanism and its implementation. Section 5 on the experimental evaluation and results.
+**Verify**: The claims about the performance improvements and the comparison to baselines should be verified through independent reproduction before building directly on this work.
+
+## Bottom Line
+The MoDA attention mechanism presented in this paper is a promising innovation for addressing the depth scaling challenges faced by large language models. The demonstrated performance improvements are substantial, and the hardware-efficient implementation is a valuable technical contribution. While some gaps and assumptions should be verified, this paper is worth a careful read for anyone working on LLMs or deep neural network architectures. MoDA represents a potentially impactful primitive that could lead to more robust and scalable language models in the future.
+
+## Quality Assessment
+
+**Trust Level:** MODERATE - Verify key results first
+
+**What the scores mean:**
+- **70% signal** - This much of the paper directly supports its claims
+- **75% context** - Background material for readers from other fields (this is a **bridge paper** - high context is a feature!)
+- **20% noise** - Content that may mislead if taken at face value
+
+**Reliability score:** 78% (certified)
+
+**Practical interpretation:**
+Good foundation but some gaps. Read critically and verify key claims before building on this work.
+
+
+
+## Paper Details
+
+- **Authors:** Lianghui Zhu, Yuxin Fang, Bencheng Liao, Shijie Wang, Tianheng Cheng et al.
+- **Published:** 2026-03-16
+- **Source:** [arxiv](https://arxiv.org/abs/2603.15619v1)
+- **PDF:** [Download](https://arxiv.org/pdf/2603.15619v1.pdf)
+- **Primary Topic:** AI Agent Frameworks
+- **Difficulty:** Intermediate
+
+## Abstract
+
+> Scaling depth is a key driver for large language models (LLMs). Yet, as LLMs become deeper, they often suffer from signal degradation: informative features formed in shallow layers are gradually diluted by repeated residual updates, making them harder to recover in deeper layers. We introduce mixture-of-depths attention (MoDA), a mechanism that allows each attention head to attend to sequence KV pairs at the current layer and depth KV pairs from preceding layers. We further describe a hardware-efficient algorithm for MoDA that resolves non-contiguous memory-access patterns, achieving 97.3% of FlashAttention-2's efficiency at a sequence length of 64K. Experiments on 1.5B-parameter models demonstrate that MoDA consistently outperforms strong baselines. Notably, it improves average perplexity by 0.2 across 10 validation benchmarks and increases average performance by 2.11% on 10 downstream tasks, with a negligible 3.7% FLOPs computational overhead. We also find that combining MoDA with post-norm yields better performance than using it with pre-norm. These results suggest that MoDA is a promising primitive for depth scaling. Code is released at https://github.com/hustvl/MoDA .
+
+---
+
+*This analysis was automatically generated and certified by the Swarm-It RSCT pipeline.
+κ-gate score: 0.778 | Quality tier: certified*

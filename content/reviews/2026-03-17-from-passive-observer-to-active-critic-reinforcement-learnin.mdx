@@ -1,0 +1,132 @@
+---
+title: 'From Passive Observer to Active Critic: Reinforcement Learning Elicits Process
+  Reasoning for Robotic Manipulation'
+arxiv_id: 2603.15600v1
+authors:
+- Yibin Liu
+- Yaxing Lyu
+- Daqi Gao
+- Zhixuan Liang
+- Weiliang Tang
+published_date: '2026-03-16'
+go_live_date: '2026-03-17'
+kappa: 0.778
+R: 0.7
+S: 0.75
+N: 0.2
+rsn_score: 0.70/0.75/0.20
+tags:
+- diffusion-and-generative-models
+- cs-ro
+- representation-learning
+- learning
+primary_topic: Representation Learning
+difficulty: intermediate
+abstract: Accurate process supervision remains a critical challenge for long-horizon
+  robotic manipulation. A primary bottleneck is that current video MLLMs, trained
+  primarily under a Supervised Fine-Tuning (SFT) paradigm, function as passive "Observers"
+  that recognize ongoing events rather than evaluating the current state relative
+  to the final task goal. In this paper, we introduce PRIMO R1 (Process Reasoning
+  Induced Monitoring), a 7B framework that transforms video MLLMs into active "Critics".
+  We leverage outcome-based Reinforcement Learning to incentivize explicit Chain-of-Thought
+  generation for progress estimation. Furthermore, our architecture constructs a structured
+  temporal input by explicitly anchoring the video sequence between initial and current
+  state images. Supported by the proposed PRIMO Dataset and Benchmark, extensive experiments
+  across diverse in-domain environments and out-of-domain real-world humanoid scenarios
+  demonstrate that PRIMO R1 achieves state-of-the-art performance. Quantitatively,
+  our 7B model achieves a 50% reduction in the mean absolute error of specialized
+  reasoning baselines, demonstrating significant relative accuracy improvements over
+  72B-scale general MLLMs. Furthermore, PRIMO R1 exhibits strong zero-shot generalization
+  on difficult failure detection tasks. We establish state-of-the-art performance
+  on RoboFail benchmark with 67.0% accuracy, surpassing closed-source models like
+  OpenAI o1 by 6.0%.
+tldr: Accurate process supervision remains a critical challenge for long-horizon robotic
+  manipulation. A primary bottleneck is that current video MLLMs, trained primarily
+  under a Supervised Fine-Tuning (SFT...
+arxiv_url: https://arxiv.org/abs/2603.15600v1
+pdf_url: https://arxiv.org/pdf/2603.15600v1.pdf
+status: live
+featured: false
+date: '2026-03-17'
+source: arxiv
+arxivId: 2603.15600v1
+paperUrl: https://arxiv.org/abs/2603.15600v1
+pdfUrl: https://arxiv.org/pdf/2603.15600v1.pdf
+similarityScore: 0.431
+matchedTopics:
+- Representation Learning
+- Diffusion and Generative Models
+- Energy-Based Transformers
+excerpt: Accurate process supervision remains a critical challenge for long-horizon
+  robotic manipulation. A primary bottleneck is that current video MLLMs, trained
+  primarily under a Supervised Fine-Tuning (SFT...
+---
+
+# From Passive Observer to Active Critic: Reinforcement Learning Elicits Process Reasoning for Robotic Manipulation
+
+**RSCT Certification:** κ=0.778 (certified) | **RSN:** 0.70/0.75/0.20 | **Topics:** Representation Learning, Diffusion and Generative Models, Energy-Based Transformers
+
+## Overview
+
+## One-Sentence Summary
+This paper introduces PRIMO R1, a reinforcement learning-based framework that transforms passive video recognition models into active "critics" that can reason about the progress of robotic manipulation tasks.
+
+## Key Innovation
+The key innovation in this paper is the use of reinforcement learning to incentivize video models to generate explicit "chain-of-thought" reasoning about the current state of a task relative to the final goal, rather than just passively recognizing ongoing events. This active, goal-directed reasoning is a significant departure from standard video recognition models.
+
+## Should You Read This?
+**If you work on video understanding for robotics**: Yes, this paper presents an important advancement in using video models for long-horizon task reasoning and supervision.
+**If you work on reinforcement learning for robotics**: Maybe, the RL training approach is interesting, but the focus is more on the video model architecture than the RL aspects.
+
+## The Good
+- The paper introduces a well-designed benchmark (the PRIMO Dataset) for evaluating process reasoning in robotic manipulation, which will be a valuable resource for the community.
+- The experiments demonstrate significant performance improvements over specialized baselines and large language models on both in-domain and out-of-domain tasks, suggesting the framework has strong generalization capabilities.
+- The explicit incorporation of initial and current state images as part of the input structure is a thoughtful design choice that likely contributes to the model's reasoning abilities.
+
+## The Gaps
+- The paper does not provide much insight into the internal workings of the PRIMO R1 model or the specific RL training process. More details on the model architecture and training dynamics would be helpful for understanding how the "active critic" behavior emerges.
+- The real-world robotic experiments are limited and lack detailed analysis. It's unclear how the model would perform in more complex, unconstrained environments.
+- The authors do not provide much discussion of potential failure modes or limitations of their approach. Understanding the edge cases or weaknesses would be valuable for assessing the practical applicability of PRIMO R1.
+
+## How to Read This Paper
+**If you're from the video understanding/computer vision domain**: You can likely skim the background sections on robotics and reinforcement learning, and focus on the core model architecture and evaluation details.
+**If you're from the robotics/RL domain**: Pay close attention to the background on video models and how the RL training process incentivizes the desired "active critic" behavior.
+**Must read (everyone)**: The model description, the PRIMO Dataset and Benchmark sections, and the key results/analysis.
+**Verify**: The claims about zero-shot generalization and performance on the RoboFail benchmark should be validated through independent evaluation.
+
+## Bottom Line
+This paper presents a promising step towards developing active, goal-directed video understanding models for robotic manipulation tasks. The PRIMO R1 framework, supported by the new benchmark dataset, demonstrates significant performance gains over existing approaches. While the internal workings and real-world limitations require further investigation, this work is worth reading for researchers interested in using video models for process reasoning and long-horizon task supervision in robotics.
+
+## Quality Assessment
+
+**Trust Level:** MODERATE - Verify key results first
+
+**What the scores mean:**
+- **70% signal** - This much of the paper directly supports its claims
+- **75% context** - Background material for readers from other fields (this is a **bridge paper** - high context is a feature!)
+- **20% noise** - Content that may mislead if taken at face value
+
+**Reliability score:** 78% (certified)
+
+**Practical interpretation:**
+Good foundation but some gaps. Read critically and verify key claims before building on this work.
+
+
+
+## Paper Details
+
+- **Authors:** Yibin Liu, Yaxing Lyu, Daqi Gao, Zhixuan Liang, Weiliang Tang et al.
+- **Published:** 2026-03-16
+- **Source:** [arxiv](https://arxiv.org/abs/2603.15600v1)
+- **PDF:** [Download](https://arxiv.org/pdf/2603.15600v1.pdf)
+- **Primary Topic:** Representation Learning
+- **Difficulty:** Intermediate
+
+## Abstract
+
+> Accurate process supervision remains a critical challenge for long-horizon robotic manipulation. A primary bottleneck is that current video MLLMs, trained primarily under a Supervised Fine-Tuning (SFT) paradigm, function as passive "Observers" that recognize ongoing events rather than evaluating the current state relative to the final task goal. In this paper, we introduce PRIMO R1 (Process Reasoning Induced Monitoring), a 7B framework that transforms video MLLMs into active "Critics". We leverage outcome-based Reinforcement Learning to incentivize explicit Chain-of-Thought generation for progress estimation. Furthermore, our architecture constructs a structured temporal input by explicitly anchoring the video sequence between initial and current state images. Supported by the proposed PRIMO Dataset and Benchmark, extensive experiments across diverse in-domain environments and out-of-domain real-world humanoid scenarios demonstrate that PRIMO R1 achieves state-of-the-art performance. Quantitatively, our 7B model achieves a 50% reduction in the mean absolute error of specialized reasoning baselines, demonstrating significant relative accuracy improvements over 72B-scale general MLLMs. Furthermore, PRIMO R1 exhibits strong zero-shot generalization on difficult failure detection tasks. We establish state-of-the-art performance on RoboFail benchmark with 67.0% accuracy, surpassing closed-source models like OpenAI o1 by 6.0%.
+
+---
+
+*This analysis was automatically generated and certified by the Swarm-It RSCT pipeline.
+κ-gate score: 0.778 | Quality tier: certified*

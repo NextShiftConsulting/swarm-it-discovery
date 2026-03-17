@@ -1,0 +1,152 @@
+---
+title: 'The PokeAgent Challenge: Competitive and Long-Context Learning at Scale'
+arxiv_id: 2603.15563v1
+authors:
+- Seth Karten
+- Jake Grigsby
+- Tersoo Upaa
+- Junik Bae
+- Seonghun Hong
+published_date: '2026-03-16'
+go_live_date: '2026-03-17'
+kappa: 0.778
+R: 0.7
+S: 0.75
+N: 0.2
+rsn_score: 0.70/0.75/0.20
+tags:
+- mixture-of-experts-architectures
+- energy-based-transformers
+- learning
+- agent
+- cs-lg
+primary_topic: Mixture of Experts Architectures
+difficulty: intermediate
+abstract: 'We present the PokeAgent Challenge, a large-scale benchmark for decision-making
+  research built on Pokemon''s multi-agent battle system and expansive role-playing
+  game (RPG) environment. Partial observability, game-theoretic reasoning, and long-horizon
+  planning remain open problems for frontier AI, yet few benchmarks stress all three
+  simultaneously under realistic conditions. PokeAgent targets these limitations at
+  scale through two complementary tracks: our Battling Track, which calls for strategic
+  reasoning and generalization under partial observability in competitive Pokemon
+  battles, and our Speedrunning Track, which requires long-horizon planning and sequential
+  decision-making in the Pokemon RPG. Our Battling Track supplies a dataset of 20M+
+  battle trajectories alongside a suite of heuristic, RL, and LLM-based baselines
+  capable of high-level competitive play. Our Speedrunning Track provides the first
+  standardized evaluation framework for RPG speedrunning, including an open-source
+  multi-agent orchestration system for modular, reproducible comparisons of harness-based
+  LLM approaches. Our NeurIPS 2025 competition validates both the quality of our resources
+  and the research community''s interest in Pokemon, with over 100 teams competing
+  across both tracks and winning solutions detailed in our paper. Participant submissions
+  and our baselines reveal considerable gaps between generalist (LLM), specialist
+  (RL), and elite human performance. Analysis against the BenchPress evaluation matrix
+  shows that Pokemon battling is nearly orthogonal to standard LLM benchmarks, measuring
+  capabilities not captured by existing suites and positioning Pokemon as an unsolved
+  benchmark that can drive RL and LLM research forward. We transition to a living
+  benchmark with a live leaderboard for Battling and self-contained evaluation for
+  Speedrunning at https://pokeagentchallenge.com.'
+tldr: We present the PokeAgent Challenge, a large-scale benchmark for decision-making
+  research built on Pokemon's multi-agent battle system and expansive role-playing
+  game (RPG) environment. Partial observa...
+arxiv_url: https://arxiv.org/abs/2603.15563v1
+pdf_url: https://arxiv.org/pdf/2603.15563v1.pdf
+status: live
+featured: false
+date: '2026-03-17'
+source: arxiv
+arxivId: 2603.15563v1
+paperUrl: https://arxiv.org/abs/2603.15563v1
+pdfUrl: https://arxiv.org/pdf/2603.15563v1.pdf
+similarityScore: 0.425
+matchedTopics:
+- Mixture of Experts Architectures
+- Energy-Based Transformers
+- AI Agent Frameworks
+excerpt: We present the PokeAgent Challenge, a large-scale benchmark for decision-making
+  research built on Pokemon's multi-agent battle system and expansive role-playing
+  game (RPG) environment. Partial observa...
+---
+
+# The PokeAgent Challenge: Competitive and Long-Context Learning at Scale
+
+**RSCT Certification:** κ=0.778 (certified) | **RSN:** 0.70/0.75/0.20 | **Topics:** Mixture of Experts Architectures, Energy-Based Transformers, AI Agent Frameworks
+
+## Overview
+
+## One-Sentence Summary
+The PokeAgent Challenge is a large-scale benchmark for decision-making research that combines competitive multi-agent battles and long-horizon planning in a Pokemon RPG environment, providing new capabilities not captured by standard AI benchmarks.
+
+## Key Innovation
+The key innovations in this work are:
+
+1) The PokeAgent Challenge, which brings together three core AI research problems (partial observability, game-theoretic reasoning, and long-horizon planning) in a scalable, multi-agent Pokemon environment.
+
+2) The Battling Track, which supplies a large dataset of battle trajectories and baseline models for high-level competitive play.
+
+3) The Speedrunning Track, which provides the first standardized evaluation framework for Pokemon RPG speedrunning, including an open-source orchestration system for modular, reproducible comparisons of LLM-based approaches.
+
+## Should You Read This?
+
+**If you work on multi-agent systems or game AI**: Yes, this paper introduces a novel benchmark that captures important research challenges in a rich, open-ended environment. The Battling Track in particular could be a valuable testbed for your work.
+
+**If you work on long-horizon planning or reinforcement learning**: Maybe. The Speedrunning Track could be relevant, but the focus is more on providing an evaluation framework than novel planning or RL techniques. Still, the benchmark could inspire new research directions.
+
+**If you work on language models or AI safety**: Maybe. The paper suggests that Pokemon battling is "nearly orthogonal" to standard LLM benchmarks, potentially making it a useful test of generalization and safety properties. However, the connection to your specific research may be indirect.
+
+## The Good
+- The PokeAgent Challenge appears to be a high-quality, well-designed benchmark that captures meaningful research challenges.
+- The Battling Track provides a large, curated dataset of battle trajectories and strong baseline models, which could be very valuable for researchers.
+- The authors have made the Speedrunning Track evaluation framework open-source and self-contained, enabling modular, reproducible comparisons.
+- The paper is well-written, with clear explanations of the benchmark's purpose and capabilities.
+
+## The Gaps
+- While the authors claim the benchmark is "unsolved", it's unclear how difficult the core tasks really are. More analysis of human and AI performance would help calibrate expectations.
+- The paper does not provide much detail on the underlying Pokemon simulation or the specific decision-making challenges it poses. More information on the game mechanics and problem structure would be helpful.
+- The connection to real-world decision-making problems is not always clear. Researchers may need to carefully consider the relevance of the benchmark to their particular domain.
+
+## How to Read This Paper
+
+**If you're from the multi-agent systems or game AI community**: Focus on the Battling Track section, which describes the dataset, baseline models, and competitive gameplay. You can likely skim the Speedrunning Track details.
+
+**If you're from the planning or RL community**: Pay close attention to the Speedrunning Track section, as this is where the long-horizon decision-making challenges are highlighted. The Battling Track may be less directly relevant.
+
+**Must read (everyone)**: The introduction and benchmark overview sections, which explain the core research problems and the overall structure of the PokeAgent Challenge.
+
+**Verify**: The claims about the benchmark being "nearly orthogonal" to standard LLM benchmarks and its ability to drive forward RL and LLM research. These assertions may require independent validation.
+
+## Bottom Line
+The PokeAgent Challenge is a promising new benchmark that could push the boundaries of AI research in multi-agent decision-making and long-horizon planning. The Battling Track, with its large dataset and strong baselines, is particularly compelling and could become a valuable testbed for researchers in game AI and multi-agent systems. While the connection to some domains may be less direct, the benchmark's ability to capture core AI research challenges in a scalable, open-ended environment makes it worth considering for a wide range of researchers working on frontier problems in decision-making and planning.
+
+## Quality Assessment
+
+**Trust Level:** MODERATE - Verify key results first
+
+**What the scores mean:**
+- **70% signal** - This much of the paper directly supports its claims
+- **75% context** - Background material for readers from other fields (this is a **bridge paper** - high context is a feature!)
+- **20% noise** - Content that may mislead if taken at face value
+
+**Reliability score:** 78% (certified)
+
+**Practical interpretation:**
+Good foundation but some gaps. Read critically and verify key claims before building on this work.
+
+
+
+## Paper Details
+
+- **Authors:** Seth Karten, Jake Grigsby, Tersoo Upaa, Junik Bae, Seonghun Hong et al.
+- **Published:** 2026-03-16
+- **Source:** [arxiv](https://arxiv.org/abs/2603.15563v1)
+- **PDF:** [Download](https://arxiv.org/pdf/2603.15563v1.pdf)
+- **Primary Topic:** Mixture of Experts Architectures
+- **Difficulty:** Intermediate
+
+## Abstract
+
+> We present the PokeAgent Challenge, a large-scale benchmark for decision-making research built on Pokemon's multi-agent battle system and expansive role-playing game (RPG) environment. Partial observability, game-theoretic reasoning, and long-horizon planning remain open problems for frontier AI, yet few benchmarks stress all three simultaneously under realistic conditions. PokeAgent targets these limitations at scale through two complementary tracks: our Battling Track, which calls for strategic reasoning and generalization under partial observability in competitive Pokemon battles, and our Speedrunning Track, which requires long-horizon planning and sequential decision-making in the Pokemon RPG. Our Battling Track supplies a dataset of 20M+ battle trajectories alongside a suite of heuristic, RL, and LLM-based baselines capable of high-level competitive play. Our Speedrunning Track provides the first standardized evaluation framework for RPG speedrunning, including an open-source multi-agent orchestration system for modular, reproducible comparisons of harness-based LLM approaches. Our NeurIPS 2025 competition validates both the quality of our resources and the research community's interest in Pokemon, with over 100 teams competing across both tracks and winning solutions detailed in our paper. Participant submissions and our baselines reveal considerable gaps between generalist (LLM), specialist (RL), and elite human performance. Analysis against the BenchPress evaluation matrix shows that Pokemon battling is nearly orthogonal to standard LLM benchmarks, measuring capabilities not captured by existing suites and positioning Pokemon as an unsolved benchmark that can drive RL and LLM research forward. We transition to a living benchmark with a live leaderboard for Battling and self-contained evaluation for Speedrunning at https://pokeagentchallenge.com.
+
+---
+
+*This analysis was automatically generated and certified by the Swarm-It RSCT pipeline.
+κ-gate score: 0.778 | Quality tier: certified*

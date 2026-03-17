@@ -8,6 +8,7 @@ interface ReviewNode {
   frontmatter: {
     title: string;
     published_date: string;
+    published_date_raw: string;
     arxiv_id: string;
     kappa: number;
     R: number;
@@ -30,6 +31,18 @@ const ReviewsPage: React.FC<PageProps<{ allMdx: { nodes: ReviewNode[] } }>> = ({
   const allReviews = data?.allMdx?.nodes || [];
   const [filterTopic, setFilterTopic] = useState<string>("all");
   const [filterQuality, setFilterQuality] = useState<string>("all");
+  const [sortBy, setSortBy] = useState<"date" | "quality">("date");
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
+  // Check if any filters are active
+  const hasActiveFilters = filterTopic !== "all" || filterQuality !== "all" || searchQuery !== "";
+
+  // Clear all filters
+  const handleClearFilters = () => {
+    setFilterTopic("all");
+    setFilterQuality("all");
+    setSearchQuery("");
+  };
 
   // Extract unique topics
   const allTopics = Array.from(new Set(allReviews.map(r => r.frontmatter.primary_topic))).sort();
@@ -42,7 +55,20 @@ const ReviewsPage: React.FC<PageProps<{ allMdx: { nodes: ReviewNode[] } }>> = ({
       (filterQuality === "exceptional" && review.frontmatter.kappa >= 0.9) ||
       (filterQuality === "high-quality" && review.frontmatter.kappa >= 0.8 && review.frontmatter.kappa < 0.9) ||
       (filterQuality === "certified" && review.frontmatter.kappa >= 0.7 && review.frontmatter.kappa < 0.8);
-    return topicMatch && qualityMatch;
+    const searchMatch = searchQuery === "" ||
+      review.frontmatter.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      review.frontmatter.abstract.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      review.frontmatter.primary_topic.toLowerCase().includes(searchQuery.toLowerCase());
+    return topicMatch && qualityMatch && searchMatch;
+  });
+
+  // Sort reviews
+  const sortedReviews = [...filteredReviews].sort((a, b) => {
+    if (sortBy === "date") {
+      return new Date(b.frontmatter.published_date_raw).getTime() -
+             new Date(a.frontmatter.published_date_raw).getTime();
+    }
+    return b.frontmatter.kappa - a.frontmatter.kappa;
   });
 
   const getQualityTierBadge = (tier: string, kappa: number) => {
@@ -77,6 +103,7 @@ const ReviewsPage: React.FC<PageProps<{ allMdx: { nodes: ReviewNode[] } }>> = ({
             <SearchBox
               placeholder="Search by title, abstract, or topic..."
               className="w-full"
+              onSearch={setSearchQuery}
             />
           </div>
         </div>
@@ -85,7 +112,22 @@ const ReviewsPage: React.FC<PageProps<{ allMdx: { nodes: ReviewNode[] } }>> = ({
       {/* Filters Section */}
       <section className="py-8 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-4 items-end">
+            {/* Sort By */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Sort by
+              </label>
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as "date" | "quality")}
+                className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="date">Date (Newest)</option>
+                <option value="quality">Quality (Highest)</option>
+              </select>
+            </div>
+
             {/* Topic Filter */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -120,10 +162,20 @@ const ReviewsPage: React.FC<PageProps<{ allMdx: { nodes: ReviewNode[] } }>> = ({
               </select>
             </div>
 
+            {/* Clear Filters Button */}
+            {hasActiveFilters && (
+              <button
+                onClick={handleClearFilters}
+                className="px-4 py-2 text-sm font-medium text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/40 transition-colors"
+              >
+                Clear Filters ✕
+              </button>
+            )}
+
             {/* Results Count */}
-            <div className="ml-auto self-end">
+            <div className="ml-auto">
               <span className="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300">
-                {filteredReviews.length} paper{filteredReviews.length !== 1 ? 's' : ''}
+                {sortedReviews.length} paper{sortedReviews.length !== 1 ? 's' : ''}
               </span>
             </div>
           </div>
@@ -133,13 +185,13 @@ const ReviewsPage: React.FC<PageProps<{ allMdx: { nodes: ReviewNode[] } }>> = ({
       {/* Reviews Grid */}
       <section className="py-16 bg-gray-50 dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {filteredReviews.length === 0 ? (
+          {sortedReviews.length === 0 ? (
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-12 text-center">
               <p className="text-gray-600 dark:text-gray-300 text-lg">No papers match your filters.</p>
             </div>
           ) : (
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {filteredReviews.map((node) => (
+              {sortedReviews.map((node) => (
                 <article
                   key={node.id}
                   className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow"
@@ -208,7 +260,6 @@ const ReviewsPage: React.FC<PageProps<{ allMdx: { nodes: ReviewNode[] } }>> = ({
 export const query = graphql`
   query {
     allMdx(
-      sort: {frontmatter: {kappa: DESC}}
       filter: {frontmatter: {status: {eq: "live"}}}
     ) {
       nodes {
@@ -216,6 +267,7 @@ export const query = graphql`
         frontmatter {
           title
           published_date(formatString: "MMM DD, YYYY")
+          published_date_raw: published_date
           arxiv_id
           kappa
           R
