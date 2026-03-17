@@ -1,0 +1,30 @@
+{
+  "paper_id": "medrxiv:2026.03.09.26347939",
+  "title": "Experimental multi-center validation of a radiomics-based photonic quantum precision medicine architecture for lesion-level prediction of anti-PD-1 response in non-small cell lung cancer",
+  "source": "medrxiv",
+  "url": "https://www.medrxiv.org/content/10.64898/2026.03.09.26347939",
+  "abstract": "BackgroundPrevious research has shown that radiomics-based machine learning models are promising precision medicine tools for lesion-level predictions of Anti-PD-1 response in advanced non-small cell lung cancer (NSCLC) but their clinical implementation remains limited due to poor generalizability and uncertainty about which features capture true biological signals or merely reflect noise. We tested the performance and multi-center validity of a radiomics-based photonic quantum architecture trained on a feature space reduced using clinical knowledge and robust medical statistics.\n\nMethodsThis study included 125 patients with 164 advanced NSCLC single lesions from 3 different hospitals (Train, Test 1 and Test 2) treated with anti-PD1 monotherapy as first or second line. All patients underwent a baseline CT scan before the start of the treatment, the lesions were semi-automatically segmented and labeled as \"progressive\" if their diameter increased by more than 10% and as \"non-progressive\" if their diameter decreased by 10% or more over the following 6 months. From each CT scan we extracted 851 radiomic features with a METhodological RadiomICs Score (METRICS) of 86.1% (Excellent Quality Category (Table S1)) of which 183 were identified as reliable based on previous published clinical research. We then trained 1 classical and 3 photonic quantum machine learning models in Train Hospital and tested their performance on unseen external datasets in Test Hospitals 1 & 2. Aiming to explore quantum machine learning as a long-term technology for precision oncology, we utilized an ideal classical simulation of a photonic quantum architecture. This approach assumes perfectly functioning hardware, eliminating confounding physical noise to assess true theoretical performance. Crucially, by adapting the standardized MerLin template, we ensure our results are reproducible, fulfilling an essential requirement for evidence-based clinical research.\n\nFindingsWe found that only 2 features",
+  "authors": [
+    "Olgiati, S.",
+    "Santona, F.",
+    "Meloni, D.",
+    "Barabino, E.",
+    "Rossi, G.",
+    "Genova, C.",
+    "Grossi, F.",
+    "Heidari, N."
+  ],
+  "published_date": "2026-03-10",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.426702",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.medrxiv.org/content/10.64898/2026.03.09.26347939.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

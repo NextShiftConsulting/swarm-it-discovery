@@ -1,0 +1,26 @@
+{
+  "paper_id": "medrxiv:2026.03.07.26347830",
+  "title": "Time to registry discontinuity in Tanzania's national HIV care registry: a survival analysis of population mobility patterns",
+  "source": "medrxiv",
+  "url": "https://www.medrxiv.org/content/10.64898/2026.03.07.26347830",
+  "abstract": "BackgroundEarly loss to follow-up (LTFU) after HIV enrolment is widely used to monitor program performance and progress toward treatment targets. These indicators assume that absence from the registering clinic reflects disengagement from care. However, in settings with substantial internal migration, patients may continue treatment at another facility while appearing to be lost in routine records. We evaluated the timing and geographic patterns of registry discontinuity following HIV registration in Tanzania to assess whether early LTFU primarily reflects patient disengagement from care or the characteristics of the monitoring system.\n\nMethodsWe conducted a national registry-based observational analysis using routinely collected data from the HIV care registry maintained by the National AIDS and Sexually Transmitted Infections Control Programme (NASHCoP). The analysis included 2,136,207 individuals with recorded district registration and visit dates between 2017 and 2021. Registry discontinuity was defined as the interval between the first recorded visit and the absence of further recorded visits within the registration facility. Kaplan-Meier methods were used to estimate time-to-discontinuity patterns, and persistence curves were compared across predefined population mobility corridors (stable districts, urban migration districts, mining areas, pastoralist regions, and border districts). Threshold summaries were calculated at 30, 60, 90, and 180 days.\n\nResultsThe median duration between the first and last recorded visits was 777 days (IQR, 217-1659). Registry discontinuity occurred predominantly soon after registration: 9.6% of individuals had no further recorded visits within 30 days, 11.8% within 60 days, 13.5% within 90 days, and 17.8% within 180 days of registration. A Kaplan-Meier analysis showed a steep early decline, followed by a prolonged plateau, indicating that most discontinuities occurred shortly after the first recorded visit. The time to registry di",
+  "authors": [
+    "Mwakyomo, J.",
+    "Sangeda, R. Z.",
+    "Mushi, H.",
+    "Njau, P."
+  ],
+  "published_date": "2026-03-09",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.408073",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.medrxiv.org/content/10.64898/2026.03.07.26347830.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

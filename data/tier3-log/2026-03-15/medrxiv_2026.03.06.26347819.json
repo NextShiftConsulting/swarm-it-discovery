@@ -1,0 +1,26 @@
+{
+  "paper_id": "medrxiv:2026.03.06.26347819",
+  "title": "Time-to-event modeling with multimodal clinical and genetic features improves risk stratification of liver complications in chronic hepatitis C",
+  "source": "medrxiv",
+  "url": "https://www.medrxiv.org/content/10.64898/2026.03.06.26347819",
+  "abstract": "Chronic hepatitis C (CHC) remains a leading cause of cirrhosis, hepatocellular carcinoma (HCC), and premature mortality despite effective antiviral therapy, underscoring the need for individualized risk stratification beyond fibrosis stage alone. Using harmonized data from the All of Us Research Program, we developed and internally validated an interpretable multimodal survival framework to predict incident cirrhosis, HCC, and all-cause mortality, explicitly accounting for competing death. Baseline predictors within a {+/-}180-day window around CHC diagnosis included demographics, comorbidities, medications, laboratory biomarkers, socioeconomic context, and selected germline variants. Penalized Cox, ensemble, gradient-boosted, and neural survival models were compared under a consistent training and held-out testing strategy. Best-performing models achieved test C-indices of 0.67 for cirrhosis (Coxnet-LASSO), 0.71 for HCC, and 0.75 for mortality (Random Survival Forest), with stable time-dependent AUROC up to 0.81. Substantial feature compression preserved discrimination: restricting to the top 50% or 25% of predictors resulted in minimal absolute change in test performance (3.5%). Reduced models were anchored in clinically interpretable domains, including age, liver injury markers, hepatic reserve, cardiometabolic burden, deprivation index, and chromosome 19/22 loci. Feature importance reinforces existing known clinical and biological risk factors for liver complications: liver injury markers were most influential for cirrhosis and HCC, whereas hepatic reserve and cardiometabolic burden were more predictive of mortality, with age serving as a central baseline determinant across outcomes. Together, these results support a scalable and parsimonious framework for individualized CHC risk stratification that integrates multimodal determinants.",
+  "authors": [
+    "Islam, H.",
+    "Arian, A.",
+    "Franses, J. W.",
+    "Ahsan, H."
+  ],
+  "published_date": "2026-03-09",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.406253",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.medrxiv.org/content/10.64898/2026.03.06.26347819.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

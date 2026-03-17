@@ -1,0 +1,28 @@
+{
+  "paper_id": "biorxiv:2020.08.13.250431",
+  "title": "Bacterial gene essentiality under modeled microgravity",
+  "source": "biorxiv",
+  "url": "https://www.biorxiv.org/content/10.1101/2020.08.13.250431",
+  "abstract": "To support long-duration spaceflight, identifying genes that enable microbial survival and stability under space stressors is crucial, as these factors can affect both host health and in-space biomanufacturing efforts. Our objective was to determine what bacterial genes are required for growth in culture under modeled, or simulated, microgravity conditions compared to normal gravity controls. We focused on the marine bacterium Vibrio fischeri, which forms a monospecific symbiosis with the Hawaiian bobtail squid, Euprymna scolopes. The symbiosis has been studied during spaceflight and in ground-based modeled microgravity conditions. Using transposon insertion sequencing (INSeq), we identified dozens of genes that exhibited fitness defects under both conditions, yet we identified relatively few genes with differential effects under modeled microgravity or gravity specifically. We additionally compared RNA-seq and INSeq data and determined that expression under microgravity was not predictive of the essentiality of a given gene. In summary, empirical determination of conditional gene essentiality identifies few microgravity-specific genes for environmental growth of V. fischeri, suggesting that the condition of microgravity has a minimal impact on symbiont gene requirement during growth in media. These findings suggest that maintaining beneficial microbial communities during spaceflight, and enabling their use in biomanufacturing applications, may require minimal genetic adaptation, easing the challenges of supporting healthy symbiotic relationships on long-duration missions.",
+  "authors": [
+    "Burgos, E.",
+    "Vroom, M. M.",
+    "Rotman, E. R.",
+    "Murphy-Belcaster, M.",
+    "Foster, J. S.",
+    "Mandel, M. J."
+  ],
+  "published_date": "2026-03-11",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.380078",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.biorxiv.org/content/10.1101/2020.08.13.250431.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

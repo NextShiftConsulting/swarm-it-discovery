@@ -23,14 +23,14 @@ const config: GatsbyConfig = {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "reviews",
-        path: `${__dirname}/content/reviews`,
+        path: `${__dirname}/src/content/reviews`,
       },
     },
     {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "topics",
-        path: `${__dirname}/content/topics`,
+        path: `${__dirname}/src/content/topics`,
       },
     },
   ],

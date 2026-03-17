@@ -1,0 +1,27 @@
+{
+  "paper_id": "pubmed:41832692",
+  "title": "Machine Learning Algorithm for Nanomedicine: AI Curated Nanocarriers for Cancer Treatment.",
+  "source": "pubmed",
+  "url": "https://pubmed.ncbi.nlm.nih.gov/41832692/",
+  "abstract": "Cancer remains a major global health challenge due to its genetic variability and intricate molecular mechanisms, which complicate the development of effective therapies. This review elucidates the integration of AI-driven methodologies in nanoparticle (NP) design, optimizing drug delivery systems (DDSs) for targeted cancer therapy. AI's predictive analytics facilitate the rational design of nanocarriers, enhancing drug bioavailability, optimizing pharmacokinetics, and improving tumor penetration. The incorporation of machine learning (ML) models accelerates NP fabrication, enabling real-time simulation of tumor dynamics and drug release kinetics. Furthermore, AI-powered platforms, such as EVOnano, simulate in silico tumor microenvironments to refine nanocarrier functionalities. This synergy fosters the development of next-generation smart therapeutics, wherein adaptive nanomedicines exhibit enhanced tumor specificity while mitigating systemic toxicity. Challenges, such as nanoparticle scalability, AI interpretability, and biological heterogeneity, persist, necessitating interdisciplinary advances. Nevertheless, AI-assisted nanomedicine signifies a paradigm shift towards highly efficacious, patient-tailored cancer interventions, revolutionizing treatment landscapes and propelling oncology into a new frontier of data-driven, precision-based therapeutics.",
+  "authors": [
+    "Akash Kumar",
+    "Sumaiya Qasim",
+    "Ashwani Sharma",
+    "Dalapathi Gugulothu",
+    "Surajpal Verma"
+  ],
+  "published_date": "2026-Mar",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.427629",
+  "scan_date": "2026-03-15",
+  "pdf_url": null,
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

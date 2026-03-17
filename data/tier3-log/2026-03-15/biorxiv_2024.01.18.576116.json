@@ -1,0 +1,32 @@
+{
+  "paper_id": "biorxiv:2024.01.18.576116",
+  "title": "Chronically elevated FGF23 drives sustained renal ERK signaling and inflammatory transcriptional programs mitigated by cFGF23 gene therapy",
+  "source": "biorxiv",
+  "url": "https://www.biorxiv.org/content/10.1101/2024.01.18.576116",
+  "abstract": "Fibroblast growth factor 23 (FGF23) levels are highly elevated in patients with chronic kidney disease (CKD); however, whether it serves merely as a biomarker or actively contributes to kidney inflammation remains unclear. Full-length FGF23 is cleaved into C-terminal FGF23 (cFGF23), which acts as a natural antagonist of FGF23 by inhibiting its binding to the FGF receptor (FGFR) and the co-receptor Klotho. Here, we show that chronically elevated FGF23 levels in a mouse model Hyp-Duk cause sustained-ERK signaling and an inflammatory and immune responses in the kidney. cFGF23, delivered via adeno-associated virus (AAV) gene therapy, successfully mitigated renal sustained-ERK signaling and inflammatory and immune responses in Hyp-Duk mice. On the other hand, acute physiological FGF23 levels in vitro elicited transient-ERK signaling with the expression of canonical early-ERK targets (EGR1, JUNB, FOSB). Consistent with in vivo findings, prolonged pathological FGF23 treatment in-vitro revealed sustained-ERK signaling with upregulation of late-ERK targets (ETV4/5, SPRED1/2, SPRY2/4) and unique inflammatory and immune gene signatures. These effects were significantly mitigated by FGFR and ERK inhibitors, as well as by recombinant cFGF23 treatment. In summary, chronically high levels of FGF23 induce kidney inflammation through the FGFR-Klotho complex and sustained-ERK activation, which are successfully mitigated by cFGF23 gene therapy.",
+  "authors": [
+    "Salas-Bastos, A.",
+    "Bardet, C.",
+    "Kopper, K.",
+    "Jauze, L.",
+    "Collaud, F.",
+    "Francois, A.",
+    "Chen, G.",
+    "Mohammadi, M.",
+    "Stockmann, C.",
+    "Sommer, L."
+  ],
+  "published_date": "2026-03-12",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.382468",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.biorxiv.org/content/10.1101/2024.01.18.576116.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

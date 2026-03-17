@@ -1,0 +1,31 @@
+{
+  "paper_id": "arxiv:2603.12252v1",
+  "title": "EndoCoT: Scaling Endogenous Chain-of-Thought Reasoning in Diffusion Models",
+  "source": "arxiv",
+  "url": "https://arxiv.org/abs/2603.12252v1",
+  "abstract": "Recently, Multimodal Large Language Models (MLLMs) have been widely integrated into diffusion frameworks primarily as text encoders to tackle complex tasks such as spatial reasoning. However, this paradigm suffers from two critical limitations: (i) MLLMs text encoder exhibits insufficient reasoning depth. Single-step encoding fails to activate the Chain-of-Thought process, which is essential for MLLMs to provide accurate guidance for complex tasks. (ii) The guidance remains invariant during the decoding process. Invariant guidance during decoding prevents DiT from progressively decomposing complex instructions into actionable denoising steps, even with correct MLLM encodings. To this end, we propose Endogenous Chain-of-Thought (EndoCoT), a novel framework that first activates MLLMs' reasoning potential by iteratively refining latent thought states through an iterative thought guidance module, and then bridges these states to the DiT's denoising process. Second, a terminal thought grounding module is applied to ensure the reasoning trajectory remains grounded in textual supervision by aligning the final state with ground-truth answers. With these two components, the MLLM text encoder delivers meticulously reasoned guidance, enabling the DiT to execute it progressively and ultimately solve complex tasks in a step-by-step manner. Extensive evaluations across diverse benchmarks (e.g., Maze, TSP, VSP, and Sudoku) achieve an average accuracy of 92.1%, outperforming the strongest baseline by 8.3 percentage points.",
+  "authors": [
+    "Xuanlang Dai",
+    "Yujie Zhou",
+    "Long Xing",
+    "Jiazi Bu",
+    "Xilin Wei",
+    "Yuhong Liu",
+    "Beichen Zhang",
+    "Kai Chen",
+    "Yuhang Zang"
+  ],
+  "published_date": "2026-03-12",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.369962",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://arxiv.org/pdf/2603.12252v1.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

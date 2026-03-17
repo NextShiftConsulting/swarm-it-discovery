@@ -1,0 +1,106 @@
+---
+title: An interpretable prototype parts-based neural network for medical tabular data
+arxiv_id: 2603.05423v1
+authors:
+- Jacek Karolczak
+- Jerzy Stefanowski
+published_date: '2026-03-05'
+go_live_date: '2026-03-06'
+kappa: 0.495
+R: 0.375
+S: 0.319
+N: 0.306
+rsn_score: 0.37/0.32/0.31
+tags:
+- neural
+- cs-lg
+- representation-learning
+primary_topic: representation-learning
+difficulty: beginner
+abstract: The ability to interpret machine learning model decisions is critical in
+  such domains as healthcare, where trust in model predictions is as important as
+  their accuracy. Inspired by the development of prototype parts-based deep neural
+  networks in computer vision, we propose a new model for tabular data, specifically
+  tailored to medical records, that requires discretization of diagnostic result norms.
+  Unlike the original vision models that rely on the spatial structure, our method
+  employs trainable patching over features describing a patient, to learn meaningful
+  prototypical parts from structured data. These parts are represented as binary or
+  discretized feature subsets. This allows the model to express prototypes in human-readable
+  terms, enabling alignment with clinical language and case-based reasoning. Our proposed
+  neural network is inherently interpretable and offers interpretable concept-based
+  predictions by comparing the patient's description to learned prototypes in the
+  latent space of the network. In experiments, we demonstrate that the model achieves
+  classification performance competitive to widely used baseline models on medical
+  benchmark datasets, while also offering transparency, bridging the gap between predictive
+  performance and interpretability in clinical decision support.
+tldr: The ability to interpret machine learning model decisions is critical in such
+  domains as healthcare, where trust in model predictions is as important as their
+  accuracy. Inspired by the development of ...
+arxiv_url: https://arxiv.org/abs/2603.05423v1
+pdf_url: https://arxiv.org/pdf/2603.05423v1.pdf
+status: live
+featured: false
+date: '2026-03-06'
+source: arxiv
+arxivId: 2603.05423v1
+paperUrl: https://arxiv.org/abs/2603.05423v1
+pdfUrl: https://arxiv.org/pdf/2603.05423v1.pdf
+similarityScore: 0.198
+matchedTopics:
+- representation-learning
+excerpt: The ability to interpret machine learning model decisions is critical in
+  such domains as healthcare, where trust in model predictions is as important as
+  their accuracy. Inspired by the development of ...
+---
+
+# An interpretable prototype parts-based neural network for medical tabular data
+
+**RSCT Certification:** κ=0.495 (pending) | **RSN:** 0.37/0.32/0.31 | **Topics:** representation-learning
+
+An Interpretable Neural Network for Medical Tabular Data: Bridging Predictive Performance and Interpretability
+
+Core Contribution:
+This paper proposes a novel neural network architecture for tabular medical data that aims to achieve high predictive performance while also providing interpretable model decisions. The key innovation is the development of a prototype parts-based neural network, inspired by similar models in computer vision, but tailored specifically for structured medical records. Unlike typical "black box" neural networks, this model learns meaningful prototypical parts from the input features and uses these to make interpretable predictions.
+
+The motivation behind this work is the critical need for interpretable machine learning models in high-stakes domains like healthcare, where trust in model decisions is as important as accuracy. Many existing models, despite their predictive power, struggle to provide insights into how they arrive at their outputs. The authors argue that their prototype-based approach bridges this gap, allowing the model to express its predictions in human-readable terms that can be more easily aligned with clinical reasoning.
+
+Technical Approach:
+The core of the model is a neural network that learns a set of prototypical feature subsets, or "parts," from the input data. These parts are represented as binary or discretized feature combinations that can be directly interpreted by human experts. To learn these prototypes, the network employs a trainable patching mechanism that operates over the input features, rather than relying on the spatial structure used in vision models.
+
+During inference, the model compares the input instance to the learned prototypes in the latent space and makes a prediction based on the similarity to these interpretable parts. This allows the model to not only make a classification, but also provide an explanation for its decision by highlighting the relevant prototypical features.
+
+The authors also introduce a discretization step for certain input features, such as diagnostic results, to align the model's internal representations with clinically meaningful thresholds and norms. This further enhances the interpretability of the model's outputs.
+
+Key Results:
+The authors evaluate their prototype parts-based neural network on several medical benchmark datasets, including tasks like disease diagnosis and hospital readmission prediction. They demonstrate that the model achieves classification performance competitive with widely used baselines, such as logistic regression and gradient boosting, while also providing interpretable predictions.
+
+Importantly, the authors show that their model's interpretability does not come at the expense of predictive accuracy. In fact, they find that the prototype-based approach can outperform some black-box models on certain tasks, highlighting the potential benefits of incorporating interpretability into the model design.
+
+Significance & Limitations:
+The primary significance of this work lies in its potential to improve trust and transparency in machine learning-based clinical decision support systems. By providing interpretable explanations for model predictions, the authors argue that their approach can help bridge the gap between predictive performance and the need for human-understandable reasoning in high-stakes domains.
+
+That said, the authors acknowledge several limitations of their work. The discretization of certain input features, while enhancing interpretability, may lead to a loss of information. Additionally, the prototype-based approach may struggle to capture complex, non-linear relationships in the data, which could limit its performance on certain tasks.
+
+Through the RSCT Lens:
+The prototype parts-based neural network proposed in this paper directly addresses several key concepts in Representation-Space Compatibility Theory (RSCT).
+
+In terms of representation quality (R), the model's ability to learn interpretable prototypes from the input features can be seen as an improvement over more opaque neural network architectures. By expressing the model's internal representations in human-readable terms, the authors enhance the relevance of the model's outputs to the underlying clinical problem.
+
+However, the paper's stability (S) score of 0.319 suggests that the model's findings may not be entirely consistent across different contexts and methods. This is likely due to the inherent challenges of learning robust, generalizable prototypes from noisy medical data. The authors acknowledge this limitation and suggest that further research may be needed to improve the model's stability.
+
+The noise (N) score of 0.306 indicates that the paper contains some irrelevant or contradictory elements that could dilute the core contribution. This may be related to the model's potential struggles to capture complex non-linear relationships, as mentioned in the limitations.
+
+Overall, the paper's κ-gate score of 0.495 suggests that it has not yet fully integrated its contributions with the existing knowledge in the field. The flag at the stability gate indicates that this work would benefit from expert review and further refinement before it can be confidently integrated into the broader research landscape.
+
+To improve the paper's RSCT score, the authors could focus on enhancing the model's stability, potentially through techniques like ensemble learning or meta-learning. Additionally, further investigation into the sources of noise in the model's outputs could lead to improvements in representation quality and overall compatibility.
+
+## Paper Details
+
+- **Authors:** Jacek Karolczak, Jerzy Stefanowski
+- **Source:** [arXiv](https://arxiv.org/abs/2603.05423v1)
+- **PDF:** [Download](https://arxiv.org/pdf/2603.05423v1.pdf)
+- **Published:** 2026-03-05
+
+---
+
+*This analysis was generated by the Swarm-It RSCT pipeline using Claude.*

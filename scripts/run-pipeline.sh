@@ -48,8 +48,8 @@ cd "$ROOT_DIR"
 python3 pipeline/run.py \
     --max-papers "$MAX_PAPERS" \
     --days "$DAYS" \
-    --topics-dir site/content/topics \
-    --output-dir site/content/reviews \
+    --topics-dir site/src/content/topics \
+    --output-dir site/src/content/reviews \
     $DRY_RUN
 
 # Commit and push new posts (triggers GitHub Actions deploy)
@@ -59,8 +59,8 @@ if [ -z "$DRY_RUN" ]; then
     cd "$ROOT_DIR"
 
     # Check if there are new posts
-    if git status --porcelain site/content/reviews/ | grep -q .; then
-        git add site/content/reviews/
+    if git status --porcelain site/src/content/reviews/ | grep -q .; then
+        git add site/src/content/reviews/
         git commit -m "Add paper reviews $(date +%Y-%m-%d)"
         git push
         echo "Pushed to GitHub - deploy will trigger automatically"

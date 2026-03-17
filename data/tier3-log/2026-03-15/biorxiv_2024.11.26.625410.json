@@ -1,0 +1,24 @@
+{
+  "paper_id": "biorxiv:2024.11.26.625410",
+  "title": "MultiPopPred: A Trans-Ethnic Disease Risk Prediction Method, and its Application to the South Asian Population",
+  "source": "biorxiv",
+  "url": "https://www.biorxiv.org/content/10.1101/2024.11.26.625410",
+  "abstract": "Genome-wide association studies (GWAS) have guided significant contributions towards identifying disease associated Single Nucleotide Polymorphisms (SNPs) in Caucasian populations, albeit with limited focus on other understudied low-resource non-Caucasian populations. There have been active efforts over the years to understand and exploit the population specific versus shared aspects of the genotype-phenotype relation across different populations or ethnicities to bridge this gap. However, the efficacy of transfer learning models that are simpler than existing approaches and utilize individual-level data remains an open question. We propose MultiPopPred, a novel and simple trans-ethnic polygenic risk score (PRS) estimation method that taps into the shared genetic risk across populations and transfers information learned from multiple well-studied auxiliary populations to a less-studied target population. The default version of MultiPopPred (MPP-PRS+) harnesses individual-level data using a specially designed Nesterov-smoothed penalized shrinkage model and an L-BFGS optimization routine. Extensive comparative analyses performed on simulated genotype-phenotype data, assuming an infinitesimal model, reveal that MPP-PRS+ improves PRS prediction in the South Asian population by 38% on average across all simulation settings when compared to state-of-the-art trans-ethnic PRS estimation methods. This improvement is enhanced in settings with low target sample sizes and in semi-simulated settings. Furthermore, MPP-PRS+ produces better or comparable PRS predictions than state-of-the-art methods across 12 out of 16 evaluated quantitative and binary traits in UK Biobank, with the exception being 4 lipid-related traits. This performance trend is promising and encourages application of MultiPopPred for reliable PRS estimation in low-resource populations with individual-level data for complex omnigenic traits.",
+  "authors": [
+    "Kamal, R.",
+    "Narayanan, M."
+  ],
+  "published_date": "2026-03-11",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.387424",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.biorxiv.org/content/10.1101/2024.11.26.625410.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

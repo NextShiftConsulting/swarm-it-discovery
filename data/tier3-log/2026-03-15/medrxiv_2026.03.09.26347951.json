@@ -1,0 +1,32 @@
+{
+  "paper_id": "medrxiv:2026.03.09.26347951",
+  "title": "Measurement strategy alters inferred age-dependent accumulation and mortality risk of mosaic Y loss",
+  "source": "medrxiv",
+  "url": "https://www.medrxiv.org/content/10.64898/2026.03.09.26347951",
+  "abstract": "Mosaic loss of Y chromosome (mLOY) is a widely used biomarker of biological aging, yet whether its inferred age-dependent accumulation and associated clinical risk are invariant to measurement strategy remains unclear. We compared intensity-based and phase-based quantification approaches in 223,251 men from the UK Biobank to determine how analytic definitions influence estimates of mLOY burden, risk thresholds and population prevalence. Phase-based quantification revealed a steeper and more stable age-dependent accumulation of mLOY and identified excess mortality risk at lower mosaic burdens than intensity-based metrics. These differences shifted the inferred onset of biological risk and expanded the proportion of individuals classified as affected from 5.3% to 19.2%. Conventional thresholding preferentially excluded low-burden mosaicism, compressing risk gradients and reducing statistical resolution for downstream associations. These findings show that analytic definitions materially alter inferred accumulation dynamics, risk thresholds and population prevalence of mosaic Y loss.",
+  "authors": [
+    "Ware, A.",
+    "Weyrich, M.",
+    "Fatima, S.",
+    "Xu, T.",
+    "Radhakrishnan, S.",
+    "Kapfer, P.",
+    "Yang, X.",
+    "Schiethe, L.",
+    "Zanders, L.",
+    "Cremer, S."
+  ],
+  "published_date": "2026-03-10",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.425919",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.medrxiv.org/content/10.64898/2026.03.09.26347951.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

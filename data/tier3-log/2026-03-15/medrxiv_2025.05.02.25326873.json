@@ -1,0 +1,32 @@
+{
+  "paper_id": "medrxiv:2025.05.02.25326873",
+  "title": "The age and sex dynamics of heterosexual HIV transmission in Zambia: an HPTN 071 (PopART) phylogenetic and modelling study",
+  "source": "medrxiv",
+  "url": "https://www.medrxiv.org/content/10.1101/2025.05.02.25326873",
+  "abstract": "While much progress has been made in reducing the incidence of HIV-1 infection in sub-Saharan Africa in recent years, bringing the epidemic to an end will require identification of the demographic groups that continue to contribute to transmission. Pathogen phylogenetics and individual-based mathematical models (IBMs) of transmission are approaches that enable researchers to explore such questions. Here, we used both methods to characterise the ages and sexes of the individuals involved in heterosexual transmission in the context of the HPTN 071 (PopART) trial in Zambia.\n\nThe two methods produced largely concordant results, strengthening confidence in both. A principal finding was that when the age gap in transmission (the difference of ages between the two individuals) was stratified by recipient age, the largest differences were for the youngest female recipients and the smallest for the youngest males. For women under 21 this stood at a male 9.87 years older (95% CI: 8.02 - 11.59) in the phylogenetics, compared to 6.93 (95% HDI: 6.56 - 7.32) in the IBM. As the age of female recipients increased, this gap decreased towards parity. Conversely, the under-21 male recipients saw the smallest gaps with the female older by 0.14 years (95% CI: -2.95 - 3.23) in the phylogenetics and 1.38 years (95% HDI: 0.98 - 1.68) in the IBM. As the age of male recipients decreased, this gap steadily increased. The consequence of this pattern is that transmission to new age cohorts first entering into sexual activity is driven predominantly by male-to-female transmission.\n\nWe also showed that targeting interventions at younger adults captures most of the benefit of population-wide approaches. We used the IBM to simulate the PopART universal testing and treatment intervention into the future, showing that effective treatment of under-35-year-olds would account for 94.3% (95% HDI: 65.8% - 126.6%) of the reduction in incidence by 2039 that would be achieved by treating the entire populatio",
+  "authors": [
+    "Hall, M. D.",
+    "Probert, W.",
+    "Abeler-Dorner, L.",
+    "Wymant, C.",
+    "di Lauro, F.",
+    "Xi, X.",
+    "Sauter, R.",
+    "Golubchik, T.",
+    "Bonsall, D.",
+    "Pickles, M."
+  ],
+  "published_date": "2026-03-10",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.420810",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.medrxiv.org/content/10.1101/2025.05.02.25326873.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

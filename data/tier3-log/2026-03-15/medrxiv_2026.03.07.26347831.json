@@ -1,0 +1,26 @@
+{
+  "paper_id": "medrxiv:2026.03.07.26347831",
+  "title": "Predicting Graduation in Undergraduate Medical Education: A Machine Learning Analysis Across Diverse High School Curricula",
+  "source": "medrxiv",
+  "url": "https://www.medrxiv.org/content/10.64898/2026.03.07.26347831",
+  "abstract": "BackgroundThe United Arab Emirates (UAE) is characterised by a diverse educational landscape, where students enter medical school from various high school curricula. Understanding how these varied academic backgrounds influence medical students academic performance is essential. The transition to medical school is a critical phase, with graduation outcomes carrying important implications for both students and institutions. Identifying early predictors of success is crucial to improving student support and academic outcomes in undergraduate medical education.\n\nAimThis study aimed to evaluate the predictive value of high school curriculum type on graduation outcomes in an undergraduate medical education program.\n\nMethodsA retrospective cohort study was conducted on undergraduate medical students enrolled at Mohammed Bin Rashid University of Medicine and Health Sciences (MBRU), Dubai Health, Dubai, UAE, from its inception in 2016 through 2024. The data were accessed for this research on 04/06/2024. The study employed machine learning methods, including Bayesian Networks (BN), Neural Networks (NN), and Random Forests (RF), to evaluate the predictive power of high school curriculum type and other academic variables for graduation success.\n\nResultsThe study included 661 undergraduate medical students, predominantly female, 76.7% (n=507). Students represented 11 high school curricula, with the American (48.1%) and British (22.7%) systems being the most common. Among 122 students eligible to graduate, the Bayesian Network model demonstrated the highest predictive accuracy (AUC = 0.94). The cumulative GPA was the most influential predictor. The model correctly identified 269 out of 494 students (54.5%) as likely to graduate.\n\nConclusionThe type of high school curriculum alone is not a strong predictor of graduation success. Academic performance during medical school and providing targeted support for students from diverse educational backgrounds are more robust predictors. A",
+  "authors": [
+    "Mohamadeya, J.",
+    "Khamis, A.",
+    "Alsuwaidi, L.",
+    "Azar, A."
+  ],
+  "published_date": "2026-03-09",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.402210",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.medrxiv.org/content/10.64898/2026.03.07.26347831.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

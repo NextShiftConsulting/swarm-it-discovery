@@ -1,0 +1,32 @@
+{
+  "paper_id": "medrxiv:2026.03.06.26347199",
+  "title": "Physiology-Informed Digital Twin-AI Framework Predicts Pacing Therapy Response in HFpEF",
+  "source": "medrxiv",
+  "url": "https://www.medrxiv.org/content/10.64898/2026.03.06.26347199",
+  "abstract": "Background and AimsHeart failure with preserved ejection fraction (HFpEF) exhibits profound phenotypic heterogeneity, which likely contributes to variable therapeutic response. We developed a physiology-informed digital twin-AI framework to predict individual hemodynamic and myocardial energetic responses to accelerated atrial pacing and tested whether simulated physiologic response corresponds to responders in the myPACE randomized clinical trial.\n\nMethodsPatient-specific digital twins were constructed for 146 HFpEF patients and used to train a variational autoencoder that generated a virtual HFpEF population (n = 25,000). The model simulated pacing-induced changes in left atrial pressure (LAP), systolic blood pressure (SBP), cardiac output (CO), and cardiac efficiency (CE; derived from myocardial oxygen-demand estimates). These simulations served as labels to train classifiers based on clinical variables available in myPACE, allowing us to examine associations with clinical end points and test a hypothesized relationship between CE and treatment response.\n\nResultsSimulations revealed heterogeneous physiological responses, with 95.6% of virtual patients showing reduced LAP, 47.0% an SBP reduction greater than 8.5 mmHg, 93.8% increased CO, and 36.1% improved CE. Classifiers reproduced these patterns with high fidelity. In the myPACE trial, patients classified as having CE improvement or a larger SBP reduction experienced significantly greater 1-month improvements in quality-of-life scores and larger NT-proBNP reductions.\n\nConclusionsA physiology-informed digital twin-AI framework can predict hemodynamic and energetic responses corresponding to clinical benefit in HFpEF patients receiving accelerated atrial pacing. CE improvement functioned as a mechanistic indicator, while SBP reduction served as an accessible clinical correlate, offering mechanistically grounded guidance for patient-specific pacing and motivating prospective validation.\n\nGraphical Abstract\n\nO_FIG O",
+  "authors": [
+    "Gu, F.",
+    "Infeld, M.",
+    "Schenk, N. A.",
+    "Wan, H.",
+    "Krishnan, M. J.",
+    "Cyr, J. A.",
+    "Sturgess, V. E.",
+    "Wittrup, E.",
+    "Jezek, F.",
+    "Carlson, B. E."
+  ],
+  "published_date": "2026-03-09",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.400753",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.medrxiv.org/content/10.64898/2026.03.06.26347199.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

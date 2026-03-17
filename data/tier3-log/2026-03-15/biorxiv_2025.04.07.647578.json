@@ -1,0 +1,29 @@
+{
+  "paper_id": "biorxiv:2025.04.07.647578",
+  "title": "Enhancer binding kinetics explain transcription factor hub formation",
+  "source": "biorxiv",
+  "url": "https://www.biorxiv.org/content/10.1101/2025.04.07.647578",
+  "abstract": "Transcription factors (TFs) form dynamic, high-concentration clusters, or \"hubs\", proposed to increase TF binding frequency at target enhancers. However, how enhancer sequence shapes hub properties remains unclear. We developed a live-imaging based framework to quantify the spatiotemporal relationship between TF hubs and actively transcribed genes in live Drosophila embryos. Examining hubs formed by the TF Dorsal across enhancers with defined binding-site composition, we find that hub enrichment and persistence scale with the number of Dorsal binding motifs. However, these hub properties do not predict transcriptional burst behavior for a given enhancer. Combining quantitative imaging with computational modeling, we show that Dorsal hubs arise from TF-DNA binding kinetics rather than actively increasing target occupancy. These findings support a model in which TF hubs are emergent features of enhancer-encoded TF-DNA interactions encoded by enhancer sequence rather than higher-order regulatory assemblies.",
+  "authors": [
+    "Fallacaro, S.",
+    "Kapoor, M.",
+    "Encarnation, L.",
+    "Mukherjee, A.",
+    "Turner, M. A.",
+    "Garcia, H. G.",
+    "Mir, M."
+  ],
+  "published_date": "2026-03-12",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.396911",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.biorxiv.org/content/10.1101/2025.04.07.647578.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

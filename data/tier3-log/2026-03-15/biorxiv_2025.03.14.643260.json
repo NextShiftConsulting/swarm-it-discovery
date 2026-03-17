@@ -1,0 +1,27 @@
+{
+  "paper_id": "biorxiv:2025.03.14.643260",
+  "title": "Neural network-based encoding in free-viewing fMRI with gaze-aware models",
+  "source": "biorxiv",
+  "url": "https://www.biorxiv.org/content/10.1101/2025.03.14.643260",
+  "abstract": "Representations learned by convolutional neural networks (CNNs) exhibit a remarkable resemblance to information processing patterns observed in the primate visual system on large neuroimaging datasets collected under diverse, naturalistic visual stimulation, but with instruction for participants to maintain central fixation. This viewing condition, however, diverges significantly from ecologically valid visual behaviour, suppresses activity in visually active regions, and imposes substantial cognitive load on the viewing task. We present a modification of the encoding model framework, adapting it for use with naturalistic vision datasets acquired under fully natural viewing conditions, without fixation, by incorporating eye-tracking data. Our gaze-aware encoding models were trained on the StudyForrest dataset, which features task-free naturalistic movie viewing. By combining eye-tracking data with the visual content of movie frames, we generate combined subject-wise gaze-stimulus specific feature time series. These time series are constructed by sampling only the locally and temporally relevant elements of the CNN feature map for each fixation. Our results demonstrate that gaze-aware encoding models match the performance of conventional encoding models with 112x fewer model parameters. Gaze-aware encoding models were especially beneficial for participants with more dynamic eye-movement patterns. Therefore, this approach opens the door to more ecologically valid models that can be built in more naturalistic settings, such as playing games or navigating virtual environments.",
+  "authors": [
+    "Gozukara, D.",
+    "Ahmad, N.",
+    "Seeliger, K.",
+    "Oetringer, D.",
+    "Geerligs, L."
+  ],
+  "published_date": "2026-03-11",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.393080",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.biorxiv.org/content/10.1101/2025.03.14.643260.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

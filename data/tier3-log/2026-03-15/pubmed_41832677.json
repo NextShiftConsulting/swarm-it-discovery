@@ -1,0 +1,25 @@
+{
+  "paper_id": "pubmed:41832677",
+  "title": "Prediction and Classification of Liposomal Release and Stability Using Machine Learning Based on Ethanol and Tergitol 15-S Surfactants.",
+  "source": "pubmed",
+  "url": "https://pubmed.ncbi.nlm.nih.gov/41832677/",
+  "abstract": "Liposomes are bilayered vesicles capable of encapsulating both hydrophilic and hydrophobic compounds, making them widely used in pharmaceuticals and cosmetics due to their excellent biocompatibility and versatility. However, they are structurally vulnerable to additives, such as ethanol and surfactants, which are often unavoidable during formulation. Therefore, it is essential to evaluate the effects of these components on liposomal stability and release behavior.",
+  "authors": [
+    "Jeong Seon Hwang",
+    "Panalee Pomseethong",
+    "Jin-Chul Kim"
+  ],
+  "published_date": "2026-Mar",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.429281",
+  "scan_date": "2026-03-15",
+  "pdf_url": null,
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

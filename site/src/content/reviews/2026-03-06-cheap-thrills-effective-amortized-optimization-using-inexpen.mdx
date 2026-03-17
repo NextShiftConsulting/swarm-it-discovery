@@ -1,0 +1,112 @@
+---
+title: 'Cheap Thrills: Effective Amortized Optimization Using Inexpensive Labels'
+arxiv_id: 2603.05495v1
+authors:
+- Khai Nguyen
+- Petros Ellinas
+- Anvita Bhagavathula
+- Priya Donti
+published_date: '2026-03-05'
+go_live_date: '2026-03-06'
+kappa: 0.55
+R: 0.0
+S: 0.0
+N: 0.0
+rsn_score: 0.00/0.00/0.00
+tags:
+- llm-agents-and-reasoning
+- cs-lg
+primary_topic: LLM Agents and Reasoning
+difficulty: advanced
+abstract: To scale the solution of optimization and simulation problems, prior work
+  has explored machine-learning surrogates that inexpensively map problem parameters
+  to corresponding solutions. Commonly used approaches, including supervised and self-supervised
+  learning with either soft or hard feasibility enforcement, face inherent challenges
+  such as reliance on expensive, high-quality labels or difficult optimization landscapes.
+  To address their trade-offs, we propose a novel framework that first collects "cheap"
+  imperfect labels, then performs supervised pretraining, and finally refines the
+  model through self-supervised learning to improve overall performance. Our theoretical
+  analysis and merit-based criterion show that labeled data need only place the model
+  within a basin of attraction, confirming that only modest numbers of inexact labels
+  and training epochs are required. We empirically validate our simple three-stage
+  strategy across challenging domains, including nonconvex constrained optimization,
+  power-grid operation, and stiff dynamical systems, and show that it yields faster
+  convergence; improved accuracy, feasibility, and optimality; and up to 59x reductions
+  in total offline cost.
+tldr: To scale the solution of optimization and simulation problems, prior work has
+  explored machine-learning surrogates that inexpensively map problem parameters to
+  corresponding solutions. Commonly used a...
+arxiv_url: https://arxiv.org/abs/2603.05495v1
+pdf_url: https://arxiv.org/pdf/2603.05495v1.pdf
+status: live
+featured: false
+date: '2026-03-06'
+source: arxiv
+arxivId: 2603.05495v1
+paperUrl: https://arxiv.org/abs/2603.05495v1
+pdfUrl: https://arxiv.org/pdf/2603.05495v1.pdf
+similarityScore: 0.408
+matchedTopics:
+- LLM Agents and Reasoning
+excerpt: To scale the solution of optimization and simulation problems, prior work
+  has explored machine-learning surrogates that inexpensively map problem parameters
+  to corresponding solutions. Commonly used a...
+---
+
+# Cheap Thrills: Effective Amortized Optimization Using Inexpensive Labels
+
+**RSCT Certification:** κ=0.550 (pending) | **RSN:** 0.00/0.00/0.00 | **Topics:** LLM Agents and Reasoning
+
+Cheap Thrills: Effective Amortized Optimization Using Inexpensive Labels - RSCT Analysis
+
+Core Contribution:
+This paper addresses a common challenge in machine learning-based optimization and simulation - the need for high-quality, expensive labels to train accurate surrogate models. The authors propose a novel three-stage framework that first collects "cheap" imperfect labels, then performs supervised pretraining, and finally refines the model through self-supervised learning. This approach aims to achieve fast convergence, improved accuracy, feasibility, and optimality, while reducing the total offline cost significantly compared to existing methods.
+
+The key innovation lies in the insight that labeled data only needs to place the model within a basin of attraction, rather than requiring high-quality labels. By leveraging this observation, the authors develop a theoretically-grounded and empirically-validated strategy that can achieve superior performance using modest amounts of imperfect labels and training epochs.
+
+Technical Approach:
+The authors' three-stage framework consists of the following steps:
+
+1. Collect "cheap" imperfect labels: Rather than relying on expensive, high-quality labels, the method gathers a modest number of inexpensive, potentially noisy labels.
+
+2. Supervised pretraining: The model is first trained in a supervised fashion using the imperfect labels collected in the previous step.
+
+3. Self-supervised refinement: Finally, the model is further refined through self-supervised learning to improve its overall performance.
+
+The theoretical analysis and merit-based criterion developed by the authors show that the labeled data only needs to place the model within a basin of attraction, confirming that only a small number of inexact labels and training epochs are required.
+
+Key Results:
+The authors empirically validate their framework across challenging domains, including nonconvex constrained optimization, power-grid operation, and stiff dynamical systems. Their results demonstrate several key advantages:
+
+- Faster convergence: The proposed approach yields faster convergence compared to existing methods.
+- Improved accuracy, feasibility, and optimality: The refined model achieves better performance in terms of accuracy, feasibility, and optimality.
+- Significant cost reductions: The total offline cost is reduced by up to 59x compared to traditional approaches.
+
+Significance and Limitations:
+The significance of this work lies in its ability to effectively scale the solution of optimization and simulation problems by leveraging inexpensive, imperfect labels. This is a critical challenge in many real-world applications, where obtaining high-quality labels can be prohibitively expensive or time-consuming.
+
+However, the paper's limitations include the need to carefully balance the quality and quantity of the initial "cheap" labels, as well as the potential for the self-supervised refinement stage to introduce additional noise or instability. Additionally, the paper focuses on specific optimization and simulation domains, and its applicability to other problem spaces may require further investigation.
+
+Through the RSCT Lens:
+The proposed three-stage framework in this paper relates to several key RSCT concepts. By leveraging "cheap" imperfect labels, the approach aims to enhance the Relevance (R) of the model's outputs, as it directly addresses the core research questions of optimization and simulation. The self-supervised refinement stage helps to improve the Stability (S) of the model's performance, as it ensures consistency across different contexts and methods.
+
+The paper's κ-gate score of 0.55 indicates that the contributions are not yet fully integrated with existing knowledge, suggesting that additional context or refinement may be needed. The fact that R=0.00, S=0.00, and N=0.00 implies that the paper's core contribution is not yet clearly defined or quantified. While the paper reaches Gate 4 in the RSCT process, it does not pass the κ-gate threshold of 0.7, meaning that it requires further work to become certified as a reliable and compatible contribution.
+
+To improve the paper's RSCT score, the authors could consider the following:
+
+1. Providing a more detailed and quantitative analysis of the model's Relevance (R) in addressing the core research questions.
+2. Demonstrating the Stability (S) of the model's performance across a wider range of contexts and methods, to ensure the consistency of the findings.
+3. Identifying and minimizing any Noise (N) elements, such as irrelevant or contradictory aspects, that may be diluting the core contribution.
+
+By addressing these RSCT-related considerations, the authors can strengthen the paper's integration with existing knowledge and increase its likelihood of passing the κ-gate, ultimately leading to a more impactful and reliable contribution.
+
+## Paper Details
+
+- **Authors:** Khai Nguyen, Petros Ellinas, Anvita Bhagavathula, Priya Donti
+- **Source:** [arXiv](https://arxiv.org/abs/2603.05495v1)
+- **PDF:** [Download](https://arxiv.org/pdf/2603.05495v1.pdf)
+- **Published:** 2026-03-05
+
+---
+
+*This analysis was generated by the Swarm-It RSCT pipeline using Claude.*

@@ -121,8 +121,8 @@ python3 pipeline/run_adk.py \
     --days "$DAYS" \
     --min-score 0.2 \
     --min-rsct-score 0.1 \
-    --topics-dir "$ROOT_DIR/content/topics" \
-    --output-dir "$ROOT_DIR/content/reviews" \
+    --topics-dir "$ROOT_DIR/site/src/content/topics" \
+    --output-dir "$ROOT_DIR/site/src/content/reviews" \
     $DRY_RUN
 
 echo ""

@@ -1,0 +1,28 @@
+{
+  "paper_id": "pubmed:41832626",
+  "title": "Nanozymes: The Emerging Frontier in Catalytic Nanomaterials and Their Therapeutic Applications.",
+  "source": "pubmed",
+  "url": "https://pubmed.ncbi.nlm.nih.gov/41832626/",
+  "abstract": "Artificial nanomaterials known as nanozymes, which possess inherent enzyme-mimetic characteristics, have transformed environmental research, biomedicine, and catalysis. Compared with natural enzymes, nanozymes are advantageous due to their high stability, low cost, and adaptability. They exhibit oxidation, reduction, peroxidation, and superoxide dismutation activities, which are essential for environmental remediation, disease therapy, and biological diagnostics. Recent developments have further broadened their catalytic capabilities. Nanozyme-based biosensors offer high sensitivity and rapid detection of biomarkers for diseases such as cancer, diabetes, and infectious disorders, significantly improving early disease diagnosis. In therapeutics, nanozymes play a critical role in regulating oxidative stress, enabling targeted drug delivery, and supporting antibacterial treatments. Their ability to mimic peroxidase and catalase activities has greatly enhanced photodynamic therapy, immunotherapy, and neuroprotection strategies. Despite these advances, challenges remain in improving catalytic efficiency, biocompatibility, and target specificity. Safe clinical translation requires addressing issues related to immunogenicity, long-term toxicity, and controlled biodegradability. Advances in surface modification, functionalization, and AI-driven nanozyme design have improved selectivity and therapeutic performance. Integrating nanozymes with bioinformatics, artificial intelligence, and nanomedicine has opened new avenues for precision healthcare, including real-time disease monitoring and personalized treatment strategies. This review highlights the transformative impact of nanozymes in industrial and medical applications by examining recent advances, challenges, and future prospects in the field. With continued development, nanozymes have the potential to revolutionize enzyme-based technologies, making them indispensable to modern science and medicine.",
+  "authors": [
+    "Ashish Kumar Parashar",
+    "Anu Hardenia",
+    "Pratibha Bhide",
+    "Sunil Kumar Dwivedi",
+    "Purvi Chaturvedi",
+    "Asraf Khan"
+  ],
+  "published_date": "2026-Mar",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.431742",
+  "scan_date": "2026-03-15",
+  "pdf_url": null,
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

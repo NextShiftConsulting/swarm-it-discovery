@@ -1,0 +1,149 @@
+{
+  "topics": [
+    {
+      "id": "rsct-core",
+      "title": "RSCT Core Theory",
+      "content": "Representation Solver Compatibility Theory RSCT kappa metric neural network decomposition simplex certification verification R S N relevance superfluous noise adversarial purity alpha signal turbulence sigma stability gatekeeper Oobleck Fano inequality information theoretic bound hallucination alignment safety constraint satisfaction multi-agent swarm collective intelligence four gate system integrity consensus admissibility grounding",
+      "keywords": ["representation", "solver", "compatibility", "kappa", "purity", "alpha", "turbulence", "sigma", "certification", "gatekeeper", "simplex", "fano"]
+    },
+    {
+      "id": "ai-safety",
+      "title": "AI Safety and Alignment",
+      "content": "AI safety alignment hallucination detection constraint satisfaction safety verification multi-agent certification trust reliability robustness adversarial attack defense guardrails red teaming evaluation benchmark",
+      "keywords": ["safety", "alignment", "hallucination", "constraint", "verification", "trust", "robustness", "adversarial"]
+    },
+    {
+      "id": "representation-learning",
+      "title": "Representation Learning",
+      "content": "representation learning neural network embeddings feature extraction latent space disentanglement encoder decoder autoencoder variational transformer attention mechanism self-supervised contrastive learning",
+      "keywords": ["representation", "embedding", "latent", "encoder", "transformer", "attention", "contrastive", "self-supervised"]
+    },
+    {
+      "id": "multi-agent",
+      "title": "Multi-Agent Systems",
+      "content": "multi-agent systems swarm intelligence collective behavior coordination cooperation competition game theory mechanism design distributed systems consensus decentralized autonomous agents reinforcement learning",
+      "keywords": ["multi-agent", "swarm", "coordination", "cooperation", "distributed", "consensus", "decentralized", "autonomous"]
+    },
+    {
+      "id": "llm-agents",
+      "title": "LLM Agents and Reasoning",
+      "content": "large language model LLM agent reasoning chain of thought planning tool use function calling retrieval augmented generation RAG prompt engineering instruction following few-shot in-context learning",
+      "keywords": ["llm", "agent", "reasoning", "planning", "tool", "retrieval", "prompt", "instruction"]
+    },
+    {
+      "id": "agentic-coding",
+      "title": "Agentic Coding and AI IDEs",
+      "content": "agentic coding AI pair programming Claude Code Aider Cursor OpenCode Codex agent orchestration parallel execution hooks MCP model context protocol infinite loop two-prompt system autonomous coding software engineering code generation refactoring debugging test generation",
+      "keywords": ["agentic", "coding", "claude-code", "aider", "cursor", "mcp", "autonomous", "pair-programming", "code-generation"],
+      "source": "IndyDevDan"
+    },
+    {
+      "id": "ai-frameworks",
+      "title": "AI Agent Frameworks",
+      "content": "Mastra TypeScript AI framework Transformers v5 LangChain LlamaIndex CrewAI AutoGen agent orchestration workflow automation human-in-the-loop MCP server tool integration RAG pipeline multi-agent coordination supervisor pattern",
+      "keywords": ["mastra", "transformers", "langchain", "llamaindex", "crewai", "autogen", "framework", "orchestration", "workflow"],
+      "source": "Mastra/HuggingFace"
+    },
+    {
+      "id": "crypto-ai-agents",
+      "title": "Crypto and Onchain AI Agents",
+      "content": "crypto AI agents OnchainOS DeFi autonomous trading blockchain wallet agentic wallet x402 protocol stablecoin payments smart contract execution cross-chain liquidity routing decentralized AI verifiable inference onchain audit",
+      "keywords": ["crypto", "onchain", "defi", "blockchain", "wallet", "trading", "decentralized", "verifiable"],
+      "source": "OnchainAIGarage"
+    },
+    {
+      "id": "mixture-of-experts",
+      "title": "Mixture of Experts Architectures",
+      "content": "mixture of experts MoE sparse activation routing expert selection Qwen3.5 MoE OLMo Hybrid Gated Deltanet linear attention hybrid architecture efficient inference conditional computation load balancing expert specialization",
+      "keywords": ["moe", "mixture-of-experts", "sparse", "routing", "expert", "hybrid", "efficient", "gated"],
+      "source": "HuggingFace"
+    },
+    {
+      "id": "vision-language",
+      "title": "Vision-Language Models",
+      "content": "vision language model VLM multimodal document understanding ModernVBert SigLIP visual encoder CLIP image-text retrieval OCR document parsing chart understanding diagram reasoning visual question answering",
+      "keywords": ["vision", "language", "multimodal", "vlm", "document", "image", "visual", "retrieval"],
+      "source": "HuggingFace"
+    },
+    {
+      "id": "speech-audio-ai",
+      "title": "Speech and Audio AI",
+      "content": "speech recognition ASR VibeVoice audio tokenizer acoustic model semantic tokenizer voice-to-text text-to-speech TTS speech synthesis whisper audio language model music generation sound understanding",
+      "keywords": ["speech", "audio", "asr", "tts", "voice", "acoustic", "tokenizer", "whisper"],
+      "source": "HuggingFace"
+    },
+    {
+      "id": "diffusion-models",
+      "title": "Diffusion and Generative Models",
+      "content": "diffusion model denoising score matching DDPM DDIM latent diffusion Stable Diffusion FLUX text-to-image image generation video generation DiT transformer diffusion ControlNet guidance classifier-free",
+      "keywords": ["diffusion", "generative", "denoising", "latent", "stable-diffusion", "flux", "dit", "controlnet"],
+      "source": "3Blue1Brown"
+    },
+    {
+      "id": "energy-based-models",
+      "title": "Energy-Based Transformers",
+      "content": "energy-based model EBM EBT energy-based transformers unnormalized probability gradient descent energy minimization verifier System 2 thinking scalable learning bidirectional attention BERT GPT architecture optimization",
+      "keywords": ["energy-based", "ebt", "ebm", "energy", "minimization", "verifier", "system-2", "optimization"],
+      "source": "YannicKilcher"
+    },
+    {
+      "id": "alignment-safety",
+      "title": "AI Alignment and Model Safety",
+      "content": "alignment faking circuit tracing jailbreak filtering red teaming eval awareness benchmark contamination sandbagging reasoning transparency constitutional AI safety training refusal safe-completion model psychology",
+      "keywords": ["alignment", "safety", "jailbreak", "red-team", "sandbagging", "constitutional", "refusal", "transparency"],
+      "source": "Anthropic"
+    },
+    {
+      "id": "science-acceleration",
+      "title": "AI for Science Acceleration",
+      "content": "science acceleration autonomous lab protein synthesis materials discovery drug discovery scientific reasoning math proof theorem proving physics simulation biology automation literature review knowledge synthesis frontier science",
+      "keywords": ["science", "acceleration", "autonomous-lab", "protein", "materials", "proof", "theorem", "synthesis"],
+      "source": "OpenAI"
+    },
+    {
+      "id": "code-security",
+      "title": "AI Code Security and Vulnerability",
+      "content": "code security vulnerability detection static analysis SAST DAST code review security flaw injection XSS SQL injection buffer overflow secure coding AI-generated code compiler verification formal methods",
+      "keywords": ["security", "vulnerability", "code-review", "injection", "compiler", "verification", "formal-methods"],
+      "source": "Anthropic/OpenAI"
+    },
+    {
+      "id": "ai-labor-economics",
+      "title": "AI Labor Market Impact",
+      "content": "labor market automation job displacement task exposure economic disruption white-collar workers knowledge work productivity augmentation human-AI collaboration workforce transformation occupation exposure index",
+      "keywords": ["labor", "automation", "jobs", "displacement", "productivity", "workforce", "economic"],
+      "source": "Anthropic"
+    },
+    {
+      "id": "neuro-symbolic-reasoning",
+      "title": "Neuro-Symbolic AI and System 3 Reasoning",
+      "content": "neuro-symbolic AI System 3 reasoning logic DAG directed acyclic graph formal verification Lean 4 Prover9 symbolic verification multi-path logical reasoning result-oriented hallucination theorem proving formal logic RLHF reinforcement learning human feedback",
+      "keywords": ["neuro-symbolic", "system-3", "logic-dag", "formal-verification", "lean", "prover9", "theorem-proving"],
+      "source": "@code4AI",
+      "papers": ["Logic Graph Benchmarking: Multi-Path Logical Reasoning via a Neuro-Symbolic Generation and Verification Engine"]
+    },
+    {
+      "id": "vision-language-action",
+      "title": "Vision Language Action Models (VLA)",
+      "content": "vision language action VLA autonomous driving spatial-temporal reasoning geometric foundation model 3D understanding continuous vector space road curvature elevation GRPO group relative policy optimization end-to-end driving world model",
+      "keywords": ["vla", "autonomous-driving", "spatial-temporal", "geometric", "3d", "world-model", "grpo"],
+      "source": "@code4AI",
+      "papers": ["VGT: Visual Geometry Grounded Transformer", "Cosmos World Foundation Model Platform for Physical AI"]
+    },
+    {
+      "id": "graph-reasoning",
+      "title": "Graph-Based LLM Reasoning",
+      "content": "graph reasoning Graph Pile continued pre-training CPT graph theory knowledge graphs social networks chain of thought program of thought trace of execution symbolic graph theory sub-symbolic LLM representations graph problems",
+      "keywords": ["graph", "reasoning", "graph-pile", "cpt", "knowledge-graph", "chain-of-thought", "program-of-thought"],
+      "source": "@code4AI",
+      "papers": ["Improving LLM's Generalized Reasoning Abilities by Graph Problems"]
+    },
+    {
+      "id": "world-models",
+      "title": "World Models and Physical AI",
+      "content": "world model physical AI NVIDIA Cosmos physics simulation dynamics prediction video generation temporal reasoning embodied AI robotics simulation environment model predictive control world foundation model",
+      "keywords": ["world-model", "physical-ai", "cosmos", "physics", "simulation", "robotics", "embodied"],
+      "source": "@code4AI"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "paper_id": "medrxiv:2026.03.07.26347853",
+  "title": "Impact of Image Bit Depth Reduction on Deep Learning Performance in Chest Radiograph Analysis: A Multi-institutional Study",
+  "source": "medrxiv",
+  "url": "https://www.medrxiv.org/content/10.64898/2026.03.07.26347853",
+  "abstract": "PurposeMedical imaging typically generates 12- to 16-bit formats, yet conversion to 8-bit is often required. While deep learning has been widely explored in medical imaging, the influence of image bit depth on model performance is not fully understood. This study evaluates the impact of conversion from 16-bit to 8-bit for sex, age, and obesity classification using deep learning.\n\nMaterials and methodsIn this retrospective, multi-institutional study, we analyzed 100,002 chest radiographs from 48,047 participants across three institutions. Three convolutional neural network architectures (ResNet52, EfficientNetB2, and ConvNeXtSmall) were trained on both 16-bit and 8-bit versions of the images. Model performance was evaluated using internal test datasets, randomly split multiple times, and an external test dataset. Statistical analysis included paired comparisons of area under the receiver operating characteristic curve (AUC-ROC) values, with Bonferroni correction for multiple comparisons.\n\nResultsAcross all architectures and classification tasks, differences between 16-bit and 8-bit model performance were minimal (mean differences ranging from -0.218% to 0.184%). Statistical analyses revealed no significant differences in AUC-ROC values between bit depths for any model-task combination (all p-values > 0.05 after Bonferroni correction). Effect sizes were small to moderate (Cohens d ranging from -0.415 to 0.391).\n\nConclusionReducing image bit depth from 16-bit to 8-bit does not significantly impact the performance of deep learning models in chest radiograph analysis. These findings suggest that 8-bit images can be used for deep learning applications in medical imaging without compromising model performance, potentially allowing for more efficient data storage and processing.",
+  "authors": [
+    "Takita, H.",
+    "Mitsuyama, Y.",
+    "Walston, S. L.",
+    "Saito, K.",
+    "Sugibayashi, T.",
+    "Okamoto, M.",
+    "Suh, C. H.",
+    "Ueda, D."
+  ],
+  "published_date": "2026-03-09",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.411887",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.medrxiv.org/content/10.64898/2026.03.07.26347853.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

@@ -1,0 +1,111 @@
+---
+title: Causal Interpretation of Neural Network Computations with Contribution Decomposition
+arxiv_id: 2603.06557v1
+authors:
+- Joshua Brendan Melander
+- Zaki Alaoui
+- Shenghua Liu
+- Surya Ganguli
+- Stephen A. Baccus
+published_date: '2026-03-06'
+go_live_date: '2026-03-09'
+kappa: 0.549
+R: 0.374
+S: 0.319
+N: 0.307
+rsn_score: 0.37/0.32/0.31
+tags:
+- neural
+- representation-learning
+- cs-lg
+primary_topic: representation-learning
+difficulty: beginner
+abstract: Understanding how neural networks transform inputs into outputs is crucial
+  for interpreting and manipulating their behavior. Most existing approaches analyze
+  internal representations by identifying hidden-layer activation patterns correlated
+  with human-interpretable concepts. Here we take a direct approach to examine how
+  hidden neurons act to drive network outputs. We introduce CODEC (Contribution Decomposition),
+  a method that uses sparse autoencoders to decompose network behavior into sparse
+  motifs of hidden-neuron contributions, revealing causal processes that cannot be
+  determined by analyzing activations alone. Applying CODEC to benchmark image-classification
+  networks, we find that contributions grow in sparsity and dimensionality across
+  layers and, unexpectedly, that they progressively decorrelate positive and negative
+  effects on network outputs. We further show that decomposing contributions into
+  sparse modes enables greater control and interpretation of intermediate layers,
+  supporting both causal manipulations of network output and human-interpretable visualizations
+  of distinct image components that combine to drive that output. Finally, by analyzing
+  state-of-the-art models of neural activity in the vertebrate retina, we demonstrate
+  that CODEC uncovers combinatorial actions of model interneurons and identifies the
+  sources of dynamic receptive fields. Overall, CODEC provides a rich and interpretable
+  framework for understanding how nonlinear computations evolve across hierarchical
+  layers, establishing contribution modes as an informative unit of analysis for mechanistic
+  insights into artificial neural networks.
+tldr: Understanding how neural networks transform inputs into outputs is crucial for
+  interpreting and manipulating their behavior. Most existing approaches analyze internal
+  representations by identifying hi...
+arxiv_url: https://arxiv.org/abs/2603.06557v1
+pdf_url: https://arxiv.org/pdf/2603.06557v1.pdf
+status: live
+featured: false
+date: '2026-03-09'
+source: arxiv
+arxivId: 2603.06557v1
+paperUrl: https://arxiv.org/abs/2603.06557v1
+pdfUrl: https://arxiv.org/pdf/2603.06557v1.pdf
+similarityScore: 0.372
+matchedTopics:
+- representation-learning
+excerpt: Understanding how neural networks transform inputs into outputs is crucial
+  for interpreting and manipulating their behavior. Most existing approaches analyze
+  internal representations by identifying hi...
+---
+
+# Causal Interpretation of Neural Network Computations with Contribution Decomposition
+
+**RSCT Certification:** κ=0.549 (pending) | **RSN:** 0.37/0.32/0.31 | **Topics:** representation-learning
+
+Causal Interpretation of Neural Network Computations with Contribution Decomposition: Unlocking the Black Box
+
+**Core Contribution**
+This paper tackles the critical challenge of interpreting the internal representations and computations of deep neural networks. While existing approaches typically focus on identifying activation patterns correlated with human-interpretable concepts, the authors take a more direct approach by examining how individual hidden neurons contribute to driving network outputs. Their key innovation is the introduction of CODEC (Contribution Decomposition), a method that leverages sparse autoencoders to decompose neural network behavior into sparse "motifs" of hidden-neuron contributions. This novel framework provides a richer and more interpretable understanding of the causal processes underlying non-linear computations in deep networks.
+
+The authors demonstrate the power of CODEC across diverse applications, from image classification to modeling neural activity in the vertebrate retina. By uncovering the combinatorial actions of hidden neurons and identifying the sources of dynamic receptive fields, CODEC offers unprecedented insights into the inner workings of both artificial and biological neural networks.
+
+**Technical Approach**
+At the heart of CODEC is the idea of decomposing network computations into sparse contributions from individual hidden neurons. The authors achieve this by training a sparse autoencoder that learns to reconstruct the network's output from a sparse, compressed representation of the hidden-neuron contributions.
+
+Specifically, CODEC works as follows: First, it computes the contribution of each hidden neuron to the network's output by performing a sensitivity analysis, measuring how much the output changes when perturbing the activation of that neuron. These neuron-level contributions are then fed into a sparse autoencoder, which learns a compressed, sparse representation of the contribution patterns. This sparse "motif" representation captures the combinatorial effects of hidden neurons in a way that cannot be determined by analyzing activations alone.
+
+The authors demonstrate the flexibility of CODEC by applying it to various network architectures, from convolutional networks for image classification to recurrent models of neural activity in the retina. The sparse autoencoder's ability to identify low-dimensional, interpretable modes of contribution is a key feature that enables both causal manipulations of network outputs and human-friendly visualizations of the distinct image components driving a particular classification.
+
+**Key Results**
+The authors' empirical findings offer remarkable insights into the inner workings of neural networks. Applying CODEC to benchmark image classification models, they observe that the contributions of hidden neurons become increasingly sparse and decorrelated across layers. This suggests a progressive "sparsification" and "decorrelation" of the causal processes underlying network computations.
+
+Furthermore, by analyzing state-of-the-art models of the vertebrate retina, CODEC uncovers the combinatorial actions of model interneurons and identifies the sources of dynamic receptive fields. These findings demonstrate CODEC's ability to provide mechanistic insights into both artificial and biological neural networks.
+
+**Significance and Limitations**
+The significance of this work lies in its ability to open the "black box" of neural networks, moving beyond surface-level observations of activations to unveil the causal mechanisms driving network computations. By introducing contribution modes as a new unit of analysis, CODEC establishes a rich and interpretable framework for understanding the evolution of non-linear computations across hierarchical layers.
+
+However, the authors acknowledge that CODEC's current implementation is limited to small-scale networks and relatively simple tasks. Scaling the approach to larger, more complex models and real-world applications remains an important challenge for future research.
+
+**Through the RSCT Lens**
+CODEC's contribution aligns closely with the key principles of Representation-Space Compatibility Theory (RSCT). By decomposing network computations into sparse, interpretable motifs of hidden-neuron contributions, CODEC directly addresses the challenge of enhancing the Relevance (R) and Stability (S) of neural network representations.
+
+The authors' observation that contributions become increasingly sparse and decorrelated across layers suggests a progression towards more compact and disentangled representations, which is crucial for improving Relevance. Additionally, the consistent findings across different network architectures and applications point to the Stability of CODEC's decomposition approach.
+
+The paper's RSCT certification metrics provide further insights. The κ-gate score of 0.549 indicates that, while the work is valuable, it would benefit from additional context to fully integrate with existing knowledge. The Relevance (R=0.374), Stability (S=0.319), and Noise (N=0.307) scores suggest that the core contribution is moderately strong, but there are still some elements of inconsistency or irrelevance that could be addressed.
+
+The fact that CODEC reaches Gate 4 but does not pass the κ-gate (≥0.7) indicates that this work is a promising step towards more interpretable neural network representations, but may require further refinement or supplementary research to fully achieve RSCT certification. Potential avenues for improvement could include enhancing the stability of the sparse contribution modes or reducing the noise introduced by the autoencoder's compression.
+
+Overall, CODEC's ability to uncover the causal mechanisms driving network computations represents a significant advancement in our understanding of neural networks, and aligns closely with RSCT's emphasis on improving the Relevance, Stability, and Noise properties of learned representations.
+
+## Paper Details
+
+- **Authors:** Joshua Brendan Melander, Zaki Alaoui, Shenghua Liu, Surya Ganguli, Stephen A. Baccus
+- **Source:** [arXiv](https://arxiv.org/abs/2603.06557v1)
+- **PDF:** [Download](https://arxiv.org/pdf/2603.06557v1.pdf)
+- **Published:** 2026-03-06
+
+---
+
+*This analysis was generated by the Swarm-It RSCT pipeline using Claude.*

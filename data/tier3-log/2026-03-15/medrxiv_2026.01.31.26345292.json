@@ -1,0 +1,27 @@
+{
+  "paper_id": "medrxiv:2026.01.31.26345292",
+  "title": "Modelling the impact of climate variability on the effectiveness of seasonal indoor residual spraying",
+  "source": "medrxiv",
+  "url": "https://www.medrxiv.org/content/10.64898/2026.01.31.26345292",
+  "abstract": "Malaria transmission is strongly modulated by climate, yet most mechanistic models used for health policy evaluation do not explicitly account for climate-driven variability in mosquito dynamics. Here, we present a novel modelling framework that couples VECTRI, a climate-sensitive model for malaria, with OpenMalaria, a detailed individual-based model of malaria epidemiology and intervention impact. This integrated approach enables simulation of transmission processes that respond to interannual climate fluctuations while retaining the capacity to evaluate realistic intervention strategies.\n\nWe apply this framework to Mozambique, a high-burden country for malaria, with pronounced climatic seasonality and extensive routine surveillance data. Using district-level incidence time series from the ten highest-incidence districts, we validate the modelling framework and compare its performance with the standalone versions of VECTRI and OpenMalaria. The joint modelling framework reproduces malaria seasonality more accurately than the two single models, with improved timing of incidence peaks in 7 out of 10 districts and a closer representation of evolution of transmission throughout the season, as measured by the seasonality index, in 7 out of 10 districts.\n\nWe then use the coupled system to assess how climate-driven interannual variability affects the predicted effectiveness of indoor residual spraying, a key seasonal malaria control intervention in Mozambique. Integrating climate-driven interannual variability into OpenMalaria substantially impacts the modeled effectiveness of indoor residual spraying. The joint modelling framework increases the estimated protective effectiveness of indoor residual spraying in reducing incidence by up to 11% and delayed the optimal deployment window by two weeks.\n\nOur results demonstrate that climate-informed mechanistic models can meaningfully alter estimates of intervention impact and improve the realism of malaria predictions. The joint",
+  "authors": [
+    "Martin-Makowka, A.",
+    "Munday, J. D.",
+    "Tompkins, A. M.",
+    "Caminade, C.",
+    "Chitnis, N."
+  ],
+  "published_date": "2026-03-09",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.409504",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.medrxiv.org/content/10.64898/2026.01.31.26345292.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

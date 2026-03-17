@@ -16,7 +16,7 @@ from publisher.mdx_generator import MDXGenerator, PaperData
 def generate_sample_papers():
     """Generate 3 sample papers with mock RSCT data."""
 
-    generator = MDXGenerator(output_dir="content/reviews")
+    generator = MDXGenerator(output_dir="site/src/content/reviews")
 
     # Sample paper 1: High quality (kappa=0.92)
     paper1 = PaperData(

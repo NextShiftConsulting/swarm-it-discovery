@@ -1,0 +1,31 @@
+{
+  "paper_id": "biorxiv:2025.03.13.643180",
+  "title": "Disrupting FOXO4 function confers neuroprotection against oxidative stress and ischemia-reperfusion-caused neuronal injury",
+  "source": "biorxiv",
+  "url": "https://www.biorxiv.org/content/10.1101/2025.03.13.643180",
+  "abstract": "Previous data suggest that FOXO4 facilitates inflammation and oxidative stress in non-brain tissues under stress or disease conditions, indicating that blocking FOXO4 function may be neuroprotective in ischemia-reperfusion-induced brain injury. However, this possibility has not been tested in a cerebral ischemia-reperfusion condition. Here, we treated the FOXO4 knockout (KO) primary neuronal cultures with oxidative stress or oxygen-glucose deprivation (OGD) or subjected the KO mice to the transient middle cerebral artery occlusion (tMCAO). Our results showed that KO of FOXO4 reduced oxidative stress and OGD-induced neuronal death, attenuated tMCAO-caused infarct volume, improved animal survival, decreased neurological deficits, and enhanced functional recovery compared to the WT cells or mice. Immunohistochemical staining and Western blot analysis suggested decreased neuroinflammation in the KO brain. These data indicate that FOXO4 is a therapeutic target, and disrupting its activity promotes neuronal survival following ischemic stroke-induced brain injury.",
+  "authors": [
+    "Asadi, Y.",
+    "Gorjipour, F.",
+    "Moundounga, R. K.",
+    "Dwamena, A.",
+    "Potokiri, A.",
+    "Gilstrap, E.",
+    "Li, X.",
+    "McDowell, C.",
+    "Wang, H."
+  ],
+  "published_date": "2026-03-11",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.392363",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.biorxiv.org/content/10.1101/2025.03.13.643180.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

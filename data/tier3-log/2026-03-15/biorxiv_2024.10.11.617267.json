@@ -1,0 +1,28 @@
+{
+  "paper_id": "biorxiv:2024.10.11.617267",
+  "title": "Privacy-Preserving Visualization of Brain Functional Connectivity",
+  "source": "biorxiv",
+  "url": "https://www.biorxiv.org/content/10.1101/2024.10.11.617267",
+  "abstract": "Data visualizations are an integral part of neuroimging research, supporting activities ranging from exploratory data analysis to the interpretation and communication of findings. While essential, visualizations can also reveal private information about individual participants. In this paper, we discuss how visualizations may inadvertently lead to privacy leakage and explore methods to mitigate such risks. Our work investigates ways to securely share visualizations that faithfully preserve the patterns supporting the derived insights from data analysis, rather than deriving conclusions from the visualizations themselves. We address the problem of privacy-preserving visualization under the framework of differential privacy, focusing on commonly used visualization methods for functional network connectivity. Several perturbation-based strategies are investigated for protecting correlationrelated measures, with analyses of their privacy costs and the effects of pre- and post-processing. To achieve a better balance between privacy and visual utility, we propose workflows for connectogram and seed-based connectivity visualizations that preserve the qualitative structure of non-private results. Overall, this work illustrates how differential privacy can be effectively applied to neuroimaging visualization, highlighting its potential as a principled approach for safeguarding sensitive information.",
+  "authors": [
+    "Tao, Y.",
+    "Sarwate, A. D.",
+    "Panta, S.",
+    "Turner, J.",
+    "Plis, S.",
+    "Calhoun, V."
+  ],
+  "published_date": "2026-03-10",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.386671",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.biorxiv.org/content/10.1101/2024.10.11.617267.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

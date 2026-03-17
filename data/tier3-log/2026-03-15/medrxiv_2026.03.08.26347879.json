@@ -1,0 +1,27 @@
+{
+  "paper_id": "medrxiv:2026.03.08.26347879",
+  "title": "Validation of Pressure-Strain Loops for Non-Invasive Assessment of Ventriculo-Arterial Coupling",
+  "source": "medrxiv",
+  "url": "https://www.medrxiv.org/content/10.64898/2026.03.08.26347879",
+  "abstract": "Background and ObjectivesLeft ventricular pressure-strain loop (LV-PSL) analysis provides noninvasive myocardial work indices that may reflect ventricular-arterial (VA) coupling, but their behavior under controlled physiologic stressors is incompletely defined. We aimed to characterize directional changes in LV-PSL, derived indices during standardized interventions predominantly affecting preload, afterload, or contractility in healthy adults.\n\nMethodsIn this prospective, within-subject repeated-measures study, 61 healthy volunteers underwent interventions designed to elicit domain-specific hemodynamic perturbations. Group 1 (n=31) performed isotonic exercise (contractility-dominant). Group 2 (n=30) performed isometric handgrip (afterload-increasing) and passive leg raising (PLR; preload augmentation with concurrent afterload change). LV-PSL indices were assessed at baseline and during each intervention. Six co-primary endpoints were prespecified: Global Work Index (GWI), peak systolic strain, strain range, systolic strain rate (SSR), arterial elastance (Ea), and end-systolic pressure (ESP). Within-subject changes were analyzed using paired tests with multiplicity adjustment and determined effect sizes. Reproducibility was evaluated using intraclass correlation coefficients (ICC).\n\nResultsLV-PSL responses were directionally consistent with established pressure-volume physiology. Isotonic exercise produced large increases in contractility-sensitive indices, including GWI (dz=1.03), peak systolic strain (dz=0.88), strain range (dz=1.10), SSR (dz=1.29), and ESP (r=1.26), all adjusted p<0.001, while Ea remained unchanged. In contrast, isometric handgrip and PLR elicited afterload-dominant responses, with significant increases in ESP (dz=1.11 and 1.21, respectively; adjusted p<0.001) and Ea (dz=0.79 and 0.77; adjusted p[&le;]0.001), without significant changes in GWI or strain-derived indices after adjustment. Intraobserver reproducibility was good-to-excellent (ICC 0.86",
+  "authors": [
+    "Mendes, L. L.",
+    "Colaco, J. P.",
+    "Pereira, J. M. S.",
+    "Santos, J. P. F.",
+    "Timoteo, A. T."
+  ],
+  "published_date": "2026-03-09",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.418741",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.medrxiv.org/content/10.64898/2026.03.08.26347879.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

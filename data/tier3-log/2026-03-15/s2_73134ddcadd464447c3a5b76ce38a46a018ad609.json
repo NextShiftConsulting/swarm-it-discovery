@@ -1,0 +1,24 @@
+{
+  "paper_id": "s2:73134ddcadd464447c3a5b76ce38a46a018ad609",
+  "title": "Enhancing Anomaly Detection in Wireless Sensor Networks: A Review of Machine Learning and Neural Network-Based Approaches",
+  "source": "semantic_scholar",
+  "url": "https://www.semanticscholar.org/paper/73134ddcadd464447c3a5b76ce38a46a018ad609",
+  "abstract": "Cyber-physical systems depend on wireless sensor networks to gather real-time data and make well-informed decisions. Applications such as intelligent automation, environmental monitoring, and smart city infrastructure make extensive use of them. Anomaly detection is highly challenging within them due to limited computing power, high vulnerability to network attacks and ecological anomalies, and simple sensor failures. The classic approach to centralized anomaly detection is not suitable for the distributed, real-time architecture of wireless sensor networks because it consumes enormous energy and is complex. This paper uses the Preferred Reporting Items for Systematic reviews and Meta-Analyses (PRISMA) framework for a literature review. The review zeroes in on methodologies for anomaly detection using artificial intelligence in the Internet of Things (AI-IoT) and, in particular, focuses on neural networks and Extreme Learning Machine (ELM)- based Anomaly Detection (ELM-AD) models. To do this, we located and reviewed publications from 2013 to 2024 using the SCOPUS database. The results show that, unlike traditional neural networks, ELM-based methods perform effectively in time-sensitive environments. However, conventional neural networks used for anomaly detection typically achieve higher detection and classification success rates due to the complexity of the data and the time required for the networks to process it.",
+  "authors": [
+    "Aravam Babu",
+    "A. Bagubali"
+  ],
+  "published_date": "",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.375384",
+  "scan_date": "2026-03-15",
+  "pdf_url": "",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

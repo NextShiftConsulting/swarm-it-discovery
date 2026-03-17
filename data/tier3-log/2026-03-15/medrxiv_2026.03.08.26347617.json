@@ -1,0 +1,32 @@
+{
+  "paper_id": "medrxiv:2026.03.08.26347617",
+  "title": "Smartphone video-based estimates of the knee extension moment during chair rise relate to MRI measures of muscle function",
+  "source": "medrxiv",
+  "url": "https://www.medrxiv.org/content/10.64898/2026.03.08.26347617",
+  "abstract": "BackgroundPreserving muscle function is essential for maintaining independence during aging, but muscle force-generating capacity is not commonly measured clinically due to a lack of accessible, sensitive tools. Magnetic resonance imaging (MRI) provides gold-standard measures of muscle volume and microstructure, which reflect force-generating capacity, while dynamometry quantifies peak joint moments during voluntary contraction. Both modalities are time-consuming and costly, so clinical and large-scale studies often rely on low-fidelity measures such as the time to complete the five times sit-to-stand test (5xSTS). OpenCap, a tool for quantifying musculoskeletal dynamics from smartphone videos, may provide an accessible and more informative approach to assessing muscle function. We evaluated whether OpenCap-derived knee extension moments during chair rise relate to MRI-based measures of quadriceps muscle volume and microstructure, using dynamometry as a comparator.\n\nMethodsNineteen healthy adults of various ages (63.2% female, 57.8 {+/-} 15.4 y, 30-78 y) underwent quadriceps MRI, dynamometry, and 5xSTS time with concurrent OpenCap data collection. Using MRI, we computed quadriceps volume and radial diffusivity (a measure related to fiber size). We standardized these features and summed to create a composite MRI score, reflecting muscle quantity and quality. We estimated peak knee extension moment using OpenCap during chair rise and via both isometric and isokinetic dynamometry. We compared OpenCap kinematics (torso angle) and dynamics (knee moment), 5xSTS time, and dynamometry to MRI measures of muscle function using linear regression; false discovery rate was controlled using the Benjamini-Hochberg procedure.\n\nResultsThe OpenCap-derived knee extension moment was associated with quadriceps muscle volume (r=0.63, p=0.014) and radial diffusivity (r=0.61, p=0.016). Peak knee extension moments measured by both isometric and isokinetic dynamometry were correlated with mu",
+  "authors": [
+    "Magruder, R. D.",
+    "Hall, M.",
+    "Vainberg, Y.",
+    "Asay, J. L.",
+    "Kogan, F.",
+    "Hicks, J. L.",
+    "Gold, G. E.",
+    "Delp, S. L.",
+    "Uhlrich, S. D.",
+    "Mazzoli, V."
+  ],
+  "published_date": "2026-03-09",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.416524",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.medrxiv.org/content/10.64898/2026.03.08.26347617.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

@@ -1,0 +1,30 @@
+{
+  "paper_id": "arxiv:2603.12248v1",
+  "title": "Matching Features, Not Tokens: Energy-Based Fine-Tuning of Language Models",
+  "source": "arxiv",
+  "url": "https://arxiv.org/abs/2603.12248v1",
+  "abstract": "Cross-entropy (CE) training provides dense and scalable supervision for language models, but it optimizes next-token prediction under teacher forcing rather than sequence-level behavior under model rollouts. We introduce a feature-matching objective for language-model fine-tuning that targets sequence-level statistics of the completion distribution, providing dense semantic feedback without requiring a task-specific verifier or preference model. To optimize this objective efficiently, we propose energy-based fine-tuning (EBFT), which uses strided block-parallel sampling to generate multiple rollouts from nested prefixes concurrently, batches feature extraction over these rollouts, and uses the resulting embeddings to perform an on-policy policy-gradient update. We present a theoretical perspective connecting EBFT to KL-regularized feature-matching and energy-based modeling. Empirically, across Q&A coding, unstructured coding, and translation, EBFT matches RLVR and outperforms SFT on downstream accuracy while achieving a lower validation cross-entropy than both methods.",
+  "authors": [
+    "Samy Jelassi",
+    "Mujin Kwun",
+    "Rosie Zhao",
+    "Yuanzhi Li",
+    "Nicolo Fusi",
+    "Yilun Du",
+    "Sham M. Kakade",
+    "Carles Domingo-Enrich"
+  ],
+  "published_date": "2026-03-12",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.371419",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://arxiv.org/pdf/2603.12248v1.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

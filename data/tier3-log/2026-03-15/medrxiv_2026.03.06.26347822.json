@@ -1,0 +1,30 @@
+{
+  "paper_id": "medrxiv:2026.03.06.26347822",
+  "title": "Predictors of COVID-19 hospital outcomes: a machine learning analysis of the National COVID Cohort Collaborative",
+  "source": "medrxiv",
+  "url": "https://www.medrxiv.org/content/10.64898/2026.03.06.26347822",
+  "abstract": "Predicting hospital outcomes for patients with severe acute respiratory infections is critical for risk stratification and resource planning, yet heterogeneous electronic health record (EHR) data, class imbalance, and evolving clinical practice present persistent methodological challenges for machine learning (ML) approaches.\n\nWe conducted a retrospective cohort study using EHR data harmonized to the OMOP common data model from the National COVID Cohort Collaborative (N3C; May 2020-June 2025), including 263,619 adults hospitalized with COVID-19 across 51 contributing sites. We developed penalized linear regression (elastic net), random forest, XGBoost, and multilayer perceptron (MLP) models to predict hospital length of stay (LOS) and mortality (in-hospital and 60-day), using demographics, comorbidities, prior healthcare utilization, COVID-19 vaccination status, and hospital site as predictors. Missing data were handled via multiple imputation by chained equations (MICE) and class imbalance was addressed using SMOTE. Model performance was evaluated using area under the ROC curve (AUROC), Brier score, calibration plots, and decision curve analysis, following the TRIPOD reporting framework.\n\nMortality prediction achieved moderate discrimination across all models (test AUROC = 0.71-0.73 for in-hospital mortality; 0.72-0.73 for 60-day all-cause mortality). Models trained without SMOTE achieved the highest AUROCs but assigned virtually no patients to the mortality class at the default 0.5 threshold. SMOTE improved recall and F-1 score at the cost of reduced AUROC and precision. LOS was poorly explained by available structured predictors (best R2 = 0.059). Remdesivir-treated patients (n = 103,536; 39.3%) were older, had higher comorbidity burden, and had higher unadjusted mortality than untreated patients.\n\nCommon structured EHR features offer moderate utility for mortality risk stratification in hospitalized COVID-19 patients but are insufficient for LOS prediction. The ",
+  "authors": [
+    "Vazquez, J.",
+    "Taylor, L.",
+    "Chen, Y.-Y. K.",
+    "Araya, K.",
+    "Farnsworth, M. G.",
+    "Xue, X.",
+    "Hasan, M.",
+    "N3C Consortium,  "
+  ],
+  "published_date": "2026-03-09",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.405532",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.medrxiv.org/content/10.64898/2026.03.06.26347822.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

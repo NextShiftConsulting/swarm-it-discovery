@@ -1,0 +1,32 @@
+{
+  "paper_id": "biorxiv:2025.03.16.643569",
+  "title": "Fast in vivo deep-tissue 3D imaging with selective-illumination NIR-II light-field microscopy and aberration-corrected implicit neural representation",
+  "source": "biorxiv",
+  "url": "https://www.biorxiv.org/content/10.1101/2025.03.16.643569",
+  "abstract": "Near-infrared II (NIR-II) microscopy, which enables in vivo deep-tissue visualization of vasculature and cell activities, has been a promising tool for understanding physiological mechanisms. However, the volumetric image speed of the current NIR-II microscopy is hindered by scanning strategy, causing limitations for observing instantaneous biological dynamics in 3D space. Here, we developed a NIR-II light-field microscopy (LFM) based on selective illumination and self-supervised implicit neural representation (INR)-reconstruction, which allows ultra-fast 3D imaging (20 volumes/s) in deep tissue. Through integrating INR with view-wise aberration correction, our strategy could conquer the artifacts induced by the angular subsampling and refractive index variation problems, achieving single-cell resolution at a reconstruction volume of 550 m diameter and 200 m thickness. The volumetric selective illumination overcomes the influence of out-of-focus background on reconstruction, together with the low scattering advantage of NIR-II wavelength, extending the imaging depth to 600 m. The developed aberration-corrected implicit neural representation reconstruction (AIR) NIR-II LFM showcases its capability by monitoring hemodynamics of mouse brain under norepinephrine and flow redistribution of ischemic stroke in 3D vasoganglion, as well as noninvasively tracking immune cell activities inside subcutaneous solid tumor through intact skin. This approach represents a significant advancement in 3D in vivo imaging, holding great potential in both biomedical research and preclinical studies.",
+  "authors": [
+    "Fei, P.",
+    "Zhong, F.",
+    "Li, X.",
+    "He, M.",
+    "Huang, Y.",
+    "Yi, C.",
+    "Mao, S.",
+    "Huang, X.",
+    "Ren, K.",
+    "Kang, M."
+  ],
+  "published_date": "2026-03-14",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.393888",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.biorxiv.org/content/10.1101/2025.03.16.643569.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

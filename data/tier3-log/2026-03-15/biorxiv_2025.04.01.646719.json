@@ -1,0 +1,32 @@
+{
+  "paper_id": "biorxiv:2025.04.01.646719",
+  "title": "Fleming: An AI Agent for Antibiotic Discovery in Mycobacterium Tuberculosis",
+  "source": "biorxiv",
+  "url": "https://www.biorxiv.org/content/10.1101/2025.04.01.646719",
+  "abstract": "Antibiotic development is challenged by high costs and failure rates. Artificial intelligence (AI) holds promise to overcome these challenges by predicting inhibitory properties of novel compounds, generating new candidates, and contextualizing property predictions in the biological background. Fleming is an integrative AI agent that explores novel chemical space to identify lead compounds meeting multiple criteria. The discriminative and generative AI models for Mycobacterium tuberculosis (Mtb) inhibition were trained on a set of 114,900 diverse compounds and fragments based on in vitro growth inhibition. We combined both models as well as molecular optimization, ADMET prediction and literature search functions to make Fleming an integrated agent for Mtb preclinical lead identification. Fleming has 17% higher discrimination between known Mtb leads and leads for other diseases than a generic LLM agent along with 13% higher discrimination than molecular property prediction alone on challenging ADMET tasks. Fleming demonstrates an 83% in vitro hit rate of predicted inhibition and a 100% hit rate of de novo generative design. Flemings generative designs also demonstrate an 83% rate of favorable ADMET profiles. Fleming is an integrative AI agent able to explore new regions of the chemical space to select lead compounds that simultaneously meet several desirable criteria.",
+  "authors": [
+    "Wei, Z.",
+    "Ektefaie, Y.",
+    "Zhou, A.",
+    "Negatu, D.",
+    "Aldridge, B. B.",
+    "Dick, T. B.",
+    "Skarlinski, M.",
+    "White, A.",
+    "Rodriques, S. G.",
+    "Hosseiniporgham, S."
+  ],
+  "published_date": "2026-03-12",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.396137",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.biorxiv.org/content/10.1101/2025.04.01.646719.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

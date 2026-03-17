@@ -1,0 +1,113 @@
+---
+title: 'Agent Role Structure and Operating Characteristics in Large Language Model
+  Clinical Classification: A Comparative Study of Specialist and Deliberative Multi-Agent
+  Protocols'
+arxiv_id: medrxiv:2026.02.22.26346818
+authors:
+- Anderson, C. G.
+published_date: '2026-03-05'
+go_live_date: '2026-03-06'
+kappa: 0.55
+R: 0.375
+S: 0.319
+N: 0.306
+rsn_score: 0.38/0.32/0.31
+tags:
+- ai-safety
+- agent
+- health informatics
+- llm-agents
+primary_topic: llm-agents
+difficulty: beginner
+abstract: 'Large language models (LLMs) are increasingly deployed in structured clinical
+  decision support, yet the architectural effects of internal role decomposition within
+  multi-agent systems remain poorly isolated. Prior comparisons of single-agent and
+  multi-agent prompting frequently confound workflow structure with changes in model
+  configuration, training, or decoding. We present a controlled architectural study
+  of role-structured inference under fixed model parameters, isolating internal role
+  decomposition as the sole manipulated variable. Two deterministic multi-agent protocols,
+  Generic Deliberative (GD) and Feature-Specialist (FS), are evaluated under identical
+  base weights, decoding settings, computational budget, and adjudication logic. Across
+  two tabular clinical benchmarks (UCI Cleveland Heart Disease and Pima Indians Diabetes),
+  altering role structure alone systematically reshapes operating characteristics.
+  On Cleveland, FS improves accuracy by 0.07 and macro-F1 by 0.06 relative to GD,
+  while shifting the operating point toward higher specificity (+0.22) and lower sensitivity
+  (-0.13), substantially reducing false positives. On Pima, architectural effects
+  reverse direction: GD achieves the strongest macro performance (accuracy 0.68, macro-F1
+  0.64), whereas FS induces pronounced class asymmetry (recall 0.95 for the positive
+  class and 0.27 for the negative class). These findings demonstrate that internal
+  role decomposition functions as a structured inductive bias that can materially
+  alter error distributions without modifying model parameters. Multi-agent prompt
+  architecture should therefore be treated as an explicit mechanism for controlling
+  sensitivity-specificity trade-offs in safety-sensitive LLM decision systems.'
+tldr: Large language models (LLMs) are increasingly deployed in structured clinical
+  decision support, yet the architectural effects of internal role decomposition within
+  multi-agent systems remain poorly is...
+arxiv_url: https://www.medrxiv.org/content/10.64898/2026.02.22.26346818
+pdf_url: https://www.medrxiv.org/content/10.64898/2026.02.22.26346818.full.pdf
+status: live
+featured: false
+date: '2026-03-06'
+source: medrxiv
+paperUrl: https://www.medrxiv.org/content/10.64898/2026.02.22.26346818
+pdfUrl: https://www.medrxiv.org/content/10.64898/2026.02.22.26346818.full.pdf
+similarityScore: 0.277
+matchedTopics:
+- llm-agents
+- ai-safety
+excerpt: Large language models (LLMs) are increasingly deployed in structured clinical
+  decision support, yet the architectural effects of internal role decomposition within
+  multi-agent systems remain poorly is...
+---
+
+# Agent Role Structure and Operating Characteristics in Large Language Model Clinical Classification: A Comparative Study of Specialist and Deliberative Multi-Agent Protocols
+
+**RSCT Certification:** κ=0.550 (pending) | **RSN:** 0.38/0.32/0.31 | **Topics:** llm-agents
+
+Agent Role Structure and Operating Characteristics in Large Language Model Clinical Classification: A Comparative Study of Specialist and Deliberative Multi-Agent Protocols
+
+Core Contribution:
+This paper addresses a critical challenge in applying large language models (LLMs) to structured clinical decision support tasks. While LLMs show great promise, their monolithic architecture can lead to suboptimal performance tradeoffs, such as high false positive rates. The key innovation of this work is to investigate how internal role decomposition within multi-agent LLM architectures can systematically reshape these operating characteristics.
+
+The authors present a controlled comparative study of two multi-agent prompting protocols - Generic Deliberative (GD) and Feature-Specialist (FS) - and evaluate their performance on two clinical classification benchmarks. By isolating role structure as the sole manipulated variable, they demonstrate that this architectural choice can materially alter error distributions without changing the underlying model parameters. This finding has important implications for safety-sensitive applications, where selective performance tuning is crucial.
+
+Technical Approach:
+The paper examines two multi-agent LLM architectures: 
+1) Generic Deliberative (GD): A single "deliberative" agent integrates input features to produce a classification.
+2) Feature-Specialist (FS): Multiple "specialist" agents each focus on a subset of input features, with a final "integrator" agent combining their outputs.
+
+Both protocols use the same base LLM, decoding settings, computational budget, and adjudication logic. The only difference is in the internal role decomposition - GD has a single integrated agent, while FS partitions the task across multiple specialized agents.
+
+The authors evaluate these architectures on two tabular clinical datasets: UCI Cleveland Heart Disease and Pima Indians Diabetes. They compare accuracy, macro-F1, and the sensitivity-specificity operating points produced by the two multi-agent approaches.
+
+Key Results:
+On the Cleveland dataset, the FS protocol improved accuracy by 0.07 and macro-F1 by 0.06 relative to GD. Crucially, it also shifted the operating point substantially, increasing specificity by 0.22 while reducing sensitivity by 0.13. This indicates a significant reduction in false positives, a critical performance characteristic for clinical applications.
+
+In contrast, on the Pima dataset, the architectural effects reversed - the GD protocol achieved the strongest macro performance, while FS induced pronounced class imbalance, with recall of 0.95 for the positive class but only 0.27 for the negative class.
+
+These findings demonstrate that internal role decomposition functions as a structured inductive bias that can materially alter error distributions without modifying model parameters. The direction and magnitude of these effects are highly dataset-dependent, highlighting the importance of evaluating multi-agent architectures in context.
+
+Significance & Limitations:
+This work makes an important contribution by isolating the effects of role structure as a key lever for controlling the operating characteristics of LLM-based clinical decision support systems. In safety-sensitive domains, the ability to selectively tune sensitivity and specificity is crucial, and the authors show that multi-agent architectures provide a powerful mechanism for doing so.
+
+A key limitation is the exclusive focus on tabular clinical datasets. While these are important benchmarks, the findings may not generalize to more complex, unstructured medical data or other safety-critical domains beyond healthcare. Further research is needed to explore the broader applicability of these multi-agent role-decomposition strategies.
+
+Through the RSCT Lens:
+This paper's approach relates closely to the RSCT concepts of Representation (R) and Noise (N). By decomposing the LLM into specialized agents, the authors effectively improve the quality of the internal representations (R) - each agent focuses on a more targeted subset of input features, enhancing the signal-to-noise ratio.
+
+However, the paper's RSCT compatibility score of κ=0.55 suggests that, while the work is highly relevant, there are still some gaps in integrating it with existing knowledge. The relatively balanced R, S, and N scores (R=0.38, S=0.32, N=0.31) indicate that the core contribution is not overly weighted toward any single RSCT dimension.
+
+The fact that the paper reaches Gate 4 but doesn't pass the κ-gate (κ &lt; 0.7) suggests that additional context may be needed to fully appreciate the significance of this work within the RSCT framework. Perhaps a more thorough discussion of how these multi-agent role structures relate to broader principles of representation learning and noise reduction would help solidify the connection.
+
+Ultimately, this paper provides a valuable demonstration of how RSCT concepts can be applied to analyze the architectural choices in LLM-based decision support systems. The insights around using role decomposition to control sensitivity-specificity tradeoffs are an important contribution that can inform the design of future safety-critical applications.
+
+## Paper Details
+
+- **Authors:** Anderson, C. G.
+- **Source:** [arXiv](https://www.medrxiv.org/content/10.64898/2026.02.22.26346818)
+- **PDF:** [Download](https://www.medrxiv.org/content/10.64898/2026.02.22.26346818.full.pdf)
+- **Published:** 2026-03-05
+
+---
+
+*This analysis was generated by the Swarm-It RSCT pipeline using Claude.*

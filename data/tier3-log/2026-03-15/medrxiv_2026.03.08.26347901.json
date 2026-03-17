@@ -1,0 +1,25 @@
+{
+  "paper_id": "medrxiv:2026.03.08.26347901",
+  "title": "Condition-Specific Readmission Risk Stratification in a Predominantly Black Statewide Cohort Using Machine Learning: Development of Subtype-Specific Models for Heart Failure, Acute Myocardial Infarction, Atrial Fibrillation/Flutter, and Hypertensive Heart Disease",
+  "source": "medrxiv",
+  "url": "https://www.medrxiv.org/content/10.64898/2026.03.08.26347901",
+  "abstract": "BackgroundCardiovascular disease (CVD) readmissions impose substantial clinical and economic burden. Machine learning (ML) may improve risk stratification, yet most predictive models aggregate CVD subtypes into a single outcome and underrepresent Black populations.\n\nMethodsUsing Virginia Health Information database records (2010 to 2020), we analyzed 157,791 discharge records from 123,272 unique patients (96.6% Black) to develop condition-specific 30-day readmission models for heart failure (HF; n=91,752), acute myocardial infarction (AMI; n=34,497), atrial fibrillation/flutter (AF/AFL; n=18,424), and hypertensive heart disease (HHD; n=13,118). Four algorithms (XGBoost, LightGBM, Random Forest, Elastic Net) plus a Super Learner ensemble were trained on patient-grouped 70/30 splits with and without Synthetic Minority Oversampling Technique balancing. Models incorporated validated clinical indices (LACE, Charlson, Elixhauser) and administrative social determinants of health proxies.\n\nResultsThe overall 30-day readmission rate was 18.9%. Best area under the receiver operating characteristic curve (AUC) values by condition were HF 0.708 (95% CI, 0.701 to 0.716), AMI 0.706 (95% CI, 0.691 to 0.721), AF/AFL 0.732 (95% CI, 0.715 to 0.750), and HHD 0.758 (95% CI, 0.735 to 0.777). XGBoost was the top-performing algorithm for three of four subtypes. The LACE Index, Charlson Comorbidity Index, and insurance type were consistently the strongest predictors. Algorithm-native, aggregated, and SHAP-based importance measures converged on these key features.\n\nConclusionsIn this largest-to-date, predominantly Black statewide cohort, condition-specific ML models achieved moderate-to-high discrimination for HF, AMI, AF/AFL, and HHD. Key clinical indices and administrative social determinants proxies emerged as dominant predictors, highlighting modifiable targets and high-risk subgroups. These findings support the development of precision, equity-informed readmission interventions and pro",
+  "authors": [
+    "EL Moudden, I.",
+    "Bittner, M.",
+    "Dodani, S."
+  ],
+  "published_date": "2026-03-09",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.411164",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.medrxiv.org/content/10.64898/2026.03.08.26347901.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

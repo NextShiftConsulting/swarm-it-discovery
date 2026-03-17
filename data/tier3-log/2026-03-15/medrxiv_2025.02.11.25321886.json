@@ -1,0 +1,30 @@
+{
+  "paper_id": "medrxiv:2025.02.11.25321886",
+  "title": "EEG-based Deep Learning Reveals Cortical Sensitivity to Small Changes in Deep Brain Stimulation Parameters",
+  "source": "medrxiv",
+  "url": "https://www.medrxiv.org/content/10.1101/2025.02.11.25321886",
+  "abstract": "Deep Brain Stimulation (DBS) is an invasive procedure used to alleviate motor symptoms in Parkinsons Disease (PD) patients. Despite its effectiveness, the impact of DBS on brain activity and the way to optimise stimulation parameters remains unclear. In this study, we aimed to map the sensitivity of cortical neural response to changes in DBS parameters in real-world clinical settings. We recorded in-clinic EEG data from PD patients during their clinical DBS programming sessions, both at rest and during arm movement. A siamese variant of the EEGNet deep learning architecture was trained independently for each patient and parameter combination to determine whether two 1-sec-long EEG segments were recorded under the same or different DBS parameters, yielding 30 independently trained models. Our models achieved an average accuracy of 78% in classifying whether two 1-second EEG segments corresponded to the same or different DBS parameters. Explainability methods were then applied to extract the neural oscillations learned by the models. Ablation studies identified mid-gamma oscillations (60-90Hz) as the key band for classifying these changes. Importantly, that was not driven by 1:2{square}gamma entrainment. In a sub-group of patients, the theta-alpha oscillations (4-12Hz) also contributed to detecting changes in DBS parameters. We demonstrate that small DBS parameter changes modify cortical activity in a consistent manner that can be detected using shallow convolutional networks on low-density EEG. Our findings suggest that cortical mid-gamma oscillations (60-90Hz) are highly sensitive to small changes in DBS settings. Our approach and findings could be leveraged towards identifying and defining novel digital biomarkers to guide DBS programming and adaptive DBS systems, potentially improving future treatment outcomes for PD patients.",
+  "authors": [
+    "Calvo Peiro, N.",
+    "Haugland, M. R.",
+    "Kutuzova, A.",
+    "Graef, C.",
+    "Bocum, A.",
+    "Tai, Y. F.",
+    "Borovykh, A.",
+    "Haar, S."
+  ],
+  "published_date": "2026-03-10",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.420138",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.medrxiv.org/content/10.1101/2025.02.11.25321886.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

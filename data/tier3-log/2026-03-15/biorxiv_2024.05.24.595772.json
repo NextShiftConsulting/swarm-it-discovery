@@ -1,0 +1,25 @@
+{
+  "paper_id": "biorxiv:2024.05.24.595772",
+  "title": "Feedback control of recurrent circuits imposes dynamical constraints on learning",
+  "source": "biorxiv",
+  "url": "https://www.biorxiv.org/content/10.1101/2024.05.24.595772",
+  "abstract": "Neural activity has been observed to lie on low-dimensional manifolds, constraining what new behaviors can be easily learned. We propose that beyond this geometric constraint, learning on fast timescales is limited by how neural activity can flow over time within these manifolds--i.e., by the systems underlying dynamics. In primary motor cortex (M1), these neural dynamics are shaped not only by internal recurrence but also by sensory feedback that can continually update cortical activity. Modeling recurrent neural networks with adaptive feedback controllers in a brain-computer interface (BCI) task, we show that feedback-driven dynamics determine not just the robustness but also the flexibility of motor output. Through a control-theoretic approach, we quantitatively link learning speed and success for individual BCI decoders to the structure of input-driven network dynamics. We show that rapid learning is fundamentally limited by the networks controllability--the ease with which inputs can steer neural activity along desired directions. Crucially, this dynamical systems perspective explains a continuous form of experimentally-observed learning variability across decoders with similar geometry, that has not been addressed previously. We also make a testable prediction that rapid adaptation to new BCI decoders depends on upstream input plasticity, such as remapping of sensory feedback, beyond local plasticity within M1. Overall, our work identifies potential network mechanisms for fast but limited motor learning, and clarifies how constraints on learning arise from both the geometry of neural activity and its underlying dynamical structure.",
+  "authors": [
+    "Gurnani, H.",
+    "Liu, W.",
+    "Brunton, B. W."
+  ],
+  "published_date": "2026-03-11",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.382948",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.biorxiv.org/content/10.1101/2024.05.24.595772.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

@@ -1,0 +1,32 @@
+{
+  "paper_id": "biorxiv:2024.05.27.596020",
+  "title": "SwiftTCR: Efficient Computational Docking protocol of TCRpMHC-I Complexes Using Restricted Rotation Matrices",
+  "source": "biorxiv",
+  "url": "https://www.biorxiv.org/content/10.1101/2024.05.27.596020",
+  "abstract": "The T cells ability to discern self and non-self depends on its T cell receptor (TCR), which recognizes peptides presented by MHC molecules. Understanding this TCR-peptide-MHC (TCRpMHC) interaction is important for cancer immunotherapy design, tissue transplantation, pathogen identification, and autoimmune disease treatments. Understanding the intricacies of TCR recognition, encapsulated in TCRpMHC structures, remains challenging due to the immense diversity of TCRs (>108/individual), rendering experimental determination and general-purpose computational docking impractical. Addressing this gap, we have developed a rapid integrative modeling protocol leveraging unique docking patterns in TCRpMHC complexes. Built upon PIPER, our pipeline significantly cuts down FFT rotation sets, exploiting the consistent polarized docking angle of TCRs at pMHC. Additionally, our ultra-fast structure superimposition tool, GradPose, accelerates clustering. It models a case in 3-4 minutes on 12 CPUs, showcasing a speedup of up to 25-40 times compared to the ClusPro webserver. On a benchmark set of 38 TCRpMHC class I (TCRpMHC-I) complexes, our protocol outperforms the state-of-the-art docking tools in model quality. This protocol can potentially provide structural information to TCR repertoires targeting specific peptides. Its computational efficiency can also enrich existing pMHC-specific single-cell sequencing TCR data, facilitating the development of structure-based deep learning (DL) algorithms. These insights are essential for understanding T cell recognition and specificity, advancing the development of therapeutic interventions.",
+  "authors": [
+    "Parizi, F. M.",
+    "Aarts, Y. J. M.",
+    "Smit, N.",
+    "Roran A R, D.",
+    "Diepenbroek, D.",
+    "Kro\u0308sschell, W. A.",
+    "Thijs, L.",
+    "Tepperik, J.",
+    "Eerden, S.",
+    "Marzella, D. F."
+  ],
+  "published_date": "2026-03-10",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.383500",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.biorxiv.org/content/10.1101/2024.05.27.596020.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

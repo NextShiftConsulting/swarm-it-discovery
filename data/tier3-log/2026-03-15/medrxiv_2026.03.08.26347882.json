@@ -1,0 +1,32 @@
+{
+  "paper_id": "medrxiv:2026.03.08.26347882",
+  "title": "Geometric Brain Signatures for Diagnosing Rare Hereditary Ataxias and Predicting Function",
+  "source": "medrxiv",
+  "url": "https://www.medrxiv.org/content/10.64898/2026.03.08.26347882",
+  "abstract": "Hereditary cerebellar ataxias (HCAs) are rare neurodegenerative disorders characterised by progressive motor impairment and overlapping clinical phenotypes. Although genetic testing provides etiological diagnosis, diagnostic delays frequently arise before targeted testing, owing to non-specific presentation and limited clinician familiarity. Imaging-derived biomarkers that capture phenotypic expression and network-level consequences of disease could support earlier recognition of hereditary ataxia, guide appropriate genetic testing, and provide sensitive measures of disease evolution. Building on evidence that cortical geometry shapes functional organisation, we hypothesised that geometric signatures derived from structural magnetic resonance imaging (sMRI) could discriminate HCA subtypes and yield progression-sensitive biomarkers, while enabling scalable prediction of function. We decomposed sMRI and task-evoked functional MRI data from three independent cohorts using cortical geometric eigenmodes, intrinsic spatial patterns defined by cortical surface geometry, to obtain structural and functional geometric signatures. Structural signatures were used to train neural networks for disease classification and to derive biomarkers sensitive to annual progression. We further modelled structure-to-function mappings to predict functional geometric signatures from sMRI and evaluated their diagnostic and longitudinal utility. Our framework achieved high diagnostic performance, distinguishing healthy controls from Friedreich ataxia (FRDA) with a maximum AUC of 0.93 and separating FRDA from spinocerebellar ataxia type 1 (SCA1) and SCA3, with AUCs up to 0.81, showing cross-cohort generalisability. Structure-to-function-signature prediction achieved a coefficient of determination up to 0.62 and a correlation reaching 0.86 across health and disease, while predicted functional signatures improved classification beyond structural signatures alone and enabled partial reconstruction ",
+  "authors": [
+    "Tao, Z.",
+    "Naejie, G.",
+    "Noman, F.",
+    "Rezende, T. J. R.",
+    "Franca, M.",
+    "Fornito, A.",
+    "Harding, I. H.",
+    "Georgiou-Karistianis, N.",
+    "Cao, T.",
+    "Saha, S."
+  ],
+  "published_date": "2026-03-09",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.417325",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.medrxiv.org/content/10.64898/2026.03.08.26347882.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

@@ -1,0 +1,32 @@
+{
+  "paper_id": "medrxiv:2026.03.08.26347878",
+  "title": "Patterns of depression prevalence and antidepressant use in South Africa, 2002-2024: a system dynamics modelling perspective",
+  "source": "medrxiv",
+  "url": "https://www.medrxiv.org/content/10.64898/2026.03.08.26347878",
+  "abstract": "BackgroundDepression is estimated to be the leading cause of disability in South Africa, yet data on depression prevalence and antidepressant use are inconsistent and fragmentary. We present a system dynamics modelling approach to integrate these data and assess trends and inequalities in depression prevalence and treatment access.\n\nMethodsWe developed a deterministic model of the South African population aged 15 and older, stratified by age, sex, HIV status/stage and susceptibility to depression. Individual transitions between depressed/healthy and treated/untreated states were simulated over time, from 1985. The model was calibrated to depression prevalence data from nine nationally representative household surveys (2002-2024) and ten smaller studies reporting prevalence of antidepressant use, using a Bayesian approach.\n\nResultsThe model estimated a slight decline in depression point prevalence over time, from 5.1% (95% CI: 4.5-5.6%) in 2002 to 4.5% (95% CI: 4.0-5.0%) in 2024, although with a transient rise in depression prevalence during the COVID-19 period. In 2024, depression prevalence was higher in women (5.3%, 95% CI: 4.7-5.9%) than men (3.6%, 95% CI: 3.2-4.0%), and highest at ages 60 and older. The lifetime prevalence of depression was 70.6% (95% CI: 67.8-73.6); alternative model settings with a more concentrated distribution of depression risk were inconsistent with longitudinal data. The proportion of adults using antidepressants increased from 1.0% (95% CI: 0.8-1.2%) in 2008 to 2.8% (95% CI: 2.2-3.4%) in 2024. In 2024, antidepressant use was 11.0% (95% CI: 8.8-13.5%) in the private sector, compared to only 0.9% (95% CI: 0.7-1.1%) in the rest of the population, and the ratio of new antidepressant initiations to new cases of depression was 0.12 nationally.\n\nConclusionThe prevalence of depression in South Africa has been relatively stable over the last two decades. Although antidepressant use has increased, overall use remains low, and substantial inequalit",
+  "authors": [
+    "Johnson, L. F.",
+    "Giovenco, D.",
+    "Eyal, K.",
+    "Craig, A.",
+    "Petersen, I.",
+    "Tlali, M.",
+    "Levitt, N. S.",
+    "Bachmann, M.",
+    "Haas, A. D.",
+    "Fairall, L."
+  ],
+  "published_date": "2026-03-09",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.414910",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.medrxiv.org/content/10.64898/2026.03.08.26347878.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

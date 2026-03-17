@@ -1,0 +1,27 @@
+{
+  "paper_id": "biorxiv:2023.12.25.573309",
+  "title": "Machine Learning Based Modelling of Human and Insect Olfaction Screens Millions of compounds to Identify Pleasant Smelling Insect Repellents",
+  "source": "biorxiv",
+  "url": "https://www.biorxiv.org/content/10.1101/2023.12.25.573309",
+  "abstract": "The rational discovery of behaviorally active odorants is impeded by limited information on how the olfactory system generates percept or valence for a volatile chemical. In previous studies, we showed that chemical informatics could be used to predict ligands for a large repertoire of odorant receptors in Drosophila (Boyle et al., 2013). However, it remained difficult to predict behavioral valence of volatiles since the activities of a large ensembles of odor receptors encode odor information, and little is known about the complex information processing circuitry. This is a systems-level challenge well-suited for Machine-learning approaches which we have used to model olfaction in two organisms with completely unrelated olfactory receptor proteins: humans (~400 GPCRs) and insects (~100 ion-channels). We use chemical structure-based Machine Learning models for prediction of valence in insects and for 146 human odor characters. Using these predictive models, we evaluate a vast chemical space of >10 million compounds in silico. Validations of human and insect behaviors yield very high success rates. The discovery of desirable fragrances for humans that are highly repulsive to insects offers a powerful integrated approach to discover new insect repellents.",
+  "authors": [
+    "Kowalewski, J.",
+    "Boyle, S. M.",
+    "Arvidson, R.",
+    "Ejercito, J. M. O.",
+    "Ray, A."
+  ],
+  "published_date": "2026-03-14",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.381902",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.biorxiv.org/content/10.1101/2023.12.25.573309.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

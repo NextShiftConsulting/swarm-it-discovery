@@ -1,0 +1,26 @@
+{
+  "paper_id": "medrxiv:2025.12.16.25342440",
+  "title": "Traditional Machine Learning Outperforms Automated Machine Learning for Postpartum Readmission Prediction: A Comprehensive Performance and Health-Economic Analysis",
+  "source": "medrxiv",
+  "url": "https://www.medrxiv.org/content/10.64898/2025.12.16.25342440",
+  "abstract": "ObjectiveAutomated machine learning (AutoML) promises to democratize predictive modeling in healthcare by automating algorithm selection and hyperparameter optimization. Our objective was to compare the performance, clinical utility, and health-economic implications of traditional machine learning versus AutoML frame-works for predicting 14-day postpartum readmission using a large national cohort.\n\nMethodsWe analyzed data from 8,774 participants in the nuMoM2b (Nulli-parous Pregnancy Outcomes Study) with complete readmission data. Recursive feature elimination selected 10 sociodemographic predictors from 18 candidates. We applied SMOTE oversampling to the training set for class balancing. Three traditional ML algorithms (logistic regression, random forest, gradient boosting) were compared with FLAML, a leading AutoML framework. Models were evaluated on discrimination (ROC-AUC, PR-AUC), clinical utility (sensitivity/specificity), and computational efficiency using a 70/30 stratified train-test split with bootstrap confidence intervals.\n\nResultsAmong 8,774 participants, 154 (1.8%) experienced 14-day readmission. In a held-out test set (n=2,633; 46 readmissions), logistic regression achieved the high-est ROC-AUC (0.569 [95% CI: 0.483-0.655]) and was the only model with clinically meaningful sensitivity (34.8% [20.5-48.6%]) at the default threshold, correctly identifying 16 of 46 readmissions. FLAML achieved near-chance discrimination (ROC-AUC: 0.500 [0.449-0.552]) with near-zero sensitivity (2.2%). Stacking and calibrated soft-voting ensembles did not improve over logistic regression alone (ROC-AUC: 0.496 and 0.555, respectively). Threshold optimization substantially improved screening performance: lowering the logistic regression threshold to 0.35 increased sensitivity to 82.6% (38/46 readmissions), though at the cost of flagging 76.5% of patients. Health-economic analysis showed that cost-effectiveness requires low-cost interventions (<$59/flagged patient).\n\nConclusi",
+  "authors": [
+    "Crabtree, L.",
+    "Wakefield, C.",
+    "Gheorghe, C. P.",
+    "Frasch, M. G."
+  ],
+  "published_date": "2026-03-08",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.398363",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.medrxiv.org/content/10.64898/2025.12.16.25342440.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

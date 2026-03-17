@@ -1,0 +1,32 @@
+{
+  "paper_id": "biorxiv:2025.01.16.633410",
+  "title": "ADAR1 Regulates Lipid Remodeling to Dictate Ferroptosis Sensitivity",
+  "source": "biorxiv",
+  "url": "https://www.biorxiv.org/content/10.1101/2025.01.16.633410",
+  "abstract": "Triple-negative breast cancer (TNBC), defined by the lack of estrogen, progesterone, and HER2 receptor expressions, is aggressive and lacks targeted treatment options. Adenosine deaminase acting on RNA 1 (ADAR1) has been shown to contribute to TNBC tumorigenesis by modulating an innate immune response. However, little is known about its role in the regulation of metabolic fitness of TNBC. We tested the hypothesis that ferroptosis is an ADAR1-protected vulnerability by showing that ADAR1 knockdown sensitizes TNBC cells to ferroptosis inducers. Lipidomic analyses showed that ADAR1 loss increased the abundance of phospholipids enriched with polyunsaturated fatty acids (PUFA), of which peroxidation is the main driver of ferroptosis. Transcriptomic analyses discovered that the proto-oncogene MDM2 contributes to the lipid remodeling phenotype. A ferroptosis-focused drug screen identified FDA-approved cobimetinib as a drug-repurposing candidate to synergize with ADAR1 loss. This finding supports further basic, pre-clinical, and clinical studies to develop novel therapeutic strategies for TNBC through ADAR1-mediated metabolic regulation.",
+  "authors": [
+    "Kung, C.-P.",
+    "Terzich, N. D.",
+    "Ilagan, M. X. G.",
+    "Prinsen, M. J.",
+    "Kaushal, M.",
+    "Kladney, R. D.",
+    "Weber, J. H.",
+    "Mabry, A. R.",
+    "Torres, L. S.",
+    "Bramel, E. R."
+  ],
+  "published_date": "2026-03-13",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.388980",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.biorxiv.org/content/10.1101/2025.01.16.633410.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

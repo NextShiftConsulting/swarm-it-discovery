@@ -1,0 +1,32 @@
+{
+  "paper_id": "biorxiv:2024.12.21.629897",
+  "title": "Hydraulic modelling reveals untreated sewage, not pharmaceutical waste, drives antimicrobial resistance in a small river running through a big city",
+  "source": "biorxiv",
+  "url": "https://www.biorxiv.org/content/10.1101/2024.12.21.629897",
+  "abstract": "Quantifying sources of antimicrobial resistance (AMR) in rivers receiving various waste streams is essential for targeting mitigation strategies yet rarely performed. This study combined field monitoring with hydraulic modelling and mass balance calculations to attribute sources of AMR in the Musi River running through Hyderabad, India, a city renowned for pharmaceutical manufacturing. We quantified antibiotic resistance genes (ARGs), resistant bacteria (ARBs), and physicochemical parameters in water and sediment samples in the dry and wet season. Absolute ARG and ARB abundances spiked in the city, declining again downstream. Changes were more gradual in the wet season. Pollution levels were significantly different between upstream, city and downstream stretches and seasons. Hydraulic modelling revealed that 60-80% or 20-40% of the river water in the city derived from untreated sewage during the dry or wet seasons, respectively. This established municipal waste, not pharmaceutical sources, as the dominant driver of AMR in the Musi. Linear discriminant analysis identified dissolved oxygen and total nitrogen as reliable proxies for distinguishing AMR-polluted from less-polluted sites. The Musi, with insufficient wastewater treatment and limited dilution of point-source loadings, is typical for many urban rivers in resource-limited countries highlighting the urgent need for improved wastewater management to reduce AMR exposures.",
+  "authors": [
+    "Sonkar, V.",
+    "Kashyap, A.",
+    "Pallares-Vega, R.",
+    "Sasidharan, S. S.",
+    "Modi, A.",
+    "Uluseker, C.",
+    "Chandrakalabai Jambu, S.",
+    "Mohapatra, P. K.",
+    "Larsen, J.",
+    "Graham, D. W."
+  ],
+  "published_date": "2026-03-11",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.388238",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.biorxiv.org/content/10.1101/2024.12.21.629897.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

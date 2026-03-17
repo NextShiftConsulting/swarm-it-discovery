@@ -1,0 +1,23 @@
+{
+  "paper_id": "openalex:W7128624139",
+  "title": "Combating Data and Target Shifts in Visual Tasks",
+  "source": "openalex",
+  "url": "https://openalex.org/W7128624139",
+  "abstract": "The rapid advancement of deep learning models for visual tasks has led to significant progress in many domains. However, a key challenge remains: ensuring that models can generalize effectively to unseen samples or novel classes, especially in real-world scenarios where training data-target pairs are often limited or unavailable, and test data may exhibit shifts in both data and targets. This thesis addresses the problem of shifts across data and targets, proposing novel methods to improve model generalization and transferability in complex settings. The thesis identifies the different shift scenarios for visual tasks and presents their problem forms. The research first relaxes the static target distribution assumption in Multi-Domain Generalization (mDG) tasks, introducing the General Multi-Domain Generalization (GMDG) objective to improve generalization under varying data shifts. Specifically, Extensive experiments validate that GMDG is feasible for classification, segmentation, and regression tasks. Further considering extreme target distribution shifts where even unknown novel classes emerge, the study also explores logical regularization techniques for tasks such as Generalized Category Discovery (GCD), mDG+GCD, and Class Incremental Learning (CIL), proposing a sample-based logical regularization term (L-Reg) to enhance data-, target-, and all-shift generalization. Additionally, a partial logic framework is introduced to address challenges in CIL, enabling models to retain room for unknown classes during training. This is further extended by the Partial-Logic Regularization (PL-Reg), which improves generalization across GCD, mDG+GCD, and transferability for CIL tasks. Furthermore, the thesis proposes a novel Semantic-aware Data Augmentation (SADA) framework for cross-modality generalization in text-to-image synthesis (T2Isyn), text-image retrieval (TIR), and image-text retrieval (ITR) tasks. This framework ensures semantic preservation across text and image mod",
+  "authors": [
+    "Zhaorui Tan"
+  ],
+  "published_date": "2031-01-01",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.379619",
+  "scan_date": "2026-03-15",
+  "pdf_url": null,
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

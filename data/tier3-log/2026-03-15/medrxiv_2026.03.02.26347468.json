@@ -1,0 +1,26 @@
+{
+  "paper_id": "medrxiv:2026.03.02.26347468",
+  "title": "Personalized Risk Prediction Tool for Deceased Donor Kidney Offers: Stakeholder Perspectives from a Qualitative Study",
+  "source": "medrxiv",
+  "url": "https://www.medrxiv.org/content/10.64898/2026.03.02.26347468",
+  "abstract": "BackgroundRising kidney discard rates and uncertainty around accepting higher risk donor kidneys highlight the need for decision support tools that integrate donor and recipient factors and communicate risk in ways that are understandable and usable at the time of offer. Conventional indices (e.g., KDPI/KDRI) provide population level signals but do not deliver individualized, cognitively accessible information aligned with real time clinical workflows.\n\nObjectiveTo describe how key transplant stakeholders (patients, coordinators, and providers) interpret and evaluate a prototype Kidney Risk Calculator app that generates donor-recipient specific survival projections and to identify the content, format and features, and functionality needed for clinically meaningful, patient-centered decision support.\n\nDesignQualitative study using focus groups and individual interviews.\n\nSettingUniversity of New Mexico Hospital (UNMH) Kidney Transplant Center.\n\nParticipantsFive patients (four transplant candidates and one patient advocate), three transplant coordinators, and five transplant providers (3 attending physicians and 2 advanced practice practitioners).\n\nMethodsSemi-structured sessions (45 to 60 minutes) with 13 stakeholders (patients, coordinators, and providers) included a live app demonstration and explored usability, interpretability, contextual information needs, perceived clinical utility, and anticipated barriers/facilitators. Data were collected via one coordinator focus group, one patient focus group, and five provider interviews; sessions were recorded, transcribed, de-identified, and analyzed using inductive reflexive thematic analysis.\n\nResultsStakeholders affirmed the value of personalized projections as an adjunct to clinical judgment, particularly for higher risk offers. Participants prioritized: 1) Content: clear education on hepatitis C virus (HCV) positive donors and Public Health Service (PHS) risk criteria; plain explanations of Calculated Panel Reactive",
+  "authors": [
+    "Chong, K.",
+    "Litvinovich, I.",
+    "Argyropoulos, C.",
+    "Zhu, Y."
+  ],
+  "published_date": "2026-03-09",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.400039",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.medrxiv.org/content/10.64898/2026.03.02.26347468.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

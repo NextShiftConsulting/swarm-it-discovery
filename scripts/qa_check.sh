@@ -88,7 +88,7 @@ run_preflight() {
 
     # MDX frontmatter validation
     echo "[P4] MDX frontmatter validation..."
-    INVALID_MDX=$(find "$ROOT_DIR/content/reviews" -name "*.mdx" -exec grep -L "^kappa:" {} \; 2>/dev/null | wc -l | tr -d ' ')
+    INVALID_MDX=$(find "$ROOT_DIR/site/src/content/reviews" -name "*.mdx" -exec grep -L "^kappa:" {} \; 2>/dev/null | wc -l | tr -d ' ')
     if [ "$INVALID_MDX" -eq 0 ]; then
         check "All MDX files have valid frontmatter" "true"
     else

@@ -90,10 +90,10 @@ class CertifiedPipeline:
     def __init__(
         self,
         swarmit_url: str = "http://localhost:8080",
-        topics_dir: str = "content/topics",
-        output_dir: str = "content/generated-posts",
-        pdf_output_dir: str = "content/pdf-reviews",
-        agents_output_dir: str = "content/research-agents",
+        topics_dir: str = "site/src/content/topics",
+        output_dir: str = "site/src/content/reviews",
+        pdf_output_dir: str = "site/src/content/pdf-reviews",
+        agents_output_dir: str = "site/src/content/research-agents",
         whitepaper_path: str = None,
         min_score: float = 0.5,
         min_rsct_score: float = 0.3,
@@ -539,8 +539,8 @@ def main():
     parser.add_argument("--min-rsct-score", type=float, default=0.3, help="Min RSCT relevance score")
     parser.add_argument("--dry-run", action="store_true", help="Don't generate posts")
     parser.add_argument("--no-pdfs", action="store_true", help="Skip PDF generation")
-    parser.add_argument("--topics-dir", default="content/topics", help="Topics directory")
-    parser.add_argument("--output-dir", default="content/reviews", help="Output directory")
+    parser.add_argument("--topics-dir", default="site/src/content/topics", help="Topics directory")
+    parser.add_argument("--output-dir", default="site/src/content/reviews", help="Output directory")
     parser.add_argument("--pdf-output-dir", default="content/pdf-reviews", help="PDF output directory")
     parser.add_argument("--agents-output-dir", default="content/research-agents", help="Agents output directory")
     parser.add_argument("--whitepaper", default=None, help="Path to RSCT whitepaper for comparison")
@@ -791,7 +791,7 @@ def handler(event, context):
 
     pipeline = CertifiedPipeline(
         swarmit_url=swarmit_url,
-        topics_dir="content/topics",
+        topics_dir="site/src/content/topics",
         output_dir="/tmp/generated-posts",
         pdf_output_dir="/tmp/pdf-reviews",
         whitepaper_path=whitepaper_path,

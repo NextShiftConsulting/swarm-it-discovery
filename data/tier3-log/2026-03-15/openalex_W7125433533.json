@@ -1,0 +1,23 @@
+{
+  "paper_id": "openalex:W7125433533",
+  "title": "Role-Based Task Distribution in YAWL",
+  "source": "openalex",
+  "url": "https://openalex.org/W7125433533",
+  "abstract": "What happens when workflow tasks are assigned to an entire role rather than a specific user?This video introduces the role-based distribution pattern as a resource allocation mechanism in YAWL. The tutorial explains how role-based distribution makes a task available to all users who belong to a specified role, instead of assigning it to a single predefined individual. Using a simple workflow example involving store clerks and managers, the video demonstrates how a task is offered to multiple users simultaneously and remains visible in their work lists until one user accepts it. Once the task is taken, it is automatically removed from the work lists of the remaining users. The behavior is illustrated through both an animated explanation and a live execution in the YAWL system. Viewers learn how role-based distribution supports flexible task allocation in environments where multiple users are equally qualified to perform a task. The example highlights how this pattern balances flexibility and control by allowing self-selection of work while ensuring that each task is executed exactly once. This tutorial is part of the YAWL tutorial series. For an introduction to installing and using the Workflow Management System, see the basic tutorials:https://www.youtube.com/playlist?list=PL4BZgFsmRzfSEP_8nCqHt3N2X_XzRNen2 Supplementary material, including the YAWL workflow specification used in this tutorial, is available on GitHub:https://github.com/ahense/YAWL (Download via \u201cCode\u201d \u2192 \u201cDownload ZIP\u201d. The material is located in the folder corresponding to the tutorial number.) Background reading:- Resource Patterns overview: http://www.workflowpatterns.com/patterns/resource- Workflow Patterns book: https://mitpress.mit.edu/9780262029827/workflow-patterns This is video #52 of the YAWLSeries.",
+  "authors": [
+    "Andreas V. Hense"
+  ],
+  "published_date": "2046-02-26",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.376340",
+  "scan_date": "2026-03-15",
+  "pdf_url": null,
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

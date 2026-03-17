@@ -1,0 +1,30 @@
+{
+  "paper_id": "medrxiv:2026.03.07.26347847",
+  "title": "Gait-Related Digital Mobility Outcomes in Parkinson's Disease: New Insights into Convergent Validity?",
+  "source": "medrxiv",
+  "url": "https://www.medrxiv.org/content/10.64898/2026.03.07.26347847",
+  "abstract": "ObjectiveIn Parkinsons disease (PD), gait-related digital mobility outcomes (DMOs) show promise for monitoring mobility decline, but convergent validity remains limited. To improve convergent validity, demonstrating convergence with motor severity scales and PD-specific neural mechanisms underlying mobility has been proposed. However, severity scales capture both PD-specific and non-specific factors. Requiring mechanistic evidence may favor DMOs that converge with underlying mechanisms, while those converging only with severity scales may be overlooked despite capturing broader mobility dimensions. Here, we asked whether PD-specific neural mechanisms underlying mobility enhanced the convergence of DMOs with motor severity scales - so that integrating mechanistic evidence in validation could improve (and not impede) convergent validity.\n\nMethodPrincipal component analysis was applied to task-based functional neuroimaging data to identify a measure associated with PD motor network dysfunction. An optimization problem was then formulated in which deep learning examined the convergence of a signal-based DMO with motor severity in laboratory and real-world contexts, and Tracing Gradient Descent assessed the influence of the identified measure on DMO-severity convergence.\n\nResultsGreater PD motor network dysfunction was associated with reduced Attractor Complexity Index (ACI) values ({rho}=-0.54). Strong DMO-severity convergence was found across contexts ({rho}=|0.81-0.82|). Reduced ACI (i.e., greater PD motor network dysfunction) markedly enhanced DMO-severity convergence across contexts (rrb=|0.63-0.29|).\n\nConclusionPD-specific neural mechanisms underlying mobility enhanced the convergence of a DMO with severity scales.\n\nSignificanceIntegrating mechanistic validation into DMO validation could improve convergent (and construct) validity, a prerequisite for regulatory approval and adoption in clinical trials and practice.",
+  "authors": [
+    "Mvomo, C. E.",
+    "Bedime, J. S. N.",
+    "Leibovich, D.",
+    "Guedes, C.",
+    "Potvin-Desrochers, A.",
+    "Dixon, P. C.",
+    "Easthope Awai, C.",
+    "Paquette, C."
+  ],
+  "published_date": "2026-03-09",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.412766",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.medrxiv.org/content/10.64898/2026.03.07.26347847.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

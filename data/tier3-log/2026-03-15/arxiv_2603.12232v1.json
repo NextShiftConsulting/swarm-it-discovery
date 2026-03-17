@@ -1,0 +1,26 @@
+{
+  "paper_id": "arxiv:2603.12232v1",
+  "title": "Incremental Neural Network Verification via Learned Conflicts",
+  "source": "arxiv",
+  "url": "https://arxiv.org/abs/2603.12232v1",
+  "abstract": "Neural network verification is often used as a core component within larger analysis procedures, which generate sequences of closely related verification queries over the same network. In existing neural network verifiers, each query is typically solved independently, and information learned during previous runs is discarded, leading to repeated exploration of the same infeasible regions of the search space. In this work, we aim to expedite verification by reducing this redundancy. We propose an incremental verification technique that reuses learned conflicts across related verification queries. The technique can be added on top of any branch-and-bound-based neural network verifier. During verification, the verifier records conflicts corresponding to learned infeasible combinations of activation phases, and retains them across runs. We formalize a refinement relation between verification queries and show that conflicts learned for a query remain valid under refinement, enabling sound conflict inheritance. Inherited conflicts are handled using a SAT solver to perform consistency checks and propagation, allowing infeasible subproblems to be detected and pruned early during search. We implement the proposed technique in the Marabou verifier and evaluate it on three verification tasks: local robustness radius determination, verification with input splitting, and minimal sufficient feature set extraction. Our experiments show that incremental conflict reuse reduces verification effort and yields speedups of up to $1.9\\times$ over a non-incremental baseline.",
+  "authors": [
+    "Raya Elsaleh",
+    "Liam Davis",
+    "Haoze Wu",
+    "Guy Katz"
+  ],
+  "published_date": "2026-03-12",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.374785",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://arxiv.org/pdf/2603.12232v1.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

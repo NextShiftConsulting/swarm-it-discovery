@@ -1,0 +1,25 @@
+{
+  "paper_id": "pubmed:41832659",
+  "title": "Artificial Intelligence in Higher Education: Literature Review.",
+  "source": "pubmed",
+  "url": "https://pubmed.ncbi.nlm.nih.gov/41832659/",
+  "abstract": "Artificial intelligence is a rapidly evolving technology in higher education. It is being integrated into the sector through a wide range of applications, each of which has a significant impact on the educational process. This impact can be both positive and negative. On the one hand, artificial intelligence offers opportunities for personalizing learning and teaching, improving administrative services, and supporting mental health. However, its integration into higher education institutions raises challenges and ethical issues that threaten students' privacy. This literature review aims to explore the different applications of artificial intelligence, as an innovative technology, in the academic field while highlighting its advantages and disadvantages as well as the challenges and issues it raises. It also addresses the guidelines for an ethical integration of artificial intelligence in higher education, highlighting the fundamental principles to ensure a responsible and respectful adoption of human values.",
+  "authors": [
+    "Maram Selmi",
+    "Nour El Houda Ben Fatma",
+    "Meriem Chedly"
+  ],
+  "published_date": "2025-Aug",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.431054",
+  "scan_date": "2026-03-15",
+  "pdf_url": null,
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

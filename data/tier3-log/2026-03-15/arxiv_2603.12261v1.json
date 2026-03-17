@@ -1,0 +1,27 @@
+{
+  "paper_id": "arxiv:2603.12261v1",
+  "title": "The Latent Color Subspace: Emergent Order in High-Dimensional Chaos",
+  "source": "arxiv",
+  "url": "https://arxiv.org/abs/2603.12261v1",
+  "abstract": "Text-to-image generation models have advanced rapidly, yet achieving fine-grained control over generated images remains difficult, largely due to limited understanding of how semantic information is encoded. We develop an interpretation of the color representation in the Variational Autoencoder latent space of FLUX.1 [Dev], revealing a structure reflecting Hue, Saturation, and Lightness. We verify our Latent Color Subspace (LCS) interpretation by demonstrating that it can both predict and explicitly control color, introducing a fully training-free method in FLUX based solely on closed-form latent-space manipulation. Code is available at https://github.com/ExplainableML/LCS.",
+  "authors": [
+    "Mateusz Pach",
+    "Jessica Bader",
+    "Quentin Bouniot",
+    "Serge Belongie",
+    "Zeynep Akata"
+  ],
+  "published_date": "2026-03-12",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.368357",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://arxiv.org/pdf/2603.12261v1.pdf",
+  "github_url": "https://github.com/ExplainableML/LCS.",
+  "key_findings": [],
+  "rsct_connections": []
+}

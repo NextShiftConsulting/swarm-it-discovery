@@ -18,7 +18,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 S3_BUCKET="swarmit-nextshift-site"
 S3_PREFIX="content/reviews"
-LOCAL_DIR="$ROOT_DIR/content/reviews"
+LOCAL_DIR="$ROOT_DIR/site/src/content/reviews"
 DRY_RUN=""
 MODE="prod"
 
@@ -32,7 +32,7 @@ while [[ $# -gt 0 ]]; do
         --dev)
             MODE="dev"
             S3_PREFIX="content/reviews-dev"
-            LOCAL_DIR="$ROOT_DIR/content/reviews-dev"
+            LOCAL_DIR="$ROOT_DIR/site/src/content/reviews"
             shift
             ;;
         *)

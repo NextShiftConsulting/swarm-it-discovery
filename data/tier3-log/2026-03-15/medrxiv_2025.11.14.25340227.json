@@ -1,0 +1,32 @@
+{
+  "paper_id": "medrxiv:2025.11.14.25340227",
+  "title": "\"Actionable\" Risk for Preterm Birth: Patterns and Prediction in California Singleton Births 2016-2020",
+  "source": "medrxiv",
+  "url": "https://www.medrxiv.org/content/10.1101/2025.11.14.25340227",
+  "abstract": "BackgroundPreterm birth (PTB, <37 weeks of gestation) is the leading cause of child mortality in the United States (U.S.) and worldwide, and has substantial short- and long-term health consequences for mothers and infants. Each year, >350,000 infants in the U.S. are born preterm, and rates continue to rise in parallel with maternal risk factors such as hypertension, diabetes, anemia, asthma, and mental health conditions. Evidence-based interventions exist for many of these conditions and are associated with improved pregnancy outcomes, including low-dose aspirin for preeclampsia prevention in individuals with chronic hypertension or pregestational diabetes, inhalers for asthma, iron for anemia, and therapy or medication for mental health disorders, but fewer than half of eligible individuals receive them, reflecting persistent gaps in use. To address this, we developed the PTB Actionable Risk Index (PTB-ARIx), which leverages factors with known evidence-based interventions to identify individuals who are pregnant and are at increased risk for PTB. This study evaluates performance of the PTB-ARIx throughout pregnancy in terms of risk determination and characterization of actionable risk factors, including their combined contributions to PTB.\n\nMethods and FindingsA retrospective cohort study was conducted using linked data for 1.9 million singleton live births in California in 2016-2020, divided into training and testing sets. Poisson regression estimated associations between 18 candidate risk factors for PTB with evidence-based interventions spanning clinical, behavioral, and social risks, including preeclampsia risk composites ([&ge;]1 high-risk or [&ge;]2 moderate-risk factors based on U.S. Preventive Services Task Force (USPSTF) criteria), maternal conditions (e.g., gestational hypertension, asthma), substance use, and social adversity. Beta coefficients were combined to construct the PTB-ARIx, evaluated by per-unit associations with PTB and by area under the rece",
+  "authors": [
+    "Jelliffe-Pawlowski, L. L.",
+    "Baer, R. J.",
+    "Oltman, S.",
+    "McKenzie-Sampson, S.",
+    "Adeyemi, D.",
+    "Becker, A.",
+    "Blackman, K. C. A.",
+    "Blebu, B.",
+    "Brandt, J. S.",
+    "Flowers, E."
+  ],
+  "published_date": "2026-03-08",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.397600",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.medrxiv.org/content/10.1101/2025.11.14.25340227.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

@@ -1,0 +1,32 @@
+{
+  "paper_id": "medrxiv:2026.03.06.26347802",
+  "title": "Would Lifting Versus Maintaining COVID-19 Containment Policies Have Reduced Psychological Distress in the US?",
+  "source": "medrxiv",
+  "url": "https://www.medrxiv.org/content/10.64898/2026.03.06.26347802",
+  "abstract": "BackgroundBoth the COVID-19 pandemic and containment policies caused widespread psychological distress, yet their independent effects remain unclear. Disentangling these effects could inform future responses that balance physical and mental health. This study sought to estimate the effect of lifting versus maintaining containment policies on psychological distress, independent of pandemic severity.\n\nMethodsWe conducted a state-level longitudinal analysis using the Behavioral Risk Factor Surveillance System (BRFSS), a representative survey of US adults, restricted to the pandemic period preceding widespread vaccine availability (April 2020 to April 2021). The exposure was lifting versus maintaining containment policies (school closures, workplace closures, event cancellations, and full lockdown) from the Oxford COVID-19 Government Response Tracker. Exposure was measured during periods of low (<25/100,000 new cases) or declining (>14 days) pandemic severity. The primary outcome was prevalence of psychological distress, derived from a BRFSS survey item corresponding to a PHQ-4 score [&ge;]6.\n\nFindingsThree causal inference approaches yielded consistent evidence of transient policy-lifting effects: (1) synthetic control analysis of Maine showed a temporary 5.5 percentage-point reduction in psychological distress lasting three months before returning to counterfactual levels; (2) within-state fixed effects found immediately after lifting full lockdown, distress decreased by 5.68 [-8.67, -2.69] percentage points, declining by 30 days (-3.24 [-6.88, 0.39]) and negligible at 60 days (-0.94 [-3.77, 1.89]); (3) target trial emulation detected no significant effects from lifting versus maintaining policies for 90 days.\n\nInterpretationLifting containment policies in the first year of the pandemic produced immediate but transient reductions in psychological distress. These results suggest that extended containment policies were unlikely to account for persistent increases in dis",
+  "authors": [
+    "Cudic, M.",
+    "de la Hoz, J. F.",
+    "Dall'Aglio, L.",
+    "Tubbs, J. D.",
+    "Ebrahimi, O. V.",
+    "Madsen, E. M.",
+    "Fatori, D.",
+    "Zuccolo, P. F.",
+    "Lian, J.",
+    "Kabir, D. K."
+  ],
+  "published_date": "2026-03-09",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.408790",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.medrxiv.org/content/10.64898/2026.03.06.26347802.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

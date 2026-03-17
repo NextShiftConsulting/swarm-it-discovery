@@ -1,0 +1,27 @@
+{
+  "paper_id": "pubmed:41832691",
+  "title": "Advancing Global Drug Safety: Challenges and Future Perspectives in Pharmacovigilance.",
+  "source": "pubmed",
+  "url": "https://pubmed.ncbi.nlm.nih.gov/41832691/",
+  "abstract": "Adverse Drug Reactions (ADRs) pose significant challenges to patient safety, healthcare systems, and public health worldwide. As the pharmaceutical landscape expands with complex therapies such as biologics and biosimilars, the need for robust pharmacovigilance systems has become paramount. This review provides a comprehensive overview of ADRs, their classification, underlying mechanisms, and associated clinical and economic impacts. It explores global pharmacovigilance frameworks, including the WHO Programme for International Drug Monitoring, and examines the roles of major regulatory bodies such as the FDA, EMA, CDSCO, and MHRA in ensuring drug safety. Special emphasis is placed on the challenges faced by developing countries, including underreporting and inadequate infrastructure, alongside strategies to overcome these barriers through capacity building and technology integration. The review also highlights advancements in pharmacovigilance methodologies, including the application of artificial intelligence, big data analytics, blockchain, and IoT devices, to enhance ADR detection, reporting, and management. Case studies and regional pharmacovigilance systems are analyzed to illustrate best practices and areas for improvement. Additionally, the role of pharmacovigilance in the context of the COVID-19 pandemic underscores the necessity for adaptive frameworks during global health crises. By addressing current challenges and emerging trends, this review aims to provide actionable insights to improve drug safety monitoring and foster global cooperation in pharmacovigilance practices.",
+  "authors": [
+    "Nitya Shambhu Avadhani",
+    "Nekkanti Ramya Satya Sri",
+    "Sunny Rathee",
+    "Sakshi Soni",
+    "Umesh K Patil"
+  ],
+  "published_date": "2026-Mar",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.428442",
+  "scan_date": "2026-03-15",
+  "pdf_url": null,
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

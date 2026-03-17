@@ -1,0 +1,26 @@
+{
+  "paper_id": "medrxiv:2026.03.06.26347816",
+  "title": "AI-Driven Feature Selection Using Only Survey Variable Descriptions: Large Language Models Identify Adolescent Vaping Predictors",
+  "source": "medrxiv",
+  "url": "https://www.medrxiv.org/content/10.64898/2026.03.06.26347816",
+  "abstract": "ObjectiveTo evaluate the effectiveness of various Large Language Models (LLMs) in identifying reliable predictors of Electronic Nicotine Delivery Systems (ENDS) initiation among adolescents, using solely large-scale survey variable descriptions.\n\nMethodsA cohort of 7,943 tobacco-naive adolescents aged 12-16 years from the Population Assessment of Tobacco and Health (PATH) Study was analyzed to predict ENDS use at wave 5. Four instruction-tuned LLMs - GPT-4o, LLaMA 3.1-70B, Qwen 2.5-72B-Instruct, and DeepSeek-V3 - were systematically evaluated for text-based feature selection using only variable descriptions from wave 4.5. Selected features were used to train LightGBM classifiers, with model performance compared to a baseline.\n\nResultsOur findings reveal notable consistency among the four instruction-tuned LLMs, with substantial overlap in the top predictors each model identified. These selected variables spanned critical domains such as peer and household influence, risk perception, and exposure to tobacco-related cues. LightGBM classifiers trained on PATH wave 4.5-5 data using features selected by the LLMs demonstrated strong predictive performance. Notably, Qwen 2.5-72B-Instruct achieved an AUC of 0.791 with 30 predictors, surpassing the baseline AUC of 0.768.\n\nDiscussionThe substantial overlap among the top predictors identified by different LLMs suggests a shared reasoning process, despite variations in model architecture and training. LightGBM classifiers trained on these LLM-selected features achieved performance comparable to, or exceeding, models trained on the full set of survey variables, underscoring the high quality of features selected solely from textual descriptions. Moreover, these findings are consistent with previous tobacco regulatory research, further validating the effectiveness of LLM-driven feature selection.\n\nConclusionInstruction-tuned large language models can effectively perform text-based feature selection using survey variable descriptio",
+  "authors": [
+    "Zhang, K.",
+    "Zhao, Z.",
+    "Hu, Y.",
+    "Le, T."
+  ],
+  "published_date": "2026-03-09",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.404846",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.medrxiv.org/content/10.64898/2026.03.06.26347816.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

@@ -1,0 +1,32 @@
+{
+  "paper_id": "biorxiv:2023.04.03.535384",
+  "title": "Simultaneous CRISPR-Cas9-induced double strand breaks are lethal in models of pancreatic cancer",
+  "source": "biorxiv",
+  "url": "https://www.biorxiv.org/content/10.1101/2023.04.03.535384",
+  "abstract": "While radiation is an effective oncologic therapy, killing cancer by inducing DNA double-strand breaks (DSBs), it lacks specificity for neoplastic cells. We have previously adapted the CRISPR-Cas9 gene-editing technology as a cancer-specific treatment modality targeting somatic mutations in pancreatic cancer (PC). However, its tumoricidal potential remains unclear, especially in comparison to therapeutic doses of radiation. Here, we demonstrate that CRISPR-Cas9-induced DSBs are more cytotoxic in PCs than a comparable number of radiation-induced DSBs. We observed >90% tumor growth inhibition by targeting 9 sites with cancer-specific single-guide RNAs (sgRNAs). Through both bioinformatics and cytogenetics analyses, we found that CRISPR-Cas9-induced DSBs triggered ongoing chromosomal rearrangements, with 87% of structural variants not directly produced from the initial CRISPR-Cas9-induced DSBs, and chromosomal instability (CIN) peaking before cell death. By comparing the cytotoxicity of CRISPR-Cas9- to radiation-induced DSBs, we demonstrate that the number of DSBs required to achieve equitoxic effects was ~3 times higher for radiation than CRISPR-Cas9. Finally, we show that PC cells that had survived CRISPR-Cas9 targeting retained susceptibility to subsequent CRISPR-Cas9-induced DSBs at different genomic sites with >87% growth inhibition. Together, our data support the therapeutic potential of CRISPR-Cas9 as an anti-cancer strategy.",
+  "authors": [
+    "Teh, S. S. K.",
+    "Kotwal, A.",
+    "Bennett, A.",
+    "Halper-Stromberg, E.",
+    "Morsberger, L.",
+    "Zamani, S.",
+    "Shi, Y.",
+    "Skaist, A.",
+    "Zhu, Q.",
+    "Bowland, K."
+  ],
+  "published_date": "2026-03-12",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.381005",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.biorxiv.org/content/10.1101/2023.04.03.535384.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

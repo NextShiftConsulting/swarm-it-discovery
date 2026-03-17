@@ -1,0 +1,25 @@
+{
+  "paper_id": "biorxiv:2025.02.28.640915",
+  "title": "FASTiso: Fast Algorithm on Search state Tree for subgraph ISOmorphism in graphs of any size and density",
+  "source": "biorxiv",
+  "url": "https://www.biorxiv.org/content/10.1101/2025.02.28.640915",
+  "abstract": "Subgraph isomorphism is a fundamental combinatorial problem that involves finding one or more occurrences of a pattern graph within a target graph. It arises in a wide range of application domains, including biology, chemistry, social network analysis, and pattern recognition. Although subgraph isomorphism is NP-complete in the general case, many exact algorithms allow it to be solved in practice on many instances. However, the increasing size and structural diversity of graph datasets continue to pose significant challenges in terms of robustness and scalability.\n\nIn this article, we propose FASTiso, an exact subgraph isomorphism algorithm that emphasizes a strong consistency between the variable ordering strategy and the pruning rules used during search. This design enables a unified exploitation of structural information throughout the exploration process, leading to improved efficiency and stable performance across heterogeneous graph structures. An extensive experimental evaluation on widely used synthetic and real-world benchmarks shows that FASTiso consistently outperforms reference solvers such as VF3, VF3L, and RI, and achieves competitive performance compared to constraint programming-based approaches (Glasgow, PathLad+), while outperforming them on most datasets. The results further demonstrate that FASTiso remains highly efficient on small instances and scales well to large graphs, while maintaining a lower memory footprint than most evaluated solvers. The peak memory usage is 7.74 GB for FASTiso, 36.19 GB for PathLad+, over 500 GB for Glasgow, 9.62 GB for VF3/VF3L, and 4.31 GB for RI.\n\nFASTiso code is available at https://gitlab.info.uqam.ca/cbe/fastiso as a C++ implementation, a Python module, and an integration within an extended version of NetworkX. The implementations support simple graphs and multigraphs, directed or undirected, with labels on nodes, edges, or both.",
+  "authors": [
+    "Agbeto, W.",
+    "Coti, C.",
+    "Reinharz, V."
+  ],
+  "published_date": "2026-03-10",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.390750",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.biorxiv.org/content/10.1101/2025.02.28.640915.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

@@ -1,0 +1,32 @@
+{
+  "paper_id": "biorxiv:2024.07.29.605549",
+  "title": "Odor-based real-time detection of pests on maize plant",
+  "source": "biorxiv",
+  "url": "https://www.biorxiv.org/content/10.1101/2024.07.29.605549",
+  "abstract": "Early detection of crop pests and diseases can enable timely, targeted interventions, and help reduce pesticide use. Plants under biotic stress are known to rapidly emit characteristic blends of volatile compounds that could potentially serve as early and attacker-specific cues for precise pest monitoring. Here, we evaluated the feasibility of this approach using two complementary, state-of-the-art sensing technologies: a handheld nanomechanical membrane-based sensor array and chemical ionization time-of-flight mass spectrometry. Under laboratory conditions, with enclosed headspace sampling, both technologies readily distinguished undamaged maize plants from plants infested by caterpillars or infected with a fungal pathogen. Under semi-controlled outdoor open-air conditions, where volatile concentrations were strongly diluted, the membrane-based sensor no longer retained discriminatory power, whereas mass spectrometry predicted herbivory status with more than 90% accuracy using one-second measurements. Finally, in an initial field trial based on simulated herbivory, a compact, field-deployable, real-time mass spectrometer distinguished damaged from undamaged maize plants with highly encouraging performance under real field conditions. Together, these results demonstrate the potential of odor-based detection of pest attacks in maize and identify real-time mass spectrometry as a promising tool for crop monitoring, while pinpointing challenges that remain to be addressed for translation to practical field applications.",
+  "authors": [
+    "Mamin, M.",
+    "Arce, C. M.",
+    "Roder, G.",
+    "Kanagendran, A.",
+    "Degen, T.",
+    "Defossez, E.",
+    "Rasmann, S.",
+    "AKIYAMA, T.",
+    "MINAMI, K.",
+    "YOSHIKAWA, G."
+  ],
+  "published_date": "2026-03-13",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.384757",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.biorxiv.org/content/10.1101/2024.07.29.605549.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

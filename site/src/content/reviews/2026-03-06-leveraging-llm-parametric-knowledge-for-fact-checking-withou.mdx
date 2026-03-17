@@ -1,0 +1,116 @@
+---
+title: Leveraging LLM Parametric Knowledge for Fact Checking without Retrieval
+arxiv_id: 2603.05471v1
+authors:
+- Artem Vazhentsev
+- Maria Marina
+- Daniil Moskovskiy
+- Sergey Pletenev
+- Mikhail Seleznyov
+published_date: '2026-03-05'
+go_live_date: '2026-03-06'
+kappa: 0.55
+R: 0.375
+S: 0.319
+N: 0.307
+rsn_score: 0.37/0.32/0.31
+tags:
+- llm-agents
+- cs-cl
+- llm
+- representation-learning
+primary_topic: llm-agents
+difficulty: beginner
+abstract: Trustworthiness is a core research challenge for agentic AI systems built
+  on Large Language Models (LLMs). To enhance trust, natural language claims from
+  diverse sources, including human-written text, web content, and model outputs, are
+  commonly checked for factuality by retrieving external knowledge and using an LLM
+  to verify the faithfulness of claims to the retrieved evidence. As a result, such
+  methods are constrained by retrieval errors and external data availability, while
+  leaving the models intrinsic fact-verification capabilities largely unused. We propose
+  the task of fact-checking without retrieval, focusing on the verification of arbitrary
+  natural language claims, independent of their source. To study this setting, we
+  introduce a comprehensive evaluation framework focused on generalization, testing
+  robustness to (i) long-tail knowledge, (ii) variation in claim sources, (iii) multilinguality,
+  and (iv) long-form generation. Across 9 datasets, 18 methods and 3 models, our experiments
+  indicate that logit-based approaches often underperform compared to those that leverage
+  internal model representations. Building on this finding, we introduce INTRA, a
+  method that exploits interactions between internal representations and achieves
+  state-of-the-art performance with strong generalization. More broadly, our work
+  establishes fact-checking without retrieval as a promising research direction that
+  can complement retrieval-based frameworks, improve scalability, and enable the use
+  of such systems as reward signals during training or as components integrated into
+  the generation process.
+tldr: Trustworthiness is a core research challenge for agentic AI systems built on
+  Large Language Models (LLMs). To enhance trust, natural language claims from diverse
+  sources, including human-written text,...
+arxiv_url: https://arxiv.org/abs/2603.05471v1
+pdf_url: https://arxiv.org/pdf/2603.05471v1.pdf
+status: live
+featured: false
+date: '2026-03-06'
+source: arxiv
+arxivId: 2603.05471v1
+paperUrl: https://arxiv.org/abs/2603.05471v1
+pdfUrl: https://arxiv.org/pdf/2603.05471v1.pdf
+similarityScore: 0.183
+matchedTopics:
+- llm-agents
+- representation-learning
+- ai-safety
+excerpt: Trustworthiness is a core research challenge for agentic AI systems built
+  on Large Language Models (LLMs). To enhance trust, natural language claims from
+  diverse sources, including human-written text,...
+---
+
+# Leveraging LLM Parametric Knowledge for Fact Checking without Retrieval
+
+**RSCT Certification:** κ=0.550 (pending) | **RSN:** 0.37/0.32/0.31 | **Topics:** llm-agents
+
+Leveraging LLM Parametric Knowledge for Fact Checking without Retrieval: An RSCT Perspective
+
+Core Contribution
+This paper tackles the critical challenge of enhancing trust in agentic AI systems built on Large Language Models (LLMs). Traditionally, fact-checking methods have relied on retrieving external knowledge and using an LLM to verify the faithfulness of claims to the retrieved evidence. However, this approach is constrained by retrieval errors and external data availability, while leaving the models' intrinsic fact-verification capabilities largely unused. The key innovation of this work is the proposal of "fact-checking without retrieval" - the task of verifying the factuality of arbitrary natural language claims, independent of their source.
+
+The authors introduce a comprehensive evaluation framework to study this setting, focusing on generalization across long-tail knowledge, variation in claim sources, multilinguality, and long-form generation. Their experiments across 9 datasets, 18 methods, and 3 models reveal that logit-based approaches often underperform compared to those that leverage internal model representations. Building on this finding, the authors present INTRA, a method that exploits interactions between internal representations and achieves state-of-the-art performance with strong generalization. This work establishes fact-checking without retrieval as a promising research direction that can complement retrieval-based frameworks, improve scalability, and enable the use of such systems as reward signals during training or as components integrated into the generation process.
+
+Technical Approach
+The paper's technical approach focuses on leveraging the intrinsic fact-verification capabilities of LLMs, rather than relying on external knowledge retrieval. The authors introduce a comprehensive evaluation framework that tests the generalization of fact-checking models across various dimensions, including long-tail knowledge, claim source variation, multilinguality, and long-form generation.
+
+Across the 9 datasets and 18 methods examined, the experiments reveal an interesting finding: logit-based approaches often underperform compared to those that leverage internal model representations. Building on this insight, the authors present INTRA, a novel method that exploits the interactions between internal representations to achieve state-of-the-art performance with strong generalization.
+
+INTRA works by first encoding the claim and the model's internal representations into a shared space, and then computing an interaction-aware representation. This representation is used to make the final fact-checking decision, rather than relying solely on logits. The authors hypothesize that this approach allows INTRA to better capture the intricate relationships between the claim and the model's internal knowledge, leading to improved fact-checking performance.
+
+Key Results
+The experiments conducted in this paper provide several key findings. First, the authors demonstrate that logit-based approaches often underperform compared to those that leverage internal model representations. This suggests that the intrinsic fact-verification capabilities of LLMs are not fully utilized by logit-based methods, and that exploring representation-based approaches is a promising direction.
+
+Second, the authors introduce INTRA, a novel method that exploits the interactions between internal representations to achieve state-of-the-art performance on fact-checking without retrieval. INTRA outperforms the 18 other methods evaluated, showcasing its ability to effectively capture the complex relationships between claims and the model's internal knowledge.
+
+The paper also highlights the strong generalization capabilities of INTRA, as it maintains high performance across the diverse evaluation settings, including long-tail knowledge, claim source variation, multilinguality, and long-form generation. This suggests that the approach is robust and can be applied to a wide range of fact-checking scenarios.
+
+Significance and Limitations
+This work is significant because it establishes fact-checking without retrieval as a promising research direction that can complement retrieval-based frameworks, improve scalability, and enable the use of such systems as reward signals during training or as components integrated into the generation process. By focusing on the intrinsic fact-verification capabilities of LLMs, the paper opens up new avenues for enhancing trust in agentic AI systems.
+
+One limitation of the work is that it does not explore the potential synergies between retrieval-based and representation-based approaches. While the paper demonstrates the effectiveness of INTRA in a fact-checking without retrieval setting, it is unclear how the method would perform when combined with retrieval-based techniques. Investigating hybrid approaches could further improve the overall fact-checking performance and robustness.
+
+Through the RSCT Lens
+The paper's approach to fact-checking without retrieval is closely aligned with the core principles of Representation-Space Compatibility Theory (RSCT). By focusing on leveraging the intrinsic knowledge of LLMs, rather than relying solely on external information, the authors are effectively addressing the issues of representation quality (R) and stability (S) highlighted in RSCT.
+
+The κ-gate score of 0.55 suggests that the paper's contributions are moderately compatible with existing knowledge, reaching Gate 4 but falling short of the 0.7 threshold required for certification. The R, S, and N scores of 0.38, 0.32, and 0.31, respectively, provide insights into the strengths and limitations of the work.
+
+The relatively high Relevance (R) score indicates that the paper directly addresses the core research question of enhancing trust in agentic AI systems through improved fact-checking capabilities. The Stability (S) score suggests that the findings are reasonably consistent across the diverse evaluation settings, demonstrating the generalization capabilities of the proposed approach.
+
+However, the Noise (N) score of 0.31 suggests that there are still some elements in the work that dilute the core contribution, potentially limiting the overall compatibility with existing knowledge. To improve the RSCT score, the authors could further refine their methods to enhance the model's ability to capture the complex relationships between claims and internal representations, reducing the noise and improving the overall representation quality and stability.
+
+Overall, this paper's focus on leveraging the intrinsic knowledge of LLMs for fact-checking without retrieval aligns well with the principles of RSCT, highlighting the importance of representation-based approaches in enhancing trust and reliability in agentic AI systems.
+
+## Paper Details
+
+- **Authors:** Artem Vazhentsev, Maria Marina, Daniil Moskovskiy, Sergey Pletenev, Mikhail Seleznyov
+- **Source:** [arXiv](https://arxiv.org/abs/2603.05471v1)
+- **PDF:** [Download](https://arxiv.org/pdf/2603.05471v1.pdf)
+- **Published:** 2026-03-05
+
+---
+
+*This analysis was generated by the Swarm-It RSCT pipeline using Claude.*

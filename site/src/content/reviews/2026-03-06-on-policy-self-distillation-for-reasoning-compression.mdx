@@ -1,0 +1,98 @@
+---
+title: On-Policy Self-Distillation for Reasoning Compression
+arxiv_id: 2603.05433v1
+authors:
+- Hejian Sang
+- Yuanda Xu
+- Zhengze Zhou
+- Ran He
+- Zhipeng Wang
+published_date: '2026-03-05'
+go_live_date: '2026-03-06'
+kappa: 0.549
+R: 0.374
+S: 0.318
+N: 0.307
+rsn_score: 0.37/0.32/0.31
+tags:
+- llm-agents
+- cs-lg
+- representation-learning
+primary_topic: llm-agents
+difficulty: beginner
+abstract: "Reasoning models think out loud, but much of what they say is noise. We\
+  \ introduce OPSDC (On-Policy Self-Distillation for Reasoning Compression), a method\
+  \ that teaches models to reason more concisely by\n  distilling their own concise\
+  \ behavior back into themselves. The entire approach reduces to one idea: condition\
+  \ the same model on a \"be concise\" instruction to obtain teacher logits, and minimize\
+  \ per-token\n  reverse KL on the student's own rollouts. No ground-truth answers,\
+  \ no token budgets, no difficulty estimators. Just self-distillation. Yet this simplicity\
+  \ belies surprising sophistication: OPSDC automatically\n  compresses easy problems\
+  \ aggressively while preserving the deliberation needed for hard ones. On Qwen3-8B\
+  \ and Qwen3-14B, we achieve 57-59% token reduction on MATH-500 while improving accuracy\
+  \ by 9-16 points\n  absolute. On AIME 2024, the 14B model gains 10 points with 41%\
+  \ compression. The secret? Much of what reasoning models produce is not just redundant-it\
+  \ is actively harmful, compounding errors with every\n  unnecessary token."
+tldr: Reasoning models think out loud, but much of what they say is noise. We introduce
+  OPSDC (On-Policy Self-Distillation for Reasoning Compression), a method that teaches
+  models to reason more concisely b...
+arxiv_url: https://arxiv.org/abs/2603.05433v1
+pdf_url: https://arxiv.org/pdf/2603.05433v1.pdf
+status: live
+featured: false
+date: '2026-03-06'
+source: arxiv
+arxivId: 2603.05433v1
+paperUrl: https://arxiv.org/abs/2603.05433v1
+pdfUrl: https://arxiv.org/pdf/2603.05433v1.pdf
+similarityScore: 0.183
+matchedTopics:
+- llm-agents
+- representation-learning
+- ai-safety
+excerpt: Reasoning models think out loud, but much of what they say is noise. We introduce
+  OPSDC (On-Policy Self-Distillation for Reasoning Compression), a method that teaches
+  models to reason more concisely b...
+---
+
+# On-Policy Self-Distillation for Reasoning Compression
+
+**RSCT Certification:** κ=0.549 (pending) | **RSN:** 0.37/0.32/0.31 | **Topics:** llm-agents
+
+On-Policy Self-Distillation for Reasoning Compression: Streamlining Thought Through Self-Awareness
+
+Core Contribution:
+Large language models (LLMs) have demonstrated impressive reasoning capabilities, but their outputs can be verbose and repetitive, containing unnecessary "noise" that dilutes the core contribution. This paper introduces On-Policy Self-Distillation for Reasoning Compression (OPSDC), a novel method that teaches LLMs to reason more concisely by distilling their own succinct behavior back into themselves.
+
+The key innovation of OPSDC is its elegant simplicity. Rather than relying on ground-truth answers, token budgets, or difficulty estimators, the approach simply conditions the model on a "be concise" instruction and minimizes the per-token reverse Kullback-Leibler (KL) divergence between the teacher's logits and the student's own rollouts. This self-distillation process automatically compresses easy problems aggressively while preserving the deliberation needed for harder ones, resulting in substantial token reduction without sacrificing accuracy.
+
+Technical Approach:
+OPSDC works by training a single model to serve as both the teacher and the student. During training, the model is conditioned on a "be concise" instruction, which encourages it to generate more succinct responses. The teacher's logits (output probabilities) are then used as targets for the student's own rollouts, with the goal of minimizing the per-token reverse KL divergence. This self-distillation process incentivizes the model to learn a more compressed representation of its reasoning, eliminating unnecessary tokens while preserving the core logic.
+
+The authors demonstrate the flexibility of OPSDC by applying it to both the Qwen3-8B and Qwen3-14B LLMs, achieving substantial token reductions of 57-59% on the MATH-500 benchmark while also improving accuracy by 9-16 points. On the AIME 2024 dataset, the 14B model gained 10 points in accuracy with a 41% compression rate. The authors attribute this success to the model's ability to automatically identify and remove "actively harmful" tokens that compound errors, rather than simply removing redundant information.
+
+Key Results:
+The results of the OPSDC approach are impressive, demonstrating significant token reduction without sacrificing (and often improving) performance on challenging reasoning tasks. On the MATH-500 benchmark, the Qwen3-8B and Qwen3-14B models achieved 57-59% token reduction while improving accuracy by 9-16 points absolute. On the AIME 2024 dataset, the 14B model gained 10 points in accuracy with a 41% compression rate.
+
+Significance and Limitations:
+The OPSDC method represents an important step towards more efficient and effective LLM-powered reasoning. By teaching models to reason more concisely, the approach has the potential to reduce computational costs, improve inference speed, and make LLM-based systems more accessible. Additionally, the ability to automatically identify and remove "actively harmful" tokens could lead to more reliable and robust reasoning, as the model focuses on the core logic rather than extraneous or error-prone elements.
+
+However, the paper also acknowledges certain limitations. The OPSDC approach is currently limited to self-distillation, and it remains to be seen whether the technique can be effectively extended to cross-distillation between different models or even different tasks. Additionally, while the paper demonstrates impressive results on specific benchmarks, further research is needed to understand the broader applicability and generalization of the approach across diverse reasoning domains.
+
+Through the RSCT Lens:
+The OPSDC method addresses key concerns within the Representation-Space Compatibility Theory (RSCT) framework. By teaching models to reason more concisely, the approach directly improves the Relevance (R) of the model's outputs, as it focuses on the core logical reasoning rather than extraneous noise. The authors' observation that OPSDC automatically compresses easy problems while preserving deliberation for harder ones suggests that the method also enhances the Stability (S) of the model's reasoning, ensuring consistent and reliable performance across different levels of task complexity.
+
+The paper's RSCT certification metrics provide further insights. The κ-gate score of 0.549 indicates that the paper's contributions are somewhat compatible with existing knowledge, but do not fully integrate yet (κ ≥ 0.7 is required for certification). The Relevance (R=0.374), Stability (S=0.318), and Noise (N=0.307) scores suggest that the paper presents a strong signal (R>S>N) but still has room for improvement in reducing irrelevant or contradictory elements.
+
+The fact that the paper reaches Gate 4 (Stability) but does not pass the κ-gate suggests that the OPSDC method is valuable and merits further research and development. By enhancing the Relevance and Stability of LLM reasoning while reducing Noise, the approach aligns well with the RSCT framework and represents a promising direction for improving the representation-space compatibility of large language models.
+
+## Paper Details
+
+- **Authors:** Hejian Sang, Yuanda Xu, Zhengze Zhou, Ran He, Zhipeng Wang
+- **Source:** [arXiv](https://arxiv.org/abs/2603.05433v1)
+- **PDF:** [Download](https://arxiv.org/pdf/2603.05433v1.pdf)
+- **Published:** 2026-03-05
+
+---
+
+*This analysis was generated by the Swarm-It RSCT pipeline using Claude.*

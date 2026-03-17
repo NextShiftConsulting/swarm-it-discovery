@@ -1,0 +1,24 @@
+{
+  "paper_id": "medrxiv:2026.03.02.26347046",
+  "title": "Proposing the Roommate Sleep Preference Questionnaire (ROOMPREF) with a free online roommate matching tool",
+  "source": "medrxiv",
+  "url": "https://www.medrxiv.org/content/10.64898/2026.03.02.26347046",
+  "abstract": "Shared sleeping quarters are commonplace in contexts such as athletes at major sporting events, academic dormitories, and military barracks, yet mismatched sleep preferences can undermine rest and ultimately, human behaviour and performance. We introduce the Roommate Sleep Preference Questionnaire (ROOMPREF), a brief eight-question survey capturing preferences for noise, lighting, and temperature tolerances, snoring behaviour, and chronotype. Responses feed into a free, web-based clustering tool built in Python, which flags preference conflicts, and implements adaptive K-Means clustering within sex-chronotype subgroups. A post-cluster swapping algorithm further mitigates residual mismatches, enhancing the room-matching process. The resource includes distribution charts, group summaries, and optional automated room allocations, with downloadable CSV outputs. We demonstrate its application in a pilot cohort, highlighting its potential to improve sleep outcomes across various use-cases. This free resource has the potential to alleviate mismatched rooming partners, resulting in enhanced sleep and wellbeing outcomes.",
+  "authors": [
+    "Driller, M. W.",
+    "Suppiah, H."
+  ],
+  "published_date": "2026-03-09",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.401510",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.medrxiv.org/content/10.64898/2026.03.02.26347046.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

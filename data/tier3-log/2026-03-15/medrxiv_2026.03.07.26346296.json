@@ -1,0 +1,27 @@
+{
+  "paper_id": "medrxiv:2026.03.07.26346296",
+  "title": "Evaluation of Direct susceptibility testing method for Moxifloxacin against Mycobacterium tuberculosis using the BACTEC MGIT 960 system",
+  "source": "medrxiv",
+  "url": "https://www.medrxiv.org/content/10.64898/2026.03.07.26346296",
+  "abstract": "BackgroundMoxifloxacin is a key component of current MDR-TB therapy regimens. The choice to include it in therapy at standard or higher doses is based on the lack or presence of resistance mutations conferring low-level or high-level resistance to moxifloxacin, as detected by the Line probe assay (LPA). Due to inherent phenotypic and genotypic discordance, such resistance must be reconfirmed phenotypically using liquid culture and drug susceptibility testing (LC-DST) at critical concentration and clinical breakpoint of the drug. This takes several weeks, delaying the therapeutic decision. The current study intends to shorten this time by performing phenotypic DST directly on sputum samples.\n\nMethodsA cross-sectional study was conducted for 18 months from October 2023 to April 2025, in which smear positive sputum samples that were resistant to Rifampicin or Isoniazid or both were subjected to Direct Moxifloxacin DST, irrespective of patient characteristics. Results obtained by Direct DST were compared against Indirect LC-DST as the gold standard as well as with LPA to evaluate the diagnostic accuracy and time savings with direct DST.\n\nResultsDirect DST exhibited high accuracy of 98.18%, high sensitivity (90.91%), high specificity (98.99%), excellent concordance (98.18%) and almost perfect agreement (kappa value - 0.901) when compared to Indirect DST. It saved an average of 10 {+/-} 3.20 days over Indirect DST to obtain the valid results. Similar performance was also observed in comparison to LPA with good sensitivity (90.91%), specificity (98.99%) and accuracy (98.18%). Significant discordance was however noted in classification of resistance by both direct and indirect DST compared to LPA. Few error rates and minimal cost advantages were some of the disadvantages of Direct-DST.\n\nConclusionDirect DST demonstrated excellent performance characteristics, making it a reliable and rapid alternative to the gold standard, saving significant time in guiding therapeutic decis",
+  "authors": [
+    "BHADRA, S.",
+    "Gaikwad, U.",
+    "Vikram, K.",
+    "Chandrakar, S.",
+    "Prasad, A."
+  ],
+  "published_date": "2026-03-09",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.418023",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.medrxiv.org/content/10.64898/2026.03.07.26346296.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

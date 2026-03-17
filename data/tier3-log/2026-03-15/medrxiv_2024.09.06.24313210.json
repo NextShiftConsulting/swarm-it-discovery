@@ -1,0 +1,27 @@
+{
+  "paper_id": "medrxiv:2024.09.06.24313210",
+  "title": "Modelling the impact of vaccination on SARS-CoV-2 transmission in England",
+  "source": "medrxiv",
+  "url": "https://www.medrxiv.org/content/10.1101/2024.09.06.24313210",
+  "abstract": "While the efficacy of SARS-CoV-2 vaccination against severe disease and mortality is well-established, its impact on population-level transmission remains a critical yet poorly quantified frontier in public health. Previous evidence has largely relied on small-scale cohort or household studies. However, these settings often lack the scale to capture the broader ecological impact of vaccination on epidemic growth, and therefore its implications for epidemic control.\n\nHere, we quantify the effectiveness of SARS-CoV-2 vaccination against transmission in England by fitting a Bayesian hierarchical model to estimates of the time-varying effective reproduction number (Rt) during 2021. Vaccine effectiveness for one, two and three doses was defined as the proportional reduction in Rt. The model integrates high-resolution data on vaccination uptake by age group, the shifting landscape of circulating variants, and regional transmission trends across 221 Lower Tier Local Authorities.\n\nWe find that a first vaccine dose provided moderate-to-large effectiveness against transmission (45.4% (95% CrI: 38.5-51.9%)), whereas the second dose offered negligible additional transmission-blocking effects. A third dose significantly restored effectiveness (66.3% (40.3-90.1%)), albeit with higher uncertainty. Surprisingly, although a link between socio-economic deprivation and transmission is highly plausible, we find that deprivation was not a significant driver of transmission heterogeneity during the vaccination rollout. The model accurately reproduces observed spatial and temporal variation in Rt across England.\n\nTo our knowledge, these findings provide the first population-level evidence that vaccination substantially reduces the SARS-CoV-2 reproduction number, supporting the UKs \"first-doses-first\" prioritization as effective tools for epidemic control. More broadly, our modelling framework offers an approach for assessing transmission-blocking effects of vaccines against respiratory pa",
+  "authors": [
+    "Derqui, N.",
+    "Mishra, S.",
+    "Hinsley, W. R.",
+    "Bhatt, S.",
+    "Laydon, D. J."
+  ],
+  "published_date": "2026-03-09",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.399238",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.medrxiv.org/content/10.1101/2024.09.06.24313210.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

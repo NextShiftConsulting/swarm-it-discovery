@@ -1,0 +1,27 @@
+{
+  "paper_id": "medrxiv:2026.03.09.26347082",
+  "title": "Consistency of Linguistic and Cognitive Processing Measures to Discriminate Children with and without Developmental Language Disorder (DLD): Comparing Likelihood Ratios (LHs) and Elastic Net Regression Computational Models.",
+  "source": "medrxiv",
+  "url": "https://www.medrxiv.org/content/10.64898/2026.03.09.26347082",
+  "abstract": "Because both monothetic and polythetic diagnostic classification approaches focus on the presence of individual symptom(s) to identify individuals in a clinical population, they may be diagnostically sensitive clinical markers of multidimensional disorders such as developmental language disorder (DLD). DLD researchers have also used likelihood ratios (LHs) to identify possible diagnostic clinical markers of DLD, however the diagnostic sensitivity of LHs varies markedly across studies. A recent multidimensional computational elastic-net regression examined a total of 71 measures of spoken language and cognitive processing from a cohort of 223 children ages 7;0 to 11;0 with and without DLD (DLD = 110; typically developing (TD) controls = 113). All 200 iterations of the model had high discriminative power (87% - 88%) in positively identifying and distinguishing the DLD participants across all thresholds. Notably, the models identified a sparse DLD-specific deficit profile which only included nine of the 71 measures. In this study, we ask if the individual LHs for each of these nine measures are equally sensitive in identifying and discriminating the children with DLD from TD controls or if diagnostic markers of multidimensional disorders such as DLD can only be identified based on computational modeling approaches. The LHs for each of the nine measures were in the moderately high ranged (3.25 - 10). However, at the the highest LH cut points for each measure, there was little to no overlap in the children each measure identified as having DLD. Follow up analysis revealed that the elastic net model-derived predictive scores for each participant were significantly correlated with the participants language ability. The model also identified a subgroup of TD participants as having the same DLD-deficit profile as the DLD participants. This subgroup were younger, predominantly male participants whose standardized language assessment scores were lower as compared to the larger",
+  "authors": [
+    "Sharma, S.",
+    "Golden, R. M.",
+    "Montgomery, J. W.",
+    "Gillam, R. B.",
+    "Evans, J."
+  ],
+  "published_date": "2026-03-09",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.415557",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.medrxiv.org/content/10.64898/2026.03.09.26347082.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

@@ -1,0 +1,32 @@
+{
+  "paper_id": "biorxiv:2024.08.27.609946",
+  "title": "Information-making processes in the speaker's brain drive human conversations forward",
+  "source": "biorxiv",
+  "url": "https://www.biorxiv.org/content/10.1101/2024.08.27.609946",
+  "abstract": "Natural human conversation is driven by the exchange of information-rich messages that surprise the listener and deviate from predictable context. While extensive research has characterized how the brain processes unexpected linguistic input during comprehension, the neural mechanisms underlying the generation of such information by the speaker remain poorly understood. In this study, we hypothesize that the speakers brain actively creates information through extra neural computation, transforming internal thoughts into novel, meaningful linguistic outputs. Utilizing a unique 24/7 dataset of continuous electrocorticography (ECoG) comprising approximately 100 hours of spontaneous natural conversations, we contrast the neural basis of speech production and comprehension within the same participants. Behaviorally, we find that speakers take longer pausing for an additional 100-150 milliseconds before producing information-rich, improbable words, even when controlling for word identity and frequency. Neurally, we provide converging evidence for a previously unreported process: generating information-rich words elicits significantly stronger neural activity (ERP) and enhanced neural encoding and decoding in language-related areas starting 100-500 ms before articulation. This pattern contrasts sharply with speech comprehension, where enhanced neural activity for predictable words occurs before onset, while responses to improbable words emerge only after onset as prediction errors. Furthermore, we demonstrate that large language models (LLMs) mirror this biological process, requiring deeper internal computation across layers to generate improbable versus probable words. Together, these results reveal that the speakers brain is not merely a transmission channel but an active generator of information, recruiting extra neural resources to create novel content that diverges from listener expectations.",
+  "authors": [
+    "Goldstein, A.",
+    "Wang, H.",
+    "Sheffer, T.",
+    "Schain, M.",
+    "Zada, Z.",
+    "Niekerken, L.",
+    "Aubrey, B.",
+    "Nastase, S. A.",
+    "Gazula, H.",
+    "Casto, C."
+  ],
+  "published_date": "2026-03-10",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.385481",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.biorxiv.org/content/10.1101/2024.08.27.609946.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

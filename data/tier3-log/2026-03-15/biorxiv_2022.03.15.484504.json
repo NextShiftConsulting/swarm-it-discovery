@@ -1,0 +1,31 @@
+{
+  "paper_id": "biorxiv:2022.03.15.484504",
+  "title": "Functional Separation of mRNA Domains Coordinates Pluripotent Cell Behavior",
+  "source": "biorxiv",
+  "url": "https://www.biorxiv.org/content/10.1101/2022.03.15.484504",
+  "abstract": "Differential expression of mRNA coding sequences (CDSs) and 3untranslated regions (UTRs) is widespread, yet whether these domains contribute independently to cellular function remains unclear. Here, using Nanog as a model, we find that Nanog mRNA domain usage is spatially organized in mouse and human pluripotent cells and in the blastocyst, with cells enriched in 3UTR transcripts marking colony borders and cells enriched for the Nanog CDS located interior. Functional perturbation reveals a marked asymmetry between mRNA domains. Loss of the Nanog 3UTR leads to defects in colony architecture, cell spreading and morphogenetic behavior, accompanied by decreased extracellular matrix modeling gene expression and ROCK dependent cytoskeletal organization. In contrast, deletion of the Nanog CDS primarily disrupts epithelial polarity-associated transcriptional programs and the expression of chromatin regulators, consistent with a dominant role for the Nanog protein in transcriptional and epigenetic control. These domain specific effects are not redundant but instead reflect separable regulatory activities encoded within a single transcript. Together, these findings demonstrate that distinct regions of a single mRNA can encode separable and asymmetric biological functions, revealing mRNA domain usage as a distinct regulatory layer through which genes can encode multiple biological outputs beyond protein coding capacity.",
+  "authors": [
+    "Yang, Z.",
+    "Ji, S.",
+    "Ivanov, K.",
+    "Kadav, P.",
+    "Song, M.",
+    "Gozali, L.",
+    "Parsa, S.",
+    "Behr, B.",
+    "Hynes, M."
+  ],
+  "published_date": "2026-03-12",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.380560",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.biorxiv.org/content/10.1101/2022.03.15.484504.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

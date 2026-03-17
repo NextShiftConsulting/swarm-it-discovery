@@ -1,0 +1,24 @@
+{
+  "paper_id": "openalex:W7105905842",
+  "title": "Supplementary data: \u201cIs metaphony (and sound change) sensitive to grammatical category? The case of verbs in the dialects of the Lausberg area\" (Phonology)",
+  "source": "openalex",
+  "url": "https://openalex.org/W7105905842",
+  "abstract": "This study examines the extent to which metaphony is sensitive to grammatical category in three varieties of the Lausberg dialect area of Southern Italy. Results from acoustic analyses show that metaphony, expressed through raising or diphthongisation of mid stem vowels triggered by high suffix vowels, is present in nouns and adjectives, but significantly reduced or absent in verbs. In certain cases, verbs display paradigmatic levelling, with metaphonic patterns extending even to forms lacking a triggering environment. These findings suggest that grammatical category can influence sound change before full phonologisation. The reduced susceptibility of verbs to metaphony is attributed to their morpho-syntactic prominence and the functional need to preserve inflectional distinctions. Overall, the results highlight a complex interaction between phonetics, phonology, and morpho-syntax in the development of metaphony. The datasets were created as part of the project SoundAct which has received funding from the European Research Council (ERC) under the European Union\u2019s Horizon Europe research and innovation programme (grant agreement No. 101053194).",
+  "authors": [
+    "Greca, Pia",
+    "Harrington, Jonathan"
+  ],
+  "published_date": "2041-01-01",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.377200",
+  "scan_date": "2026-03-15",
+  "pdf_url": null,
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

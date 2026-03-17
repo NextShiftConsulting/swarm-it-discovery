@@ -1,0 +1,27 @@
+{
+  "paper_id": "arxiv:2603.12244v1",
+  "title": "Separable neural architectures as a primitive for unified predictive and generative intelligence",
+  "source": "arxiv",
+  "url": "https://arxiv.org/abs/2603.12244v1",
+  "abstract": "Intelligent systems across physics, language and perception often exhibit factorisable structure, yet are typically modelled by monolithic neural architectures that do not explicitly exploit this structure. The separable neural architecture (SNA) addresses this by formalising a representational class that unifies additive, quadratic and tensor-decomposed neural models. By constraining interaction order and tensor rank, SNAs impose a structural inductive bias that factorises high-dimensional mappings into low-arity components. Separability need not be a property of the system itself: it often emerges in the coordinates or representations through which the system is expressed. Crucially, this coordinate-aware formulation reveals a structural analogy between chaotic spatiotemporal dynamics and linguistic autoregression. By treating continuous physical states as smooth, separable embeddings, SNAs enable distributional modelling of chaotic systems. This approach mitigates the nonphysical drift characteristics of deterministic operators whilst remaining applicable to discrete sequences. The compositional versatility of this approach is demonstrated across four domains: autonomous waypoint navigation via reinforcement learning, inverse generation of multifunctional microstructures, distributional modelling of turbulent flow and neural language modelling. These results establish the separable neural architecture as a domain-agnostic primitive for predictive and generative intelligence, capable of unifying both deterministic and distributional representations.",
+  "authors": [
+    "Reza T. Batley",
+    "Apurba Sarker",
+    "Rajib Mostakim",
+    "Andrew Klichine",
+    "Sourav Saha"
+  ],
+  "published_date": "2026-03-12",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.372637",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://arxiv.org/pdf/2603.12244v1.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}

@@ -101,7 +101,7 @@ class AnalystAgent(ADKAgent):
     def __init__(
         self,
         swarmit_url: str,
-        topics_dir="content/topics",
+        topics_dir="site/src/content/topics",
         min_score=0.5,
         min_rsct_score=0.3
     ):
@@ -235,7 +235,7 @@ class AnalystAgent(ADKAgent):
 class WriterAgent(ADKAgent):
     """Agent wrapper for MDX generation."""
 
-    def __init__(self, output_dir="content/reviews"):
+    def __init__(self, output_dir="site/src/content/reviews"):
         super().__init__(name="writer", goal="Generate paper reviews")
         self.generator = MDXGenerator(output_dir=output_dir)
 
@@ -387,8 +387,8 @@ def main():
     parser.add_argument("--min-score", type=float, default=0.5, help="Min topic similarity score")
     parser.add_argument("--min-rsct-score", type=float, default=0.3, help="Min RSCT relevance score")
     parser.add_argument("--dry-run", action="store_true", help="Don't generate posts")
-    parser.add_argument("--topics-dir", default="content/topics", help="Topics directory")
-    parser.add_argument("--output-dir", default="content/reviews", help="Output directory")
+    parser.add_argument("--topics-dir", default="site/src/content/topics", help="Topics directory")
+    parser.add_argument("--output-dir", default="site/src/content/reviews", help="Output directory")
     args = parser.parse_args()
 
     asyncio.run(run_pipeline(args))

@@ -1,0 +1,32 @@
+{
+  "paper_id": "biorxiv:2024.06.25.600635",
+  "title": "Differences in orthographic processing across species identified by a transparent computational model",
+  "source": "biorxiv",
+  "url": "https://www.biorxiv.org/content/10.1101/2024.06.25.600635",
+  "abstract": "The ability to robustly recognize strings of letters, a cornerstone of reading, was observed in baboons and pigeons despite their lack of phonological and semantic knowledge. Here, we apply a comparative modeling approach to investigate the neuro-cognitive basis of orthographic decision behavior in humans, baboons, and pigeons, addressing whether phylogenetic relatedness entails similar underlying neuro-cognitive phenotypes. We use the highly transparent SpeechLess Reader (SLR) model, which assumes letter-string recognition based on a computational implementation of predictive coding, whereby orthographic decisions rely on prediction-error signals emerging from multiple representational levels: visual-pixel, letter, and letter-sequence representations. We investigate which representations species use during successful orthographic decision-making. We introduce multiple SLR variants, each including one or more prediction-error representations, and compare the simulations of each variant with orthographic decisions from individuals of three species after learning letter strings without meaning. Humans predominantly relied on letter-sequence-level representations, resulting in the highest task performance in behavior and model simulations. Baboons also relied on sequence-based representations, but in combination with pixel- and letter-level representations. In contrast, pigeons relied more on pixel and letter-level representations. These findings suggest that the orthographic representations used in orthographic decisions reflect phylogenetic distance: Humans and baboons use more similar representations than pigeons. Overall, the description of orthographic decisions based on a small set of representations and computations was highly successful in describing behavior, even for humans who mastered reading in its entirety.",
+  "authors": [
+    "Gagl, B.",
+    "Weyers, I.",
+    "Eisenhauer, S.",
+    "Fiebach, C. J.",
+    "Pauli, J. N. J.",
+    "Colombo, M.",
+    "Scarf, D.",
+    "Ziegler, J. C.",
+    "Grainger, J.",
+    "Guentuerkuen, O."
+  ],
+  "published_date": "2026-03-10",
+  "kappa": 0.0,
+  "rsct_score": 0.0,
+  "topic_score": 0.0,
+  "combined_score": 0.0,
+  "tier": 3,
+  "topics_matched": [],
+  "archived_at": "2026-03-15T18:43:20.384096",
+  "scan_date": "2026-03-15",
+  "pdf_url": "https://www.biorxiv.org/content/10.1101/2024.06.25.600635.full.pdf",
+  "github_url": null,
+  "key_findings": [],
+  "rsct_connections": []
+}
