@@ -31,16 +31,18 @@ const ReviewsPage: React.FC<PageProps<{ allMdx: { nodes: ReviewNode[] } }>> = ({
   const allReviews = data?.allMdx?.nodes || [];
   const [filterTopic, setFilterTopic] = useState<string>("all");
   const [filterQuality, setFilterQuality] = useState<string>("all");
+  const [filterExpertise, setFilterExpertise] = useState<string>("all");
   const [sortBy, setSortBy] = useState<"date" | "quality">("date");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   // Check if any filters are active
-  const hasActiveFilters = filterTopic !== "all" || filterQuality !== "all" || searchQuery !== "";
+  const hasActiveFilters = filterTopic !== "all" || filterQuality !== "all" || filterExpertise !== "all" || searchQuery !== "";
 
   // Clear all filters
   const handleClearFilters = () => {
     setFilterTopic("all");
     setFilterQuality("all");
+    setFilterExpertise("all");
     setSearchQuery("");
   };
 
@@ -55,11 +57,12 @@ const ReviewsPage: React.FC<PageProps<{ allMdx: { nodes: ReviewNode[] } }>> = ({
       (filterQuality === "exceptional" && review.frontmatter.kappa >= 0.9) ||
       (filterQuality === "high-quality" && review.frontmatter.kappa >= 0.8 && review.frontmatter.kappa < 0.9) ||
       (filterQuality === "certified" && review.frontmatter.kappa >= 0.7 && review.frontmatter.kappa < 0.8);
+    const expertiseMatch = filterExpertise === "all" || review.frontmatter.difficulty === filterExpertise;
     const searchMatch = searchQuery === "" ||
       review.frontmatter.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       review.frontmatter.abstract.toLowerCase().includes(searchQuery.toLowerCase()) ||
       review.frontmatter.primary_topic.toLowerCase().includes(searchQuery.toLowerCase());
-    return topicMatch && qualityMatch && searchMatch;
+    return topicMatch && qualityMatch && expertiseMatch && searchMatch;
   });
 
   // Sort reviews
@@ -159,6 +162,23 @@ const ReviewsPage: React.FC<PageProps<{ allMdx: { nodes: ReviewNode[] } }>> = ({
                 <option value="exceptional">🥇 Exceptional (κ ≥ 0.9)</option>
                 <option value="high-quality">🥈 High Quality (κ ≥ 0.8)</option>
                 <option value="certified">🥉 Certified (κ ≥ 0.7)</option>
+              </select>
+            </div>
+
+            {/* Expertise Filter */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Expertise
+              </label>
+              <select
+                value={filterExpertise}
+                onChange={(e) => setFilterExpertise(e.target.value)}
+                className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="all">All Levels</option>
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
               </select>
             </div>
 
