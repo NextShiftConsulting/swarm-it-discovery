@@ -26,8 +26,22 @@ const navItems: DropdownNavLink[] = [
       { label: "YRSN Integration", to: "https://nextshiftconsulting.com/services/yrsn-integration/", external: true },
     ],
   },
-  { label: "Research", to: "/" },
-  { label: "Blog", to: "https://nextshiftconsulting.com/blog", external: true },
+  {
+    label: "Research",
+    to: "/",
+    dropdown: [
+      { label: "Reviews", to: "/reviews" },
+    ],
+  },
+  {
+    label: "Blog",
+    to: "https://nextshiftconsulting.com/blog",
+    external: true,
+    dropdown: [
+      { label: "All Posts", to: "https://nextshiftconsulting.com/blog", external: true },
+      { label: "Podcasts", to: "https://swarm-it.transistor.fm", external: true },
+    ],
+  },
 ];
 
 export const Header: React.FC = () => {
