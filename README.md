@@ -2,6 +2,9 @@
 
 **Live at**: [swarmit.nextshiftconsulting.com](https://swarmit.nextshiftconsulting.com)
 
+> **⚠️ STATUS: PAUSED** (as of 2026-03-24)
+> Site deployment paused during weekend. The pipeline depends on swarm-it-api (api.swarms.network) which is currently not operational. Pipeline will resume once API dependency is restored.
+
 Automated AI/ML paper discovery and analysis - the **dynamic research discovery tool** for [Next Shift Consulting](https://nextshiftconsulting.com).
 
 ## Overview
@@ -32,6 +35,8 @@ This repo is part of a **3-repo ecosystem**:
 ```
 
 **Dependency chain**: `discovery pipeline → ADK (orchestrate) → API (certify)`
+
+**Current Status**: Discovery pipeline paused. Dependency on swarm-it-api (RSCT certification) is blocking. API has deployment-ready code but is not operational in production. See README status banner above.
 
 ### This Repo Structure
 
