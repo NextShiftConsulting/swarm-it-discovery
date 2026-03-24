@@ -1,14 +1,23 @@
 # Swarm-It Research Discovery
 
-Automated AI/ML paper discovery and analysis for [nextshiftconsulting.com](https://nextshiftconsulting.com).
+**Live at**: [swarmit.nextshiftconsulting.com](https://swarmit.nextshiftconsulting.com)
+
+Automated AI/ML paper discovery and analysis - the **dynamic research discovery tool** for [Next Shift Consulting](https://nextshiftconsulting.com).
 
 ## Overview
 
-This system automatically:
+This is a **standalone subdomain** deployed on AWS (S3 + CloudFront) that serves as the dynamic part of Next Shift Consulting's web presence. It's architecturally separate from the main company site to:
+- Isolate automated pipeline failures
+- Enable independent daily deployment cadence
+- Manage higher risk profile (ML pipeline, external APIs)
+
+**What it does automatically**:
 1. **Scans** arXiv and Semantic Scholar for new papers daily
 2. **Matches** papers against curated research topics using semantic similarity
 3. **Certifies** the analysis pipeline using Swarm-It RSCT
 4. **Publishes** featured blog posts for high-relevance papers
+
+**Infrastructure**: AWS S3 bucket (`swarmit-nextshift`) + CloudFront distribution, separate from main site deployment.
 
 ## Architecture
 
@@ -140,12 +149,17 @@ npm run build      # Production build
 
 ### Deploy
 
+Deploys to **swarmit.nextshiftconsulting.com** (AWS S3 + CloudFront):
+
 ```bash
 # Build and deploy to AWS
+cd site
 npm run build
 aws s3 sync public/ s3://swarmit-nextshift --delete
 aws cloudfront create-invalidation --distribution-id XXXX --paths "/*"
 ```
+
+**Note**: This is a standalone deployment separate from the main Next Shift Consulting site. See [SITE_PRINCIPLES.md](SITE_PRINCIPLES.md) for architecture rationale.
 
 ## Certification
 
