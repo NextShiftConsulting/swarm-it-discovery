@@ -4,11 +4,9 @@ Daily Pipeline Runner - Fetch, Match, Certify, Publish
 
 Uses Swarm-It sidecar API for RSCT certification of the analysis pipeline.
 
-Usage:
-    # Set environment variables
-    export SWARMIT_URL=http://localhost:8080
-    export OPENAI_API_KEY=sk-...
+P18 Compliance: All credentials via swarm-it-auth.
 
+Usage:
     # Run pipeline
     python pipeline/run.py
 
@@ -27,6 +25,33 @@ from dataclasses import asdict
 # Add parent to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
+# Add swarm-it-auth to path for credential management (P18)
+sys.path.insert(0, str(Path.home() / "GitHub" / "swarm-it-auth"))
+
+# Optional: swarm-it-auth for credentials (P18 compliant)
+try:
+    from swarm_auth.adapters import EnvCredentialAdapter
+    HAS_SWARM_AUTH = True
+except ImportError:
+    HAS_SWARM_AUTH = False
+
+
+def _has_aws_credentials() -> bool:
+    """Check if AWS credentials available via swarm-it-auth (P18 compliant)."""
+    if HAS_SWARM_AUTH:
+        adapter = EnvCredentialAdapter()
+        aws_key = adapter.retrieve("AWS_ACCESS_KEY_ID")
+        if aws_key:
+            return True
+    # Fall back to ~/.aws/credentials file
+    try:
+        import boto3
+        session = boto3.Session()
+        creds = session.get_credentials()
+        return creds is not None
+    except:
+        return False
+
 from scanner.sources import fetch_all_sources, Paper
 from analyzer.matcher import SimilarityMatcher, MatchResult
 from analyzer.rsct_scorer import RSCTScorer, RSCTScore
@@ -44,18 +69,8 @@ except ImportError:
 HAS_BEDROCK = False
 try:
     from analyzer.bedrock_matcher import BedrockMatcher, BedrockAnalyzer
-    # Check for AWS credentials (env var or ~/.aws/credentials)
-    if os.environ.get("AWS_ACCESS_KEY_ID"):
-        HAS_BEDROCK = True
-    else:
-        # Try boto3 credential chain
-        try:
-            import boto3
-            session = boto3.Session()
-            creds = session.get_credentials()
-            HAS_BEDROCK = creds is not None
-        except:
-            pass
+    # P18 compliant credential check
+    HAS_BEDROCK = _has_aws_credentials()
 except ImportError:
     pass
 

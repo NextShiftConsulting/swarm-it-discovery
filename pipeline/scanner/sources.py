@@ -1,13 +1,35 @@
 """
 Paper Sources - Fetch papers from arXiv, Semantic Scholar, etc.
+
+P18 Compliance: All credentials via swarm-it-auth.
 """
 
 import os
+import sys
 import httpx
 from datetime import datetime, timedelta
 from dataclasses import dataclass
 from typing import List, Optional
 from abc import ABC, abstractmethod
+from pathlib import Path
+
+# Add swarm-it-auth to path for credential management (P18)
+sys.path.insert(0, str(Path.home() / "GitHub" / "swarm-it-auth"))
+
+# Optional: swarm-it-auth for credentials (P18 compliant)
+try:
+    from swarm_auth.adapters import EnvCredentialAdapter
+    HAS_SWARM_AUTH = True
+except ImportError:
+    HAS_SWARM_AUTH = False
+
+
+def _get_credential(key: str) -> Optional[str]:
+    """Get credential via swarm-it-auth (P18 compliant)."""
+    if HAS_SWARM_AUTH:
+        adapter = EnvCredentialAdapter()
+        return adapter.retrieve(key)
+    return None
 
 
 @dataclass
@@ -124,7 +146,8 @@ class SemanticScholarSource(PaperSource):
 
     async def fetch_recent(self, days: int = 1, max_results: int = 100) -> List[Paper]:
         """Fetch recent papers from Semantic Scholar."""
-        api_key = os.getenv("SEMANTIC_SCHOLAR_API_KEY")
+        # P18 compliant credential access
+        api_key = _get_credential("SEMANTIC_SCHOLAR_API_KEY")
         headers = {"x-api-key": api_key} if api_key else {}
 
         # Search for recent AI/ML papers

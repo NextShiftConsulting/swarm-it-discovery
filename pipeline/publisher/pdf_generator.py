@@ -3,14 +3,27 @@ PDF Review Generator - Create detailed LaTeX reviews for top papers.
 
 Generates academic-style PDF reviews for papers most relevant to RSCT,
 including detailed analysis, R/S/N breakdown, and research implications.
+
+P18 Compliance: All credentials via swarm-it-auth.
 """
 
 import os
+import sys
 import subprocess
 from pathlib import Path
 from datetime import datetime
 from dataclasses import dataclass
 from typing import List, Optional
+
+# Add swarm-it-auth to path for credential management (P18)
+sys.path.insert(0, str(Path.home() / "GitHub" / "swarm-it-auth"))
+
+# Optional: swarm-it-auth for credentials (P18 compliant)
+try:
+    from swarm_auth.adapters import EnvCredentialAdapter
+    HAS_SWARM_AUTH = True
+except ImportError:
+    HAS_SWARM_AUTH = False
 
 # Optional: OpenAI for content generation
 try:
@@ -18,6 +31,14 @@ try:
     HAS_OPENAI = True
 except ImportError:
     HAS_OPENAI = False
+
+
+def _get_credential(key: str) -> Optional[str]:
+    """Get credential via swarm-it-auth (P18 compliant)."""
+    if HAS_SWARM_AUTH:
+        adapter = EnvCredentialAdapter()
+        return adapter.retrieve(key)
+    return None
 
 
 @dataclass
@@ -41,8 +62,10 @@ class PDFReviewGenerator:
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
-        if HAS_OPENAI and os.getenv("OPENAI_API_KEY"):
-            self.openai = OpenAI()
+        # P18 compliant credential access
+        openai_key = _get_credential("OPENAI_API_KEY")
+        if HAS_OPENAI and openai_key:
+            self.openai = OpenAI(api_key=openai_key)
         else:
             self.openai = None
 

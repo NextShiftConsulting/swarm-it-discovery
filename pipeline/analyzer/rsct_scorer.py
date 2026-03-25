@@ -3,13 +3,33 @@ RSCT Relevance Scorer - Compare papers against base RSCT whitepaper.
 
 Computes semantic similarity between discovered papers and the RSCT
 theory paper to identify papers most relevant to our research.
+
+P18 Compliance: All credentials via swarm-it-auth (preferred) or config_manager.
 """
 
 import os
+import sys
 import json
 from pathlib import Path
 from typing import List, Optional, Tuple
 from dataclasses import dataclass
+
+# Add swarm-it-auth to path for credential management (P18)
+sys.path.insert(0, str(Path.home() / "GitHub" / "swarm-it-auth"))
+
+# Optional: swarm-it-auth for credentials (P18 compliant)
+try:
+    from swarm_auth.adapters import EnvCredentialAdapter
+    HAS_SWARM_AUTH = True
+except ImportError:
+    HAS_SWARM_AUTH = False
+
+# Optional: sentence-transformers for local embeddings (FREE - check first)
+try:
+    from sentence_transformers import SentenceTransformer
+    HAS_SBERT = True
+except ImportError:
+    HAS_SBERT = False
 
 # Optional: OpenAI for embeddings
 try:
@@ -22,7 +42,7 @@ except ImportError:
 try:
     import boto3
     import numpy as np
-    HAS_BEDROCK = bool(os.environ.get("AWS_ACCESS_KEY_ID") or os.path.exists(os.path.expanduser("~/.aws/credentials")))
+    HAS_BEDROCK = True  # Check credentials via swarm-it-auth, not env vars
 except ImportError:
     HAS_BEDROCK = False
 
@@ -72,23 +92,66 @@ class RSCTScorer:
         self.whitepaper_text = self._load_whitepaper(whitepaper_path)
         self.whitepaper_embedding = None
         self.use_bedrock = False
+        self.embed_mode = None
+        self.sbert_model = None
+        self.openai = None
+        self._credential_adapter = None
 
-        if HAS_OPENAI and os.getenv("OPENAI_API_KEY"):
-            self.openai = OpenAI()
+        # Initialize credential adapter (P18 compliant)
+        if HAS_SWARM_AUTH:
+            self._credential_adapter = EnvCredentialAdapter()
+
+        # Check for embedding providers (prefer local FREE options first)
+        if HAS_SBERT:
+            self.embed_mode = "sbert"
+            self.sbert_model = SentenceTransformer("all-MiniLM-L6-v2")
+            self._compute_whitepaper_embedding_sbert()
+            print("RSCT Scorer: Using local embeddings (FREE)")
+        elif HAS_OPENAI and self._get_openai_key():
+            self.embed_mode = "openai"
+            self.openai = OpenAI(api_key=self._get_openai_key())
             self._compute_whitepaper_embedding()
             print("RSCT Scorer: Using OpenAI embeddings")
-        elif HAS_BEDROCK:
-            self.openai = None
+        elif HAS_BEDROCK and self._has_aws_credentials():
+            self.embed_mode = "bedrock"
             self.use_bedrock = True
-            self.bedrock_client = boto3.client(
-                "bedrock-runtime",
-                region_name="us-east-1",
-            )
+            self.bedrock_client = self._create_bedrock_client()
             self._compute_whitepaper_embedding_bedrock()
             print("RSCT Scorer: Using Bedrock Titan embeddings")
         else:
-            self.openai = None
             print("Warning: No embedding service configured, using keyword matching only")
+
+    def _get_openai_key(self) -> Optional[str]:
+        """Get OpenAI API key via swarm-it-auth (P18 compliant)."""
+        if self._credential_adapter:
+            return self._credential_adapter.retrieve("OPENAI_API_KEY")
+        return None
+
+    def _has_aws_credentials(self) -> bool:
+        """Check if AWS credentials available via swarm-it-auth or ~/.aws/credentials."""
+        # Check swarm-it-auth first
+        if self._credential_adapter:
+            aws_key = self._credential_adapter.retrieve("AWS_ACCESS_KEY_ID")
+            if aws_key:
+                return True
+        # Fall back to ~/.aws/credentials file
+        return os.path.exists(os.path.expanduser("~/.aws/credentials"))
+
+    def _create_bedrock_client(self):
+        """Create Bedrock client using P18 compliant credentials."""
+        # If swarm-it-auth has credentials, use explicit session
+        if self._credential_adapter:
+            aws_key = self._credential_adapter.retrieve("AWS_ACCESS_KEY_ID")
+            aws_secret = self._credential_adapter.retrieve("AWS_SECRET_ACCESS_KEY")
+            if aws_key and aws_secret:
+                session = boto3.Session(
+                    aws_access_key_id=aws_key,
+                    aws_secret_access_key=aws_secret,
+                    region_name="us-east-1"
+                )
+                return session.client("bedrock-runtime")
+        # Fall back to default boto3 chain (~/.aws/credentials)
+        return boto3.client("bedrock-runtime", region_name="us-east-1")
 
     def _load_whitepaper(self, path: str) -> str:
         """Load and clean whitepaper text (supports .tex, .txt, .pdf)."""
@@ -120,6 +183,17 @@ class RSCTScorer:
         except Exception as e:
             print(f"Error loading whitepaper: {e}")
             return ""
+
+    def _compute_whitepaper_embedding_sbert(self):
+        """Compute embedding for whitepaper using local SBERT."""
+        if not self.sbert_model or not self.whitepaper_text:
+            return
+
+        try:
+            embedding = self.sbert_model.encode(self.whitepaper_text[:8000])
+            self.whitepaper_embedding = embedding.tolist()
+        except Exception as e:
+            print(f"Error computing whitepaper embedding (SBERT): {e}")
 
     def _compute_whitepaper_embedding(self):
         """Compute embedding for whitepaper using OpenAI."""
@@ -162,8 +236,15 @@ class RSCTScorer:
             return None
 
     def _embed(self, text: str) -> Optional[List[float]]:
-        """Get embedding for text (OpenAI or Bedrock)."""
-        if self.openai:
+        """Get embedding for text (SBERT, OpenAI, or Bedrock)."""
+        if self.embed_mode == "sbert" and self.sbert_model:
+            try:
+                embedding = self.sbert_model.encode(text[:8000])
+                return embedding.tolist()
+            except Exception as e:
+                print(f"SBERT embedding error: {e}")
+                return None
+        elif self.embed_mode == "openai" and self.openai:
             try:
                 response = self.openai.embeddings.create(
                     input=text[:8000],

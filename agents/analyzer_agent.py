@@ -12,15 +12,20 @@ from dataclasses import dataclass, field
 from datetime import datetime
 
 # Add swarm-it repos to path
-sys.path.insert(0, str(Path.home() / "GitHub" / "swarm-it-auth"))
-sys.path.insert(0, str(Path.home() / "GitHub" / "swarm-it-adk" / "adk"))
+sys.path.insert(0, str(Path.home() / "github" / "yrsn" / "src"))
+sys.path.insert(0, str(Path.home() / "github" / "swarm-it-adk" / "adk"))
 
-# Import from swarm-it-auth
+# Import MIMOClient from yrsn SERG module
 try:
-    from swarm_auth.adapters import MiMoClient
+    from yrsn.framework.api.serg.mimo_swarm import MIMOClient as MiMoClient
     HAS_MIMO = True
 except ImportError:
-    HAS_MIMO = False
+    # Fallback: try swarm-it-adk provider
+    try:
+        from swarm_it.providers.mimo import MIMOProvider as MiMoClient
+        HAS_MIMO = True
+    except ImportError:
+        HAS_MIMO = False
 
 # Import pipeline components
 sys.path.insert(0, str(Path(__file__).parent.parent / "pipeline"))
@@ -30,6 +35,121 @@ try:
     HAS_PIPELINE = True
 except ImportError:
     HAS_PIPELINE = False
+
+
+class MiMoClientWrapper:
+    """Wrapper to adapt MIMOClient to expected analyze_paper interface."""
+
+    # Key file locations (check both repos)
+    KEY_PATHS = [
+        Path.home() / "github" / "swarm-it-auth" / "keys" / "4-openrouter.md",
+        Path.home() / "github" / "yrsn" / "keys" / "4-openrouter.md",
+        Path.home() / "github" / "yrsn" / "keys" / "xiao_nsc_20260217.txt",
+    ]
+
+    def __init__(self):
+        """Initialize with OpenRouter or direct MiMo client."""
+        self._client = None
+        self._api_key = None
+        self._base_url = None
+        self._model = None
+
+        # Try to load API key from files
+        self._load_credentials()
+
+        # Initialize OpenAI-compatible client
+        if self._api_key:
+            try:
+                from openai import OpenAI
+                self._client = OpenAI(
+                    api_key=self._api_key,
+                    base_url=self._base_url
+                )
+                print(f"[OK] MiMoClientWrapper: Using {self._base_url} with model {self._model}")
+            except Exception as e:
+                print(f"[FAIL] MiMoClientWrapper: OpenAI client init failed: {e}")
+
+    def _load_credentials(self):
+        """Load API credentials from key files."""
+        for key_path in self.KEY_PATHS:
+            if key_path.exists():
+                try:
+                    content = key_path.read_text().strip()
+
+                    # OpenRouter key file format: api_key="sk-or-..."
+                    if "openrouter" in str(key_path).lower():
+                        import re
+                        match = re.search(r'api_key="([^"]+)"', content)
+                        if match:
+                            self._api_key = match.group(1)
+                            self._base_url = "https://openrouter.ai/api/v1"
+                            self._model = "xiaomi/mimo-v2-flash"  # Fast, cost-effective
+                            return
+
+                    # Direct Xiaomi key file format: sk-...
+                    if "xiao" in str(key_path).lower():
+                        lines = content.split('\n')
+                        for line in lines:
+                            if line.startswith('sk-'):
+                                self._api_key = line.strip()
+                                self._base_url = "https://api.xiaomimimo.com/v1"
+                                self._model = "mimo-v2-flash"
+                                return
+                except Exception as e:
+                    print(f"[FAIL] Failed to read {key_path}: {e}")
+
+    def analyze_paper(self, title: str, abstract: str) -> Dict[str, Any]:
+        """
+        Analyze a paper using MIMO LLM via OpenRouter or direct API.
+
+        Args:
+            title: Paper title
+            abstract: Paper abstract
+
+        Returns:
+            Dict with summary, key_findings, rsct_connections
+        """
+        if self._client is None:
+            return {"summary": "MIMO client not available", "key_findings": [], "rsct_connections": []}
+
+        prompt = f"""Analyze this academic paper and provide:
+1. A brief summary (2-3 sentences)
+2. Key findings (3-5 bullet points)
+3. Connections to RSCT theory (Representation-Solver Compatibility Theory)
+
+Title: {title}
+
+Abstract: {abstract}
+
+Respond in JSON format:
+{{"summary": "...", "key_findings": ["...", "..."], "rsct_connections": ["...", "..."]}}"""
+
+        try:
+            # Use OpenAI-compatible chat completion
+            response = self._client.chat.completions.create(
+                model=self._model,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.3,
+                max_tokens=1024,
+            )
+
+            content = response.choices[0].message.content
+
+            # Parse JSON from response
+            import json
+            try:
+                # Find JSON in response
+                start = content.find('{')
+                end = content.rfind('}') + 1
+                if start >= 0 and end > start:
+                    return json.loads(content[start:end])
+            except json.JSONDecodeError:
+                pass
+
+            return {"summary": content[:500], "key_findings": [], "rsct_connections": []}
+
+        except Exception as e:
+            return {"summary": f"Analysis error: {e}", "key_findings": [], "rsct_connections": []}
 
 
 @dataclass
@@ -107,27 +227,27 @@ class AnalyzerAgent:
 
     def _init_components(self):
         """Initialize analysis components."""
-        # LLM client
+        # LLM client (using wrapper for analyze_paper interface)
         if self.use_mimo and HAS_MIMO:
             try:
-                self._llm = MiMoClient()
-                print("✓ AnalyzerAgent: MiMoClient initialized")
+                self._llm = MiMoClientWrapper()
+                print("[OK] AnalyzerAgent: MiMoClientWrapper initialized")
             except Exception as e:
-                print(f"✗ AnalyzerAgent: MiMoClient failed: {e}")
+                print(f"[FAIL] AnalyzerAgent: MiMoClientWrapper failed: {e}")
 
         # Topic matcher
         if HAS_PIPELINE:
             try:
                 self._matcher = SimilarityMatcher()
-                print("✓ AnalyzerAgent: SimilarityMatcher initialized")
+                print("[OK] AnalyzerAgent: SimilarityMatcher initialized")
             except Exception as e:
-                print(f"✗ AnalyzerAgent: SimilarityMatcher failed: {e}")
+                print(f"[FAIL] AnalyzerAgent: SimilarityMatcher failed: {e}")
 
             try:
                 self._scorer = RSCTScorer()
-                print("✓ AnalyzerAgent: RSCTScorer initialized")
+                print("[OK] AnalyzerAgent: RSCTScorer initialized")
             except Exception as e:
-                print(f"✗ AnalyzerAgent: RSCTScorer failed: {e}")
+                print(f"[FAIL] AnalyzerAgent: RSCTScorer failed: {e}")
 
     def analyze_paper(self, paper: Dict) -> Optional[AnalysisResult]:
         """
@@ -238,7 +358,7 @@ class AnalyzerAgent:
 
         analysis_time = (datetime.utcnow() - start_time).total_seconds()
 
-        print(f"\n✓ Analysis complete in {analysis_time:.1f}s")
+        print(f"\n[OK] Analysis complete in {analysis_time:.1f}s")
         print(f"  Analyzed: {len(analyses)}/{len(papers_to_analyze)}")
         print(f"  Total cost: ${total_cost:.4f}")
 

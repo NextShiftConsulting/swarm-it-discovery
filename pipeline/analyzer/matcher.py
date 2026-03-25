@@ -1,13 +1,26 @@
 """
 Similarity Matcher - Match papers against topic PDFs using embeddings.
+
+P18 Compliance: All credentials via swarm-it-auth (preferred) or config_manager.
 """
 
 import os
+import sys
 import json
 from pathlib import Path
 from dataclasses import dataclass
 from typing import List, Dict, Optional, Tuple
 import numpy as np
+
+# Add swarm-it-auth to path for credential management (P18)
+sys.path.insert(0, str(Path.home() / "GitHub" / "swarm-it-auth"))
+
+# Optional: swarm-it-auth for credentials (P18 compliant)
+try:
+    from swarm_auth.adapters import EnvCredentialAdapter
+    HAS_SWARM_AUTH = True
+except ImportError:
+    HAS_SWARM_AUTH = False
 
 # Optional: sentence-transformers for local embeddings
 try:
@@ -58,17 +71,30 @@ class SimilarityMatcher:
         self.threshold = threshold
         self.topics: List[TopicDocument] = []
         self.topic_embeddings: Optional[np.ndarray] = None
+        self._credential_adapter = None
 
-        # Initialize embedding model
-        if HAS_OPENAI and os.getenv("OPENAI_API_KEY"):
-            self.embed_mode = "openai"
-            self.openai = OpenAI()
-        elif HAS_SBERT:
+        # Initialize credential adapter (P18 compliant)
+        if HAS_SWARM_AUTH:
+            self._credential_adapter = EnvCredentialAdapter()
+
+        # Initialize embedding model (prefer local FREE embeddings)
+        if HAS_SBERT:
             self.embed_mode = "sbert"
             self.model = SentenceTransformer(model_name)
+            print("SimilarityMatcher: Using local embeddings (FREE)")
+        elif HAS_OPENAI and self._get_openai_key():
+            self.embed_mode = "openai"
+            self.openai = OpenAI(api_key=self._get_openai_key())
+            print("SimilarityMatcher: Using OpenAI embeddings")
         else:
             self.embed_mode = "keyword"
             print("Warning: No embedding model available, using keyword matching")
+
+    def _get_openai_key(self) -> Optional[str]:
+        """Get OpenAI API key via swarm-it-auth (P18 compliant)."""
+        if self._credential_adapter:
+            return self._credential_adapter.retrieve("OPENAI_API_KEY")
+        return None
 
     def load_topics(self) -> None:
         """Load topic documents from JSON or extracted PDFs."""

@@ -2,14 +2,40 @@
 Bedrock Semantic Matcher - Real embedding-based paper matching using AWS Bedrock.
 
 Uses Titan embeddings for semantic similarity between papers and topics.
+
+P18 Compliance: All credentials via swarm-it-auth.
 """
 
 import os
+import sys
 import json
 import boto3
 import numpy as np
 from typing import List, Dict, Any, Optional
 from dataclasses import dataclass
+from pathlib import Path
+
+# Add swarm-it-auth to path for credential management (P18)
+sys.path.insert(0, str(Path.home() / "GitHub" / "swarm-it-auth"))
+
+# Optional: swarm-it-auth for credentials (P18 compliant)
+try:
+    from swarm_auth.adapters import EnvCredentialAdapter
+    HAS_SWARM_AUTH = True
+except ImportError:
+    HAS_SWARM_AUTH = False
+
+
+def _get_aws_credentials():
+    """Get AWS credentials via swarm-it-auth (P18 compliant)."""
+    if HAS_SWARM_AUTH:
+        adapter = EnvCredentialAdapter()
+        aws_key = adapter.retrieve("AWS_ACCESS_KEY_ID")
+        aws_secret = adapter.retrieve("AWS_SECRET_ACCESS_KEY")
+        if aws_key and aws_secret:
+            return {"aws_access_key_id": aws_key, "aws_secret_access_key": aws_secret}
+    # Fall back to default boto3 credential chain (~/.aws/credentials)
+    return {}
 
 
 @dataclass
@@ -54,12 +80,12 @@ class BedrockMatcher:
         self.topics = []
         self.topic_embeddings = {}
 
-        # Initialize Bedrock client
+        # Initialize Bedrock client (P18 compliant)
+        creds = _get_aws_credentials()
         self.client = boto3.client(
             "bedrock-runtime",
             region_name=region,
-            aws_access_key_id=os.environ.get("AWS_ACCESS_KEY_ID"),
-            aws_secret_access_key=os.environ.get("AWS_SECRET_ACCESS_KEY"),
+            **creds  # Empty dict uses default chain, or explicit creds from swarm-auth
         )
 
     def _get_embedding(self, text: str) -> np.ndarray:
@@ -180,11 +206,12 @@ class BedrockAnalyzer:
     ):
         self.region = region
         self.model_id = model_id
+        # Initialize Bedrock client (P18 compliant)
+        creds = _get_aws_credentials()
         self.client = boto3.client(
             "bedrock-runtime",
             region_name=region,
-            aws_access_key_id=os.environ.get("AWS_ACCESS_KEY_ID"),
-            aws_secret_access_key=os.environ.get("AWS_SECRET_ACCESS_KEY"),
+            **creds  # Empty dict uses default chain, or explicit creds from swarm-auth
         )
 
     def analyze_paper(

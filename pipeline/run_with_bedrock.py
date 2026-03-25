@@ -2,16 +2,11 @@
 """
 Run discovery pipeline with AWS Bedrock + Swarm-It API.
 
+P18 Compliance: All credentials via swarm-it-auth.
+
 Uses:
 - AWS Bedrock Titan for semantic matching
 - api.swarms.network for RSCT certification
-
-Prerequisites:
-    Set AWS credentials via environment variables or keys/aws_credentials.sh:
-
-    export AWS_ACCESS_KEY_ID=your-key
-    export AWS_SECRET_ACCESS_KEY=your-secret
-    export AWS_DEFAULT_REGION=us-east-1
 
 Usage:
     python3 pipeline/run_with_bedrock.py --days 1 --min-score 0.35
@@ -25,29 +20,41 @@ from pathlib import Path
 project_root = Path(__file__).parent.parent
 os.chdir(project_root)
 
+# Add swarm-it-auth to path for credential management (P18)
+sys.path.insert(0, str(Path.home() / "GitHub" / "swarm-it-auth"))
+
 # Add swarm-it-adk client to path for real API access
 adk_client_path = Path.home() / "GitHub" / "swarm-it-adk" / "clients" / "python"
 if adk_client_path.exists():
     sys.path.insert(0, str(adk_client_path))
 
-# Check for AWS credentials
-if not os.environ.get("AWS_ACCESS_KEY_ID"):
-    # Try to load from keys file (gitignored)
-    keys_file = project_root / "keys" / "aws_credentials.sh"
-    if keys_file.exists():
-        print(f"Loading AWS credentials from {keys_file}")
-        import subprocess
-        result = subprocess.run(
-            f"source {keys_file} && env",
-            shell=True, capture_output=True, text=True
-        )
-        for line in result.stdout.split("\n"):
-            if line.startswith("AWS_"):
-                key, _, value = line.partition("=")
-                os.environ[key] = value
-    else:
-        print("Warning: AWS credentials not found. Set AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY")
-        print("Or create keys/aws_credentials.sh with exports")
+# P18 compliant credential check
+def _check_aws_credentials():
+    """Check for AWS credentials via swarm-it-auth (P18 compliant)."""
+    try:
+        from swarm_auth.adapters import EnvCredentialAdapter
+        adapter = EnvCredentialAdapter()
+        aws_key = adapter.retrieve("AWS_ACCESS_KEY_ID")
+        if aws_key:
+            return True
+    except ImportError:
+        pass
+
+    # Fall back to ~/.aws/credentials
+    try:
+        import boto3
+        session = boto3.Session()
+        creds = session.get_credentials()
+        return creds is not None
+    except:
+        pass
+
+    return False
+
+if not _check_aws_credentials():
+    print("Warning: AWS credentials not found.")
+    print("Set via swarm-it-auth EnvCredentialAdapter (SWARM_AWS_ACCESS_KEY_ID)")
+    print("Or configure ~/.aws/credentials")
 
 # Set default region if not set
 if not os.environ.get("AWS_DEFAULT_REGION"):
