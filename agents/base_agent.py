@@ -54,7 +54,7 @@ class BaseSourceAgent(ABC):
     Abstract base class for source-specific agents.
 
     Integration:
-    - Credentials via swarm-it-auth (EnvCredentialAdapter or OpenAICredentialBroker)
+    - Credentials via swarm_auth.get_credential (P18 v3.0)
     - Certification via swarm-it-adk (certify before LLM calls)
     """
 
@@ -67,19 +67,17 @@ class BaseSourceAgent(ABC):
     def __init__(self):
         self._llm_client = None
         self._certifier = None
-        self._credential_adapter = None
         self._init_integrations()
 
     def _init_integrations(self):
         """Initialize swarm-it-auth and swarm-it-adk integrations."""
 
-        # 1. Initialize credential adapter (swarm-it-auth)
+        # 1. P18 v3.0 credentials available via swarm_auth.get_credential
         try:
-            from swarm_auth.adapters import EnvCredentialAdapter
-            self._credential_adapter = EnvCredentialAdapter()
-            print(f"  ✓ {self.AGENT_NAME}: swarm-it-auth initialized")
+            from swarm_auth import get_credential
+            print(f"  ✓ {self.AGENT_NAME}: swarm_auth initialized")
         except ImportError as e:
-            print(f"  ✗ {self.AGENT_NAME}: swarm-it-auth not available: {e}")
+            print(f"  ✗ {self.AGENT_NAME}: swarm_auth not available: {e}")
 
         # 2. Initialize certifier (swarm-it-adk)
         try:

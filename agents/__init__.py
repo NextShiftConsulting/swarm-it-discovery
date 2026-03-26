@@ -2,13 +2,13 @@
 SWARM Discovery Agents - Modular agents for the discovery pipeline.
 
 Architecture:
-- Pipeline Agents: ScannerAgent → AnalyzerAgent → PublisherAgent
+- Pipeline Agents: ScannerAgent -> AnalyzerAgent -> PublisherAgent
 - Source Agents: ArXiv, PubMed, BioRxiv, SemanticScholar, OpenAlex
 - Content Agents: YouTubeAgent (extracts research from videos)
 - Orchestrator: Coordinates pipeline and source agents
 
 All agents use:
-- swarm-it-auth for credentials (MiMoClient, EnvCredentialAdapter)
+- swarm_auth.get_credential for credentials (P18 v3.0)
 - swarm-it-adk for RSCT certification
 """
 

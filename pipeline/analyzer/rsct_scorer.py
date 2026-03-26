@@ -14,15 +14,8 @@ from pathlib import Path
 from typing import List, Optional, Tuple
 from dataclasses import dataclass
 
-# Add swarm-it-auth to path for credential management (P18)
-sys.path.insert(0, str(Path.home() / "GitHub" / "swarm-it-auth"))
-
-# Optional: swarm-it-auth for credentials (P18 compliant)
-try:
-    from swarm_auth.adapters import EnvCredentialAdapter
-    HAS_SWARM_AUTH = True
-except ImportError:
-    HAS_SWARM_AUTH = False
+# P18 v3.0 - Unified credential access
+from swarm_auth import get_credential
 
 # Optional: sentence-transformers for local embeddings (FREE - check first)
 try:
@@ -95,11 +88,6 @@ class RSCTScorer:
         self.embed_mode = None
         self.sbert_model = None
         self.openai = None
-        self._credential_adapter = None
-
-        # Initialize credential adapter (P18 compliant)
-        if HAS_SWARM_AUTH:
-            self._credential_adapter = EnvCredentialAdapter()
 
         # Check for embedding providers (prefer local FREE options first)
         if HAS_SBERT:
@@ -107,9 +95,9 @@ class RSCTScorer:
             self.sbert_model = SentenceTransformer("all-MiniLM-L6-v2")
             self._compute_whitepaper_embedding_sbert()
             print("RSCT Scorer: Using local embeddings (FREE)")
-        elif HAS_OPENAI and self._get_openai_key():
+        elif HAS_OPENAI and get_credential("OPENAI_API_KEY"):
             self.embed_mode = "openai"
-            self.openai = OpenAI(api_key=self._get_openai_key())
+            self.openai = OpenAI(api_key=get_credential("OPENAI_API_KEY"))
             self._compute_whitepaper_embedding()
             print("RSCT Scorer: Using OpenAI embeddings")
         elif HAS_BEDROCK and self._has_aws_credentials():
@@ -121,35 +109,24 @@ class RSCTScorer:
         else:
             print("Warning: No embedding service configured, using keyword matching only")
 
-    def _get_openai_key(self) -> Optional[str]:
-        """Get OpenAI API key via swarm-it-auth (P18 compliant)."""
-        if self._credential_adapter:
-            return self._credential_adapter.retrieve("OPENAI_API_KEY")
-        return None
-
     def _has_aws_credentials(self) -> bool:
-        """Check if AWS credentials available via swarm-it-auth or ~/.aws/credentials."""
-        # Check swarm-it-auth first
-        if self._credential_adapter:
-            aws_key = self._credential_adapter.retrieve("AWS_ACCESS_KEY_ID")
-            if aws_key:
-                return True
+        """Check if AWS credentials available via P18 gateway or ~/.aws/credentials."""
+        if get_credential("AWS_ACCESS_KEY_ID"):
+            return True
         # Fall back to ~/.aws/credentials file
         return os.path.exists(os.path.expanduser("~/.aws/credentials"))
 
     def _create_bedrock_client(self):
         """Create Bedrock client using P18 compliant credentials."""
-        # If swarm-it-auth has credentials, use explicit session
-        if self._credential_adapter:
-            aws_key = self._credential_adapter.retrieve("AWS_ACCESS_KEY_ID")
-            aws_secret = self._credential_adapter.retrieve("AWS_SECRET_ACCESS_KEY")
-            if aws_key and aws_secret:
-                session = boto3.Session(
-                    aws_access_key_id=aws_key,
-                    aws_secret_access_key=aws_secret,
-                    region_name="us-east-1"
-                )
-                return session.client("bedrock-runtime")
+        aws_key = get_credential("AWS_ACCESS_KEY_ID")
+        aws_secret = get_credential("AWS_SECRET_ACCESS_KEY")
+        if aws_key and aws_secret:
+            session = boto3.Session(
+                aws_access_key_id=aws_key,
+                aws_secret_access_key=aws_secret,
+                region_name="us-east-1"
+            )
+            return session.client("bedrock-runtime")
         # Fall back to default boto3 chain (~/.aws/credentials)
         return boto3.client("bedrock-runtime", region_name="us-east-1")
 

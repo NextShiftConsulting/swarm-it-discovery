@@ -17,8 +17,8 @@ from typing import List, Dict, Optional, Any
 from dataclasses import dataclass, field
 from datetime import datetime
 
-# Add swarm-it repos to path
-sys.path.insert(0, str(Path.home() / "GitHub" / "swarm-it-auth"))
+# P18 v3.0 - Unified credential access
+from swarm_auth import get_credential
 
 from youtube_transcript_api import YouTubeTranscriptApi
 from youtube_transcript_api._errors import TranscriptsDisabled, NoTranscriptFound

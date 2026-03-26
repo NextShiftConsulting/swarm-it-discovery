@@ -20,8 +20,8 @@ from typing import List, Dict, Optional, Any
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 
-# Add swarm-it repos to path
-sys.path.insert(0, str(Path.home() / "GitHub" / "swarm-it-auth"))
+# P18 v3.0 - Unified credential access
+from swarm_auth import get_credential
 
 
 @dataclass
@@ -256,9 +256,7 @@ TWEET:
             List of tweet dicts
         """
         try:
-            from swarm_auth.adapters import EnvCredentialAdapter
-            creds = EnvCredentialAdapter(prefix="SWARM_")
-            bearer_token = creds.retrieve("X_BEARER_TOKEN")
+            bearer_token = get_credential("X_BEARER_TOKEN")
 
             if not bearer_token:
                 print(f"  ⚠ No X API token found, falling back to Nitter")

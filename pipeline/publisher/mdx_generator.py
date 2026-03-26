@@ -14,23 +14,8 @@ from pathlib import Path
 from dataclasses import dataclass
 from typing import List, Optional
 
-# Add swarm-it-auth to path for credential management (P18)
-sys.path.insert(0, str(Path.home() / "GitHub" / "swarm-it-auth"))
-
-# Optional: swarm-it-auth for credentials (P18 compliant)
-try:
-    from swarm_auth.adapters import EnvCredentialAdapter
-    HAS_SWARM_AUTH = True
-except ImportError:
-    HAS_SWARM_AUTH = False
-
-
-def _get_credential(key: str) -> Optional[str]:
-    """Get credential via swarm-it-auth (P18 compliant)."""
-    if HAS_SWARM_AUTH:
-        adapter = EnvCredentialAdapter()
-        return adapter.retrieve(key)
-    return None
+# P18 v3.0 - Unified credential access
+from swarm_auth import get_credential
 
 
 def normalize_date(date_str: str, fallback_date: str = None) -> str:
@@ -140,7 +125,7 @@ class MDXGenerator:
                 print(f"Bedrock not available: {e}")
 
         # Fall back to OpenAI (P18 compliant)
-        openai_key = _get_credential("OPENAI_API_KEY")
+        openai_key = get_credential("OPENAI_API_KEY")
         if not self.llm_provider and HAS_OPENAI and openai_key:
             self.openai = OpenAI(api_key=openai_key)
             self.llm_provider = "openai"
