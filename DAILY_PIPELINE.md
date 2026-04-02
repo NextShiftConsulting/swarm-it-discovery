@@ -16,7 +16,7 @@ Simple daily paper discovery with source-specific SWARM agents.
 ### 1. Run Locally (Dev Mode)
 
 ```bash
-cd /Users/rudy/GitHub/swarm-it-discovery
+cd ~/github/swarm-it-discovery
 ./scripts/run_daily.sh
 ```
 
@@ -43,8 +43,8 @@ Results go to `content/reviews-dev/` (won't touch production).
 Add to your crontab (`crontab -e`):
 
 ```cron
-# Run daily at 6am
-0 6 * * * /Users/rudy/GitHub/swarm-it-discovery/scripts/run_daily.sh >> /tmp/discovery.log 2>&1
+# Run daily at 6am (adjust path to your installation)
+0 6 * * * ~/github/swarm-it-discovery/scripts/run_daily.sh >> /tmp/discovery.log 2>&1
 ```
 
 Or use launchd (Mac):

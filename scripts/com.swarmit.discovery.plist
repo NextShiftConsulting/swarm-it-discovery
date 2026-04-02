@@ -7,7 +7,8 @@
 
     <key>ProgramArguments</key>
     <array>
-        <string>/Users/rudy/GitHub/swarm-it-discovery/scripts/run_daily.sh</string>
+        <!-- Update path to your installation -->
+        <string>/Users/YOUR_USERNAME/github/swarm-it-discovery/scripts/run_daily.sh</string>
     </array>
 
     <key>StartCalendarInterval</key>
