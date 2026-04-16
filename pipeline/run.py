@@ -432,11 +432,13 @@ class CertifiedPipeline:
                 "paper",
                 fallback_score=rsct.combined_score
             )
-            # Debug: trace problematic papers
-            if cert.get("R") == 0 or cert.get("kappa_gate") == 0:
-                print(f"DEBUG: Paper '{paper.title[:40]}' got R=0!")
-                print(f"  rsct.combined_score = {rsct.combined_score}")
-                print(f"  cert = {cert}")
+            # Signal: sidecar disagreement — RSCTScorer thought paper was relevant
+            # (combined_score >= 0.3) but sidecar certify returned R=0. Count for triage.
+            if cert.get("R") == 0 and rsct.combined_score >= 0.3:
+                results.setdefault("sidecar_disagreements", 0)
+                results["sidecar_disagreements"] += 1
+                print(f"  [sidecar-disagreement] '{paper.title[:50]}' "
+                      f"rsct={rsct.combined_score:.2f} but cert.R=0")
             results["certifications"].append(cert)
 
             paper_data.append(PaperData(

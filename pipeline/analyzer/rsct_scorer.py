@@ -161,14 +161,54 @@ class RSCTScorer:
             print(f"Error loading whitepaper: {e}")
             return ""
 
+    def _whitepaper_cache_path(self, embed_mode: str, model_name: str) -> Path:
+        """Path to cached whitepaper embedding. Key: text-hash + mode + model."""
+        import hashlib
+        cache_dir = Path.home() / ".cache" / "swarm-discovery" / "whitepaper_embed"
+        cache_dir.mkdir(parents=True, exist_ok=True)
+        text_hash = hashlib.sha256(self.whitepaper_text[:8000].encode("utf-8")).hexdigest()[:16]
+        safe_model = model_name.replace("/", "_").replace(":", "_")
+        return cache_dir / f"{embed_mode}_{safe_model}_{text_hash}.json"
+
+    def _load_cached_whitepaper_embedding(self, embed_mode: str, model_name: str):
+        """Return cached embedding if present, else None."""
+        try:
+            p = self._whitepaper_cache_path(embed_mode, model_name)
+            if p.exists():
+                data = json.loads(p.read_text(encoding="utf-8"))
+                return data.get("embedding")
+        except Exception:
+            pass
+        return None
+
+    def _save_cached_whitepaper_embedding(self, embed_mode: str, model_name: str):
+        """Persist current self.whitepaper_embedding to cache."""
+        if self.whitepaper_embedding is None:
+            return
+        try:
+            p = self._whitepaper_cache_path(embed_mode, model_name)
+            p.write_text(json.dumps({
+                "embedding": self.whitepaper_embedding,
+                "embed_mode": embed_mode,
+                "model_name": model_name,
+            }), encoding="utf-8")
+        except Exception as e:
+            print(f"Warning: failed to save whitepaper embedding cache: {e}")
+
     def _compute_whitepaper_embedding_sbert(self):
         """Compute embedding for whitepaper using local SBERT."""
         if not self.sbert_model or not self.whitepaper_text:
             return
 
+        cached = self._load_cached_whitepaper_embedding("sbert", "all-MiniLM-L6-v2")
+        if cached is not None:
+            self.whitepaper_embedding = cached
+            return
+
         try:
             embedding = self.sbert_model.encode(self.whitepaper_text[:8000])
             self.whitepaper_embedding = embedding.tolist()
+            self._save_cached_whitepaper_embedding("sbert", "all-MiniLM-L6-v2")
         except Exception as e:
             print(f"Error computing whitepaper embedding (SBERT): {e}")
 
@@ -177,12 +217,18 @@ class RSCTScorer:
         if not self.openai or not self.whitepaper_text:
             return
 
+        cached = self._load_cached_whitepaper_embedding("openai", self.embed_model)
+        if cached is not None:
+            self.whitepaper_embedding = cached
+            return
+
         try:
             response = self.openai.embeddings.create(
                 input=self.whitepaper_text,
                 model=self.embed_model,
             )
             self.whitepaper_embedding = response.data[0].embedding
+            self._save_cached_whitepaper_embedding("openai", self.embed_model)
         except Exception as e:
             print(f"Error computing whitepaper embedding: {e}")
 
@@ -191,8 +237,14 @@ class RSCTScorer:
         if not self.whitepaper_text:
             return
 
+        cached = self._load_cached_whitepaper_embedding("bedrock", "amazon.titan-embed-text-v1")
+        if cached is not None:
+            self.whitepaper_embedding = cached
+            return
+
         try:
             self.whitepaper_embedding = self._embed_bedrock(self.whitepaper_text)
+            self._save_cached_whitepaper_embedding("bedrock", "amazon.titan-embed-text-v1")
         except Exception as e:
             print(f"Error computing whitepaper embedding (Bedrock): {e}")
 
