@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 from typing import List, Dict, Optional, Any
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 
 # Add swarm-it repos to path
 sys.path.insert(0, str(Path.home() / "github" / "yrsn" / "src"))
@@ -315,7 +315,7 @@ class AnalyzerAgent:
             summary=summary,
             key_findings=key_findings,
             rsct_connections=rsct_connections,
-            analyzed_at=datetime.utcnow().isoformat(),
+            analyzed_at=datetime.now(timezone.utc).isoformat(),
             cost=cost,
         )
 
@@ -335,7 +335,7 @@ class AnalyzerAgent:
             BatchAnalysisResult with all analyses
         """
         print(f"\n=== AnalyzerAgent: Analyzing {len(papers)} papers ===")
-        start_time = datetime.utcnow()
+        start_time = datetime.now(timezone.utc)
 
         analyses = []
         errors = []
@@ -356,7 +356,7 @@ class AnalyzerAgent:
         # Sort by combined score
         analyses.sort(key=lambda a: a.combined_score, reverse=True)
 
-        analysis_time = (datetime.utcnow() - start_time).total_seconds()
+        analysis_time = (datetime.now(timezone.utc) - start_time).total_seconds()
 
         print(f"\n[OK] Analysis complete in {analysis_time:.1f}s")
         print(f"  Analyzed: {len(analyses)}/{len(papers_to_analyze)}")

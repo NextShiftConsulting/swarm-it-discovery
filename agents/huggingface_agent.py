@@ -12,7 +12,7 @@ import httpx
 from pathlib import Path
 from typing import List, Dict, Optional
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 
 # Add swarm-it repos to path
 sys.path.insert(0, str(Path.home() / "GitHub" / "swarm-it-auth"))
@@ -77,7 +77,7 @@ class HuggingFacePapersAgent:
             HFPapersResult with papers and arXiv IDs
         """
         print(f"\n=== {self.AGENT_NAME}: Fetching daily papers ===")
-        start_time = datetime.utcnow()
+        start_time = datetime.now(timezone.utc)
 
         try:
             response = self._http_client.get(self.DAILY_PAPERS_URL)
@@ -125,7 +125,7 @@ class HuggingFacePapersAgent:
             )
             papers.append(paper)
 
-        fetch_time = (datetime.utcnow() - start_time).total_seconds()
+        fetch_time = (datetime.now(timezone.utc) - start_time).total_seconds()
 
         print(f"  ✓ Fetched {len(papers)} papers in {fetch_time:.1f}s")
 

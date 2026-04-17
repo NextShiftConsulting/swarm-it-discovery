@@ -6,7 +6,7 @@ Runs daily to analyze papers from each source with specialized expertise.
 
 import os
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import List, Dict, Optional
 from dataclasses import asdict
 
@@ -115,7 +115,7 @@ class SourceAgentOrchestrator:
 
         if total_analyzed == 0:
             return {
-                "timestamp": datetime.utcnow().isoformat(),
+                "timestamp": datetime.now(timezone.utc).isoformat(),
                 "total_analyzed": 0,
                 "source_stats": self.source_stats,
                 "top_papers": [],
@@ -158,7 +158,7 @@ class SourceAgentOrchestrator:
         all_rsct.sort(key=lambda x: x["relevance"], reverse=True)
 
         return {
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "total_analyzed": total_analyzed,
             "avg_relevance": round(avg_relevance, 2),
             "avg_novelty": round(avg_novelty, 2),
@@ -180,7 +180,7 @@ class SourceAgentOrchestrator:
         import boto3
 
         s3 = boto3.client("s3")
-        today = datetime.utcnow().strftime("%Y-%m-%d")
+        today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
         key = f"{prefix}/{today}-agents.json"
 
         report = self.get_report()

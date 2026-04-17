@@ -11,7 +11,7 @@ import os
 import sys
 import subprocess
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timezone
 from dataclasses import dataclass
 from typing import List, Optional
 
@@ -189,7 +189,7 @@ The kappa score of {rsct_kappa:.3f} indicates {'high' if rsct_kappa > 0.7 else '
 
 \\title{{RSCT Review: {safe_title}}}
 \\author{{Swarm-It Research Discovery\\\\\\small Automated RSCT-Based Analysis}}
-\\date{{{datetime.utcnow().strftime('%B %d, %Y')}}}
+\\date{{{datetime.now(timezone.utc).strftime('%B %d, %Y')}}}
 
 \\begin{{document}}
 \\maketitle

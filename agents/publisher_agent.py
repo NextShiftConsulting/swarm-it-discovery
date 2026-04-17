@@ -10,7 +10,7 @@ import json
 from pathlib import Path
 from typing import List, Dict, Optional, Any
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 
 # Add swarm-it repos to path
 sys.path.insert(0, str(Path.home() / "GitHub" / "swarm-it-auth"))
@@ -154,7 +154,7 @@ class PublisherAgent:
             slug = slug.replace(char, '-')
         slug = '-'.join(filter(None, slug.split('-')))[:50]
 
-        date = datetime.utcnow().strftime('%Y-%m-%d')
+        date = datetime.now(timezone.utc).strftime('%Y-%m-%d')
 
         # Build MDX content
         findings_md = '\n'.join([f"- {f}" for f in key_findings]) if key_findings else "- No key findings extracted"
@@ -222,7 +222,7 @@ tags: ["research", "{source}", "ai-discovery"]
             self.output_dir.mkdir(parents=True, exist_ok=True)
 
             # Write MDX file
-            date = datetime.utcnow().strftime('%Y-%m-%d')
+            date = datetime.now(timezone.utc).strftime('%Y-%m-%d')
             mdx_filename = f"{date}-{slug}.mdx"
             mdx_path = self.output_dir / mdx_filename
 
@@ -269,7 +269,7 @@ tags: ["research", "{source}", "ai-discovery"]
         if self.dry_run:
             print("MODE: DRY RUN (no S3 uploads)")
 
-        start_time = datetime.utcnow()
+        start_time = datetime.now(timezone.utc)
 
         results = []
         errors = []
@@ -292,7 +292,7 @@ tags: ["research", "{source}", "ai-discovery"]
             if result.error:
                 errors.append(f"{result.title}: {result.error}")
 
-        publish_time = (datetime.utcnow() - start_time).total_seconds()
+        publish_time = (datetime.now(timezone.utc) - start_time).total_seconds()
         success_count = sum(1 for r in results if r.success)
 
         print(f"\n✓ Publish complete in {publish_time:.1f}s")

@@ -19,7 +19,7 @@ import sys
 import asyncio
 import argparse
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timezone
 from dataclasses import asdict
 
 # Add parent to path
@@ -266,7 +266,7 @@ class CertifiedPipeline:
     async def run(self, days: int = 1, max_papers: int = 50, dry_run: bool = False, generate_pdfs: bool = True) -> dict:
         """Run the full pipeline."""
         results = {
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "papers_fetched": 0,
             "papers_matched": 0,
             "papers_rsct_ranked": 0,
@@ -752,14 +752,14 @@ def save_daily_report(results: dict, bucket: str) -> str:
     """Save daily analytics report to S3."""
     import boto3
     import json
-    from datetime import datetime
+    from datetime import datetime, timezone
 
     s3 = boto3.client("s3")
-    today = datetime.utcnow().strftime("%Y-%m-%d")
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
     report = {
         "date": today,
-        "timestamp": datetime.utcnow().isoformat(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
         **results,
     }
 

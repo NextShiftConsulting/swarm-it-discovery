@@ -8,7 +8,7 @@ or imported into the swarm-it-adk framework.
 import json
 import hashlib
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import List, Optional, Dict, Any
 
@@ -45,7 +45,7 @@ class AgentDefinition:
     system_prompt: str = ""
 
     # Metadata
-    created_at: str = field(default_factory=lambda: datetime.utcnow().isoformat())
+    created_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
     confidence: float = 1.0
     dependencies: List[str] = field(default_factory=list)
 
@@ -106,7 +106,7 @@ class AgentDefinition:
             solver_type=config.get("solver_type", "llm"),
             modality=config.get("modality", "text"),
             system_prompt=config.get("system_prompt", ""),
-            created_at=metadata.get("created_at", datetime.utcnow().isoformat()),
+            created_at=metadata.get("created_at", datetime.now(timezone.utc).isoformat()),
             confidence=metadata.get("confidence", 1.0),
             dependencies=metadata.get("dependencies", []),
         )

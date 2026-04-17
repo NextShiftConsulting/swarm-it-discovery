@@ -8,7 +8,7 @@ import os
 import sys
 import re
 import yaml
-from datetime import datetime
+from datetime import datetime, timezone
 from dateutil import parser as date_parser
 from pathlib import Path
 from dataclasses import dataclass
@@ -31,27 +31,27 @@ def normalize_date(date_str: str, fallback_date: str = None) -> str:
     Returns fallback_date or today's date if input is invalid.
     """
     if not date_str or not isinstance(date_str, str) or date_str.strip() == '':
-        return fallback_date or datetime.utcnow().strftime("%Y-%m-%d")
+        return fallback_date or datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
     try:
         # Parse with dateutil (handles many formats)
         parsed = date_parser.parse(date_str, fuzzy=True)
 
         # Reject dates more than 2 years in the future (likely data errors)
-        max_future = datetime.utcnow().year + 2
+        max_future = datetime.now(timezone.utc).year + 2
         if parsed.year > max_future:
             print(f"Warning: Future date {date_str} rejected, using fallback")
-            return fallback_date or datetime.utcnow().strftime("%Y-%m-%d")
+            return fallback_date or datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
         # Reject dates before 1990 (unlikely for ML papers)
         if parsed.year < 1990:
             print(f"Warning: Old date {date_str} rejected, using fallback")
-            return fallback_date or datetime.utcnow().strftime("%Y-%m-%d")
+            return fallback_date or datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
         return parsed.strftime("%Y-%m-%d")
     except (ValueError, TypeError) as e:
         print(f"Warning: Could not parse date '{date_str}': {e}")
-        return fallback_date or datetime.utcnow().strftime("%Y-%m-%d")
+        return fallback_date or datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
 # Optional: OpenAI for content generation
 try:
@@ -428,7 +428,7 @@ Based on automated quality analysis, we recommend:
 
     def generate_post(self, paper: PaperData) -> BlogPost:
         """Generate a blog post from paper data."""
-        today = datetime.utcnow()
+        today = datetime.now(timezone.utc)
         slug = f"{today.strftime('%Y-%m-%d')}-{self._slugify(paper.title)}"
 
         # Generate analysis

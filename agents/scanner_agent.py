@@ -10,7 +10,7 @@ import asyncio
 from pathlib import Path
 from typing import List, Dict, Optional, Any
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 
 # Add swarm-it repos to path
 sys.path.insert(0, str(Path.home() / "GitHub" / "swarm-it-auth"))
@@ -57,7 +57,7 @@ class ScannerAgent:
             sources: List of sources to scan (default: all)
         """
         self.sources = sources or self.SOURCES
-        self._init_time = datetime.utcnow()
+        self._init_time = datetime.now(timezone.utc)
 
     def scan(
         self,
@@ -80,7 +80,7 @@ class ScannerAgent:
         print(f"Sources: {', '.join(self.sources)}")
         print(f"Days: {days}, Max per source: {max_per_source}")
 
-        start_time = datetime.utcnow()
+        start_time = datetime.now(timezone.utc)
         errors = []
 
         # Use async fetcher from pipeline
@@ -109,7 +109,7 @@ class ScannerAgent:
             source = p.get('source', 'unknown')
             source_counts[source] = source_counts.get(source, 0) + 1
 
-        scan_time = (datetime.utcnow() - start_time).total_seconds()
+        scan_time = (datetime.now(timezone.utc) - start_time).total_seconds()
 
         print(f"\n✓ Scan complete in {scan_time:.1f}s")
         for source, count in sorted(source_counts.items()):

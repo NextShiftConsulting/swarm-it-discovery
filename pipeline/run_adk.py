@@ -15,7 +15,7 @@ import sys
 import asyncio
 import argparse
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timezone
 
 # Add parent to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -72,16 +72,16 @@ class ADKAgent:
     async def run(self, *args, **kwargs):
         """Run the agent with timing."""
         print(f"\n[{self.name.upper()}] {self.goal}")
-        self.start_time = datetime.utcnow()
+        self.start_time = datetime.now(timezone.utc)
 
         try:
             result = await self.execute(*args, **kwargs)
-            self.end_time = datetime.utcnow()
+            self.end_time = datetime.now(timezone.utc)
             duration = (self.end_time - self.start_time).total_seconds()
             print(f"  ✓ Completed in {duration:.2f}s")
             return result
         except Exception as e:
-            self.end_time = datetime.utcnow()
+            self.end_time = datetime.now(timezone.utc)
             print(f"  ✗ Failed: {e}")
             raise
 
@@ -322,7 +322,7 @@ async def run_pipeline(args):
     publisher = PublisherAgent()
 
     results = {
-        "timestamp": datetime.utcnow().isoformat(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
         "papers_fetched": 0,
         "papers_matched": 0,
         "posts_generated": 0,

@@ -25,7 +25,7 @@ import os
 import sys
 import json
 import asyncio
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 # Add parent directories to path
@@ -74,7 +74,7 @@ class DailyDiscoveryPipeline:
         """Run the complete daily pipeline."""
 
         results = {
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "papers_fetched": 0,
             "papers_matched": 0,
             "papers_rsct_ranked": 0,
@@ -254,7 +254,7 @@ class DailyDiscoveryPipeline:
         import boto3
 
         s3 = boto3.client("s3")
-        today = datetime.utcnow().strftime("%Y-%m-%d")
+        today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
         # Use different analytics path for dev vs prod
         if "dev" in self.s3_prefix:

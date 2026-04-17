@@ -14,7 +14,7 @@ import os
 from pathlib import Path
 from typing import List, Dict, Optional, Any
 from dataclasses import dataclass, field, asdict
-from datetime import datetime
+from datetime import datetime, timezone
 
 # Add swarm-it repos to path
 sys.path.insert(0, str(Path.home() / "GitHub" / "swarm-it-auth"))
@@ -182,8 +182,8 @@ class ArchiveAgent:
             combined_score=round(combined_score, 4),
             tier=tier,
             topics_matched=topics_matched[:5],  # Limit topics
-            archived_at=datetime.utcnow().isoformat(),
-            scan_date=datetime.utcnow().strftime("%Y-%m-%d"),
+            archived_at=datetime.now(timezone.utc).isoformat(),
+            scan_date=datetime.now(timezone.utc).strftime("%Y-%m-%d"),
             pdf_url=paper.get("pdf_url"),
             github_url=paper.get("github_url"),
             key_findings=key_findings[:5],
@@ -270,7 +270,7 @@ class ArchiveAgent:
             tier2_count=tier_counts[2],
             tier3_count=tier_counts[3],
             total_archived=sum(tier_counts.values()),
-            archive_date=datetime.utcnow().strftime("%Y-%m-%d"),
+            archive_date=datetime.now(timezone.utc).strftime("%Y-%m-%d"),
             files_created=files_created,
         )
 

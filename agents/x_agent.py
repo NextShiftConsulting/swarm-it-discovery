@@ -18,7 +18,7 @@ import httpx
 from pathlib import Path
 from typing import List, Dict, Optional, Any
 from dataclasses import dataclass, field
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 # P18 v3.0 - Unified credential access
 from swarm_auth import get_credential
@@ -215,7 +215,7 @@ TWEET:
                     import xml.etree.ElementTree as ET
                     root = ET.fromstring(response.text)
 
-                    cutoff = datetime.utcnow() - timedelta(days=days)
+                    cutoff = datetime.now(timezone.utc) - timedelta(days=days)
 
                     for item in root.findall('.//item'):
                         title = item.find('title')
@@ -275,7 +275,7 @@ TWEET:
             user_id = user_response.json()['data']['id']
 
             # Get tweets - X API requires RFC3339 format without microseconds
-            start_time = (datetime.utcnow() - timedelta(days=days)).strftime("%Y-%m-%dT%H:%M:%SZ")
+            start_time = (datetime.now(timezone.utc) - timedelta(days=days)).strftime("%Y-%m-%dT%H:%M:%SZ")
             tweets_url = f"https://api.twitter.com/2/users/{user_id}/tweets"
             params = {
                 "start_time": start_time,
@@ -368,7 +368,7 @@ TWEET:
             links=links,
             topics=topics,
             posted_at=tweet.get('posted_at', ''),
-            analyzed_at=datetime.utcnow().isoformat(),
+            analyzed_at=datetime.now(timezone.utc).isoformat(),
             is_priority=is_priority,
             priority_level=priority_level,
         )

@@ -9,7 +9,7 @@ import sys
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import List, Dict, Optional, Tuple
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 # Add swarm-it repos to path
@@ -228,7 +228,7 @@ Provide analysis in JSON format:
                 key_findings=result.get('key_findings', []),
                 rsct_connections=result.get('rsct_connections', []),
                 suggested_citations=result.get('suggested_citations', []),
-                analyzed_at=datetime.utcnow().isoformat(),
+                analyzed_at=datetime.now(timezone.utc).isoformat(),
                 agent_name=self.AGENT_NAME,
                 confidence=result.get('confidence', 0.5),
                 rsct_certified=kappa is not None,

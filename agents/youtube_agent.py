@@ -15,7 +15,7 @@ import json
 from pathlib import Path
 from typing import List, Dict, Optional, Any
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 
 # P18 v3.0 - Unified credential access
 from swarm_auth import get_credential
@@ -280,7 +280,7 @@ TRANSCRIPT:
             links=analysis.get("links", []),
             key_points=analysis.get("key_points", []),
             transcript_length=len(transcript),
-            analyzed_at=datetime.utcnow().isoformat(),
+            analyzed_at=datetime.now(timezone.utc).isoformat(),
             cost=analysis.get("cost", 0.0),
             is_priority_source=is_priority,
             priority_level=priority_level,

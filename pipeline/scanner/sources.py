@@ -7,7 +7,7 @@ P18 Compliance: All credentials via swarm-it-auth.
 import os
 import sys
 import httpx
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from dataclasses import dataclass
 from typing import List, Optional
 from abc import ABC, abstractmethod
@@ -87,7 +87,7 @@ class ArxivSource(PaperSource):
         ns = {"atom": "http://www.w3.org/2005/Atom", "arxiv": "http://arxiv.org/schemas/atom"}
 
         papers = []
-        cutoff = datetime.utcnow() - timedelta(days=days)
+        cutoff = datetime.now(timezone.utc) - timedelta(days=days)
 
         for entry in root.findall("atom:entry", ns):
             published = entry.find("atom:published", ns).text
@@ -140,7 +140,7 @@ class SemanticScholarSource(PaperSource):
             "query": "machine learning OR artificial intelligence OR neural network",
             "fields": "paperId,title,abstract,authors,url,publicationDate,fieldsOfStudy,openAccessPdf",
             "limit": max_results,
-            "publicationDateOrYear": f"{datetime.utcnow().year}",
+            "publicationDateOrYear": f"{datetime.now(timezone.utc).year}",
         }
 
         async with httpx.AsyncClient() as client:
@@ -159,7 +159,7 @@ class SemanticScholarSource(PaperSource):
 
         data = response.json()
         papers = []
-        cutoff = datetime.utcnow() - timedelta(days=days)
+        cutoff = datetime.now(timezone.utc) - timedelta(days=days)
 
         for item in data.get("data", []):
             if not item.get("abstract"):
@@ -205,7 +205,7 @@ class OpenAlexSource(PaperSource):
 
     async def fetch_recent(self, days: int = 1, max_results: int = 100) -> List[Paper]:
         """Fetch recent AI/ML papers from OpenAlex."""
-        from_date = (datetime.utcnow() - timedelta(days=days)).strftime("%Y-%m-%d")
+        from_date = (datetime.now(timezone.utc) - timedelta(days=days)).strftime("%Y-%m-%d")
 
         params = {
             "filter": f"concepts.id:{'|'.join(self.CONCEPTS)},from_publication_date:{from_date}",
@@ -271,8 +271,8 @@ class BioRxivSource(PaperSource):
 
     async def fetch_recent(self, days: int = 1, max_results: int = 100, server: str = "biorxiv") -> List[Paper]:
         """Fetch recent preprints from bioRxiv or medRxiv."""
-        from_date = (datetime.utcnow() - timedelta(days=days)).strftime("%Y-%m-%d")
-        to_date = datetime.utcnow().strftime("%Y-%m-%d")
+        from_date = (datetime.now(timezone.utc) - timedelta(days=days)).strftime("%Y-%m-%d")
+        to_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
         async with httpx.AsyncClient() as client:
             response = await client.get(

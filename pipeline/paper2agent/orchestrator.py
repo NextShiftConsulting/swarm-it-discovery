@@ -10,7 +10,7 @@ import json
 import tempfile
 import subprocess
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import List, Optional, Dict, Any, Tuple
 
@@ -334,7 +334,7 @@ def run_pipeline(
     failed = [r for r in results if not r.success]
 
     report = {
-        "timestamp": datetime.utcnow().isoformat(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
         "total_papers": len(papers),
         "successful": len(successful),
         "failed": len(failed),
