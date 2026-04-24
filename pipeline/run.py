@@ -469,10 +469,18 @@ class CertifiedPipeline:
                 rsct_violations=cert.get("violations"),
             ))
 
-        # Generate posts
-        saved = self.generator.generate_and_save(paper_data)
+        # Publication gate: only papers with EXECUTE decision get published.
+        # Papers that failed certification (REJECT, BLOCK, RE_ENCODE, REPAIR)
+        # must not be published — fail-open here would bypass the gate.
+        publishable = [p for p in paper_data if p.rsct_decision == "EXECUTE"]
+        blocked = len(paper_data) - len(publishable)
+        if blocked:
+            print(f"  Publication gate: {blocked} paper(s) blocked by certification")
+
+        saved = self.generator.generate_and_save(publishable)
         results["posts_generated"] = len(saved)
-        print(f"  Generated {len(saved)} posts (each paper pre-certified)")
+        results["posts_blocked"] = blocked
+        print(f"  Generated {len(saved)} posts ({blocked} blocked by gate)")
 
         # Stage 4: Generate PDF reviews for top papers
         if generate_pdfs and relevant_with_rsct:

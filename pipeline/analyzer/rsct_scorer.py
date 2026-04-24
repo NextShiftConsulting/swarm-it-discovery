@@ -42,12 +42,18 @@ except ImportError:
 
 @dataclass
 class RSCTScore:
-    """RSCT relevance score for a paper."""
+    """Heuristic pre-filter score for paper discovery.
+
+    These are keyword/embedding heuristics for candidate selection, NOT
+    RSCT certification. Actual certification happens downstream via the
+    Swarm-It API (/certify/pair). Do not conflate these scores with R, S,
+    N, kappa, or any patent claim.
+    """
     paper_id: str
     paper_title: str
-    rsct_similarity: float  # 0-1, similarity to RSCT whitepaper
-    topic_similarity: float  # Original topic match score
-    combined_score: float  # Weighted combination
+    rsct_similarity: float  # 0-1, heuristic similarity to RSCT whitepaper
+    topic_similarity: float  # Original topic match score (heuristic)
+    combined_score: float  # Weighted heuristic combination (pre-filter, not certification)
     key_overlaps: List[str]  # Key concepts that overlap
 
 
@@ -324,7 +330,7 @@ class RSCTScorer:
         else:
             embed_score = keyword_score
 
-        # Combined score (weighted average)
+        # Combined heuristic score (pre-filter, not RSCT certification)
         rsct_similarity = 0.7 * embed_score + 0.3 * keyword_score
         combined_score = 0.6 * rsct_similarity + 0.4 * topic_similarity
 
