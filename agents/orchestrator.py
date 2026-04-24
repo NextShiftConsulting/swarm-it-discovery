@@ -179,7 +179,12 @@ class SourceAgentOrchestrator:
         """Upload report to S3."""
         import boto3
 
-        s3 = boto3.client("s3")
+        try:
+            from swarm_auth import get_aws_credentials
+            aws_creds = get_aws_credentials()
+            s3 = boto3.client("s3", **aws_creds)
+        except Exception:
+            s3 = boto3.client("s3")
         today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
         key = f"{prefix}/{today}-agents.json"
 

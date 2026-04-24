@@ -231,7 +231,12 @@ class DailyDiscoveryPipeline:
         import boto3
         from pathlib import Path
 
-        s3 = boto3.client("s3")
+        try:
+            from swarm_auth import get_aws_credentials
+            aws_creds = get_aws_credentials()
+            s3 = boto3.client("s3", **aws_creds)
+        except Exception:
+            s3 = boto3.client("s3")
         uploaded = []
 
         output_path = Path(self.output_dir)
@@ -253,7 +258,12 @@ class DailyDiscoveryPipeline:
         """Save daily report to S3."""
         import boto3
 
-        s3 = boto3.client("s3")
+        try:
+            from swarm_auth import get_aws_credentials
+            aws_creds = get_aws_credentials()
+            s3 = boto3.client("s3", **aws_creds)
+        except Exception:
+            s3 = boto3.client("s3")
         today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
         # Use different analytics path for dev vs prod

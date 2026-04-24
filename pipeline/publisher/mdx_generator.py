@@ -118,7 +118,12 @@ class MDXGenerator:
         # Try Bedrock first (preferred for Claude)
         if use_bedrock and HAS_BEDROCK:
             try:
-                self.bedrock = boto3.client('bedrock-runtime', region_name='us-east-1')
+                try:
+                    from swarm_auth import get_aws_credentials
+                    aws_creds = get_aws_credentials()
+                    self.bedrock = boto3.client('bedrock-runtime', region_name='us-east-1', **aws_creds)
+                except Exception:
+                    self.bedrock = boto3.client('bedrock-runtime', region_name='us-east-1')
                 self.llm_provider = "bedrock"
                 print("Using AWS Bedrock (Claude) for analysis generation")
             except Exception as e:

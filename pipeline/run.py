@@ -613,7 +613,12 @@ def upload_to_s3(local_dir: str, bucket: str, prefix: str = "content/reviews") -
     import boto3
     from pathlib import Path
 
-    s3 = boto3.client("s3")
+    try:
+        from swarm_auth import get_aws_credentials
+        aws_creds = get_aws_credentials()
+        s3 = boto3.client("s3", **aws_creds)
+    except Exception:
+        s3 = boto3.client("s3")
     uploaded = []
 
     local_path = Path(local_dir)
@@ -754,7 +759,12 @@ def save_daily_report(results: dict, bucket: str) -> str:
     import json
     from datetime import datetime, timezone
 
-    s3 = boto3.client("s3")
+    try:
+        from swarm_auth import get_aws_credentials
+        aws_creds = get_aws_credentials()
+        s3 = boto3.client("s3", **aws_creds)
+    except Exception:
+        s3 = boto3.client("s3")
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
     report = {

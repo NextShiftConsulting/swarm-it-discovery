@@ -132,7 +132,12 @@ class PublisherAgent:
         # S3 client
         if HAS_BOTO and not self.dry_run:
             try:
-                self._s3 = boto3.client('s3')
+                try:
+                    from swarm_auth import get_aws_credentials
+                    aws_creds = get_aws_credentials()
+                    self._s3 = boto3.client('s3', **aws_creds)
+                except Exception:
+                    self._s3 = boto3.client('s3')
                 print(f"✓ PublisherAgent: S3 client initialized (bucket={self.s3_bucket})")
             except Exception as e:
                 print(f"✗ PublisherAgent: S3 client failed: {e}")

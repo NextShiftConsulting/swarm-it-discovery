@@ -117,18 +117,13 @@ class RSCTScorer:
         return os.path.exists(os.path.expanduser("~/.aws/credentials"))
 
     def _create_bedrock_client(self):
-        """Create Bedrock client using P18 compliant credentials."""
-        aws_key = get_credential("AWS_ACCESS_KEY_ID")
-        aws_secret = get_credential("AWS_SECRET_ACCESS_KEY")
-        if aws_key and aws_secret:
-            session = boto3.Session(
-                aws_access_key_id=aws_key,
-                aws_secret_access_key=aws_secret,
-                region_name="us-east-1"
-            )
-            return session.client("bedrock-runtime")
-        # Fall back to default boto3 chain (~/.aws/credentials)
-        return boto3.client("bedrock-runtime", region_name="us-east-1")
+        """Create Bedrock client using P18 v4.0 credentials."""
+        try:
+            from swarm_auth import get_aws_credentials
+            aws_creds = get_aws_credentials()
+            return boto3.client("bedrock-runtime", region_name="us-east-1", **aws_creds)
+        except Exception:
+            return boto3.client("bedrock-runtime", region_name="us-east-1")
 
     def _load_whitepaper(self, path: str) -> str:
         """Load and clean whitepaper text (supports .tex, .txt, .pdf)."""
