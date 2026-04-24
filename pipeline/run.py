@@ -173,6 +173,7 @@ class CertifiedPipeline:
 
                 return {
                     "allowed": eval_result.decision != "REJECT",
+                    "certification_method": "HEURISTIC_UNCERTIFIED",
                     "kappa_gate": round(kappa, 3),
                     "R": round(R, 3),
                     "S": round(S, 3),
@@ -192,23 +193,20 @@ class CertifiedPipeline:
                     "violations": [v.message for v in eval_result.violations if v.severity in ["fatal", "critical", "warning"]],
                 }
             else:
-                R, S, N = 0.33, 0.34, 0.33  # Uniform when no score
-                kappa = 0.5
-                sigma = 0.3
-                decision = "PENDING"
-                gate_reached = 0  # Not yet evaluated
+                # No score available — cannot certify. Do not approve.
                 return {
-                    "allowed": True,
-                    "kappa_gate": round(kappa, 3),
-                    "R": round(R, 3),
-                    "S": round(S, 3),
-                    "N": round(N, 3),
-                    "sigma": round(sigma, 3),
-                    "alpha": 0.5,
-                    "gate_reached": gate_reached,
-                    "decision": decision,
+                    "allowed": False,
+                    "certification_method": "NONE",
+                    "kappa_gate": 0.0,
+                    "R": 0.0,
+                    "S": 0.0,
+                    "N": 0.0,
+                    "sigma": 0.0,
+                    "alpha": 0.0,
+                    "gate_reached": 0,
+                    "decision": "UNCERTIFIED",
                     "stage": stage,
-                    "diagnosis": "Pending evaluation - no score available",
+                    "diagnosis": "No score available - cannot certify",
                     "recommendations": ["Score the paper to get full evaluation"],
                     "is_bridge_paper": False,
                     "bridge_factor": 0.0,
@@ -250,17 +248,19 @@ class CertifiedPipeline:
             }
         except Exception as e:
             print(f"Certification error: {e}")
-            # Return proper fallback with RSN values (error = high noise)
+            # Error = cannot certify. Do not approve.
             return {
-                "allowed": True,
+                "allowed": False,
+                "certification_method": "ERROR",
                 "kappa_gate": 0.0,
                 "R": 0.0,
                 "S": 0.0,
-                "N": 1.0,
-                "sigma": 0.5,
-                "gate_reached": 1,  # Failed at noise gate
+                "N": 0.0,
+                "sigma": 0.0,
+                "alpha": 0.0,
+                "gate_reached": 0,
                 "decision": "ERROR",
-                "stage": stage
+                "stage": stage,
             }
 
     async def run(self, days: int = 1, max_papers: int = 50, dry_run: bool = False, generate_pdfs: bool = True) -> dict:
