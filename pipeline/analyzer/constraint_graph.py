@@ -425,17 +425,17 @@ class RSCTConstraintGraph:
         if gate2_violations:
             return GateNumber.GATE_2_CONSENSUS, RSCTDecision.BLOCK, GateNumber.GATE_2_CONSENSUS
 
-        # Gate 3: Admissibility (Oobleck principle: κ_req depends on σ)
+        # Gate 3/4: Admissibility + Grounding (Oobleck principle: kappa_req depends on sigma)
         kappa = metrics["kappa"]
         sigma = metrics["sigma"]
-        kappa_req = 0.5 + 0.4 * sigma  # Oobleck: higher turbulence demands higher κ
+        kappa_req = 0.5 + 0.4 * sigma  # Oobleck: higher turbulence demands higher kappa
 
         if kappa < kappa_req:
+            # Gate 4 refines severity within the failure range:
+            # kappa < 0.30 is a grounding failure (REPAIR), otherwise admissibility (RE_ENCODE).
+            if kappa < 0.30:
+                return GateNumber.GATE_4_GROUNDING, RSCTDecision.REPAIR, GateNumber.GATE_4_GROUNDING
             return GateNumber.GATE_3_ADMISSIBILITY, RSCTDecision.RE_ENCODE, GateNumber.GATE_3_ADMISSIBILITY
-
-        # Gate 4: Grounding
-        if kappa < 0.30:
-            return GateNumber.GATE_4_GROUNDING, RSCTDecision.REPAIR, GateNumber.GATE_4_GROUNDING
 
         # All gates passed
         if kappa >= 0.70:
