@@ -157,27 +157,32 @@ class CertifiedPipeline:
             # Use fallback score from RSCT scorer to estimate RSN
             # When API unavailable, estimate from combined_score
             if fallback_score is not None and fallback_score > 0:
+                # ESTOPPEL WARNING (Patent Claim 1, US 19/575,615):
+                # The values below are heuristic approximations, NOT RSCT-certified decompositions.
+                # These must NEVER be labeled as certified or used to claim patent-practicing status.
+                # If this path produces artifacts, they must carry certification_method="HEURISTIC_UNCERTIFIED".
+
                 # Estimate RSN from combined score (heuristic)
-                R = min(0.9, fallback_score * 1.2)  # Relevance ~ score
-                S = min(0.9, fallback_score * 0.9)  # Stability slightly lower
-                N = max(0.1, 1.0 - fallback_score)  # Noise inverse of score
+                r_heuristic = min(0.9, fallback_score * 1.2)  # Relevance ~ score
+                s_heuristic = min(0.9, fallback_score * 0.9)  # Stability slightly lower
+                n_heuristic = max(0.1, 1.0 - fallback_score)  # Noise inverse of score
                 # Normalize to simplex
-                total = R + S + N
-                R, S, N = R/total, S/total, N/total
-                kappa = R / (R + N) if (R + N) > 0 else 0.5
+                total = r_heuristic + s_heuristic + n_heuristic
+                r_heuristic, s_heuristic, n_heuristic = r_heuristic/total, s_heuristic/total, n_heuristic/total
+                kappa = r_heuristic / (r_heuristic + n_heuristic) if (r_heuristic + n_heuristic) > 0 else 0.5
                 # Estimate sigma (turbulence) from noise - lower N means more stable
-                sigma = N * 0.7  # Scale noise to turbulence range
+                sigma = n_heuristic * 0.7  # Scale noise to turbulence range
 
                 # Use constraint graph for full evaluation
-                eval_result = evaluate_paper_constraints(R, S, N, kappa, sigma)
+                eval_result = evaluate_paper_constraints(r_heuristic, s_heuristic, n_heuristic, kappa, sigma)
 
                 return {
                     "allowed": eval_result.decision != "REJECT",
                     "certification_method": "HEURISTIC_UNCERTIFIED",
                     "kappa_gate": round(kappa, 3),
-                    "R": round(R, 3),
-                    "S": round(S, 3),
-                    "N": round(N, 3),
+                    "R": round(r_heuristic, 3),
+                    "S": round(s_heuristic, 3),
+                    "N": round(n_heuristic, 3),
                     "sigma": round(sigma, 3),
                     "alpha": round(eval_result.alpha, 3),
                     "gate_reached": eval_result.gate_reached.value,
@@ -621,12 +626,9 @@ def upload_to_s3(local_dir: str, bucket: str, prefix: str = "content/reviews") -
     import boto3
     from pathlib import Path
 
-    try:
-        from swarm_auth import get_aws_credentials
-        aws_creds = get_aws_credentials()
-        s3 = boto3.client("s3", **aws_creds)
-    except Exception:
-        s3 = boto3.client("s3")
+    from swarm_auth import get_aws_credentials
+    aws_creds = get_aws_credentials()
+    s3 = boto3.client("s3", **aws_creds)
     uploaded = []
 
     local_path = Path(local_dir)
@@ -767,12 +769,9 @@ def save_daily_report(results: dict, bucket: str) -> str:
     import json
     from datetime import datetime, timezone
 
-    try:
-        from swarm_auth import get_aws_credentials
-        aws_creds = get_aws_credentials()
-        s3 = boto3.client("s3", **aws_creds)
-    except Exception:
-        s3 = boto3.client("s3")
+    from swarm_auth import get_aws_credentials
+    aws_creds = get_aws_credentials()
+    s3 = boto3.client("s3", **aws_creds)
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
     report = {

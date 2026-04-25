@@ -169,12 +169,9 @@ class DiscoveryChartGenerator:
 
         try:
             import boto3
-            try:
-                from swarm_auth import get_aws_credentials
-                aws_creds = get_aws_credentials()
-                s3 = boto3.client("s3", **aws_creds)
-            except Exception:
-                s3 = boto3.client("s3")
+            from swarm_auth import get_aws_credentials
+            aws_creds = get_aws_credentials()
+            s3 = boto3.client("s3", **aws_creds)
 
             for filename, local_path in chart_paths.items():
                 s3_key = f"{self.s3_prefix}/{batch_id}/{filename}"
