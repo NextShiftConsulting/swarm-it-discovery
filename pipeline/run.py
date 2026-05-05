@@ -169,7 +169,7 @@ class CertifiedPipeline:
                 # Normalize to simplex
                 total = r_heuristic + s_heuristic + n_heuristic
                 r_heuristic, s_heuristic, n_heuristic = r_heuristic/total, s_heuristic/total, n_heuristic/total
-                kappa = r_heuristic / (r_heuristic + n_heuristic) if (r_heuristic + n_heuristic) > 0 else 0.5
+                kappa = r_heuristic * (1 - n_heuristic)  # kappa_compat (Claim 2 dual-path)
                 # Estimate sigma (turbulence) from noise - lower N means more stable
                 sigma = n_heuristic * 0.7  # Scale noise to turbulence range
 
