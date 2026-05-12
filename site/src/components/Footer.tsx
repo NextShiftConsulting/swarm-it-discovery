@@ -6,9 +6,9 @@ export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   const quickLinks = [
-    { label: "Latest Reviews", to: "/" },
-    { label: "Topics", to: "/topics" },
-    { label: "About", to: "/about" },
+    { label: "Latest Reviews", to: "/reviews/" },
+    { label: "Topics", to: "/topics/" },
+    { label: "About", to: "/about/" },
   ];
 
   const mainSiteLinks = [

@@ -10,8 +10,9 @@ RED='\033[0;31m'
 NC='\033[0m'
 
 ENV=${1:-prod}
-S3_BUCKET="swarmit-nextshift-site"
-CLOUDFRONT_DIST_ID="${CLOUDFRONT_DISTRIBUTION_ID:-}"
+S3_BUCKET="swarm-swarmit-nextshift-site"
+CLOUDFRONT_DIST_ID="${CLOUDFRONT_DISTRIBUTION_ID:-EMALCYLQH7F27}"
+AWS_PROFILE="nsc-swarm"
 
 echo -e "${GREEN}======================================================================${NC}"
 echo -e "${GREEN}Swarmit Site - AWS Deployment${NC}"
@@ -25,12 +26,12 @@ fi
 
 # Check AWS credentials
 echo -e "\n${YELLOW}Checking AWS credentials...${NC}"
-if ! aws sts get-caller-identity &> /dev/null; then
+if ! aws sts get-caller-identity --profile "$AWS_PROFILE" &> /dev/null; then
     echo -e "${RED}Error: AWS credentials not configured. Run: aws configure${NC}"
     exit 1
 fi
 
-ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+ACCOUNT_ID=$(aws sts get-caller-identity --profile "$AWS_PROFILE" --query Account --output text)
 echo -e "${GREEN}✓ AWS Account:${NC} $ACCOUNT_ID"
 
 # Build site
@@ -45,6 +46,7 @@ echo -e "${GREEN}✓ Build complete${NC}"
 # Sync to S3
 echo -e "\n${YELLOW}Syncing to S3...${NC}"
 aws s3 sync public/ "s3://${S3_BUCKET}" \
+    --profile "$AWS_PROFILE" \
     --delete \
     --cache-control "max-age=31536000,public" \
     --exclude "*.html" \
@@ -54,6 +56,7 @@ aws s3 sync public/ "s3://${S3_BUCKET}" \
 
 # HTML files with shorter cache
 aws s3 sync public/ "s3://${S3_BUCKET}" \
+    --profile "$AWS_PROFILE" \
     --delete \
     --cache-control "max-age=0,no-cache,no-store,must-revalidate" \
     --include "*.html" \
@@ -65,7 +68,8 @@ echo -e "${GREEN}✓ S3 sync complete${NC}"
 # Invalidate CloudFront cache
 if [ -n "$CLOUDFRONT_DIST_ID" ]; then
     echo -e "\n${YELLOW}Invalidating CloudFront cache...${NC}"
-    aws cloudfront create-invalidation \
+    MSYS_NO_PATHCONV=1 aws cloudfront create-invalidation \
+        --profile "$AWS_PROFILE" \
         --distribution-id "$CLOUDFRONT_DIST_ID" \
         --paths "/*" \
         --query 'Invalidation.Id' \
