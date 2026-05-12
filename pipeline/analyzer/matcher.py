@@ -4,8 +4,6 @@ Similarity Matcher - Match papers against topic PDFs using embeddings.
 P18 Compliance: All credentials via swarm-it-auth (preferred) or config_manager.
 """
 
-import os
-import sys
 import json
 from pathlib import Path
 from dataclasses import dataclass
@@ -13,7 +11,7 @@ from typing import List, Dict, Optional, Tuple
 import numpy as np
 
 # P18 v3.0 - Unified credential access
-from swarm_auth import get_credential, has_credential
+from swarm_auth import get_credential
 
 # Optional: sentence-transformers for local embeddings
 try:

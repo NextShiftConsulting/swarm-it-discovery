@@ -5,7 +5,6 @@ Coordinates the full pipeline: scan → extract → convert.
 Designed for ADK extraction with clean interfaces.
 """
 
-import os
 import json
 import tempfile
 import subprocess
@@ -14,7 +13,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import List, Optional, Dict, Any, Tuple
 
-from .config import TopicConfig, Topic
+from .config import TopicConfig
 from .scanner import TutorialScanner, ScanResult
 from .extractor import ToolExtractor, ExtractionResult
 from .converter import SwarmAgentConverter, AgentDefinition
@@ -382,6 +381,6 @@ if __name__ == "__main__":
     # Run pipeline
     report = run_pipeline(args.topics, papers, args.output)
 
-    print(f"\n=== Paper2SwarmAgent Complete ===")
+    print("\n=== Paper2SwarmAgent Complete ===")
     print(f"Successful: {report['successful']}/{report['total_papers']}")
     print(f"Agents saved to: {report['output_dir']}")

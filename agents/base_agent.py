@@ -74,14 +74,14 @@ class BaseSourceAgent(ABC):
 
         # 1. P18 v3.0 credentials available via swarm_auth.get_credential
         try:
-            from swarm_auth import get_credential
+            from swarm_auth import get_credential  # noqa: F401
             print(f"  ✓ {self.AGENT_NAME}: swarm_auth initialized")
         except ImportError as e:
             print(f"  ✗ {self.AGENT_NAME}: swarm_auth not available: {e}")
 
         # 2. Initialize certifier (swarm-it-adk)
         try:
-            from swarm_it import certify, LocalEngine
+            from swarm_it import certify, LocalEngine  # noqa: F401
             self._certifier = LocalEngine()
             print(f"  ✓ {self.AGENT_NAME}: swarm-it-adk initialized")
         except ImportError as e:

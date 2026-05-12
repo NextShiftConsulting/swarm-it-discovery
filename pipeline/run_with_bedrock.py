@@ -21,7 +21,7 @@ project_root = Path(__file__).parent.parent
 os.chdir(project_root)
 
 # P18 v3.0 - Unified credential access
-from swarm_auth import get_credential, has_credential
+from swarm_auth import has_credential  # noqa: E402
 
 # Add swarm-it-adk client to path for real API access
 adk_client_path = Path.home() / "GitHub" / "swarm-it-adk" / "clients" / "python"
@@ -39,7 +39,7 @@ def _check_aws_credentials():
         session = boto3.Session()
         creds = session.get_credentials()
         return creds is not None
-    except:
+    except Exception:
         pass
     return False
 
@@ -60,7 +60,7 @@ if not os.environ.get("SWARMIT_URL"):
 sys.path.insert(0, str(Path(__file__).parent))
 
 # Now import and run
-from run import main
+from run import main  # noqa: E402
 
 if __name__ == "__main__":
     main()

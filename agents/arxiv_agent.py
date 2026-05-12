@@ -8,7 +8,7 @@ Expertise:
 - Connection to RSCT theory
 """
 
-from typing import Dict, List
+from typing import Dict
 from .base_agent import BaseSourceAgent
 
 
@@ -75,13 +75,12 @@ When analyzing papers, consider:
 
         return max_score
 
-    def analyze_paper(self, paper: Dict) -> "PaperAnalysis":
+    def analyze_paper(self, paper: Dict) -> "PaperAnalysis":  # noqa: F821
         """Analyze an arXiv paper with additional arXiv-specific insights."""
         analysis = super().analyze_paper(paper)
 
         if analysis:
             # Add arXiv-specific metadata
-            arxiv_id = paper.get('id', '').replace('arxiv:', '')
 
             # Boost relevance for certain categories
             categories = paper.get('categories', [])

@@ -8,7 +8,7 @@ Coordinates parallel fetching from arXiv, PubMed, bioRxiv, Semantic Scholar, Ope
 import sys
 import asyncio
 from pathlib import Path
-from typing import List, Dict, Optional, Any
+from typing import List, Dict, Optional
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 
@@ -17,7 +17,7 @@ sys.path.insert(0, str(Path.home() / "GitHub" / "swarm-it-auth"))
 
 # Import pipeline scanner
 sys.path.insert(0, str(Path(__file__).parent.parent / "pipeline"))
-from scanner.sources import fetch_all_sources, Paper
+from scanner.sources import fetch_all_sources
 
 
 @dataclass
@@ -76,7 +76,7 @@ class ScannerAgent:
         Returns:
             ScanResult with papers and metadata
         """
-        print(f"\n=== ScannerAgent: Fetching papers ===")
+        print("\n=== ScannerAgent: Fetching papers ===")
         print(f"Sources: {', '.join(self.sources)}")
         print(f"Days: {days}, Max per source: {max_per_source}")
 

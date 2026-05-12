@@ -20,13 +20,12 @@ import asyncio
 import argparse
 from pathlib import Path
 from datetime import datetime, timezone
-from dataclasses import asdict
 
 # Add parent to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 # P18 v3.0 - Unified credential access
-from swarm_auth import get_credential, has_credential
+from swarm_auth import has_credential
 
 
 def _has_aws_credentials() -> bool:
@@ -39,14 +38,14 @@ def _has_aws_credentials() -> bool:
         session = boto3.Session()
         creds = session.get_credentials()
         return creds is not None
-    except:
+    except Exception:
         return False
 
-from scanner.sources import fetch_all_sources, Paper
-from analyzer.matcher import SimilarityMatcher, MatchResult
-from analyzer.rsct_scorer import RSCTScorer, RSCTScore
-from publisher.mdx_generator import MDXGenerator, PaperData
-from publisher.pdf_generator import PDFReviewGenerator
+from scanner.sources import fetch_all_sources  # noqa: E402
+from analyzer.matcher import SimilarityMatcher  # noqa: E402
+from analyzer.rsct_scorer import RSCTScorer  # noqa: E402
+from publisher.mdx_generator import MDXGenerator, PaperData  # noqa: E402
+from publisher.pdf_generator import PDFReviewGenerator  # noqa: E402
 
 # Paper2SwarmAgent integration
 try:
@@ -151,7 +150,7 @@ class CertifiedPipeline:
     def certify(self, content: str, stage: str, fallback_score: float = None) -> dict:
         """Certify content through Swarm-It API with constraint graph evaluation."""
         # Import constraint graph for rich evaluation
-        from analyzer.constraint_graph import evaluate_paper_constraints, get_gate_diagnosis
+        from analyzer.constraint_graph import evaluate_paper_constraints
 
         if not self.swarmit:
             # Use fallback score from RSCT scorer to estimate RSN
@@ -304,7 +303,7 @@ class CertifiedPipeline:
             return results
 
         # Skip scanner certification (internal operation, trust internal code)
-        print(f"  Scanner: Trusted internal operation (no certification needed)")
+        print("  Scanner: Trusted internal operation (no certification needed)")
 
         # Stage 2: Match against topics
         print("\n[2/3] Matching papers against topics...")
@@ -333,7 +332,7 @@ class CertifiedPipeline:
             return results
 
         # Skip analyzer certification (internal operation)
-        print(f"  Analyzer: Trusted internal operation (no certification needed)")
+        print("  Analyzer: Trusted internal operation (no certification needed)")
 
         # Stage 2.5: RSCT Whitepaper Scoring
         print("\n[2.5/4] Scoring papers against RSCT whitepaper...")
@@ -728,7 +727,7 @@ def _simple_swarm_analysis(papers: list, top_n: int = 3) -> list:
     try:
         from openai import OpenAI
         client = OpenAI()
-    except:
+    except Exception:
         print("  SWARM analysis skipped (OpenAI not available)")
         return []
 

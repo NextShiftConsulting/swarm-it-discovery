@@ -8,7 +8,7 @@ Expertise:
 - Cross-domain paper discovery
 """
 
-from typing import Dict, List
+from typing import Dict
 from .base_agent import BaseSourceAgent
 
 
@@ -86,7 +86,7 @@ When analyzing papers, consider:
 
         return base_score
 
-    def analyze_paper(self, paper: Dict) -> "PaperAnalysis":
+    def analyze_paper(self, paper: Dict) -> "PaperAnalysis":  # noqa: F821
         """Analyze a Semantic Scholar paper with citation-focused insights."""
         analysis = super().analyze_paper(paper)
 

@@ -10,7 +10,6 @@ Uses swarm-it-auth for credentials.
 
 import sys
 import json
-import os
 from pathlib import Path
 from typing import List, Dict, Optional, Any
 from dataclasses import dataclass, field, asdict
@@ -336,7 +335,7 @@ if __name__ == "__main__":
 
     if args.stats:
         stats = agent.get_archive_stats()
-        print(f"\n=== Archive Statistics ===")
+        print("\n=== Archive Statistics ===")
         print(f"Tier 1 (Publish): {stats['tier1']}")
         print(f"Tier 2 (Archive): {stats['tier2']}")
         print(f"Tier 3 (Log):     {stats['tier3']}")

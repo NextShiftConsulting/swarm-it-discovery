@@ -6,7 +6,6 @@ Demonstrates the schema fix without requiring full pipeline infrastructure.
 
 import sys
 from pathlib import Path
-from datetime import datetime
 
 # Add parent to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -97,7 +96,7 @@ def generate_sample_papers():
             print(f"   Saved: {path.name}")
 
             # Verify schema
-            print(f"   ✅ Schema includes: kappa, R, S, N, rsn_score, primary_topic, difficulty, status=live")
+            print("   ✅ Schema includes: kappa, R, S, N, rsn_score, primary_topic, difficulty, status=live")
 
         except Exception as e:
             print(f"\n✗ Error generating {paper.title[:40]}: {e}")

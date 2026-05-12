@@ -8,7 +8,6 @@ P18 Compliance: All credentials via swarm-it-auth (preferred) or config_manager.
 """
 
 import os
-import sys
 import json
 from pathlib import Path
 from typing import List, Optional, Tuple
@@ -34,7 +33,7 @@ except ImportError:
 # Optional: Bedrock for embeddings (fallback)
 try:
     import boto3
-    import numpy as np
+    import numpy as np  # noqa: F401
     HAS_BEDROCK = True  # Check credentials via swarm-it-auth, not env vars
 except ImportError:
     HAS_BEDROCK = False

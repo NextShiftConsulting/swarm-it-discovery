@@ -11,12 +11,10 @@ Priority Accounts:
 - @huggingface - Model releases
 """
 
-import sys
 import re
 import json
 import httpx
-from pathlib import Path
-from typing import List, Dict, Optional, Any
+from typing import List, Dict
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 
@@ -215,8 +213,6 @@ TWEET:
                     import xml.etree.ElementTree as ET
                     root = ET.fromstring(response.text)
 
-                    cutoff = datetime.now(timezone.utc) - timedelta(days=days)
-
                     for item in root.findall('.//item'):
                         title = item.find('title')
                         link = item.find('link')
@@ -259,7 +255,7 @@ TWEET:
             bearer_token = get_credential("X_BEARER_TOKEN")
 
             if not bearer_token:
-                print(f"  ⚠ No X API token found, falling back to Nitter")
+                print("  ⚠ No X API token found, falling back to Nitter")
                 return self.fetch_tweets_nitter(username, days)
 
             headers = {"Authorization": f"Bearer {bearer_token}"}
@@ -269,7 +265,7 @@ TWEET:
             user_response = self._http_client.get(user_url, headers=headers)
 
             if user_response.status_code != 200:
-                print(f"  ⚠ User lookup failed, falling back to Nitter")
+                print("  ⚠ User lookup failed, falling back to Nitter")
                 return self.fetch_tweets_nitter(username, days)
 
             user_id = user_response.json()['data']['id']
@@ -395,7 +391,7 @@ TWEET:
         tweets = self.fetch_tweets_api(username, days)
 
         if not tweets:
-            print(f"  ⚠ No tweets found")
+            print("  ⚠ No tweets found")
             return BatchTweetAnalysis(
                 analyses=[],
                 total_papers=0,
@@ -456,7 +452,7 @@ TWEET:
         unique_arxiv = list(dict.fromkeys(all_arxiv_ids))
         total_papers = sum(len(a.papers) for a in all_analyses)
 
-        print(f"\n=== Summary ===")
+        print("\n=== Summary ===")
         print(f"  Accounts scanned: {len(self.PRIORITY_ACCOUNTS)}")
         print(f"  Total papers: {total_papers}")
         print(f"  Unique arXiv IDs: {len(unique_arxiv)}")
@@ -512,6 +508,6 @@ if __name__ == "__main__":
             }, f, indent=2, default=str)
         print(f"\nSaved to {args.output}")
 
-    print(f"\n=== arXiv IDs for Pipeline ===")
+    print("\n=== arXiv IDs for Pipeline ===")
     for arxiv_id in result.unique_arxiv_ids[:10]:
         print(f"  {arxiv_id}")

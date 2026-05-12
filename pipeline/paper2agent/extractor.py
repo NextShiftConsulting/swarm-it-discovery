@@ -10,7 +10,7 @@ import json
 import re
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import List, Optional, Dict, Any, Tuple
+from typing import List, Optional, Dict, Any
 
 from .scanner import TutorialFile, TutorialType
 
@@ -327,7 +327,7 @@ class ToolExtractor:
         # Extract source code for this function
         try:
             source_code = ast.get_source_segment(full_code, node) or ""
-        except:
+        except Exception:
             # Fallback: reconstruct from AST
             source_code = f"def {name}(...):\n    {docstring[:100]}..."
 

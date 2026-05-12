@@ -8,7 +8,7 @@ Expertise:
 - Cross-disciplinary research
 """
 
-from typing import Dict, List
+from typing import Dict
 from .base_agent import BaseSourceAgent
 
 
@@ -82,7 +82,7 @@ When analyzing papers, consider:
 
         return score
 
-    def analyze_paper(self, paper: Dict) -> "PaperAnalysis":
+    def analyze_paper(self, paper: Dict) -> "PaperAnalysis":  # noqa: F821
         """Analyze an OpenAlex paper with concept-focused insights."""
         analysis = super().analyze_paper(paper)
 

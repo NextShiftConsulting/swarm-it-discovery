@@ -94,7 +94,7 @@ When analyzing papers, consider:
 
         return score
 
-    def analyze_batch(self, papers: List[Dict]) -> List["PaperAnalysis"]:
+    def analyze_batch(self, papers: List[Dict]) -> List["PaperAnalysis"]:  # noqa: F821
         """Analyze papers from both bioRxiv and medRxiv."""
         results = []
 

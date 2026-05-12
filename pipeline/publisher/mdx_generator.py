@@ -4,8 +4,6 @@ MDX Generator - Create blog posts from matched papers.
 P18 Compliance: All credentials via swarm-it-auth.
 """
 
-import os
-import sys
 import re
 import yaml
 from datetime import datetime, timezone
@@ -219,38 +217,11 @@ class MDXGenerator:
 
     def _generate_analysis_llm(self, paper: PaperData) -> str:
         """Use LLM to generate paper analysis."""
-        # Build RSCT context
-        rsct_context = ""
-        if paper.rsct_kappa is not None:
-            r_val = f"{paper.rsct_R:.3f}" if paper.rsct_R else "N/A"
-            s_val = f"{paper.rsct_S:.3f}" if paper.rsct_S else "N/A"
-            n_val = f"{paper.rsct_N:.3f}" if paper.rsct_N else "N/A"
-            rsct_context = f"""
-RSCT Certification Metrics:
-- κ-gate (compatibility): {paper.rsct_kappa:.3f}
-- R (Relevant signal): {r_val}
-- S (Superfluous content): {s_val}
-- N (Adversarial noise): {n_val}
-- α (Purity = R/(R+N)): {float(paper.rsct_R or 0) / (float(paper.rsct_R or 0) + float(paper.rsct_N or 0.01)):.3f}
-- Decision: {paper.rsct_decision or 'PENDING'}
-"""
-
-        # Determine RSCT gate interpretation
-        kappa = paper.rsct_kappa or 0
-        if kappa >= 0.7:
-            gate_interp = "passes the κ-gate (≥0.7), qualifying for EXECUTE - direct integration into research workflows"
-        elif kappa >= 0.5:
-            gate_interp = "reaches Gate 4 but doesn't pass κ-gate (<0.7), suggesting REPAIR - valuable with additional context"
-        elif kappa >= 0.3:
-            gate_interp = "flags at the stability gate, suggesting DELEGATE - needs expert review before integration"
-        else:
-            gate_interp = "flags early in the pipeline, suggesting careful evaluation before use"
-
         # Calculate metrics for the prompt
+        kappa = paper.rsct_kappa or 0
         R_val = float(paper.rsct_R or 0.5)
         S_val = float(paper.rsct_S or 0.3)
         N_val = float(paper.rsct_N or 0.1)
-        purity = R_val / (R_val + N_val) if (R_val + N_val) > 0 else 0.5
 
         # Detect cross-domain papers (multiple topics or high S)
         is_cross_domain = len(paper.matched_topics or []) > 1 or S_val > 0.35
@@ -523,7 +494,7 @@ Based on automated quality analysis, we recommend:
         # Detect cross-domain papers and frame S positively
         is_bridge_paper = len(paper.matched_topics or []) > 1 or S > 0.35
         s_description = (
-            f"Background material for readers from other fields (this is a **bridge paper** - high context is a feature!)"
+            "Background material for readers from other fields (this is a **bridge paper** - high context is a feature!)"
             if is_bridge_paper else
             "Background material, not critical to evaluate"
         )
@@ -558,10 +529,10 @@ Based on automated quality analysis, we recommend:
 
 **Practical interpretation:**
 {
-    f"Core methodology appears solid. Safe to cite the main results. Verify edge cases before extending." if kappa >= 0.8 else
-    f"Good foundation but some gaps. Read critically and verify key claims before building on this work." if kappa >= 0.7 else
-    f"Interesting direction but needs validation. Wait for replication or verify independently before citing heavily." if kappa >= 0.5 else
-    f"Early-stage work. Treat claims as hypotheses rather than established results."
+    "Core methodology appears solid. Safe to cite the main results. Verify edge cases before extending." if kappa >= 0.8 else
+    "Good foundation but some gaps. Read critically and verify key claims before building on this work." if kappa >= 0.7 else
+    "Interesting direction but needs validation. Wait for replication or verify independently before citing heavily." if kappa >= 0.5 else
+    "Early-stage work. Treat claims as hypotheses rather than established results."
 }
 
 {self._generate_graph_insights_section(paper)}

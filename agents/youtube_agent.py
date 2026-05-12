@@ -9,16 +9,13 @@ Uses:
 MANDATORY SOURCE: @code4AI - All research mentioned MUST be added to pipeline.
 """
 
-import sys
 import re
 import json
-from pathlib import Path
 from typing import List, Dict, Optional, Any
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 
 # P18 v3.0 - Unified credential access
-from swarm_auth import get_credential
 
 from youtube_transcript_api import YouTubeTranscriptApi
 from youtube_transcript_api._errors import TranscriptsDisabled, NoTranscriptFound
@@ -324,7 +321,7 @@ TRANSCRIPT:
         total_papers = sum(len(a.papers) for a in analyses)
         total_topics = sum(len(a.topics) for a in analyses)
 
-        print(f"\n=== Summary ===")
+        print("\n=== Summary ===")
         print(f"  Videos analyzed: {len(analyses)}/{len(urls)}")
         print(f"  Total papers: {total_papers}")
         print(f"  Total topics: {total_topics}")
@@ -380,10 +377,10 @@ if __name__ == "__main__":
     if len(args.urls) == 1:
         result = agent.analyze_video(args.urls[0], args.channel)
         if result:
-            print(f"\n=== Papers Found ===")
+            print("\n=== Papers Found ===")
             for paper in result.papers:
                 print(f"  - {paper.get('title', 'Unknown')}")
-            print(f"\n=== Topics ===")
+            print("\n=== Topics ===")
             for topic in result.topics:
                 print(f"  - {topic}")
     else:

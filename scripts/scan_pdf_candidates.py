@@ -27,10 +27,8 @@ import sys
 import json
 import argparse
 from pathlib import Path
-from datetime import datetime
-from typing import List, Dict, Any, Optional, Tuple
+from typing import List, Dict, Tuple
 from dataclasses import dataclass, field
-import re
 
 # PDF extraction
 try:
@@ -471,7 +469,7 @@ Examples:
 
     args = parser.parse_args()
 
-    print(f"\nPDF Candidate Scanner")
+    print("\nPDF Candidate Scanner")
     print(f"{'='*40}")
     print(f"Folder: {args.folder}")
     print(f"Threshold: {args.threshold}")

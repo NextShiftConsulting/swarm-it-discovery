@@ -8,7 +8,7 @@ Uses swarm-it-auth for AWS credentials.
 import sys
 import json
 from pathlib import Path
-from typing import List, Dict, Optional, Any
+from typing import List, Dict, Optional
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 

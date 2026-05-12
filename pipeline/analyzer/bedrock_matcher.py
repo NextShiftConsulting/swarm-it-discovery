@@ -6,17 +6,14 @@ Uses Titan embeddings for semantic similarity between papers and topics.
 P18 Compliance: All credentials via swarm-it-auth.
 """
 
-import os
-import sys
 import json
 import boto3
 import numpy as np
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any
 from dataclasses import dataclass
-from pathlib import Path
 
 # P18 v3.0 - Unified credential access
-from swarm_auth import get_credential, get_aws_credentials
+from swarm_auth import get_aws_credentials
 
 
 @dataclass

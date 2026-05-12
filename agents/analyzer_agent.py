@@ -22,7 +22,7 @@ try:
 except ImportError:
     # Fallback: try swarm-it-adk provider
     try:
-        from swarm_it.providers.mimo import MIMOProvider as MiMoClient
+        from swarm_it.providers.mimo import MIMOProvider as MiMoClient  # noqa: F401
         HAS_MIMO = True
     except ImportError:
         HAS_MIMO = False

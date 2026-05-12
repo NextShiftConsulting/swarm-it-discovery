@@ -8,7 +8,7 @@ Expertise:
 - FDA/regulatory implications
 """
 
-from typing import Dict, List
+from typing import Dict
 from .base_agent import BaseSourceAgent
 
 
@@ -86,7 +86,7 @@ When analyzing papers, consider:
 
         return score
 
-    def analyze_paper(self, paper: Dict) -> "PaperAnalysis":
+    def analyze_paper(self, paper: Dict) -> "PaperAnalysis":  # noqa: F821
         """Analyze a PubMed paper with biomedical-focused insights."""
         analysis = super().analyze_paper(paper)
 

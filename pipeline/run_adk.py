@@ -28,8 +28,8 @@ try:
         SwarmIt,
         LocalEngine,
         RSCTCertificate,
-        GateDecision,
-        certify_local,
+        GateDecision,  # noqa: F401
+        certify_local,  # noqa: F401
     )
     HAS_ADK = True
     print("✓ Swarm-It ADK found - using agent orchestration")
@@ -46,10 +46,10 @@ if not HAS_ADK:
     sys.exit(0)
 
 # Import existing pipeline functions (we're wrapping, not rewriting)
-from scanner.sources import fetch_all_sources, Paper
-from analyzer.matcher import SimilarityMatcher, MatchResult
-from analyzer.rsct_scorer import RSCTScorer, RSCTScore
-from publisher.mdx_generator import MDXGenerator, PaperData
+from scanner.sources import fetch_all_sources  # noqa: E402
+from analyzer.matcher import SimilarityMatcher  # noqa: E402
+from analyzer.rsct_scorer import RSCTScorer  # noqa: E402
+from publisher.mdx_generator import MDXGenerator, PaperData  # noqa: E402
 
 
 class ADKAgent:
@@ -127,11 +127,11 @@ class AnalystAgent(ADKAgent):
             if self.swarmit.health():
                 print(f"  ✓ Swarm-It API connected at {swarmit_url}")
             else:
-                print(f"  ⚠ Swarm-It API not reachable, using ADK LocalEngine")
+                print("  ⚠ Swarm-It API not reachable, using ADK LocalEngine")
                 self.swarmit = None
         except Exception as e:
             print(f"  ⚠ Could not connect to Swarm-It API: {e}")
-            print(f"  → Using ADK LocalEngine for certification")
+            print("  → Using ADK LocalEngine for certification")
 
     def certify(self, content: str, stage: str, fallback_score: float = None) -> dict:
         """
@@ -303,7 +303,7 @@ async def run_pipeline(args):
     print("=" * 60)
     print("SWARM-IT ADK PIPELINE")
     print("=" * 60)
-    print(f"Mode: Agent-orchestrated (hybrid)")
+    print("Mode: Agent-orchestrated (hybrid)")
     print(f"Days: {args.days}")
     print(f"Min topic score: {args.min_score:.0%}")
     print(f"Min RSCT score: {args.min_rsct_score:.0%}")

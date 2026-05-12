@@ -5,13 +5,11 @@ P18 Compliance: All credentials via swarm-it-auth.
 """
 
 import os
-import sys
 import httpx
 from datetime import datetime, timedelta, timezone
 from dataclasses import dataclass
 from typing import List, Optional
 from abc import ABC, abstractmethod
-from pathlib import Path
 
 # P18 v3.0 - Unified credential access
 from swarm_auth import get_credential
@@ -170,7 +168,7 @@ class SemanticScholarSource(PaperSource):
                 try:
                     if datetime.fromisoformat(pub_date) < cutoff:
                         continue
-                except:
+                except Exception:
                     pass
 
             pdf_info = item.get("openAccessPdf") or {}
@@ -247,7 +245,6 @@ class OpenAlexSource(PaperSource):
 
             # Get primary URL/PDF
             location = item.get("primary_location") or {}
-            source_info = location.get("source") or {}
 
             papers.append(Paper(
                 id=f"openalex:{item['id'].split('/')[-1]}",
@@ -419,7 +416,7 @@ class PubMedSource(PaperSource):
                     published_date=pub_date,
                     categories=["Life Sciences"],
                 ))
-            except Exception as e:
+            except Exception:
                 continue
 
         return papers

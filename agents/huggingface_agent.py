@@ -11,7 +11,7 @@ import sys
 import httpx
 from pathlib import Path
 from typing import List, Dict, Optional
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import datetime, timezone
 
 # Add swarm-it repos to path
@@ -132,7 +132,7 @@ class HuggingFacePapersAgent:
         # Show top papers by upvotes
         top_papers = sorted(papers, key=lambda p: p.upvotes, reverse=True)[:5]
         if top_papers:
-            print(f"\n  Top papers by upvotes:")
+            print("\n  Top papers by upvotes:")
             for p in top_papers:
                 print(f"    [{p.upvotes}↑] {p.title[:60]}...")
 
@@ -216,7 +216,7 @@ if __name__ == "__main__":
         for arxiv_id in result.arxiv_ids:
             print(arxiv_id)
     else:
-        print(f"\n=== Summary ===")
+        print("\n=== Summary ===")
         print(f"Total papers: {result.total_count}")
         print(f"Fetch time: {result.fetch_time:.1f}s")
 

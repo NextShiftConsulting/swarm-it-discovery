@@ -5,12 +5,11 @@ Adapted from Paper2Agent's tutorial-scanner for swarm-it integration.
 Designed for ADK extraction - minimal dependencies.
 """
 
-import os
 import re
 import json
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import List, Optional, Dict, Any, Tuple
+from typing import List, Optional, Dict, Any
 from enum import Enum
 
 
@@ -339,7 +338,7 @@ class TutorialScanner:
         for cell in markdown_cells[:3]:  # First 3 markdown cells
             text = "".join(cell.get("source", []))
             # Skip title lines
-            lines = [l for l in text.split("\n") if not l.startswith("#")]
+            lines = [line for line in text.split("\n") if not line.startswith("#")]
             text = " ".join(lines).strip()
             if len(text) > 50:
                 return text[:200] + "..." if len(text) > 200 else text

@@ -221,7 +221,7 @@ class DailyDiscoveryPipeline:
         # Save daily report
         self._save_report(results)
 
-        print(f"\n=== Pipeline Complete ===")
+        print("\n=== Pipeline Complete ===")
         print(f"Papers: {results['papers_fetched']} fetched → {results['papers_matched']} matched → {results['posts_generated']} posts")
 
         return results
