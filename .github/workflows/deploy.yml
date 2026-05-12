@@ -10,8 +10,8 @@ on:
   workflow_dispatch:  # Manual trigger
 
 env:
-  S3_BUCKET: swarm-swarmit-nextshift-site
-  CLOUDFRONT_DIST_ID: EMALCYLQH7F27
+  S3_BUCKET: ${{ secrets.S3_BUCKET }}
+  CLOUDFRONT_DIST_ID: ${{ secrets.CLOUDFRONT_DIST_ID }}
   AWS_REGION: us-east-1
 
 jobs:

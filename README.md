@@ -160,30 +160,31 @@ npm run build      # Production build
 
 **Automatic (push to `main`)**: GitHub Actions (`.github/workflows/deploy.yml`) triggers on any push that touches `site/**`, `content/**`, or `pipeline/**`. It:
 1. Runs `yarn install` + `yarn build` (Gatsby) on GitHub's Ubuntu runner — **no local build required**
-2. Syncs `site/public/` to S3 (`swarm-swarmit-nextshift-site` bucket, account `865679935554` / nsc-swarm)
-3. Invalidates CloudFront distribution `EMALCYLQH7F27` (`d3acgf0550jx8z.cloudfront.net`)
+2. Syncs `site/public/` to the S3 bucket (configured via GitHub Secret `S3_BUCKET`)
+3. Invalidates the CloudFront distribution (configured via GitHub Secret `CLOUDFRONT_DIST_ID`)
 
-**Manual trigger**: Go to [Actions → Build and Deploy → Run workflow](https://github.com/NextShiftConsulting/swarm-it-discovery/actions/workflows/deploy.yml) and click "Run workflow".
+**Manual trigger**: Go to Actions → Build and Deploy → Run workflow.
 
-**GitHub Secrets required** (must be nsc-swarm / account 865679935554 credentials):
-- `AWS_ACCESS_KEY_ID`
-- `AWS_SECRET_ACCESS_KEY`
+**GitHub Secrets required**:
+- `AWS_ACCESS_KEY_ID` — IAM key for the production AWS account
+- `AWS_SECRET_ACCESS_KEY` — IAM secret for the production AWS account
+- `S3_BUCKET` — target S3 bucket name
+- `CLOUDFRONT_DIST_ID` — CloudFront distribution ID
 
 ### DNS
 
-- `swarmit.nextshiftconsulting.com` is a **Cloudflare CNAME** → `d3acgf0550jx8z.cloudfront.net`
+- `swarmit.nextshiftconsulting.com` is a **Cloudflare CNAME** pointing to the CloudFront distribution domain
 - DNS is managed in **Cloudflare** (not Route53 — Route53 zones are empty by design)
-- SSL cert: ACM `7bd8438f` (us-east-1, account 865679935554), validated via Cloudflare CNAME
+- SSL cert validated via Cloudflare CNAME (ACM DNS validation)
 
 ### Main Site — nextshiftconsulting.com
 
-Separate repo, deployed to **Netlify** (`profound-faloodeh-895f43.netlify.app`). Pushes to that repo auto-deploy via Netlify's GitHub integration. Not managed here.
+Separate repo, deployed to **Netlify**. Auto-deploys on push via Netlify's GitHub integration. Not managed here.
 
 ### Infrastructure
 
-- **S3 bucket**: `swarm-swarmit-nextshift-site` (us-east-1, account 865679935554)
-- **CloudFront**: `EMALCYLQH7F27` — no OAC/OAI (bucket has public read policy)
-- **Old account** (188494237500): distribution `E3DPB09HCVDU9L` is decommissioned (alias removed 2026-05-12)
+- **S3**: Static site bucket in us-east-1 with public read policy (no OAC/OAI required)
+- **CloudFront**: Fronts the S3 bucket with HTTPS and the custom domain alias
 - `infra/` contains Terraform for the API container infra (ECS/ECR), not the site
 
 **Note**: This is a standalone deployment separate from the main Next Shift Consulting site. See [SITE_PRINCIPLES.md](SITE_PRINCIPLES.md) for architecture rationale.
