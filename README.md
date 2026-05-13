@@ -90,11 +90,25 @@ pip install -r requirements.txt
 
 ### Configuration
 
-Create `.env` (never commit this):
+Credentials are loaded via `swarm-it-auth` (P18). Source your credentials before running:
 
 ```bash
-# Required for LLM-powered analysis
-OPENAI_API_KEY=sk-...
+source ~/github/swarm-it-auth/keys/.env
+```
+
+The pipeline uses the ADK provider factory for LLM calls — provider is set via env vars, not hardcoded:
+
+```bash
+# LLM provider (openrouter | openai | anthropic | bedrock | mimo)
+# Default: openrouter
+LLM_PROVIDER=openrouter
+
+# Model ID for the chosen provider (uses provider default if unset)
+# Examples:
+#   openrouter: moonshotai/kimi-k2.6, meta-llama/llama-3.1-8b-instruct:free
+#   openai:     gpt-4o, gpt-4o-mini
+#   anthropic:  claude-sonnet-4-6, claude-haiku-4-5-20251001
+LLM_MODEL=
 
 # Swarm-It API (defaults to production)
 SWARMIT_URL=https://api.swarms.network
@@ -102,6 +116,8 @@ SWARMIT_URL=https://api.swarms.network
 # Optional: More paper sources
 SEMANTIC_SCHOLAR_API_KEY=...
 ```
+
+Credentials for the chosen provider (e.g. `OPENROUTER_API_KEY`, `ANTHROPIC_API_KEY`) are discovered automatically by `swarm-it-auth` — no direct key exports needed.
 
 ### Add Topics
 

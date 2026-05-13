@@ -23,23 +23,23 @@ if [ "$1" = "--dry-run" ]; then
     DAYS="${3:-1}"
 fi
 
-# Load credentials
-source ~/GitHub/yrsn/keys/set_aws_env.sh 2>/dev/null || true
+# Load credentials via swarm-it-auth (P18)
+# If running locally, source your credentials first:
+#   source ~/github/swarm-it-auth/keys/.env
+source ~/github/swarm-it-auth/keys/.env 2>/dev/null || true
 
-# Get OpenAI key from Secrets Manager
-if [ -z "$OPENAI_API_KEY" ]; then
-    export OPENAI_API_KEY=$(aws secretsmanager get-secret-value \
-        --secret-id swarmit/openai-api-key \
-        --region us-east-1 \
-        --query SecretString \
-        --output text 2>/dev/null)
-fi
+# LLM provider configuration
+# LLM_PROVIDER: openrouter | openai | anthropic | bedrock | mimo (default: openrouter)
+# LLM_MODEL:    model ID for the chosen provider (default: provider default)
+export LLM_PROVIDER="${LLM_PROVIDER:-openrouter}"
+export LLM_MODEL="${LLM_MODEL:-}"
 
 # Use live API
 export SWARMIT_URL="https://api.swarms.network"
 
 echo "=== Paper Discovery Pipeline ==="
 echo "API: $SWARMIT_URL"
+echo "LLM provider: $LLM_PROVIDER${LLM_MODEL:+ ($LLM_MODEL)}"
 echo "Max papers: $MAX_PAPERS"
 echo "Days back: $DAYS"
 echo ""

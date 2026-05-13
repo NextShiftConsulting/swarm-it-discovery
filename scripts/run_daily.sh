@@ -62,27 +62,23 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-# Load AWS credentials
-if [ -f ~/GitHub/yrsn/keys/set_aws_env.sh ]; then
-    source ~/GitHub/yrsn/keys/set_aws_env.sh 2>/dev/null
-fi
+# Load credentials via swarm-it-auth (P18)
+# Credentials (OPENROUTER_API_KEY, etc.) come from the environment.
+# If running locally, source your credentials first:
+#   source ~/github/swarm-it-auth/keys/.env
+source ~/github/swarm-it-auth/keys/.env 2>/dev/null || true
 
-# Get OpenAI key from local file or Secrets Manager
-if [ -z "$OPENAI_API_KEY" ]; then
-    if [ -f ~/GitHub/yrsn/keys/OPENAI_API_KEY.txt ]; then
-        # Local file format: OPENAI_API_KEY="sk-..."
-        export OPENAI_API_KEY=$(grep -o 'sk-[^"]*' ~/GitHub/yrsn/keys/OPENAI_API_KEY.txt)
-    else
-        export OPENAI_API_KEY=$(aws secretsmanager get-secret-value \
-            --secret-id swarmit/openai-api-key \
-            --region us-east-1 \
-            --query SecretString \
-            --output text 2>/dev/null)
-    fi
-fi
+# LLM provider configuration
+# LLM_PROVIDER: openrouter | openai | anthropic | bedrock | mimo (default: openrouter)
+# LLM_MODEL:    model ID for the chosen provider (default: provider default)
+# Examples:
+#   LLM_PROVIDER=openai LLM_MODEL=gpt-4o ./scripts/run_daily.sh
+#   LLM_PROVIDER=anthropic LLM_MODEL=claude-3-5-sonnet-20241022 ./scripts/run_daily.sh
+export LLM_PROVIDER="${LLM_PROVIDER:-openrouter}"
+export LLM_MODEL="${LLM_MODEL:-}"
 
 # Configuration
-export S3_BUCKET="${S3_BUCKET:-swarmit-nextshift-site}"
+export S3_BUCKET="${S3_BUCKET:-swarm-swarmit-nextshift-site}"
 export SWARMIT_URL="${SWARMIT_URL:-https://api.swarms.network}"
 export S3_PREFIX="$S3_PREFIX"
 
@@ -100,6 +96,7 @@ echo "  Days back: $DAYS"
 echo "  S3 bucket: $S3_BUCKET"
 echo "  S3 prefix: $S3_PREFIX"
 echo "  Dry run: ${DRY_RUN:-no}"
+echo "  LLM provider: $LLM_PROVIDER${LLM_MODEL:+ ($LLM_MODEL)}"
 echo ""
 if [ "$MODE" = "dev" ]; then
     echo "📝 DEV MODE: Results go to $S3_PREFIX/"
