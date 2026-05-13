@@ -290,7 +290,7 @@ const IndexPage: React.FC<PageProps<{ allMdx: { nodes: DiscoveryNode[] } }>> = (
                   {/* Header */}
                   <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-3">
                     <time dateTime={node.frontmatter.published_date}>{node.frontmatter.published_date}</time>
-                    <span>{node.fields.readingTime} min read</span>
+                    <span>{node.fields.readingTime ? `${Math.ceil(node.fields.readingTime)} min read` : ''}</span>
                   </div>
 
                   {/* Title */}

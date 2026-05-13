@@ -76,7 +76,7 @@ const ReviewTemplate: React.FC<PageProps<ReviewData>> = ({ data, children }) => 
             <div className="flex flex-wrap items-center gap-3 text-sm text-gray-500 dark:text-gray-400 mb-4">
               <time dateTime={frontmatter.published_date}>{frontmatter.published_date}</time>
               <span className="w-1 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></span>
-              <span>{fields.readingTime} min read</span>
+              <span>{fields.readingTime ? `${Math.ceil(fields.readingTime)} min read` : ''}</span>
               <span className="w-1 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></span>
               <a
                 href={`https://arxiv.org/abs/${frontmatter.arxiv_id}`}
