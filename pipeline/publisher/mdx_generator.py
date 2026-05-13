@@ -51,12 +51,12 @@ def normalize_date(date_str: str, fallback_date: str = None) -> str:
         print(f"Warning: Could not parse date '{date_str}': {e}")
         return fallback_date or datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
-# Optional: OpenAI for content generation
+# Optional: ADK provider factory for LLM content generation
 try:
-    from openai import OpenAI
-    HAS_OPENAI = True
+    from swarm_it.providers import get_provider as _get_adk_provider
+    HAS_ADK_PROVIDER = True
 except ImportError:
-    HAS_OPENAI = False
+    HAS_ADK_PROVIDER = False
 
 # Optional: Bedrock/Claude for content generation
 try:
@@ -124,12 +124,17 @@ class MDXGenerator:
             except Exception as e:
                 print(f"Bedrock not available: {e}")
 
-        # Fall back to OpenAI (P18 compliant)
-        openai_key = get_credential("OPENAI_API_KEY")
-        if not self.llm_provider and HAS_OPENAI and openai_key:
-            self.openai = OpenAI(api_key=openai_key)
-            self.llm_provider = "openai"
-            print("Using OpenAI for analysis generation")
+        # Fall back to ADK provider factory (provider-agnostic)
+        if not self.llm_provider and HAS_ADK_PROVIDER:
+            import os
+            provider_name = os.environ.get("LLM_PROVIDER", "openrouter")
+            model = os.environ.get("LLM_MODEL") or None
+            try:
+                self._adk_provider = _get_adk_provider(provider_name, model=model)
+                self.llm_provider = provider_name
+                print(f"Using {provider_name} ({self._adk_provider.model}) for analysis generation")
+            except Exception as e:
+                print(f"ADK provider init failed: {e}")
 
         if not self.llm_provider:
             print("Warning: No LLM configured, using template-based generation")
@@ -314,7 +319,7 @@ Write the review now:"""
         if self.llm_provider == "bedrock":
             return self._call_bedrock(prompt)
         else:
-            return self._call_openai(prompt)
+            return self._call_adk_provider(prompt)
 
     def _call_bedrock(self, prompt: str) -> str:
         """Call Claude via AWS Bedrock."""
@@ -330,14 +335,13 @@ Write the review now:"""
         result = json.loads(response['body'].read())
         return result['content'][0]['text']
 
-    def _call_openai(self, prompt: str) -> str:
-        """Call OpenAI API."""
-        response = self.openai.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[{"role": "user", "content": prompt}],
+    def _call_adk_provider(self, prompt: str) -> str:
+        """Call LLM via ADK provider (provider-agnostic)."""
+        response = self._adk_provider.complete(
+            [{"role": "user", "content": prompt}],
             max_tokens=2000,
         )
-        return response.choices[0].message.content
+        return response.content
 
     def _generate_analysis_template(self, paper: PaperData) -> str:
         """Template-based analysis when LLM unavailable."""

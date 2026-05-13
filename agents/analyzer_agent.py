@@ -11,8 +11,6 @@ from typing import List, Dict, Optional, Any
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 
-from swarm_auth import get_credential
-
 # Add swarm-it repos to path
 sys.path.insert(0, str(Path.home() / "github" / "yrsn" / "src"))
 sys.path.insert(0, str(Path.home() / "github" / "swarm-it-adk" / "adk"))
@@ -27,50 +25,26 @@ except ImportError:
     HAS_PIPELINE = False
 
 
-class MiMoClientWrapper:
-    """Wrapper to adapt MiMo/OpenRouter LLM to the analyze_paper interface."""
+class LLMClientWrapper:
+    """Wrapper adapting the ADK provider factory to the analyze_paper interface."""
 
     def __init__(self):
-        """Initialize with OpenRouter client via swarm_auth (P18)."""
-        self._client = None
-        self._api_key = None
-        self._base_url = None
-        self._model = None
-
-        self._load_credentials()
-
-        if self._api_key:
-            try:
-                from openai import OpenAI
-                self._client = OpenAI(
-                    api_key=self._api_key,
-                    base_url=self._base_url,
-                )
-                print(f"[OK] MiMoClientWrapper: Using {self._base_url} with model {self._model}")
-            except Exception as e:
-                print(f"[FAIL] MiMoClientWrapper: OpenAI client init failed: {e}")
-
-    def _load_credentials(self):
-        """Load API credentials via swarm_auth (P18)."""
-        key = get_credential("OPENROUTER_API_KEY")
-        if key:
-            self._api_key = key
-            self._base_url = get_credential("OPENROUTER_ENDPOINT") or "https://openrouter.ai/api/v1"
-            self._model = get_credential("SWARM_MIMO_MODEL") or "meta-llama/llama-3.3-70b-instruct"
+        """Initialize via ADK provider factory (P18, provider-agnostic)."""
+        import os
+        self._provider = None
+        try:
+            from swarm_it.providers import get_provider
+            provider_name = os.environ.get("LLM_PROVIDER", "openrouter")
+            model = os.environ.get("LLM_MODEL") or None
+            self._provider = get_provider(provider_name, model=model)
+            print(f"[OK] LLMClientWrapper: {provider_name} provider ready ({self._provider.model})")
+        except Exception as e:
+            print(f"[FAIL] LLMClientWrapper: provider init failed: {e}")
 
     def analyze_paper(self, title: str, abstract: str) -> Dict[str, Any]:
-        """
-        Analyze a paper using MIMO LLM via OpenRouter or direct API.
-
-        Args:
-            title: Paper title
-            abstract: Paper abstract
-
-        Returns:
-            Dict with summary, key_findings, rsct_connections
-        """
-        if self._client is None:
-            return {"summary": "MIMO client not available", "key_findings": [], "rsct_connections": []}
+        """Analyze a paper and return summary, key_findings, rsct_connections."""
+        if self._provider is None:
+            return {"summary": "LLM provider not available", "key_findings": [], "rsct_connections": []}
 
         prompt = f"""Analyze this academic paper and provide:
 1. A brief summary (2-3 sentences)
@@ -85,20 +59,15 @@ Respond in JSON format:
 {{"summary": "...", "key_findings": ["...", "..."], "rsct_connections": ["...", "..."]}}"""
 
         try:
-            # Use OpenAI-compatible chat completion
-            response = self._client.chat.completions.create(
-                model=self._model,
-                messages=[{"role": "user", "content": prompt}],
+            response = self._provider.complete(
+                [{"role": "user", "content": prompt}],
                 temperature=0.3,
                 max_tokens=1024,
             )
+            content = response.content
 
-            content = response.choices[0].message.content
-
-            # Parse JSON from response
             import json
             try:
-                # Find JSON in response
                 start = content.find('{')
                 end = content.rfind('}') + 1
                 if start >= 0 and end > start:
@@ -187,13 +156,13 @@ class AnalyzerAgent:
 
     def _init_components(self):
         """Initialize analysis components."""
-        # LLM client (using wrapper for analyze_paper interface)
+        # LLM client (provider-agnostic via ADK factory)
         if self.use_mimo:
             try:
-                self._llm = MiMoClientWrapper()
-                print("[OK] AnalyzerAgent: MiMoClientWrapper initialized")
+                self._llm = LLMClientWrapper()
+                print("[OK] AnalyzerAgent: LLMClientWrapper initialized")
             except Exception as e:
-                print(f"[FAIL] AnalyzerAgent: MiMoClientWrapper failed: {e}")
+                print(f"[FAIL] AnalyzerAgent: LLMClientWrapper failed: {e}")
 
         # Topic matcher
         if HAS_PIPELINE:

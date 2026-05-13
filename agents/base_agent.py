@@ -84,35 +84,19 @@ class BaseSourceAgent(ABC):
         self._init_llm_client()
 
     def _init_llm_client(self):
-        """Initialize LLM client using credentials via swarm_auth (P18).
+        """Initialize LLM client via swarm-it-adk provider factory (P18).
 
-        Priority:
-        1. OpenRouter / MiMo (cost-effective)
-        2. OpenAI (fallback)
+        Provider and model driven by LLM_PROVIDER / LLM_MODEL env vars.
+        Defaults: openrouter / provider default model.
         """
+        import os
         try:
-            from swarm_auth import get_credential
-
-            # Try OpenRouter first (cost-effective)
-            openrouter_key = get_credential("OPENROUTER_API_KEY")
-            if openrouter_key:
-                from openai import OpenAI
-                base_url = get_credential("OPENROUTER_ENDPOINT") or "https://openrouter.ai/api/v1"
-                self._llm_client = OpenAI(api_key=openrouter_key, base_url=base_url)
-                self._llm_provider = "openrouter"
-                print(f"  ✓ {self.AGENT_NAME}: OpenRouter client ready")
-                return
-
-            # Fallback to OpenAI
-            openai_key = get_credential("OPENAI_API_KEY")
-            if openai_key:
-                from openai import OpenAI
-                self._llm_client = OpenAI(api_key=openai_key)
-                self._llm_provider = "openai"
-                print(f"  ✓ {self.AGENT_NAME}: OpenAI client ready (fallback)")
-                return
-
-            print(f"  ✗ {self.AGENT_NAME}: No LLM credentials found")
+            from swarm_it.providers import get_provider
+            provider_name = os.environ.get("LLM_PROVIDER", "openrouter")
+            model = os.environ.get("LLM_MODEL") or None
+            self._llm_client = get_provider(provider_name, model=model)
+            self._llm_provider = provider_name
+            print(f"  ✓ {self.AGENT_NAME}: {provider_name} provider ready ({self._llm_client.model})")
         except Exception as e:
             print(f"  ✗ {self.AGENT_NAME}: LLM client init failed: {e}")
 
@@ -190,19 +174,11 @@ Provide analysis in JSON format:
         try:
             import json
 
-            # Use appropriate client based on provider
-            if hasattr(self, '_llm_provider') and self._llm_provider == "mimo":
-                # MiMoClient (cost-effective)
-                result = self._llm_client.chat_json(prompt)
-            else:
-                # OpenAI client (fallback)
-                response = self._llm_client.chat.completions.create(
-                    model="gpt-4o-mini",
-                    messages=[{"role": "user", "content": prompt}],
-                    max_tokens=500,
-                    response_format={"type": "json_object"},
-                )
-                result = json.loads(response.choices[0].message.content)
+            response = self._llm_client.complete(
+                [{"role": "user", "content": prompt}],
+                max_tokens=500,
+            )
+            result = json.loads(response.content)
 
             return PaperAnalysis(
                 paper_id=paper.get('id', ''),

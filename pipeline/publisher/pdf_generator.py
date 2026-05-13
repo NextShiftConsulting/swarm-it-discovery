@@ -13,15 +13,12 @@ from datetime import datetime, timezone
 from dataclasses import dataclass
 from typing import List, Optional
 
-# P18 v3.0 - Unified credential access
-from swarm_auth import get_credential
-
-# Optional: OpenAI for content generation
+# Optional: ADK provider factory for LLM content generation
 try:
-    from openai import OpenAI
-    HAS_OPENAI = True
+    from swarm_it.providers import get_provider as _get_adk_provider
+    HAS_ADK_PROVIDER = True
 except ImportError:
-    HAS_OPENAI = False
+    HAS_ADK_PROVIDER = False
 
 
 @dataclass
@@ -45,12 +42,16 @@ class PDFReviewGenerator:
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
-        # P18 compliant credential access
-        openai_key = get_credential("OPENAI_API_KEY")
-        if HAS_OPENAI and openai_key:
-            self.openai = OpenAI(api_key=openai_key)
-        else:
-            self.openai = None
+        # ADK provider factory (provider-agnostic, P18 via factory)
+        self._adk_provider = None
+        if HAS_ADK_PROVIDER:
+            import os
+            provider_name = os.environ.get("LLM_PROVIDER", "openrouter")
+            model = os.environ.get("LLM_MODEL") or None
+            try:
+                self._adk_provider = _get_adk_provider(provider_name, model=model)
+            except Exception as e:
+                print(f"ADK provider init failed: {e}")
 
     def _escape_latex(self, text: str) -> str:
         """Escape special LaTeX characters."""
@@ -77,7 +78,7 @@ class PDFReviewGenerator:
         key_overlaps: List[str],
     ) -> str:
         """Generate detailed analysis using LLM."""
-        if not self.openai:
+        if not self._adk_provider:
             return self._template_analysis(title, abstract, rsct_score, key_overlaps)
 
         prompt = f"""Write a detailed academic review of this paper from an RSCT (Representation-Solver Compatibility Theory) perspective.
@@ -94,9 +95,9 @@ Write 3-4 paragraphs covering:
 1. **Summary**: What the paper does and its main contributions
 
 2. **RSCT Analysis**: How this work relates to RSCT's three independent certification axes:
-   - Signal purity (α = R/(R+N)): Does it improve the ratio of relevant signal to adversarial noise?
-   - Geometric compatibility (κ): Does it address representation-solver fit?
-   - Turbulence (σ): Does it consider dynamical stability of representations?
+   - Signal purity (alpha = R/(R+N)): Does it improve the ratio of relevant signal to adversarial noise?
+   - Geometric compatibility (kappa): Does it address representation-solver fit?
+   - Turbulence (sigma): Does it consider dynamical stability of representations?
    - RSN decomposition: Does the work help distinguish Relevant signal, Superfluous context, and adversarial Noise?
 
 3. **Technical Depth**: Key methodological contributions and their significance
@@ -106,12 +107,11 @@ Write 3-4 paragraphs covering:
 Use academic tone. Be specific about connections to RSCT theory."""
 
         try:
-            response = self.openai.chat.completions.create(
-                model="gpt-4o-mini",
-                messages=[{"role": "user", "content": prompt}],
+            response = self._adk_provider.complete(
+                [{"role": "user", "content": prompt}],
                 max_tokens=1500,
             )
-            return response.choices[0].message.content
+            return response.content
         except Exception as e:
             print(f"LLM error: {e}")
             return self._template_analysis(title, abstract, rsct_score, key_overlaps)
