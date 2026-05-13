@@ -130,14 +130,17 @@ TRANSCRIPT:
         self._init_llm()
 
     def _init_llm(self):
-        """Initialize MiMoClient from swarm-it-auth."""
+        """Initialize LLM client via ADK provider factory (P18)."""
         if self._use_mimo:
             try:
-                from swarm_auth.adapters import MiMoClient
-                self._mimo_client = MiMoClient()
-                print(f"✓ {self.AGENT_NAME}: MiMoClient initialized")
+                import os
+                from swarm_it.providers import get_provider
+                provider_name = os.environ.get("LLM_PROVIDER", "openrouter")
+                model = os.environ.get("LLM_MODEL") or None
+                self._mimo_client = get_provider(provider_name, model=model)
+                print(f"✓ {self.AGENT_NAME}: {provider_name} provider initialized")
             except Exception as e:
-                print(f"⚠ {self.AGENT_NAME}: MiMoClient failed: {e}")
+                print(f"⚠ {self.AGENT_NAME}: LLM provider failed: {e}")
                 self._mimo_client = None
 
     def extract_video_id(self, url: str) -> Optional[str]:
@@ -211,19 +214,18 @@ TRANSCRIPT:
         prompt = self.ANALYSIS_PROMPT + transcript
 
         try:
-            response = self._mimo_client.chat_json(prompt)
+            raw = self._mimo_client.complete([{"role": "user", "content": prompt}]).content
+            start, end = raw.find('{'), raw.rfind('}') + 1
+            response = json.loads(raw[start:end]) if start >= 0 and end > start else {}
 
-            # Ensure all required fields exist
-            result = {
+            return {
                 "papers": response.get("papers", []),
                 "tools": response.get("tools", []),
                 "topics": response.get("topics", []),
                 "links": response.get("links", []),
                 "key_points": response.get("key_points", []),
-                "cost": getattr(response, 'cost', 0.0) if hasattr(response, 'cost') else 0.0
+                "cost": 0.0,
             }
-
-            return result
 
         except Exception as e:
             print(f"⚠ Analysis error: {e}")

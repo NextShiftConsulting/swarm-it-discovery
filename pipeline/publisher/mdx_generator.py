@@ -13,7 +13,6 @@ from dataclasses import dataclass
 from typing import List, Optional
 
 # P18 v3.0 - Unified credential access
-from swarm_auth import get_credential
 
 
 def normalize_date(date_str: str, fallback_date: str = None) -> str:

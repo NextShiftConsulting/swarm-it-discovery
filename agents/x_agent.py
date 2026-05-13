@@ -131,15 +131,18 @@ TWEET:
         self._init_clients()
 
     def _init_clients(self):
-        """Initialize MiMo and HTTP clients."""
-        # MiMo for analysis
+        """Initialize LLM and HTTP clients."""
+        # LLM for analysis (ADK provider factory, P18)
         if self._use_mimo:
             try:
-                from swarm_auth.adapters import MiMoClient
-                self._mimo_client = MiMoClient()
-                print(f"✓ {self.AGENT_NAME}: MiMoClient initialized")
+                import os
+                from swarm_it.providers import get_provider
+                provider_name = os.environ.get("LLM_PROVIDER", "openrouter")
+                model = os.environ.get("LLM_MODEL") or None
+                self._mimo_client = get_provider(provider_name, model=model)
+                print(f"✓ {self.AGENT_NAME}: {provider_name} provider initialized")
             except Exception as e:
-                print(f"⚠ {self.AGENT_NAME}: MiMoClient failed: {e}")
+                print(f"⚠ {self.AGENT_NAME}: LLM provider failed: {e}")
 
         # HTTP client for API calls
         self._http_client = httpx.Client(timeout=30)
@@ -338,13 +341,15 @@ TWEET:
         if self._mimo_client and len(content) > 50:
             try:
                 prompt = self.ANALYSIS_PROMPT + content[:2000]
-                response = self._mimo_client.chat_json(prompt)
+                raw = self._mimo_client.complete([{"role": "user", "content": prompt}]).content
+                start, end = raw.find('{'), raw.rfind('}') + 1
+                response = json.loads(raw[start:end]) if start >= 0 and end > start else {}
 
                 papers = response.get('papers', [])
                 topics = response.get('topics', [])
 
             except Exception as e:
-                print(f"  ⚠ MiMo analysis failed: {e}")
+                print(f"  ⚠ LLM analysis failed: {e}")
 
         # Add arXiv papers found via regex
         for arxiv_id in arxiv_ids:
