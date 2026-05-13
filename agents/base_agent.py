@@ -70,16 +70,9 @@ class BaseSourceAgent(ABC):
         self._init_integrations()
 
     def _init_integrations(self):
-        """Initialize swarm-it-auth and swarm-it-adk integrations."""
+        """Initialize swarm-it-adk and LLM client integrations."""
 
-        # 1. P18 v3.0 credentials available via swarm_auth.get_credential
-        try:
-            from swarm_auth import get_credential  # noqa: F401
-            print(f"  ✓ {self.AGENT_NAME}: swarm_auth initialized")
-        except ImportError as e:
-            print(f"  ✗ {self.AGENT_NAME}: swarm_auth not available: {e}")
-
-        # 2. Initialize certifier (swarm-it-adk)
+        # 1. Initialize certifier (swarm-it-adk)
         try:
             from swarm_it import certify, LocalEngine  # noqa: F401
             self._certifier = LocalEngine()
@@ -87,43 +80,39 @@ class BaseSourceAgent(ABC):
         except ImportError as e:
             print(f"  ✗ {self.AGENT_NAME}: swarm-it-adk not available: {e}")
 
-        # 3. Initialize LLM client using credentials from auth
+        # 2. Initialize LLM client via swarm_auth (P18)
         self._init_llm_client()
 
     def _init_llm_client(self):
-        """Initialize LLM client using credentials from swarm-it-auth.
+        """Initialize LLM client using credentials via swarm_auth (P18).
 
         Priority:
-        1. MiMoClient (cost-effective, 99% cheaper)
+        1. OpenRouter / MiMo (cost-effective)
         2. OpenAI (fallback)
         """
-        if not self._credential_adapter:
-            return
-
-        # Try MiMoClient first (99% cheaper than OpenAI)
         try:
-            from swarm_auth.adapters import MiMoClient
-            mimo_key = self._credential_adapter.retrieve("MIMO_API_KEY")
+            from swarm_auth import get_credential
 
-            if mimo_key:
-                self._llm_client = MiMoClient()
-                self._llm_provider = "mimo"
-                print(f"  ✓ {self.AGENT_NAME}: MiMoClient ready (99% cost savings)")
-                return
-        except Exception as e:
-            print(f"  ⚠ {self.AGENT_NAME}: MiMoClient not available: {e}")
-
-        # Fallback to OpenAI
-        try:
-            api_key = self._credential_adapter.retrieve("OPENAI_API_KEY")
-
-            if api_key:
+            # Try OpenRouter first (cost-effective)
+            openrouter_key = get_credential("OPENROUTER_API_KEY")
+            if openrouter_key:
                 from openai import OpenAI
-                self._llm_client = OpenAI(api_key=api_key)
+                base_url = get_credential("OPENROUTER_ENDPOINT") or "https://openrouter.ai/api/v1"
+                self._llm_client = OpenAI(api_key=openrouter_key, base_url=base_url)
+                self._llm_provider = "openrouter"
+                print(f"  ✓ {self.AGENT_NAME}: OpenRouter client ready")
+                return
+
+            # Fallback to OpenAI
+            openai_key = get_credential("OPENAI_API_KEY")
+            if openai_key:
+                from openai import OpenAI
+                self._llm_client = OpenAI(api_key=openai_key)
                 self._llm_provider = "openai"
                 print(f"  ✓ {self.AGENT_NAME}: OpenAI client ready (fallback)")
-            else:
-                print(f"  ✗ {self.AGENT_NAME}: No LLM credentials found")
+                return
+
+            print(f"  ✗ {self.AGENT_NAME}: No LLM credentials found")
         except Exception as e:
             print(f"  ✗ {self.AGENT_NAME}: LLM client init failed: {e}")
 

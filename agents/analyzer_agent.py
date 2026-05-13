@@ -11,21 +11,11 @@ from typing import List, Dict, Optional, Any
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 
+from swarm_auth import get_credential
+
 # Add swarm-it repos to path
 sys.path.insert(0, str(Path.home() / "github" / "yrsn" / "src"))
 sys.path.insert(0, str(Path.home() / "github" / "swarm-it-adk" / "adk"))
-
-# Import MIMOClient from yrsn SERG module
-try:
-    from yrsn.framework.api.serg.mimo_swarm import MIMOClient as MiMoClient
-    HAS_MIMO = True
-except ImportError:
-    # Fallback: try swarm-it-adk provider
-    try:
-        from swarm_it.providers.mimo import MIMOProvider as MiMoClient  # noqa: F401
-        HAS_MIMO = True
-    except ImportError:
-        HAS_MIMO = False
 
 # Import pipeline components
 sys.path.insert(0, str(Path(__file__).parent.parent / "pipeline"))
@@ -38,65 +28,35 @@ except ImportError:
 
 
 class MiMoClientWrapper:
-    """Wrapper to adapt MIMOClient to expected analyze_paper interface."""
-
-    # Key file locations (check both repos)
-    KEY_PATHS = [
-        Path.home() / "github" / "swarm-it-auth" / "keys" / "4-openrouter.md",
-        Path.home() / "github" / "yrsn" / "keys" / "4-openrouter.md",
-        Path.home() / "github" / "yrsn" / "keys" / "xiao_nsc_20260217.txt",
-    ]
+    """Wrapper to adapt MiMo/OpenRouter LLM to the analyze_paper interface."""
 
     def __init__(self):
-        """Initialize with OpenRouter or direct MiMo client."""
+        """Initialize with OpenRouter client via swarm_auth (P18)."""
         self._client = None
         self._api_key = None
         self._base_url = None
         self._model = None
 
-        # Try to load API key from files
         self._load_credentials()
 
-        # Initialize OpenAI-compatible client
         if self._api_key:
             try:
                 from openai import OpenAI
                 self._client = OpenAI(
                     api_key=self._api_key,
-                    base_url=self._base_url
+                    base_url=self._base_url,
                 )
                 print(f"[OK] MiMoClientWrapper: Using {self._base_url} with model {self._model}")
             except Exception as e:
                 print(f"[FAIL] MiMoClientWrapper: OpenAI client init failed: {e}")
 
     def _load_credentials(self):
-        """Load API credentials from key files."""
-        for key_path in self.KEY_PATHS:
-            if key_path.exists():
-                try:
-                    content = key_path.read_text().strip()
-
-                    # OpenRouter key file format: api_key="sk-or-..."
-                    if "openrouter" in str(key_path).lower():
-                        import re
-                        match = re.search(r'api_key="([^"]+)"', content)
-                        if match:
-                            self._api_key = match.group(1)
-                            self._base_url = "https://openrouter.ai/api/v1"
-                            self._model = "xiaomi/mimo-v2-flash"  # Fast, cost-effective
-                            return
-
-                    # Direct Xiaomi key file format: sk-...
-                    if "xiao" in str(key_path).lower():
-                        lines = content.split('\n')
-                        for line in lines:
-                            if line.startswith('sk-'):
-                                self._api_key = line.strip()
-                                self._base_url = "https://api.xiaomimimo.com/v1"
-                                self._model = "mimo-v2-flash"
-                                return
-                except Exception as e:
-                    print(f"[FAIL] Failed to read {key_path}: {e}")
+        """Load API credentials via swarm_auth (P18)."""
+        key = get_credential("OPENROUTER_API_KEY")
+        if key:
+            self._api_key = key
+            self._base_url = get_credential("OPENROUTER_ENDPOINT") or "https://openrouter.ai/api/v1"
+            self._model = get_credential("SWARM_MIMO_MODEL") or "meta-llama/llama-3.3-70b-instruct"
 
     def analyze_paper(self, title: str, abstract: str) -> Dict[str, Any]:
         """
@@ -228,7 +188,7 @@ class AnalyzerAgent:
     def _init_components(self):
         """Initialize analysis components."""
         # LLM client (using wrapper for analyze_paper interface)
-        if self.use_mimo and HAS_MIMO:
+        if self.use_mimo:
             try:
                 self._llm = MiMoClientWrapper()
                 print("[OK] AnalyzerAgent: MiMoClientWrapper initialized")
