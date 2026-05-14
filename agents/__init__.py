@@ -18,7 +18,12 @@ from .analyzer_agent import AnalyzerAgent, AnalysisResult, BatchAnalysisResult
 from .publisher_agent import PublisherAgent, PublishResult, BatchPublishResult
 
 # Content Agents (YouTube, Blogs, etc.)
-from .youtube_agent import YouTubeAgent, VideoAnalysis, BatchVideoAnalysis
+# Optional — requires youtube-transcript-api; silently unavailable if not installed
+try:
+    from .youtube_agent import YouTubeAgent, VideoAnalysis, BatchVideoAnalysis
+    _YOUTUBE_AVAILABLE = True
+except ImportError:
+    _YOUTUBE_AVAILABLE = False
 
 # Archive Agent
 from .archive_agent import ArchiveAgent, ArchivedPaper, ArchiveResult, ArchiveThresholds
@@ -28,6 +33,9 @@ from .x_agent import XAgent, TweetAnalysis, BatchTweetAnalysis
 
 # HuggingFace Papers Agent
 from .huggingface_agent import HuggingFacePapersAgent, HFPaper, HFPapersResult
+
+# ACP-integrated orchestrator (ADR-027 Stage 9)
+from .discovery_orchestrator import DiscoveryOrchestrator
 
 # Source Agents
 from .base_agent import BaseSourceAgent, PaperAnalysis
@@ -50,7 +58,7 @@ __all__ = [
     "PublisherAgent",
     "PublishResult",
     "BatchPublishResult",
-    # Content Agents
+    # Content Agents (optional — requires youtube-transcript-api)
     "YouTubeAgent",
     "VideoAnalysis",
     "BatchVideoAnalysis",
@@ -77,4 +85,6 @@ __all__ = [
     "OpenAlexAgent",
     # Orchestrator
     "SourceAgentOrchestrator",
+    # ACP-integrated orchestrator (ADR-027 Stage 9)
+    "DiscoveryOrchestrator",
 ]
