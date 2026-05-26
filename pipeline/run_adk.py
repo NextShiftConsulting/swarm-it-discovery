@@ -158,7 +158,7 @@ class AnalystAgent(ADKAgent):
 
         return {
             "allowed": cert.decision.allowed if hasattr(cert.decision, 'allowed') else True,
-            "kappa_gate": cert.kappa_gate,
+            "kappa_compat": cert.kappa_compat,
             "decision": decision,
             "R": cert.R,
             "S": cert.S,
@@ -266,7 +266,7 @@ class WriterAgent(ADKAgent):
                 rsct_R=cert.get("R"),
                 rsct_S=cert.get("S"),
                 rsct_N=cert.get("N"),
-                rsct_kappa=cert.get("kappa_gate"),
+                rsct_kappa=cert.get("kappa_compat"),
                 rsct_decision=cert.get("decision"),
             ))
 

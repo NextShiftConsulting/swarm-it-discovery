@@ -178,7 +178,7 @@ class CertifiedPipeline:
                 return {
                     "allowed": eval_result.decision != "REJECT",
                     "certification_method": "HEURISTIC_UNCERTIFIED",
-                    "kappa_gate": round(kappa, 3),
+                    "kappa_compat": round(kappa, 3),
                     "R": round(r_heuristic, 3),
                     "S": round(s_heuristic, 3),
                     "N": round(n_heuristic, 3),
@@ -201,7 +201,7 @@ class CertifiedPipeline:
                 return {
                     "allowed": False,
                     "certification_method": "NONE",
-                    "kappa_gate": 0.0,
+                    "kappa_compat": 0.0,
                     "R": 0.0,
                     "S": 0.0,
                     "N": 0.0,
@@ -224,7 +224,7 @@ class CertifiedPipeline:
             R = cert.R
             S = cert.S
             N = cert.N
-            kappa = cert.kappa_gate
+            kappa = cert.kappa_compat
             sigma = cert.sigma if hasattr(cert, 'sigma') else 0.3
 
             # Use constraint graph for additional insights
@@ -232,7 +232,7 @@ class CertifiedPipeline:
 
             return {
                 "allowed": cert.allowed,
-                "kappa_gate": kappa,
+                "kappa_compat": kappa,
                 "decision": cert.decision.value if hasattr(cert.decision, 'value') else str(cert.decision),
                 "R": R,
                 "S": S,
@@ -256,7 +256,7 @@ class CertifiedPipeline:
             return {
                 "allowed": False,
                 "certification_method": "ERROR",
-                "kappa_gate": 0.0,
+                "kappa_compat": 0.0,
                 "R": 0.0,
                 "S": 0.0,
                 "N": 0.0,
@@ -461,7 +461,7 @@ class CertifiedPipeline:
                 rsct_R=cert.get("R"),
                 rsct_S=cert.get("S"),
                 rsct_N=cert.get("N"),
-                rsct_kappa=cert.get("kappa_gate"),
+                rsct_kappa=cert.get("kappa_compat"),
                 rsct_decision=cert.get("decision"),
                 # Graph-based insights
                 rsct_alpha=cert.get("alpha"),
@@ -511,7 +511,7 @@ class CertifiedPipeline:
                     "rsct_R": cert.get("R"),
                     "rsct_S": cert.get("S"),
                     "rsct_N": cert.get("N"),
-                    "rsct_kappa": cert.get("kappa_gate"),
+                    "rsct_kappa": cert.get("kappa_compat"),
                 })
 
             pdf_reviews = self.pdf_generator.generate_batch(pdf_papers, max_papers=5)
@@ -606,7 +606,7 @@ def main():
         print("\nCertification Results:")
         for cert in results["certifications"]:
             status = "PASS" if cert["allowed"] else "BLOCK"
-            print(f"  [{cert['stage']}] {status} kappa={cert['kappa_gate']:.2f}")
+            print(f"  [{cert['stage']}] {status} kappa={cert['kappa_compat']:.2f}")
 
     # Print top papers
     if results.get("top_papers"):

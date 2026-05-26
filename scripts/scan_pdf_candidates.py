@@ -369,7 +369,7 @@ Assess the relevance (R), spurious content (S), and noise (N) for research quali
             # Call Swarm-It API
             cert = self.swarmit_client.certify(prompt=prompt)
 
-            candidate.rsct_kappa = cert.kappa_gate
+            candidate.rsct_kappa = cert.kappa_compat
             candidate.rsct_R = cert.R
             candidate.rsct_S = cert.S
             candidate.rsct_N = cert.N

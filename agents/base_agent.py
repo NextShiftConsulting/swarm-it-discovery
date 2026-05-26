@@ -128,7 +128,7 @@ class BaseSourceAgent(ABC):
             from swarm_it.local.engine import GateDecision
             allowed = cert.decision in [GateDecision.EXECUTE, GateDecision.REPAIR]
 
-            return allowed, cert.kappa_gate
+            return allowed, cert.kappa_compat
         except Exception as e:
             print(f"  ⚠ {self.AGENT_NAME}: Certification failed: {e}")
             return True, None  # Fail open for now
