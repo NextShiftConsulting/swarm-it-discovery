@@ -14,7 +14,7 @@ Usage:
     from analyzer.constraint_graph import RSCTConstraintGraph, evaluate_paper_constraints
 
     graph = RSCTConstraintGraph()
-    result = evaluate_paper_constraints(R=0.4, S=0.3, N=0.3, kappa=0.65)
+    result = evaluate_paper_constraints(R=0.4, S=0.3, N=0.3, kappa_coupling=0.65)
     print(result.triggered_constraints)
     print(result.gate_diagnosis)
 """
@@ -79,7 +79,7 @@ class RSCTDecision(str, Enum):
 class Threshold:
     """A threshold that triggers a collapse when violated."""
     name: str
-    metric: str              # R, S, N, kappa, sigma, alpha
+    metric: str              # R, S, N, kappa_coupling, sigma, alpha
     value: float
     direction: str           # "above" or "below" - violation occurs when metric is above/below threshold
     collapse_type: CollapseType
@@ -127,7 +127,7 @@ class EvaluationResult:
     R: float
     S: float
     N: float
-    kappa: float
+    kappa_coupling: float
     sigma: float
     alpha: float  # purity = R/(R+N)
 
@@ -155,7 +155,7 @@ class EvaluationResult:
         return {
             "metrics": {
                 "R": self.R, "S": self.S, "N": self.N,
-                "kappa": self.kappa, "sigma": self.sigma, "alpha": self.alpha,
+                "kappa_coupling": self.kappa_coupling, "sigma": self.sigma, "alpha": self.alpha,
             },
             "gate_reached": self.gate_reached.value,
             "decision": self.decision.value,
@@ -251,7 +251,7 @@ class RSCTConstraintGraph:
 
         self.add_threshold(Threshold(
             name="kappa_floor",
-            metric="kappa",
+            metric="kappa_coupling",
             value=0.50,
             direction="below",
             collapse_type=CollapseType.FORMAT_MISMATCH,
@@ -262,7 +262,7 @@ class RSCTConstraintGraph:
 
         self.add_threshold(Threshold(
             name="kappa_certified",
-            metric="kappa",
+            metric="kappa_coupling",
             value=0.70,
             direction="below",
             collapse_type=CollapseType.FORMAT_MISMATCH,
@@ -277,7 +277,7 @@ class RSCTConstraintGraph:
 
         self.add_threshold(Threshold(
             name="grounding_floor",
-            metric="kappa",
+            metric="kappa_coupling",
             value=0.30,
             direction="below",
             collapse_type=CollapseType.GROUNDING_FAILURE,
@@ -329,7 +329,7 @@ class RSCTConstraintGraph:
         R: float,
         S: float,
         N: float,
-        kappa: float,
+        kappa_coupling: float,
         sigma: float = 0.3,
     ) -> EvaluationResult:
         """
@@ -339,7 +339,7 @@ class RSCTConstraintGraph:
             R: Relevance (0-1)
             S: Superfluous (0-1)
             N: Noise (0-1)
-            kappa: Compatibility score (0-1)
+            kappa_coupling: Coupling strength (0-1)
             sigma: Turbulence (0-1), default 0.3
 
         Returns:
@@ -350,7 +350,7 @@ class RSCTConstraintGraph:
 
         metrics = {
             "R": R, "S": S, "N": N,
-            "kappa": kappa, "sigma": sigma, "alpha": alpha,
+            "kappa_coupling": kappa_coupling, "sigma": sigma, "alpha": alpha,
         }
 
         # Check all thresholds
@@ -393,7 +393,7 @@ class RSCTConstraintGraph:
         recommendations = self._generate_recommendations(violations, decision, is_bridge_paper)
 
         return EvaluationResult(
-            R=R, S=S, N=N, kappa=kappa, sigma=sigma, alpha=alpha,
+            R=R, S=S, N=N, kappa_coupling=kappa_coupling, sigma=sigma, alpha=alpha,
             violations=violations,
             gate_reached=gate_reached,
             decision=decision,
@@ -426,19 +426,19 @@ class RSCTConstraintGraph:
             return GateNumber.GATE_2_CONSENSUS, RSCTDecision.BLOCK, GateNumber.GATE_2_CONSENSUS
 
         # Gate 3/4: Admissibility + Grounding (Oobleck principle: kappa_req depends on sigma)
-        kappa = metrics["kappa"]
+        kappa_coupling = metrics["kappa_coupling"]
         sigma = metrics["sigma"]
-        kappa_req = 0.5 + 0.4 * sigma  # Oobleck: higher turbulence demands higher kappa
+        kappa_req = 0.5 + 0.4 * sigma  # Oobleck: higher turbulence demands higher kappa_coupling
 
-        if kappa < kappa_req:
+        if kappa_coupling < kappa_req:
             # Gate 4 refines severity within the failure range:
-            # kappa < 0.30 is a grounding failure (REPAIR), otherwise admissibility (RE_ENCODE).
-            if kappa < 0.30:
+            # kappa_coupling < 0.30 is a grounding failure (REPAIR), otherwise admissibility (RE_ENCODE).
+            if kappa_coupling < 0.30:
                 return GateNumber.GATE_4_GROUNDING, RSCTDecision.REPAIR, GateNumber.GATE_4_GROUNDING
             return GateNumber.GATE_3_ADMISSIBILITY, RSCTDecision.RE_ENCODE, GateNumber.GATE_3_ADMISSIBILITY
 
         # All gates passed
-        if kappa >= 0.70:
+        if kappa_coupling >= 0.70:
             return GateNumber.GATE_4_GROUNDING, RSCTDecision.EXECUTE, None
         else:
             # Passed but below certification
@@ -539,7 +539,7 @@ def evaluate_paper_constraints(
     R: float,
     S: float,
     N: float,
-    kappa: float,
+    kappa_coupling: float,
     sigma: float = 0.3,
 ) -> EvaluationResult:
     """
@@ -549,14 +549,14 @@ def evaluate_paper_constraints(
         R: Relevance (0-1)
         S: Superfluous (0-1)
         N: Noise (0-1)
-        kappa: Compatibility score (0-1)
+        kappa_coupling: Coupling strength (0-1)
         sigma: Turbulence (0-1)
 
     Returns:
         EvaluationResult with diagnosis and recommendations
     """
     graph = get_constraint_graph()
-    return graph.evaluate(R, S, N, kappa, sigma)
+    return graph.evaluate(R, S, N, kappa_coupling, sigma)
 
 
 def get_gate_diagnosis(result: EvaluationResult) -> str:

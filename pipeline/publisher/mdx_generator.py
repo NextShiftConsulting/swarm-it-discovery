@@ -83,7 +83,7 @@ class PaperData:
     rsct_R: float = None  # Relevance
     rsct_S: float = None  # Spurious/Support
     rsct_N: float = None  # Noise
-    rsct_kappa: float = None  # Compatibility score
+    rsct_kappa_coupling: float = None  # Coupling strength
     rsct_decision: str = None  # EXECUTE, REPAIR, BLOCK, RE_ENCODE, REJECT
     # Graph-based insights (from constraint graph)
     rsct_alpha: float = None  # Purity = R/(R+N)
@@ -222,7 +222,7 @@ class MDXGenerator:
     def _generate_analysis_llm(self, paper: PaperData) -> str:
         """Use LLM to generate paper analysis."""
         # Calculate metrics for the prompt
-        kappa = paper.rsct_kappa or 0
+        kappa_coupling = paper.rsct_kappa_coupling or 0
         R_val = float(paper.rsct_R or 0.5)
         S_val = float(paper.rsct_S or 0.3)
         N_val = float(paper.rsct_N or 0.1)
@@ -231,13 +231,13 @@ class MDXGenerator:
         is_cross_domain = len(paper.matched_topics or []) > 1 or S_val > 0.35
 
         # Determine trust level based on scores
-        if kappa >= 0.85 and N_val < 0.15:
+        if kappa_coupling >= 0.85 and N_val < 0.15:
             trust_level = "HIGH - Core claims well-supported, safe to build on"
             read_time = "Worth deep reading (2-3 hours)"
-        elif kappa >= 0.7 and N_val < 0.25:
+        elif kappa_coupling >= 0.7 and N_val < 0.25:
             trust_level = "MODERATE - Solid work, verify key results before building on"
             read_time = "Worth reading (1-2 hours), skim supplementary"
-        elif kappa >= 0.5:
+        elif kappa_coupling >= 0.5:
             trust_level = "CAUTIOUS - Interesting ideas, but validate independently"
             read_time = "Skim first (30 min), deep read only if directly relevant"
         else:
@@ -266,7 +266,7 @@ Topics: {', '.join(paper.matched_topics) if paper.matched_topics else 'General M
 - Signal strength: {R_val:.0%} of content directly supports claims
 - Background/context: {S_val:.0%} supporting material for readers from other fields
 - Noise level: {N_val:.0%} potentially misleading content
-- Overall reliability: {kappa:.0%}
+- Overall reliability: {kappa_coupling:.0%}
 - Trust level: {trust_level}
 - Suggested time investment: {read_time}
 {cross_domain_note}
@@ -349,20 +349,20 @@ Write the review now:"""
         topics = ', '.join(paper.matched_topics) if paper.matched_topics else 'machine learning'
 
         # Calculate scores
-        kappa = paper.rsct_kappa or 0.5
+        kappa_coupling = paper.rsct_kappa_coupling or 0.5
         R = paper.rsct_R or 0.5
         N = paper.rsct_N or 0.2
 
         # Generate practical guidance based on scores
-        if kappa >= 0.8 and N < 0.15:
+        if kappa_coupling >= 0.8 and N < 0.15:
             trust = "HIGH"
             guidance = "Core claims appear well-supported. Safe to cite and build upon."
             time_rec = "Worth a deep read (1-2 hours)"
-        elif kappa >= 0.7:
+        elif kappa_coupling >= 0.7:
             trust = "MODERATE"
             guidance = "Solid work overall. Verify key experimental results before building on this."
             time_rec = "Worth reading (1 hour), focus on methods and results"
-        elif kappa >= 0.5:
+        elif kappa_coupling >= 0.5:
             trust = "CAUTIOUS"
             guidance = "Interesting direction but validate claims independently before citing."
             time_rec = "Skim first (30 min), deep read only if directly relevant"
@@ -387,7 +387,7 @@ Write the review now:"""
 
 - **{R:.0%} signal strength** - Proportion of content directly supporting claims
 - **{N:.0%} noise detected** - Content that may need verification
-- **Reliability:** {kappa:.0%}
+- **Reliability:** {kappa_coupling:.0%}
 
 ## The Abstract
 
@@ -418,10 +418,10 @@ Based on automated quality analysis, we recommend:
             analysis = self._generate_analysis_template(paper)
 
         # Infer difficulty from kappa score
-        if paper.rsct_kappa:
-            if paper.rsct_kappa >= 0.9:
+        if paper.rsct_kappa_coupling:
+            if paper.rsct_kappa_coupling >= 0.9:
                 difficulty = "advanced"
-            elif paper.rsct_kappa >= 0.75:
+            elif paper.rsct_kappa_coupling >= 0.75:
                 difficulty = "intermediate"
             else:
                 difficulty = "beginner"
@@ -439,7 +439,7 @@ Based on automated quality analysis, we recommend:
 
             # RSCT Certification (top-level fields for frontend)
             # Use actual values or estimate from similarity_score
-            "kappa": round(paper.rsct_kappa, 3) if paper.rsct_kappa is not None else round(paper.similarity_score * 0.8, 3),
+            "kappa": round(paper.rsct_kappa_coupling, 3) if paper.rsct_kappa_coupling is not None else round(paper.similarity_score * 0.8, 3),
             "R": round(paper.rsct_R, 3) if paper.rsct_R is not None else round(paper.similarity_score * 0.5, 3),
             "S": round(paper.rsct_S, 3) if paper.rsct_S is not None else round(paper.similarity_score * 0.4, 3),
             "N": round(paper.rsct_N, 3) if paper.rsct_N is not None else round(max(0.1, 1.0 - paper.similarity_score) * 0.3, 3),
@@ -485,14 +485,14 @@ Based on automated quality analysis, we recommend:
         )
 
         # RSCT quality tier for display
-        kappa = paper.rsct_kappa or 0.0
+        kappa_coupling = paper.rsct_kappa_coupling or 0.0
         R = paper.rsct_R or 0.0
         S = paper.rsct_S or 0.0
         N = paper.rsct_N or 0.0
 
-        quality_tier = "exceptional" if kappa >= 0.9 else \
-                       "high-quality" if kappa >= 0.8 else \
-                       "certified" if kappa >= 0.7 else "pending"
+        quality_tier = "exceptional" if kappa_coupling >= 0.9 else \
+                       "high-quality" if kappa_coupling >= 0.8 else \
+                       "certified" if kappa_coupling >= 0.7 else "pending"
 
         # Detect cross-domain papers and frame S positively
         is_bridge_paper = len(paper.matched_topics or []) > 1 or S > 0.35
@@ -508,7 +508,7 @@ Based on automated quality analysis, we recommend:
 
 # {paper.title}
 
-**RSCT Certification:** κ={kappa:.3f} ({quality_tier}) | **RSN:** {frontmatter['rsn_score']} | **Topics:** {', '.join(paper.matched_topics) if paper.matched_topics else 'General'}
+**RSCT Certification:** κ={kappa_coupling:.3f} ({quality_tier}) | **RSN:** {frontmatter['rsn_score']} | **Topics:** {', '.join(paper.matched_topics) if paper.matched_topics else 'General'}
 
 ## Overview
 
@@ -517,9 +517,9 @@ Based on automated quality analysis, we recommend:
 ## Quality Assessment
 
 **Trust Level:** {
-    'HIGH - Safe to build on' if kappa >= 0.85 and N < 0.15 else
-    'MODERATE - Verify key results first' if kappa >= 0.7 else
-    'CAUTIOUS - Validate independently' if kappa >= 0.5 else
+    'HIGH - Safe to build on' if kappa_coupling >= 0.85 and N < 0.15 else
+    'MODERATE - Verify key results first' if kappa_coupling >= 0.7 else
+    'CAUTIOUS - Validate independently' if kappa_coupling >= 0.5 else
     'LOW - Treat as preliminary'
 }
 
@@ -528,13 +528,13 @@ Based on automated quality analysis, we recommend:
 - **{S:.0%} context** - {s_description}
 - **{N:.0%} noise** - Content that may mislead if taken at face value{' ⚠️ Higher than ideal' if N > 0.25 else ''}
 
-**Reliability score:** {kappa:.0%} ({quality_tier})
+**Reliability score:** {kappa_coupling:.0%} ({quality_tier})
 
 **Practical interpretation:**
 {
-    "Core methodology appears solid. Safe to cite the main results. Verify edge cases before extending." if kappa >= 0.8 else
-    "Good foundation but some gaps. Read critically and verify key claims before building on this work." if kappa >= 0.7 else
-    "Interesting direction but needs validation. Wait for replication or verify independently before citing heavily." if kappa >= 0.5 else
+    "Core methodology appears solid. Safe to cite the main results. Verify edge cases before extending." if kappa_coupling >= 0.8 else
+    "Good foundation but some gaps. Read critically and verify key claims before building on this work." if kappa_coupling >= 0.7 else
+    "Interesting direction but needs validation. Wait for replication or verify independently before citing heavily." if kappa_coupling >= 0.5 else
     "Early-stage work. Treat claims as hypotheses rather than established results."
 }
 
@@ -556,7 +556,7 @@ Based on automated quality analysis, we recommend:
 ---
 
 *This analysis was automatically generated and certified by the Swarm-It RSCT pipeline.
-κ-gate score: {kappa:.3f} | Quality tier: {quality_tier}*
+κ-gate score: {kappa_coupling:.3f} | Quality tier: {quality_tier}*
 """
 
         return BlogPost(

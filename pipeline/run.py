@@ -168,17 +168,17 @@ class CertifiedPipeline:
                 # Normalize to simplex
                 total = r_heuristic + s_heuristic + n_heuristic
                 r_heuristic, s_heuristic, n_heuristic = r_heuristic/total, s_heuristic/total, n_heuristic/total
-                kappa = r_heuristic * (1 - n_heuristic)  # kappa_compat (Claim 2 dual-path)
+                kappa_coupling = r_heuristic * (1 - n_heuristic)  # kappa_coupling (Claim 2 dual-path)
                 # Estimate sigma (turbulence) from noise - lower N means more stable
                 sigma = n_heuristic * 0.7  # Scale noise to turbulence range
 
                 # Use constraint graph for full evaluation
-                eval_result = evaluate_paper_constraints(r_heuristic, s_heuristic, n_heuristic, kappa, sigma)
+                eval_result = evaluate_paper_constraints(r_heuristic, s_heuristic, n_heuristic, kappa_coupling, sigma)
 
                 return {
                     "allowed": eval_result.decision != "REJECT",
                     "certification_method": "HEURISTIC_UNCERTIFIED",
-                    "kappa_compat": round(kappa, 3),
+                    "kappa_compat": round(kappa_coupling, 3),
                     "R": round(r_heuristic, 3),
                     "S": round(s_heuristic, 3),
                     "N": round(n_heuristic, 3),
@@ -224,15 +224,15 @@ class CertifiedPipeline:
             R = cert.R
             S = cert.S
             N = cert.N
-            kappa = cert.kappa_compat
+            kappa_coupling = cert.kappa_compat
             sigma = cert.sigma if hasattr(cert, 'sigma') else 0.3
 
             # Use constraint graph for additional insights
-            eval_result = evaluate_paper_constraints(R, S, N, kappa, sigma)
+            eval_result = evaluate_paper_constraints(R, S, N, kappa_coupling, sigma)
 
             return {
                 "allowed": cert.allowed,
-                "kappa_compat": kappa,
+                "kappa_compat": kappa_coupling,
                 "decision": cert.decision.value if hasattr(cert.decision, 'value') else str(cert.decision),
                 "R": R,
                 "S": S,
@@ -461,7 +461,7 @@ class CertifiedPipeline:
                 rsct_R=cert.get("R"),
                 rsct_S=cert.get("S"),
                 rsct_N=cert.get("N"),
-                rsct_kappa=cert.get("kappa_compat"),
+                rsct_kappa_coupling=cert.get("kappa_compat"),
                 rsct_decision=cert.get("decision"),
                 # Graph-based insights
                 rsct_alpha=cert.get("alpha"),
@@ -511,7 +511,7 @@ class CertifiedPipeline:
                     "rsct_R": cert.get("R"),
                     "rsct_S": cert.get("S"),
                     "rsct_N": cert.get("N"),
-                    "rsct_kappa": cert.get("kappa_compat"),
+                    "rsct_kappa_coupling": cert.get("kappa_compat"),
                 })
 
             pdf_reviews = self.pdf_generator.generate_batch(pdf_papers, max_papers=5)
@@ -606,7 +606,7 @@ def main():
         print("\nCertification Results:")
         for cert in results["certifications"]:
             status = "PASS" if cert["allowed"] else "BLOCK"
-            print(f"  [{cert['stage']}] {status} kappa={cert['kappa_compat']:.2f}")
+            print(f"  [{cert['stage']}] {status} kappa_coupling={cert['kappa_compat']:.2f}")
 
     # Print top papers
     if results.get("top_papers"):

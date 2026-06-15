@@ -46,7 +46,7 @@ class PaperAnalysis:
 
     # RSCT Certificate (from swarm-it-adk)
     rsct_certified: bool = False
-    rsct_kappa: Optional[float] = None
+    rsct_kappa_coupling: Optional[float] = None
 
 
 class BaseSourceAgent(ABC):
@@ -115,7 +115,7 @@ class BaseSourceAgent(ABC):
         Certify prompt using swarm-it-adk before LLM call.
 
         Returns:
-            (allowed, kappa) - whether to proceed and the kappa score
+            (allowed, kappa_coupling) - whether to proceed and the kappa_coupling score
         """
         if not self._certifier:
             # No certifier = allow but flag as uncertified
@@ -165,10 +165,10 @@ Provide analysis in JSON format:
 }}"""
 
         # RSCT Certification before LLM call
-        allowed, kappa = self._certify_prompt(prompt)
+        allowed, kappa_coupling = self._certify_prompt(prompt)
 
         if not allowed:
-            print(f"  ✗ {self.AGENT_NAME}: Prompt rejected by RSCT (κ={kappa:.3f})")
+            print(f"  ✗ {self.AGENT_NAME}: Prompt rejected by RSCT (κ={kappa_coupling:.3f})")
             return None
 
         try:
@@ -196,8 +196,8 @@ Provide analysis in JSON format:
                 analyzed_at=datetime.now(timezone.utc).isoformat(),
                 agent_name=self.AGENT_NAME,
                 confidence=result.get('confidence', 0.5),
-                rsct_certified=kappa is not None,
-                rsct_kappa=kappa,
+                rsct_certified=kappa_coupling is not None,
+                rsct_kappa_coupling=kappa_coupling,
             )
         except Exception as e:
             print(f"  ✗ {self.AGENT_NAME} error: {e}")
@@ -214,7 +214,7 @@ Provide analysis in JSON format:
             analysis = self.analyze_paper(paper)
             if analysis:
                 results.append(analysis)
-                cert_status = f"κ={analysis.rsct_kappa:.2f}" if analysis.rsct_kappa else "uncert"
+                cert_status = f"κ={analysis.rsct_kappa_coupling:.2f}" if analysis.rsct_kappa_coupling else "uncert"
                 print(f"    {paper.get('title', '')[:40]}... R:{analysis.relevance}/N:{analysis.novelty}/I:{analysis.impact} [{cert_status}]")
 
         return results

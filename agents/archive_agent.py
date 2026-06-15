@@ -23,12 +23,12 @@ sys.path.insert(0, str(Path.home() / "GitHub" / "swarm-it-auth"))
 class ArchiveThresholds:
     """RSCT-based thresholds for archive tiers."""
     # Tier 1: PUBLISH
-    t1_kappa: float = 0.5
+    t1_coupling_min: float = 0.5
     t1_rsct: float = 0.30
     t1_topic: float = 0.50
 
     # Tier 2: ARCHIVE
-    t2_kappa: float = 0.3
+    t2_coupling_min: float = 0.3
     t2_rsct: float = 0.15
     t2_topic: float = 0.25
 
@@ -47,7 +47,7 @@ class ArchivedPaper:
     published_date: str
 
     # RSCT Metrics
-    kappa: float
+    kappa_coupling: float
     rsct_score: float
     topic_score: float
     combined_score: float
@@ -109,12 +109,12 @@ class ArchiveAgent:
         for tier_dir in ["tier1-publish", "tier2-archive", "tier3-log", "transcripts", "pdfs"]:
             (self.DATA_DIR / tier_dir).mkdir(parents=True, exist_ok=True)
 
-    def classify_tier(self, kappa: float, rsct: float, topic: float) -> int:
+    def classify_tier(self, kappa_coupling: float, rsct: float, topic: float) -> int:
         """
         Classify paper into archive tier based on RSCT metrics.
 
         Args:
-            kappa: κ certification score (0-1)
+            kappa_coupling: coupling strength score (0-1)
             rsct: RSCT similarity score (0-1)
             topic: Topic relevance score (0-1)
 
@@ -124,11 +124,11 @@ class ArchiveAgent:
         t = self.thresholds
 
         # Tier 1: Publish quality
-        if kappa >= t.t1_kappa and rsct >= t.t1_rsct and topic >= t.t1_topic:
+        if kappa_coupling >= t.t1_coupling_min and rsct >= t.t1_rsct and topic >= t.t1_topic:
             return 1
 
         # Tier 2: Archive quality
-        if kappa >= t.t2_kappa and rsct >= t.t2_rsct and topic >= t.t2_topic:
+        if kappa_coupling >= t.t2_coupling_min and rsct >= t.t2_rsct and topic >= t.t2_topic:
             return 2
 
         # Tier 3: Log everything else
@@ -146,7 +146,7 @@ class ArchiveAgent:
             ArchivedPaper record
         """
         # Extract metrics
-        kappa = 0.0
+        kappa_coupling = 0.0
         rsct_score = 0.0
         topic_score = 0.0
         combined_score = 0.0
@@ -155,7 +155,7 @@ class ArchiveAgent:
         rsct_connections = []
 
         if analysis:
-            kappa = analysis.get("kappa", analysis.get("rsct_kappa", 0.0)) or 0.0
+            kappa_coupling = analysis.get("kappa_coupling", analysis.get("kappa", analysis.get("rsct_kappa_coupling", analysis.get("rsct_kappa", 0.0)))) or 0.0
             rsct_score = analysis.get("rsct_score", analysis.get("rsct_similarity", 0.0)) or 0.0
             topic_score = analysis.get("topic_score", analysis.get("similarity_score", 0.0)) or 0.0
             combined_score = analysis.get("combined_score", 0.0) or 0.0
@@ -164,7 +164,7 @@ class ArchiveAgent:
             rsct_connections = analysis.get("rsct_connections", []) or []
 
         # Classify tier
-        tier = self.classify_tier(kappa, rsct_score, topic_score)
+        tier = self.classify_tier(kappa_coupling, rsct_score, topic_score)
 
         # Create archive record
         archived = ArchivedPaper(
@@ -175,7 +175,7 @@ class ArchiveAgent:
             abstract=paper.get("abstract", "")[:2000],  # Truncate long abstracts
             authors=paper.get("authors", [])[:10],  # Limit authors
             published_date=paper.get("published_date", ""),
-            kappa=round(kappa, 4),
+            kappa_coupling=round(kappa_coupling, 4),
             rsct_score=round(rsct_score, 4),
             topic_score=round(topic_score, 4),
             combined_score=round(combined_score, 4),

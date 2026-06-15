@@ -146,7 +146,7 @@ Use academic tone. Be specific about connections to RSCT theory."""
         rsct_R: float = None,
         rsct_S: float = None,
         rsct_N: float = None,
-        rsct_kappa: float = None,
+        rsct_kappa_coupling: float = None,
     ) -> PDFReview:
         """Generate a PDF review for a paper."""
         # Generate analysis
@@ -162,17 +162,17 @@ Use academic tone. Be specific about connections to RSCT theory."""
             authors_str += ' et al.'
 
         # RSCT metrics section
-        if rsct_kappa is not None:
+        if rsct_kappa_coupling is not None:
             rsct_metrics = f"""
 \\subsection*{{RSCT Certification Metrics}}
 \\begin{{tabular}}{{ll}}
 \\textbf{{Relevance (R):}} & {rsct_R:.3f} \\\\
 \\textbf{{Spurious (S):}} & {rsct_S:.3f} \\\\
 \\textbf{{Noise (N):}} & {rsct_N:.3f} \\\\
-\\textbf{{Kappa ($\\kappa$):}} & {rsct_kappa:.3f} \\\\
+\\textbf{{Kappa ($\\kappa$):}} & {rsct_kappa_coupling:.3f} \\\\
 \\end{{tabular}}
 
-The kappa score of {rsct_kappa:.3f} indicates {'high' if rsct_kappa > 0.7 else 'moderate' if rsct_kappa > 0.5 else 'limited'} representation-solver compatibility.
+The kappa score of {rsct_kappa_coupling:.3f} indicates {'high' if rsct_kappa_coupling > 0.7 else 'moderate' if rsct_kappa_coupling > 0.5 else 'limited'} representation-solver compatibility.
 """
         else:
             rsct_metrics = ""
@@ -272,7 +272,7 @@ This paper was identified by the Swarm-It research discovery pipeline as potenti
                 rsct_R=paper.get('rsct_R'),
                 rsct_S=paper.get('rsct_S'),
                 rsct_N=paper.get('rsct_N'),
-                rsct_kappa=paper.get('rsct_kappa'),
+                rsct_kappa_coupling=paper.get('rsct_kappa_coupling', paper.get('rsct_kappa')),
             )
             reviews.append(review)
             print(f"Generated: {review.tex_path}")

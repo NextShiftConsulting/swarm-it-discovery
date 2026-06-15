@@ -34,7 +34,7 @@ def generate_sample_papers():
         rsct_R=0.85,
         rsct_S=0.12,
         rsct_N=0.03,
-        rsct_kappa=0.92,
+        rsct_kappa_coupling=0.92,
         rsct_decision="EXECUTE",
     )
 
@@ -55,7 +55,7 @@ def generate_sample_papers():
         rsct_R=0.72,
         rsct_S=0.21,
         rsct_N=0.07,
-        rsct_kappa=0.78,
+        rsct_kappa_coupling=0.78,
         rsct_decision="EXECUTE",
     )
 
@@ -76,7 +76,7 @@ def generate_sample_papers():
         rsct_R=0.89,
         rsct_S=0.09,
         rsct_N=0.02,
-        rsct_kappa=0.95,
+        rsct_kappa_coupling=0.95,
         rsct_decision="EXECUTE",
     )
 
@@ -91,7 +91,7 @@ def generate_sample_papers():
             path = generator.save_post(post)
 
             print(f"\n{i}. {paper.title[:60]}...")
-            print(f"   κ-score: {paper.rsct_kappa:.3f}")
+            print(f"   κ-score: {paper.rsct_kappa_coupling:.3f}")
             print(f"   RSN: R={paper.rsct_R:.2f} S={paper.rsct_S:.2f} N={paper.rsct_N:.2f}")
             print(f"   Saved: {path.name}")
 

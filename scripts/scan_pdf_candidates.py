@@ -67,7 +67,7 @@ class PDFCandidate:
     best_topic: str = ""
     best_topic_score: float = 0.0
     keyword_matches: List[str] = field(default_factory=list)
-    rsct_kappa: float = 0.0
+    rsct_kappa_coupling: float = 0.0
     rsct_R: float = 0.0
     rsct_S: float = 0.0
     rsct_N: float = 0.0
@@ -305,7 +305,7 @@ class PDFCandidateScanner:
             for i, candidate in enumerate(candidates[:top_n]):
                 print(f"  [{i+1}] Certifying: {candidate.filename[:40]}...", end="", flush=True)
                 self._certify_candidate(candidate)
-                print(f" kappa={candidate.rsct_kappa:.3f}")
+                print(f" kappa_coupling={candidate.rsct_kappa_coupling:.3f}")
 
             # Re-sort with RSCT scores
             candidates.sort(key=lambda c: c.combined_score, reverse=True)
@@ -369,7 +369,7 @@ Assess the relevance (R), spurious content (S), and noise (N) for research quali
             # Call Swarm-It API
             cert = self.swarmit_client.certify(prompt=prompt)
 
-            candidate.rsct_kappa = cert.kappa_compat
+            candidate.rsct_kappa_coupling = cert.kappa_compat
             candidate.rsct_R = cert.R
             candidate.rsct_S = cert.S
             candidate.rsct_N = cert.N
@@ -377,7 +377,7 @@ Assess the relevance (R), spurious content (S), and noise (N) for research quali
             # Update combined score with RSCT weighting
             candidate.combined_score = (
                 0.4 * candidate.best_topic_score +
-                0.6 * candidate.rsct_kappa
+                0.6 * candidate.rsct_kappa_coupling
             )
 
         except Exception as e:
@@ -403,7 +403,7 @@ def print_results(candidates: List[PDFCandidate], output_format: str = "table"):
                 "title": c.title,
                 "best_topic": c.best_topic,
                 "topic_score": round(c.best_topic_score, 3),
-                "rsct_kappa": round(c.rsct_kappa, 3),
+                "rsct_kappa_coupling": round(c.rsct_kappa_coupling, 3),
                 "combined_score": round(c.combined_score, 3),
                 "keywords": c.keyword_matches[:5],
             })
@@ -419,7 +419,7 @@ def print_results(candidates: List[PDFCandidate], output_format: str = "table"):
         keywords = ', '.join(c.keyword_matches[:3])[:18] or "-"
         title = c.title[:28] if c.title else c.filename[:28]
 
-        if c.rsct_kappa > 0:
+        if c.rsct_kappa_coupling > 0:
             score = f"{c.combined_score:.2f}*"  # * indicates RSCT certified
         else:
             score = f"{c.combined_score:.2f}"
@@ -435,8 +435,8 @@ def print_results(candidates: List[PDFCandidate], output_format: str = "table"):
         print(f"{i}. {c.title}")
         print(f"   File: {c.filename}")
         print(f"   Topic: {c.best_topic} (score: {c.best_topic_score:.3f})")
-        if c.rsct_kappa > 0:
-            print(f"   RSCT: kappa={c.rsct_kappa:.3f}, R={c.rsct_R:.3f}, S={c.rsct_S:.3f}, N={c.rsct_N:.3f}")
+        if c.rsct_kappa_coupling > 0:
+            print(f"   RSCT: kappa_coupling={c.rsct_kappa_coupling:.3f}, R={c.rsct_R:.3f}, S={c.rsct_S:.3f}, N={c.rsct_N:.3f}")
         print(f"   Keywords: {', '.join(c.keyword_matches[:8])}")
         print()
 

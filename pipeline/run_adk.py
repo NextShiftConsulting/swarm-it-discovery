@@ -266,7 +266,7 @@ class WriterAgent(ADKAgent):
                 rsct_R=cert.get("R"),
                 rsct_S=cert.get("S"),
                 rsct_N=cert.get("N"),
-                rsct_kappa=cert.get("kappa_compat"),
+                rsct_kappa_coupling=cert.get("kappa_compat"),
                 rsct_decision=cert.get("decision"),
             ))
 
