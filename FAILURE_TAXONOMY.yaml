@@ -1,0 +1,147 @@
+# FAILURE_TAXONOMY.yaml — swarm-it-discovery
+# Domain-specific gate adaptation declaration (ADR-057)
+# This file documents intentional divergences from canonical rsct-core gate evaluation.
+
+package: swarm-it-discovery
+domain: paper_analysis_pipeline
+canonical_reference: rsct_core.gates.evaluate_gates
+
+# swarm-it-discovery reimplements gate evaluation using a violation-aggregation
+# model: collect ConstraintViolation objects, filter by severity, then determine
+# gate decisions. This is architecturally different from rsct-core's metric-driven
+# direct evaluation (takes R, S, N, kappa, sigma → evaluates gates directly).
+
+execution_model: violation_aggregation
+# Canonical: metric-driven sequential early-exit (rsct-core, yrsn-controlplane)
+# Discovery: collect all violations from constraint graph, filter by severity
+# ("fatal"/"critical"), then map to gate decisions.
+# _determine_gate_decision() takes (violations, metrics), not raw signals.
+
+vocabulary:
+  # Uses canonical 5-decision subset (omits WARN, FALLBACK)
+  EXECUTE: "All gates pass"
+  REJECT: "Gate 1 integrity failure (N >= 0.50)"
+  BLOCK: "Gate 2 consensus failure (c < 0.40)"
+  RE_ENCODE: "Gate 3 admissibility failure (kappa < kappa_req)"
+  REPAIR: "Gate 4 grounding failure (kappa_L < 0.30)"
+
+gates:
+  gate_1:
+    canonical_name: GATE_1_INTEGRITY
+    metric: N
+    threshold: "N >= 0.50"
+    decision: REJECT
+    divergence: >
+      Same threshold as canonical. Evaluated via violation-aggregation:
+      constraint graph checks R < 0.30, S > 0.60, N > 0.50 as Gate 1
+      thresholds, collects violations with severity="fatal", then
+      _determine_gate_decision filters for Gate 1 fatal violations.
+    file: pipeline/analyzer/constraint_graph.py
+    lines: [207-229, 419-421]
+
+  gate_2:
+    canonical_name: GATE_2_CONSENSUS
+    metric: coherence_c
+    threshold: "c < 0.40"
+    decision: BLOCK
+    divergence: >
+      Same threshold as canonical. Evaluated via violation-aggregation:
+      checks c < 0.40 with severity="fatal", then _determine_gate_decision
+      filters for Gate 2 fatal/critical violations.
+    file: pipeline/analyzer/constraint_graph.py
+    lines: [244, 424-426]
+
+  gate_3:
+    canonical_name: GATE_3_ADMISSIBILITY
+    metric: kappa_coupling
+    threshold: "kappa_coupling < kappa_req(sigma)"
+    decision: RE_ENCODE
+    divergence: >
+      Uses hardcoded linear oobleck: kappa_req = 0.5 + 0.4 * sigma.
+      Canonical rsct-core uses sigmoidal oobleck:
+      kappa_base + delta_kappa * sigmoid(steepness * (sigma - sigma_c)).
+      95% identical thresholds at typical sigma values. Comment says
+      "Based on YRSN constraint graph architecture" but no domain
+      rationale for linearization.
+    file: pipeline/analyzer/constraint_graph.py
+    lines: [428-438]
+
+  gate_4:
+    canonical_name: GATE_4_GROUNDING
+    metric: kappa_L
+    threshold: "kappa_L < 0.30"
+    decision: REPAIR
+    divergence: >
+      Same threshold as canonical. Evaluated inline in
+      _determine_gate_decision alongside Gate 3.
+    file: pipeline/analyzer/constraint_graph.py
+    lines: [435-445]
+
+  # Gates 1B, 3B, 5: NOT IMPLEMENTED
+  # Discovery uses a 4-gate subset (same as yrsn-analysis)
+
+reimplemented_types:
+  RSCTDecision:
+    file: pipeline/analyzer/constraint_graph.py
+    line: 65
+    canonical_equivalent: rsct_core.gates.decision (7-value Literal)
+    divergence: "5-value str Enum (omits WARN, FALLBACK)"
+    category: B
+
+  GateNumber:
+    file: pipeline/analyzer/constraint_graph.py
+    line: 57
+    canonical_equivalent: rsct_core.gates.GateReached
+    divergence: "4-value int Enum vs canonical named string enum"
+    category: B
+
+  ConstraintGraph._determine_gate_decision:
+    file: pipeline/analyzer/constraint_graph.py
+    line: 409
+    canonical_equivalent: rsct_core.gates.evaluate_gates
+    divergence: >
+      Takes (violations: List[ConstraintViolation], metrics: Dict)
+      instead of raw (R, S, N, kappa, sigma, thresholds). Returns
+      Tuple[GateNumber, RSCTDecision, Optional[GateNumber]] instead
+      of GateOutcome dataclass. Violation-aggregation paradigm vs
+      metric-driven direct evaluation.
+    category: B
+
+oobleck:
+  location: pipeline/analyzer/constraint_graph.py:431
+  formula: "kappa_req = 0.5 + 0.4 * sigma"
+  type: hardcoded_linear
+  canonical: "kappa_base + delta_kappa * sigmoid(steepness * (sigma - sigma_c))"
+  category: B  # No domain rationale for linearization
+
+# Also present in visualization code (not gate logic):
+# pipeline/publisher/rsct_charts.py:303 — same linear formula for chart rendering
+# This is visualization, not enforcement, so not Category B.
+
+delegation:
+  calls_rsct_core: []  # No rsct-core imports
+  calls_controlplane: []  # No controlplane imports
+  reimplements:
+    - gate_evaluation  # Full 4-gate reimplementation — Category B
+    - RSCTDecision     # 5-value enum — Category B
+    - GateNumber       # 4-value enum — Category B
+    - oobleck_linear   # Hardcoded linear approximation — Category B
+  adapts: []  # No domain-specific adaptations identified
+  reason: >
+    All reimplementations appear to be copy-paste from yrsn constraint
+    graph architecture. No domain-specific rationale documented. The
+    violation-aggregation paradigm is an architectural choice that
+    needs refactoring to delegate gate evaluation to rsct-core while
+    retaining violation collection as a separate concern.
+
+blocker: >
+  Architectural paradigm mismatch prevents simple import swap.
+  Discovery uses violation-aggregation model (collect violations,
+  filter by severity, then gate). Canonical rsct-core is metric-driven
+  (takes raw R/S/N/kappa/sigma, evaluates directly). Refactoring
+  requires separating violation collection from gate evaluation and
+  feeding metrics to rsct-core. Dedicated PR needed.
+
+files:
+  copy_paste: pipeline/analyzer/constraint_graph.py  # Gate logic — Category B — fix pending
+  visualization: pipeline/publisher/rsct_charts.py    # Oobleck in charts — acceptable
