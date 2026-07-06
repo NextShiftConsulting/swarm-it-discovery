@@ -1,10 +1,12 @@
 # Patent Notice
 
-This software implements patent-pending technology owned by Next Shift Consulting LLC.
+This software implements technology covered by US Patent No. 19/575,615,
+"Methods and Systems for Structured Compatibility Certification and Execution
+Control in One or More External Systems" (granted June 19, 2026, all 20 claims).
 
-## Patent-Pending Technology
+## Patented Technology
 
-The following inventions are the subject of pending patent applications:
+The following inventions are covered by the granted patent:
 
 ### 1. RSCT (Representation-Space Compatibility Theory)
 A novel methodology for certifying AI/LLM execution quality through representation-solver compatibility analysis.
@@ -40,7 +42,7 @@ Hierarchical compatibility scoring for multimodal AI systems.
 
 ## License Structure
 
-This software is licensed under **Apache License 2.0** with **commercial use restrictions** for patent-pending technology.
+This software is licensed under **Apache License 2.0** with **commercial use restrictions** for patented technology.
 
 ```
 ┌─────────────────────────────────────────────┐
@@ -122,7 +124,7 @@ If you use this technology in academic or commercial contexts, please cite:
   author = {Next Shift Consulting LLC},
   title = {RSCT: Representation-Space Compatibility Theory for AI Governance},
   year = {2026},
-  note = {Patent Pending},
+  note = {US Patent No. 19/575,615},
   url = {https://github.com/NextShiftConsulting/swarm-it-api}
 }
 ```
@@ -130,9 +132,9 @@ If you use this technology in academic or commercial contexts, please cite:
 ## Patent Status
 
 - **Applicant**: Next Shift Consulting LLC
-- **Status**: Patent applications pending (as of 2026)
-- **Jurisdictions**: United States (additional jurisdictions planned)
-- **Application dates**: Filed 2025-2026
+- **Patent Number**: US 19/575,615
+- **Status**: Granted (June 19, 2026, all 20 claims)
+- **Jurisdictions**: United States (continuation deadline: September 16, 2026)
 
 ## Licensing Inquiries
 
@@ -144,7 +146,7 @@ For questions about:
 
 ## Legal Notices
 
-This patent notice is provided for informational purposes and does not constitute legal advice. The patent-pending status indicates that patent protection has been sought but not yet granted. Rights and obligations may change upon patent issuance.
+This patent notice is provided for informational purposes and does not constitute legal advice.
 
 **No implied licenses**: No license is granted except as expressly stated in the LICENSE file or in a separate written agreement with Next Shift Consulting LLC.
 
