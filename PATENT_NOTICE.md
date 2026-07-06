@@ -1,12 +1,12 @@
 # Patent Notice
 
-This software implements technology covered by US Patent No. 19/575,615,
-"Methods and Systems for Structured Compatibility Certification and Execution
-Control in One or More External Systems" (granted June 19, 2026, all 20 claims).
+This software implements technology that is the subject of US Patent Application
+No. 19/575,615, "Methods and Systems for Structured Compatibility Certification
+and Execution Control in One or More External Systems" (patent pending).
 
 ## Patented Technology
 
-The following inventions are covered by the granted patent:
+The following inventions are covered by the patent application:
 
 ### 1. RSCT (Representation-Space Compatibility Theory)
 A novel methodology for certifying AI/LLM execution quality through representation-solver compatibility analysis.
@@ -95,7 +95,7 @@ This provides strong protection against patent trolls while allowing legitimate 
 
 ## Commercial Patent License
 
-For commercial use of the patent-pending RSCT technology, a separate commercial license is required. This includes:
+For commercial use of the patent-pending RSCT technology, a separate commercial license may be required. This includes:
 
 - **Extended patent grant** for production use
 - **Indemnification** options
@@ -124,17 +124,17 @@ If you use this technology in academic or commercial contexts, please cite:
   author = {Next Shift Consulting LLC},
   title = {RSCT: Representation-Space Compatibility Theory for AI Governance},
   year = {2026},
-  note = {US Patent No. 19/575,615},
+  note = {US Patent Application No. 19/575,615, patent pending},
   url = {https://github.com/NextShiftConsulting/swarm-it-api}
 }
 ```
 
 ## Patent Status
 
-- **Applicant**: Next Shift Consulting LLC
-- **Patent Number**: US 19/575,615
-- **Status**: Granted (June 19, 2026, all 20 claims)
-- **Jurisdictions**: United States (continuation deadline: September 16, 2026)
+- **Inventor**: Rudolph A Martin
+- **Assignee**: Next Shift Consulting LLC
+- **Application Number**: US 19/575,615
+- **Status**: Patent Pending
 
 ## Licensing Inquiries
 
