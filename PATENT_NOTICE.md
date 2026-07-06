@@ -42,38 +42,24 @@ Hierarchical compatibility scoring for multimodal AI systems.
 
 ## License Structure
 
-This software is licensed under **Apache License 2.0** with **commercial use restrictions** for patented technology.
+This software is licensed under **Apache License 2.0** with patent grant.
 
-```
-┌─────────────────────────────────────────────┐
-│ Apache License 2.0                          │
-│ ├─ Copyright grant (full rights)            │
-│ ├─ Patent grant (non-commercial use)        │
-│ └─ Defensive termination (patent protection)│
-└─────────────────────────────────────────────┘
-                    +
-┌─────────────────────────────────────────────┐
-│ Commercial License Required                 │
-│ └─ For commercial use of patented RSCT tech │
-└─────────────────────────────────────────────┘
-```
+The Apache 2.0 license includes a patent grant (Section 3) that permits
+use of patent claims necessarily infringed by the licensed code, with
+defensive termination if you initiate patent litigation.
 
 ### What This Means
 
-**✓ You CAN (under Apache 2.0):**
+**You CAN (under Apache 2.0):**
 - Use for research and education
 - Modify and create derivatives
 - Contribute improvements
-- Evaluate for commercial assessment
-- Use in open source projects (non-commercial)
+- Use in commercial products (subject to Apache 2.0 terms)
 
-**⚠️ Commercial Use Requires Additional License:**
-- Production deployment in commercial products
-- SaaS/API offerings using RSCT
-- Commercial consulting or professional services
-- Selling products incorporating this technology
+**Commercial licensing** for extended patent grants, indemnification,
+and support is available separately.
 
-See [COMMERCIAL_USE.md](COMMERCIAL_USE.md) for complete details.
+Contact: [legal@nextshiftconsulting.com](mailto:legal@nextshiftconsulting.com)
 
 ## Patent Grant (Apache 2.0)
 

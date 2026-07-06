@@ -5,14 +5,13 @@
 
 **License**: Apache License 2.0 - [LICENSE](LICENSE)
 **Patents**: Patent Pending - [PATENT_NOTICE.md](PATENT_NOTICE.md)
-**Commercial Use**: Requires separate license - [COMMERCIAL_USE.md](COMMERCIAL_USE.md)
 
 ### Quick Summary
 
-- ✓ **Research & Education**: Free to use under Apache 2.0
-- ✓ **Open Source Contributions**: Welcome! See [CONTRIBUTING.md](CONTRIBUTING.md)
-- ⚠️ **Commercial Use**: Requires commercial license - Contact legal@nextshiftconsulting.com
+- **Open Source**: Licensed under Apache 2.0 with patent grant (Section 3)
+- **Contributions**: Welcome! See [CONTRIBUTING.md](CONTRIBUTING.md)
+- **Commercial licensing**: Contact legal@nextshiftconsulting.com
 
-This software implements **RSCT (Representation-Space Compatibility Theory)**, a patent-pending AI governance methodology. The Apache 2.0 license grants non-commercial use rights with defensive patent protection. Commercial use requires a separate patent license.
+This software implements **RSCT (Representation-Space Compatibility Theory)**, the subject of US Patent Application No. 19/575,615 (patent pending).
 
 ---
